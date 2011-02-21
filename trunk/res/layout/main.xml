@@ -4,15 +4,132 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/hello"
-    />
-    <Button 
-    	android:id="@+id/btn_play"
-    	android:text="Play"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
+    <!-- Header -->
+    <LinearLayout
+    	android:layout_width="fill_parent"
+    	android:layout_height="50dp"
+    	android:gravity="center"
+    	android:background="@drawable/title_gradient"
+    	>
+    	<TextView
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:text="main stream"
+    		android:textColor="#ffffff"
+    		android:textSize="22sp"
+    		android:textStyle="bold"
+    		/>
+    </LinearLayout>
+    <!-- Border -->
+    <LinearLayout
+    	android:layout_width="fill_parent"
+    	android:layout_height="0.5dp"
+    	android:background="#777777"
     	/>
+    <!-- Logo / current song info -->
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:background="@drawable/background2"
+		android:layout_weight="1"
+		>
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			>
+		</LinearLayout>
+		<!-- Current song info -->
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			android:layout_marginTop="10dp"
+			android:layout_marginBottom="10dp"
+			android:orientation="vertical"
+			android:gravity="center_horizontal"
+			>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="vote to submit song"
+				android:textColor="#b6b6b6"
+				android:textStyle="bold"
+				android:textSize="16sp"
+				android:layout_weight="1"
+				/>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Happy Birthday"
+				android:textColor="#333333"
+				android:textSize="18sp"
+				android:layout_weight="1"
+				/>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="by Galaxy Danger Danger (cocainezombie)"
+				android:textColor="#010101"
+				android:textSize="12sp"
+				android:layout_weight="1"
+				/>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="playlist: One Ad"
+				android:textColor="#787878"
+				android:textSize="12sp"
+				android:layout_weight="1"
+				/>
+		</LinearLayout>
+	   
+    </LinearLayout>
+    <!-- Border -->
+    <LinearLayout
+    	android:layout_width="fill_parent"
+    	android:layout_height="0.5dp"
+    	android:background="#aaaaaa"
+    	/>
+    <!-- Controls top gradient -->
+    <LinearLayout
+    	android:layout_width="fill_parent"
+    	android:layout_height="15dp"
+    	android:background="@drawable/controls_gradient_top"
+    	/>
+    <!-- Controls -->
+    <LinearLayout
+    	android:layout_width="fill_parent"
+    	android:layout_height="110dp"
+    	android:background="@drawable/controls_gradient_bottom"
+    	>
+    	<LinearLayout
+    		android:layout_width="fill_parent"
+    		android:layout_height="fill_parent"
+    		android:gravity="center_horizontal"
+    		android:layout_marginTop="20dp"
+    		>
+	    	<Button
+	    		android:id="@+id/btn_downvote"
+	    		android:background="@drawable/willdownvote"
+	    		android:layout_width="40dp"
+		    	android:layout_height="40dp"
+		    	/>
+	    	 <Button 
+		    	android:id="@+id/btn_play"
+		    	android:background="@drawable/playbutton"
+		    	android:layout_width="40dp"
+		    	android:layout_height="40dp"
+		    	android:layout_marginLeft="40dp"
+		    	android:layout_marginRight="40dp"
+		    	/>
+		    <Button
+	    		android:id="@+id/btn_upvote"
+	    		android:background="@drawable/willupvote"
+	    		android:layout_width="40dp"
+		    	android:layout_height="40dp"
+		    	/>
+		</LinearLayout>
+    </LinearLayout>
 </LinearLayout>

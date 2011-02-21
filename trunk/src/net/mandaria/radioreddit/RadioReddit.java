@@ -3,9 +3,12 @@ package net.mandaria.radioreddit;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
@@ -16,12 +19,12 @@ public class RadioReddit extends Activity
 	
     /** Called when the activity is first created. */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) 
+    {
+    	requestWindowFeature(Window.FEATURE_NO_TITLE);
+    	
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
-
-        
         
         btn_play = (Button)findViewById(R.id.btn_play);
         btn_play.setOnClickListener(new OnClickListener()
@@ -33,7 +36,10 @@ public class RadioReddit extends Activity
 				if (mediaPlayer.isPlaying()) 
 				{
 					mediaPlayer.stop();
-					btn_play.setText("Play");
+					// TODO: pull the drawable out to onResume()
+					Resources res = getResources();
+					Drawable play = res.getDrawable(R.drawable.playbutton);
+					btn_play.setBackgroundDrawable(play);
 				} 
 				else 
 				{
@@ -72,7 +78,10 @@ public class RadioReddit extends Activity
 						e.printStackTrace();
 					}
 					mediaPlayer.start();
-					btn_play.setText("Stop");
+					// TODO: pull the drawable out to onResume()
+					Resources res = getResources();
+					Drawable stop = res.getDrawable(R.drawable.stopbutton);
+					btn_play.setBackgroundDrawable(stop);
 				}
 			}
 		});
