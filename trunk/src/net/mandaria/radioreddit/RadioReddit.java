@@ -3,6 +3,7 @@ package net.mandaria.radioreddit;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -17,12 +18,22 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 public class RadioReddit extends Activity {
+	
+	TextView lbl_station;
+	
 	MediaPlayer mediaPlayer = new MediaPlayer();;
 	Button btn_play;
 	StreamProxy proxy;
@@ -158,6 +169,17 @@ public class RadioReddit extends Activity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		lbl_station = (TextView) findViewById(R.id.lbl_station);
+		lbl_station.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent(RadioReddit.this, SelectStation.class);
+				startActivityForResult(i, 1);
+			}
+		});
 
 		btn_play = (Button) findViewById(R.id.btn_play);
 		btn_play.setOnClickListener(new OnClickListener() {
@@ -242,5 +264,34 @@ public class RadioReddit extends Activity {
 				}
 			}
 		});
+	}	
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if(resultCode == Activity.RESULT_OK)
+		{
+			// TODO: needs to check iff current station is already selected
+			String station = data.getStringExtra("station");
+			if(station.equals("main stream"))
+			{
+				listen("http://texas.radioreddit.com:8000");
+			}
+			else if (station.equals("electronic"))
+			{
+				listen("http://texas.radioreddit.com:8010");
+			}
+			else if (station.equals("rock"))
+			{
+				listen("http://texas.radioreddit.com:8020");
+			}
+			else if (station.equals("hip hop and rap"))
+			{
+				listen("http://texas.radioreddit.com:8040");
+			}
+			
+			lbl_station.setText(station);
+		}
 	}
+	
 }
