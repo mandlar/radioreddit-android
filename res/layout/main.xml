@@ -12,6 +12,7 @@
     	android:background="@drawable/title_gradient"
     	>
     	<TextView
+    		android:id="@+id/lbl_station"
     		android:layout_width="wrap_content"
     		android:layout_height="wrap_content"
     		android:text="main stream"
