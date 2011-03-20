@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package net.mandaria.radioreddit;
+package net.mandaria.radioreddit.media;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -46,6 +46,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
+
+import net.mandaria.radioreddit.R;
+import net.mandaria.radioreddit.R.drawable;
+import net.mandaria.radioreddit.R.string;
+import net.mandaria.radioreddit.activities.RadioReddit;
 
 public class PlaybackService extends Service implements OnPreparedListener,
     OnBufferingUpdateListener, OnCompletionListener, OnErrorListener,
