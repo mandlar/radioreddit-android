@@ -1,9 +1,0 @@
-
-    <resources>
-        <string-array name="stations">
-            <item>main stream</item>
-            <item>electronic</item>
-            <item>rock</item>
-            <item>hip hop and rap</item>
-        </string-array>
-    </resources>
