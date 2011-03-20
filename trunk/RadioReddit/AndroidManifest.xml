@@ -6,15 +6,15 @@
     <uses-sdk android:minSdkVersion="5" />
 
     <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name=".RadioReddit"
+        <activity android:name="activities.RadioReddit"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-	    <activity android:name=".SelectStation" android:label="@string/app_name"/>
-		<service android:name="PlaybackService"></service>
+	    <activity android:name="activities.SelectStation" android:label="@string/app_name"/>
+		<service android:name="media.PlaybackService"></service>
     </application>
     
   <uses-permission android:name="android.permission.INTERNET"></uses-permission>

@@ -1,6 +1,14 @@
-package net.mandaria.radioreddit;
+package net.mandaria.radioreddit.activities;
 
 import java.io.IOException;
+
+import net.mandaria.radioreddit.R;
+import net.mandaria.radioreddit.R.drawable;
+import net.mandaria.radioreddit.R.id;
+import net.mandaria.radioreddit.R.layout;
+import net.mandaria.radioreddit.media.PlaybackService;
+import net.mandaria.radioreddit.media.StreamProxy;
+import net.mandaria.radioreddit.media.PlaybackService.ListenBinder;
 
 import android.app.Activity;
 import android.app.Dialog;

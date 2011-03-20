@@ -1,5 +1,9 @@
-package net.mandaria.radioreddit;
+package net.mandaria.radioreddit.activities;
 
+import net.mandaria.radioreddit.R;
+import net.mandaria.radioreddit.R.array;
+import net.mandaria.radioreddit.R.id;
+import net.mandaria.radioreddit.R.layout;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
