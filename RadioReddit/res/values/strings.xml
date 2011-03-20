@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="hello">Hello World, RadioReddit!</string>
-    <string name="app_name">RadioReddit</string>
+<resources>    
+    <!--  * Support Email Feedback -->
+	<string name="email_using_custom_rom">Please indicate if you are using a custom rom.</string>
+	<string name="email_do_not_edit_message">The following is useful information for the developer.  Please do not edit.</string>
+	
 </resources>
