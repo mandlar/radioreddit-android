@@ -364,22 +364,22 @@ public class PlaybackService extends Service implements OnPreparedListener,
    * Sends an UPDATE broadcast with the latest info.
    */
   private void updateProgress() {
-    if (isPrepared && mediaPlayer != null && mediaPlayer.isPlaying()) {
-      // Update broadcasts are sticky, so when a new receiver connects, it will
-      // have the data without polling.
-      if (lastUpdateBroadcast != null) {
-        getApplicationContext().removeStickyBroadcast(lastUpdateBroadcast);
-      }
-      lastUpdateBroadcast = new Intent(SERVICE_UPDATE_NAME);
-      int position = mediaPlayer.getCurrentPosition();
-      int duration = mediaPlayer.getDuration();
-      lastUpdateBroadcast.putExtra(EXTRA_DURATION, mediaPlayer.getDuration());
-      lastUpdateBroadcast.putExtra(EXTRA_DOWNLOADED,
-          (int) ((lastBufferPercent / 100.0) * mediaPlayer.getDuration()));
-      lastUpdateBroadcast.putExtra(EXTRA_POSITION,
-          mediaPlayer.getCurrentPosition());
-      getApplicationContext().sendStickyBroadcast(lastUpdateBroadcast);
-    }
+//    if (isPrepared && mediaPlayer != null && mediaPlayer.isPlaying()) {
+//      // Update broadcasts are sticky, so when a new receiver connects, it will
+//      // have the data without polling.
+//      if (lastUpdateBroadcast != null) {
+//        getApplicationContext().removeStickyBroadcast(lastUpdateBroadcast);
+//      }
+//      lastUpdateBroadcast = new Intent(SERVICE_UPDATE_NAME);
+//      int position = mediaPlayer.getCurrentPosition();
+//      int duration = mediaPlayer.getDuration();
+//      lastUpdateBroadcast.putExtra(EXTRA_DURATION, mediaPlayer.getDuration());
+//      lastUpdateBroadcast.putExtra(EXTRA_DOWNLOADED,
+//          (int) ((lastBufferPercent / 100.0) * mediaPlayer.getDuration()));
+//      lastUpdateBroadcast.putExtra(EXTRA_POSITION,
+//          mediaPlayer.getCurrentPosition());
+//      getApplicationContext().sendStickyBroadcast(lastUpdateBroadcast);
+//    }
   }
   
   @Override
