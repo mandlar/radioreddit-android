@@ -6,6 +6,7 @@ import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.R.drawable;
 import net.mandaria.radioreddit.R.id;
 import net.mandaria.radioreddit.R.layout;
+import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.media.PlaybackService;
 import net.mandaria.radioreddit.media.StreamProxy;
 import net.mandaria.radioreddit.media.PlaybackService.ListenBinder;
@@ -230,10 +231,9 @@ public class RadioReddit extends Activity {
 					btn_play.setBackgroundDrawable(play);
 				} 
 				else 
-				{
-					String url = getString(R.string.main_stream_url);
-
-					listen(url);
+				{			
+					RadioRedditApplication application = (RadioRedditApplication)getApplication();
+					playStation(application.current_station);
 
 					// TODO: pull the drawable out to onResume()
 					Resources res = getResources();
@@ -249,27 +249,38 @@ public class RadioReddit extends Activity {
 	{
 		if(resultCode == Activity.RESULT_OK)
 		{
-			// TODO: needs to check iff current station is already selected
 			String station = data.getStringExtra("station");
-			if(station.equals("main stream"))
-			{
-				listen(getString(R.string.main_stream_url));
-			}
-			else if (station.equals("electronic"))
-			{
-				listen(getString(R.string.electronic_stream_url));
-			}
-			else if (station.equals("rock"))
-			{
-				listen(getString(R.string.rock_stream_url));
-			}
-			else if (station.equals("hip hop and rap"))
-			{
-				listen(getString(R.string.hip_hop_and_rap_stream_url));
-			}
+			RadioRedditApplication application = (RadioRedditApplication)getApplication();
 			
-			lbl_station.setText(station);
+			if(!station.equals(application.current_station)) // check if already playing
+			{
+				application.current_station = station;
+				playStation(station);
+			}
 		}
+	}
+	
+	private void playStation(String station)
+	{
+		if(station.equals("main stream"))
+		{
+			listen(getString(R.string.main_stream_url));
+		}
+		else if (station.equals("electronic"))
+		{
+			listen(getString(R.string.electronic_stream_url));
+		}
+		else if (station.equals("rock"))
+		{
+			listen(getString(R.string.rock_stream_url));
+		}
+		else if (station.equals("hip hop and rap"))
+		{
+			listen(getString(R.string.hip_hop_and_rap_stream_url));
+		}
+		
+		
+		lbl_station.setText(station); // TODO: move to on resume
 	}
 	
 }

@@ -4,6 +4,8 @@ import android.app.Application;
 
 public class RadioRedditApplication extends Application 
 {
+	public String current_station = "main stream";
+	
 	@Override
 	public void onCreate() 
 	{
