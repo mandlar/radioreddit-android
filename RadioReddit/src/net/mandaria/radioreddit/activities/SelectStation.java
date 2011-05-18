@@ -26,8 +26,7 @@ public class SelectStation extends Activity
 		setContentView(R.layout.selectstation);
 		
 		ListView list_Stations = (ListView)findViewById(R.id.list_Stations);
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-				this, R.array.stations, android.R.layout.simple_list_item_1); 
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.stations, android.R.layout.simple_list_item_1); 
 		list_Stations.setAdapter(adapter);
         
 		list_Stations.setOnItemClickListener(new OnItemClickListener(){
