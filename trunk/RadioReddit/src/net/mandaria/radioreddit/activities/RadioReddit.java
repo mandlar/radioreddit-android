@@ -222,23 +222,30 @@ public class RadioReddit extends Activity {
 			@Override
 			public void onClick(View v) 
 			{
-				if (player.isPlaying()) 
+				if(player == null)
 				{
-					player.stop();
-					// TODO: pull the drawable out to onResume()
-					Resources res = getResources();
-					Drawable play = res.getDrawable(R.drawable.playbutton);
-					btn_play.setBackgroundDrawable(play);
-				} 
-				else 
-				{			
-					RadioRedditApplication application = (RadioRedditApplication)getApplication();
-					playStation(application.current_station);
-
-					// TODO: pull the drawable out to onResume()
-					Resources res = getResources();
-					Drawable stop = res.getDrawable(R.drawable.stopbutton);
-					btn_play.setBackgroundDrawable(stop);
+					attachToPlaybackService();
+				}
+				else
+				{
+					if (player.isPlaying()) 
+					{
+						player.stop();
+						// TODO: pull the drawable out to onResume()
+						Resources res = getResources();
+						Drawable play = res.getDrawable(R.drawable.playbutton);
+						btn_play.setBackgroundDrawable(play);
+					} 
+					else 
+					{			
+						RadioRedditApplication application = (RadioRedditApplication)getApplication();
+						playStation(application.current_station);
+	
+						// TODO: pull the drawable out to onResume()
+						Resources res = getResources();
+						Drawable stop = res.getDrawable(R.drawable.stopbutton);
+						btn_play.setBackgroundDrawable(stop);
+					}
 				}
 			}
 		});
