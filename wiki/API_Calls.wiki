@@ -1,0 +1,58 @@
+#summary API calls to be made to radio reddit and reddit
+
+= Introduction =
+
+This document is to show how to make the API calls to radio reddit
+
+
+= Getting Streams Information =
+
+Make a call to http://radioreddit.com/config/streams.json to get a list of all the streams.
+
+The json returns a List of Streams.
+
+A Stream object consists of:
+  * String Description
+  * String Server (ip address.... not sure what used for)
+  * String Transcoder (ip address... again not sure)
+  * String Status (This is the path to other JSON calls, e.g. /api/electronic maps to http://radioreddit.com/api/electronic/status.json, etc.)
+  * String Playlists (another directory mapping?)
+  * List of Relays (these are the addresses we stream from)
+
+A Relay object consists of
+  * String Server (address to stream from)
+
+= List of all API calls (from iOS version) =
+
+//RadioRedditServer stuff
+
+NSString * const RadioRedditBaseURL = @"http://radioreddit.com";
+
+NSString * const RadioRedditStreamsJSON = @"http://radioreddit.com/config/streams.json";
+
+NSString * const RadioRedditChartsAll = @"http://radioreddit.com/api/charts_all.json";
+
+NSString * const RadioRedditChartsMonth = @"http://radioreddit.com/api/charts_month.json";
+
+NSString * const RadioRedditChartsWeek = @"http://radioreddit.com/api/charts_week.json";
+
+NSString * const RadioRedditChartsDay = @"http://radioreddit.com/api/charts_day.json";
+
+
+//reddit links
+
+NSString * const RedditLoginURL = @"http://www.reddit.com/api/login";
+
+NSString * const RedditVoteURL = @"http://www.reddit.com/api/vote";
+
+NSString * const RedditSaveURL = @"http://www.reddit.com/api/save";
+
+NSString * const RedditUnsaveURL = @"http://www.reddit.com/api/unsave";
+
+NSString * const RedditLinkByURL = @"http://www.reddit.com/api/info.json?url=";
+
+NSString * const RedditGetSavedURL = @"http://www.reddit.com/saved.json";
+
+NSString * const RedditSubmitURL = @"http://www.reddit.com/api/submit";
+
+NSString * const RedditCaptchaURL = @"http://www.reddit.com/captcha/";
