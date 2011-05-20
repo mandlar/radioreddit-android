@@ -193,6 +193,7 @@ public class RadioReddit extends Activity {
 		{
 			String title = intent.getStringExtra(PlaybackService.EXTRA_TITLE);
 			// infoText.setText(title);
+			Toast.makeText(RadioReddit.this, "onReceive", Toast.LENGTH_LONG).show();
 		}
 	}
 

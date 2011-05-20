@@ -54,7 +54,8 @@ import net.mandaria.radioreddit.activities.RadioReddit;
 
 public class PlaybackService extends Service implements OnPreparedListener,
     OnBufferingUpdateListener, OnCompletionListener, OnErrorListener,
-    OnInfoListener {
+    OnInfoListener 
+{
 
   private static final String LOG_TAG = PlaybackService.class.getName();
 
@@ -88,38 +89,43 @@ public class PlaybackService extends Service implements OnPreparedListener,
   private final static int RESUME_REWIND_TIME = 3000;
 
   @Override
-  public void onCreate() {
+  public void onCreate() 
+  {
     mediaPlayer = new MediaPlayer();
     mediaPlayer.setOnBufferingUpdateListener(this);
     mediaPlayer.setOnCompletionListener(this);
     mediaPlayer.setOnErrorListener(this);
     mediaPlayer.setOnInfoListener(this);
     mediaPlayer.setOnPreparedListener(this);
-    notificationManager = (NotificationManager) getSystemService(
-        Context.NOTIFICATION_SERVICE);
+    notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     Log.w(LOG_TAG, "Playback service created");
 
     telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
     // Create a PhoneStateListener to watch for offhook and idle events
-    listener = new PhoneStateListener() {
+    listener = new PhoneStateListener() 
+    {
       @Override
-      public void onCallStateChanged(int state, String incomingNumber) {
-        switch (state) {
-        case TelephonyManager.CALL_STATE_OFFHOOK:
-        case TelephonyManager.CALL_STATE_RINGING:
-          // Phone going offhook or ringing, pause the player.
-          if (isPlaying()) {
-            pause();
-            isPausedInCall = true;
-          }
-          break;
-        case TelephonyManager.CALL_STATE_IDLE:
-          // Phone idle. Rewind a couple of seconds and start playing.
-          if (isPausedInCall) {
-            seekTo(Math.max(0, getPosition() - RESUME_REWIND_TIME));
-            play();
-          }
-          break;
+      public void onCallStateChanged(int state, String incomingNumber) 
+      {
+        switch (state) 
+        {
+        	case TelephonyManager.CALL_STATE_OFFHOOK:
+        	case TelephonyManager.CALL_STATE_RINGING:
+        		// Phone going offhook or ringing, pause the player.
+        		if (isPlaying()) 
+        		{
+        			pause();
+        			isPausedInCall = true;
+        		}
+        		break;
+        	case TelephonyManager.CALL_STATE_IDLE:
+        		// Phone idle. Rewind a couple of seconds and start playing.
+        		if (isPausedInCall) 
+        		{
+        			seekTo(Math.max(0, getPosition() - RESUME_REWIND_TIME));
+        			play();
+        		}
+        		break;
         }
       }
     };
@@ -129,109 +135,128 @@ public class PlaybackService extends Service implements OnPreparedListener,
   }
 
   @Override
-  public IBinder onBind(Intent arg0) {
+  public IBinder onBind(Intent arg0) 
+  {
     bindCount++;
     Log.d(LOG_TAG, "Bound PlaybackService, count " + bindCount);
     return new ListenBinder();
   }
 
   @Override
-  public boolean onUnbind(Intent arg0) {
+  public boolean onUnbind(Intent arg0) 
+  {
     bindCount--;
     Log.d(LOG_TAG, "Unbinding PlaybackService, count " + bindCount);
-    if (!isPlaying() && bindCount == 0) {
+    if (!isPlaying() && bindCount == 0) 
+    {
       Log.w(LOG_TAG, "Will stop self");
       stopSelf();
-    } else {
+    } 
+    else 
+    {
       Log.d(LOG_TAG, "Will not stop self");
     }
     return false;
   }
 
-  synchronized public boolean isPlaying() {
-    if (isPrepared) {
+  synchronized public boolean isPlaying() 
+  {
+    if (isPrepared) 
+    {
       return mediaPlayer.isPlaying();
     }
     return false;
   }
 
-  synchronized public int getPosition() {
+  synchronized public int getPosition() 
+  {
     if (isPrepared) {
       return mediaPlayer.getCurrentPosition();
     }
     return 0;
   }
 
-  synchronized public int getDuration() {
-    if (isPrepared) {
+  synchronized public int getDuration() 
+  {
+    if (isPrepared) 
+    {
       return mediaPlayer.getDuration();
     }
     return 0;
   }
 
-  synchronized public int getCurrentPosition() {
-    if (isPrepared) {
+  synchronized public int getCurrentPosition() 
+  {
+    if (isPrepared) 
+    {
       return mediaPlayer.getCurrentPosition();
     }
     return 0;
   }
 
-  synchronized public void seekTo(int pos) {
-    if (isPrepared) {
+  synchronized public void seekTo(int pos) 
+  {
+    if (isPrepared) 
+    {
       mediaPlayer.seekTo(pos);
     }
   }
 
-  synchronized public void play() {
-    if (!isPrepared) {
+  synchronized public void play() 
+  {
+    if (!isPrepared) 
+    {
       Log.e(LOG_TAG, "play - not prepared");
       return;
     }
 
     mediaPlayer.start();
 
-
     int icon = R.drawable.stat_notify_musicplayer;
     CharSequence contentText = "Radio Station Name Here?";
     long when = System.currentTimeMillis();
     Notification notification = new Notification(icon, contentText, when);
-    notification.flags = Notification.FLAG_NO_CLEAR
-        | Notification.FLAG_ONGOING_EVENT;
+    notification.flags = Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
     Context c = getApplicationContext();
     CharSequence title = getString(R.string.app_name);
     Intent notificationIntent;
-      notificationIntent = new Intent(this, RadioReddit.class);
+    notificationIntent = new Intent(this, RadioReddit.class);
       
     notificationIntent.setAction(Intent.ACTION_VIEW);
     notificationIntent.addCategory(Intent.CATEGORY_DEFAULT);
     notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    PendingIntent contentIntent = PendingIntent.getActivity(c, 0,
-        notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+    PendingIntent contentIntent = PendingIntent.getActivity(c, 0,  notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
     notification.setLatestEventInfo(c, title, contentText, contentIntent);
     notificationManager.notify(NOTIFICATION_ID, notification);
 
     // Change broadcasts are sticky, so when a new receiver connects, it will
     // have the data without polling.
-    if (lastChangeBroadcast != null) {
+    if (lastChangeBroadcast != null) 
+    {
       getApplicationContext().removeStickyBroadcast(lastChangeBroadcast);
     }
     lastChangeBroadcast = new Intent(SERVICE_CHANGE_NAME);
     //lastChangeBroadcast.putExtra(EXTRA_TITLE, current.title);
-    getApplicationContext().sendStickyBroadcast(lastChangeBroadcast);
+    getApplicationContext().sendStickyBroadcast(lastChangeBroadcast); // broadcasts that playing has started
   }
 
-  synchronized public void pause() {
+  synchronized public void pause() 
+  {
     Log.d(LOG_TAG, "pause");
-    if (isPrepared) {
+    if (isPrepared) 
+    {
       mediaPlayer.pause();
     }
     notificationManager.cancel(NOTIFICATION_ID);
   }
 
-  synchronized public void stop() {
+  synchronized public void stop() 
+  {
     Log.d(LOG_TAG, "stop");
-    if (isPrepared) {
-      if (proxy != null) {
+    if (isPrepared) 
+    {
+      if (proxy != null) 
+      {
         proxy.stop();
         proxy = null;
       }
@@ -246,9 +271,11 @@ public class PlaybackService extends Service implements OnPreparedListener,
    * Start listening to the given URL.
    */
   public void listen(String url, boolean stream)
-      throws IllegalArgumentException, IllegalStateException, IOException {
+      throws IllegalArgumentException, IllegalStateException, IOException 
+  {
     // First, clean up any existing audio.
-    if (isPlaying()) {
+    if (isPlaying()) 
+    {
       stop();
     }
 
@@ -258,23 +285,29 @@ public class PlaybackService extends Service implements OnPreparedListener,
     // streams natively. Let's detect that, and not proxy.
     Log.d(LOG_TAG, "SDK Version " + Build.VERSION.SDK);
     int sdkVersion = 0;
-    try {
+    try 
+    {
       sdkVersion = Integer.parseInt(Build.VERSION.SDK);
-    } catch (NumberFormatException e) {
+    } 
+    catch (NumberFormatException e) 
+    {
+    	
     }
 
-    if (stream && sdkVersion < 8) {
-      if (proxy == null) {
+    if (stream && sdkVersion < 8) 
+    {
+      if (proxy == null) 
+      {
         proxy = new StreamProxy();
         proxy.init();
         proxy.start();
       }
-      String proxyUrl = String.format("http://127.0.0.1:%d/%s",
-          proxy.getPort(), url);
+      String proxyUrl = String.format("http://127.0.0.1:%d/%s", proxy.getPort(), url);
       playUrl = proxyUrl;
     }
 
-    synchronized (this) {
+    synchronized (this) 
+    {
       Log.d(LOG_TAG, "reset: " + playUrl);
       mediaPlayer.reset();
       mediaPlayer.setDataSource(playUrl);
@@ -286,32 +319,45 @@ public class PlaybackService extends Service implements OnPreparedListener,
   }
 
   @Override
-  public void onPrepared(MediaPlayer mp) {
+  public void onPrepared(MediaPlayer mp) 
+  {
     Log.d(LOG_TAG, "Prepared");
-    synchronized (this) {
-      if (mediaPlayer != null) {
+    synchronized (this) 
+    {
+      if (mediaPlayer != null) 
+      {
         isPrepared = true;
       }
     }
     play();
-    if (onPreparedListener != null) {
+    if (onPreparedListener != null) 
+    {
       onPreparedListener.onPrepared(mp);
     }
 
-    updateProgressThread = new Thread(new Runnable() {
-      public void run() {
+    updateProgressThread = new Thread(new Runnable() 
+    {
+      public void run() 
+      {
         // Initially, don't send any updates, since it takes a while for the
         // media player to settle down. 
-        try {
+        try 
+        {
           Thread.sleep(2000);
-        } catch (InterruptedException e) {
+        } 
+        catch (InterruptedException e) 
+        {
           return;
         }
-        while (true) {
+        while (true) 
+        {
           updateProgress();
-          try {
+          try 
+          {
             Thread.sleep(500);
-          } catch (InterruptedException e) {
+          } 
+          catch (InterruptedException e) 
+          {
             break;
           }
         }
@@ -321,22 +367,29 @@ public class PlaybackService extends Service implements OnPreparedListener,
   }
 
   @Override
-  public void onDestroy() {
+  public void onDestroy() 
+  {
     super.onDestroy();
     Log.w(LOG_TAG, "Service exiting");
 
-    if (updateProgressThread != null) {
+    if (updateProgressThread != null) 
+    {
       updateProgressThread.interrupt();
-      try {
+      try 
+      {
         updateProgressThread.join(3000);
-      } catch (InterruptedException e) {
+      } 
+      catch (InterruptedException e) 
+      {
         Log.e(LOG_TAG, "", e);
       }
     }
 
     stop();
-    synchronized (this) {
-      if (mediaPlayer != null) {
+    synchronized (this) 
+    {
+      if (mediaPlayer != null) 
+      {
         mediaPlayer.release();
         mediaPlayer = null;
       }
@@ -345,16 +398,20 @@ public class PlaybackService extends Service implements OnPreparedListener,
     telephonyManager.listen(listener, PhoneStateListener.LISTEN_NONE);
   }
 
-  public class ListenBinder extends Binder {
+  public class ListenBinder extends Binder 
+  {
 
-    public PlaybackService getService() {
+    public PlaybackService getService() 
+    {
       return PlaybackService.this;
     }
   }
 
   @Override
-  public void onBufferingUpdate(MediaPlayer mp, int progress) {
-    if (isPrepared) {
+  public void onBufferingUpdate(MediaPlayer mp, int progress) 
+  {
+    if (isPrepared) 
+    {
       lastBufferPercent = progress;
       updateProgress();
     }
@@ -363,7 +420,8 @@ public class PlaybackService extends Service implements OnPreparedListener,
   /**
    * Sends an UPDATE broadcast with the latest info.
    */
-  private void updateProgress() {
+  private void updateProgress() 
+  {
 //    if (isPrepared && mediaPlayer != null && mediaPlayer.isPlaying()) {
 //      // Update broadcasts are sticky, so when a new receiver connects, it will
 //      // have the data without polling.
@@ -383,43 +441,50 @@ public class PlaybackService extends Service implements OnPreparedListener,
   }
   
   @Override
-  public void onCompletion(MediaPlayer mp) {
+  public void onCompletion(MediaPlayer mp) 
+  {
     Log.w(LOG_TAG, "onComplete()");
 
-    synchronized (this) {
-      if (!isPrepared) {
+    synchronized (this) 
+    {
+      if (!isPrepared) 
+      {
         // This file was not good and MediaPlayer quit
-        Log.w(LOG_TAG,
-            "MediaPlayer refused to play current item. Bailing on prepare.");
+        Log.w(LOG_TAG, "MediaPlayer refused to play current item. Bailing on prepare.");
       }
     }
 
     cleanup();
     
-    if (onCompletionListener != null) {
+    if (onCompletionListener != null) 
+    {
       onCompletionListener.onCompletion(mp);
     }
 
-    if (bindCount == 0 && !isPlaying()) {
+    if (bindCount == 0 && !isPlaying()) 
+    {
       stopSelf();
     }
   }
 
   @Override
-  public boolean onError(MediaPlayer mp, int what, int extra) {
+  public boolean onError(MediaPlayer mp, int what, int extra) 
+  {
     Log.w(LOG_TAG, "onError(" + what + ", " + extra + ")");
-    synchronized (this) {
-      if (!isPrepared) {
+    synchronized (this) 
+    {
+      if (!isPrepared) 
+      {
         // This file was not good and MediaPlayer quit
-        Log.w(LOG_TAG,
-            "MediaPlayer refused to play current item. Bailing on prepare.");
+        Log.w(LOG_TAG, "MediaPlayer refused to play current item. Bailing on prepare.");
       }
     }
     return false;
   }
 
   @Override
-  public boolean onInfo(MediaPlayer arg0, int arg1, int arg2) {
+  public boolean onInfo(MediaPlayer arg0, int arg1, int arg2) 
+  {
     Log.w(LOG_TAG, "onInfo(" + arg1 + ", " + arg2 + ")");
     return false;
   }
@@ -427,12 +492,15 @@ public class PlaybackService extends Service implements OnPreparedListener,
   /**
    * Remove all intents and notifications about the last media.
    */
-  private void cleanup() {
+  private void cleanup() 
+  {
     notificationManager.cancel(NOTIFICATION_ID);
-    if (lastChangeBroadcast != null) {
+    if (lastChangeBroadcast != null) 
+    {
       getApplicationContext().removeStickyBroadcast(lastChangeBroadcast);
     }
-    if (lastUpdateBroadcast != null) {
+    if (lastUpdateBroadcast != null) 
+    {
       getApplicationContext().removeStickyBroadcast(lastUpdateBroadcast);
     }
     getApplicationContext().sendBroadcast(new Intent(SERVICE_CLOSE_NAME));
@@ -450,7 +518,8 @@ public class PlaybackService extends Service implements OnPreparedListener,
    * 
    * @param listener
    */
-  public void setOnCompletionListener(OnCompletionListener listener) {
+  public void setOnCompletionListener(OnCompletionListener listener) 
+  {
     onCompletionListener = listener;
   }
 
@@ -462,7 +531,8 @@ public class PlaybackService extends Service implements OnPreparedListener,
    * 
    * @param listener
    */
-  public void setOnPreparedListener(OnPreparedListener listener) {
+  public void setOnPreparedListener(OnPreparedListener listener) 
+  {
     onPreparedListener = listener;
   }
 }
