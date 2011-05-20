@@ -36,6 +36,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +48,7 @@ public class RadioReddit extends Activity {
 	TextView lbl_SongTitle;
 	TextView lbl_SongArtist;
 	TextView lbl_SongPlaylist;
+	ProgressBar progress_LoadingSong;
 	
 	MediaPlayer mediaPlayer = new MediaPlayer();;
 	Button btn_play;
@@ -85,6 +87,7 @@ public class RadioReddit extends Activity {
 		lbl_SongTitle = (TextView) findViewById(R.id.lbl_SongTitle);
 		lbl_SongArtist = (TextView) findViewById(R.id.lbl_SongArtist);
 		lbl_SongPlaylist = (TextView) findViewById(R.id.lbl_SongPlaylist);
+		progress_LoadingSong = (ProgressBar) findViewById(R.id.progress_LoadingSong);
 
 		btn_play = (Button) findViewById(R.id.btn_play);
 		btn_play.setOnClickListener(new OnClickListener() 
@@ -122,12 +125,8 @@ public class RadioReddit extends Activity {
 						Drawable stop = res.getDrawable(R.drawable.stopbutton);
 						btn_play.setBackgroundDrawable(stop);
 						
-						// "get" song information -- TODO: eventually needs to be called every 30 seconds
-						// TODO: this should show a "loading" until so actually starts playing?
-						lbl_SongVote.setText(getString(R.string.vote_to_submit_song));
-						lbl_SongTitle.setText(getString(R.string.dummy_song_title));
-						lbl_SongArtist.setText(getString(R.string.dummy_song_artist));
-						lbl_SongPlaylist.setText(getString(R.string.dummy_song_playlist));
+						// show progress bar while waiting to load song information
+						progress_LoadingSong.setVisibility(View.VISIBLE);
 					}
 				}
 			}
@@ -194,6 +193,12 @@ public class RadioReddit extends Activity {
 			String title = intent.getStringExtra(PlaybackService.EXTRA_TITLE);
 			// infoText.setText(title);
 			Toast.makeText(RadioReddit.this, "onReceive", Toast.LENGTH_LONG).show();
+			// "get" song information -- TODO: eventually needs to be called every 30 seconds
+			progress_LoadingSong.setVisibility(View.GONE);
+			lbl_SongVote.setText(getString(R.string.vote_to_submit_song));
+			lbl_SongTitle.setText(getString(R.string.dummy_song_title));
+			lbl_SongArtist.setText(getString(R.string.dummy_song_artist));
+			lbl_SongPlaylist.setText(getString(R.string.dummy_song_playlist));
 		}
 	}
 
@@ -249,6 +254,7 @@ public class RadioReddit extends Activity {
 
 	protected void listen(String url) 
 	{
+		// TODO: check if a current listen is in progress to prevent state exception
 		if (player != null) 
 		{
 			try 

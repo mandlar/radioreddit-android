@@ -51,6 +51,13 @@
 			android:orientation="vertical"
 			android:gravity="center_horizontal"
 			>
+			<ProgressBar
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/progress_LoadingSong"
+				android:indeterminate="true"
+				android:visibility="gone"
+				/>
 			<!-- Song Vote -->
 			<TextView
 				android:id="@+id/lbl_SongVote" 
