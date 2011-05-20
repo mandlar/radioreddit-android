@@ -16,11 +16,13 @@ A Stream object consists of:
   * String Server (ip address.... not sure what used for)
   * String Transcoder (ip address... again not sure)
   * String Status (This is the path to other JSON calls, e.g. /api/electronic maps to http://radioreddit.com/api/electronic/status.json, etc.)
-  * String Playlists (another directory mapping?)
+  * String Playlists (another directory mapping? Seems to be for playing in browser)
   * List of Relays (these are the addresses we stream from)
 
 A Relay object consists of
   * String Server (address to stream from)
+
+Stream information should be only called onCreate and should not need to be called again during lifecycle of the application
 
 = List of all API calls (from iOS version) =
 
