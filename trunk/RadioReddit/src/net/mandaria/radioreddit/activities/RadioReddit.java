@@ -43,6 +43,10 @@ import android.widget.Toast;
 public class RadioReddit extends Activity {
 	
 	TextView lbl_station;
+	TextView lbl_SongVote;
+	TextView lbl_SongTitle;
+	TextView lbl_SongArtist;
+	TextView lbl_SongPlaylist;
 	
 	MediaPlayer mediaPlayer = new MediaPlayer();;
 	Button btn_play;
@@ -54,6 +58,81 @@ public class RadioReddit extends Activity {
 	private BroadcastReceiver updateReceiver = new PlaybackUpdateReceiver();
 	private BroadcastReceiver closeReceiver = new PlaybackCloseReceiver();
 	private boolean playButtonisPause = false;
+	
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) 
+	{
+		init();
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+		
+		lbl_station = (TextView) findViewById(R.id.lbl_station);
+		lbl_station.setOnClickListener(new OnClickListener() 
+		{	
+			@Override
+			public void onClick(View v) 
+			{
+				// TODO Auto-generated method stub
+				Intent i = new Intent(RadioReddit.this, SelectStation.class);
+				startActivityForResult(i, 1);
+			}
+		});
+		
+		lbl_SongVote = (TextView) findViewById(R.id.lbl_SongVote);
+		lbl_SongTitle = (TextView) findViewById(R.id.lbl_SongTitle);
+		lbl_SongArtist = (TextView) findViewById(R.id.lbl_SongArtist);
+		lbl_SongPlaylist = (TextView) findViewById(R.id.lbl_SongPlaylist);
+
+		btn_play = (Button) findViewById(R.id.btn_play);
+		btn_play.setOnClickListener(new OnClickListener() 
+		{
+			@Override
+			public void onClick(View v) 
+			{
+				if(player == null)
+				{
+					attachToPlaybackService();
+				}
+				else
+				{
+					if (player.isPlaying()) 
+					{
+						player.stop();
+						// TODO: pull the drawable out to onResume()
+						Resources res = getResources();
+						Drawable play = res.getDrawable(R.drawable.playbutton);
+						btn_play.setBackgroundDrawable(play);
+						
+						// remove song information
+						lbl_SongVote.setText("");
+						lbl_SongTitle.setText("");
+						lbl_SongArtist.setText("");
+						lbl_SongPlaylist.setText("");
+					} 
+					else 
+					{			
+						RadioRedditApplication application = (RadioRedditApplication)getApplication();
+						playStation(application.current_station);
+	
+						// TODO: pull the drawable out to onResume()
+						Resources res = getResources();
+						Drawable stop = res.getDrawable(R.drawable.stopbutton);
+						btn_play.setBackgroundDrawable(stop);
+						
+						// "get" song information -- TODO: eventually needs to be called every 30 seconds
+						// TODO: this should show a "loading" until so actually starts playing?
+						lbl_SongVote.setText(getString(R.string.vote_to_submit_song));
+						lbl_SongTitle.setText(getString(R.string.dummy_song_title));
+						lbl_SongArtist.setText(getString(R.string.dummy_song_artist));
+						lbl_SongPlaylist.setText(getString(R.string.dummy_song_playlist));
+					}
+				}
+			}
+		});
+	}	
 
 	@Override
 	public void onAttachedToWindow() 
@@ -193,63 +272,6 @@ public class RadioReddit extends Activity {
 //			}
 		}
 	}
-
-	/** Called when the activity is first created. */
-	@Override
-	public void onCreate(Bundle savedInstanceState) 
-	{
-		init();
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
-		
-		lbl_station = (TextView) findViewById(R.id.lbl_station);
-		lbl_station.setOnClickListener(new OnClickListener() 
-		{	
-			@Override
-			public void onClick(View v) 
-			{
-				// TODO Auto-generated method stub
-				Intent i = new Intent(RadioReddit.this, SelectStation.class);
-				startActivityForResult(i, 1);
-			}
-		});
-
-		btn_play = (Button) findViewById(R.id.btn_play);
-		btn_play.setOnClickListener(new OnClickListener() 
-		{
-			@Override
-			public void onClick(View v) 
-			{
-				if(player == null)
-				{
-					attachToPlaybackService();
-				}
-				else
-				{
-					if (player.isPlaying()) 
-					{
-						player.stop();
-						// TODO: pull the drawable out to onResume()
-						Resources res = getResources();
-						Drawable play = res.getDrawable(R.drawable.playbutton);
-						btn_play.setBackgroundDrawable(play);
-					} 
-					else 
-					{			
-						RadioRedditApplication application = (RadioRedditApplication)getApplication();
-						playStation(application.current_station);
-	
-						// TODO: pull the drawable out to onResume()
-						Resources res = getResources();
-						Drawable stop = res.getDrawable(R.drawable.stopbutton);
-						btn_play.setBackgroundDrawable(stop);
-					}
-				}
-			}
-		});
-	}	
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
