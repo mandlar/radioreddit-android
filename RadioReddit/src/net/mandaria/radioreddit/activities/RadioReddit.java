@@ -108,7 +108,7 @@ public class RadioReddit extends Activity {
 					{
 						player.stop();
 						
-						displaySongInformation();
+						hideSongInformation();
 					} 
 					else 
 					{			
@@ -177,32 +177,31 @@ public class RadioReddit extends Activity {
 		getApplicationContext().unbindService(conn);
 	}
 	
-	private void displaySongInformation()
+	private void showSongInformation()
 	{
 		Resources res = getResources();
-		
-		if (player != null && player.isPlaying()) 
-		{
-			Drawable stop = res.getDrawable(R.drawable.stopbutton);
-			btn_play.setBackgroundDrawable(stop);
 
-			lbl_SongVote.setText(getString(R.string.vote_to_submit_song));
-			lbl_SongTitle.setText(getString(R.string.dummy_song_title));
-			lbl_SongArtist.setText(getString(R.string.dummy_song_artist));
-			lbl_SongPlaylist.setText(getString(R.string.dummy_song_playlist));
-		} 
-		else 
-		{		
-			// TODO: pull the drawable out to onResume()
-			Drawable play = res.getDrawable(R.drawable.playbutton);
-			btn_play.setBackgroundDrawable(play);
-			
-			// remove song information
-			lbl_SongVote.setText("");
-			lbl_SongTitle.setText("");
-			lbl_SongArtist.setText("");
-			lbl_SongPlaylist.setText("");
-		}
+		Drawable stop = res.getDrawable(R.drawable.stopbutton);
+		btn_play.setBackgroundDrawable(stop);
+
+		lbl_SongVote.setText(getString(R.string.vote_to_submit_song));
+		lbl_SongTitle.setText(getString(R.string.dummy_song_title));
+		lbl_SongArtist.setText(getString(R.string.dummy_song_artist));
+		lbl_SongPlaylist.setText(getString(R.string.dummy_song_playlist));
+
+	}
+	
+	private void hideSongInformation()
+	{
+		Resources res = getResources();
+		Drawable play = res.getDrawable(R.drawable.playbutton);
+		btn_play.setBackgroundDrawable(play);
+		
+		// remove song information
+		lbl_SongVote.setText("");
+		lbl_SongTitle.setText("");
+		lbl_SongArtist.setText("");
+		lbl_SongPlaylist.setText("");
 	}
 
 	private class PlaybackChangeReceiver extends BroadcastReceiver 
@@ -216,7 +215,14 @@ public class RadioReddit extends Activity {
 			// "get" song information -- TODO: eventually needs to be called every 30 seconds
 			progress_LoadingSong.setVisibility(View.GONE);
 			
-			displaySongInformation();
+			if(player != null && player.isPlaying())
+			{
+				showSongInformation();
+			}
+			else
+			{
+				hideSongInformation();
+			}
 		}
 	}
 
