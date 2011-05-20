@@ -51,38 +51,25 @@
 			android:orientation="vertical"
 			android:gravity="center_horizontal"
 			>
+			<!-- Song Vote -->
 			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="vote to submit song"
-				android:textColor="#b6b6b6"
-				android:textStyle="bold"
-				android:textSize="16sp"
-				android:layout_weight="1"
+				android:id="@+id/lbl_SongVote" 
+				style="@style/SongVote"
 				/>
+			<!--  Song Title -->
 			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="Happy Birthday"
-				android:textColor="#333333"
-				android:textSize="18sp"
-				android:layout_weight="1"
+				android:id="@+id/lbl_SongTitle" 
+				style="@style/SongTitle"
 				/>
+			<!-- Song Artist -->
 			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="by Galaxy Danger Danger (cocainezombie)"
-				android:textColor="#010101"
-				android:textSize="12sp"
-				android:layout_weight="1"
+				android:id="@+id/lbl_SongArtist" 
+				style="@style/SongArtist"
 				/>
+			<!-- Song Playlist -->
 			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="playlist: One Ad"
-				android:textColor="#787878"
-				android:textSize="12sp"
-				android:layout_weight="1"
+				android:id="@+id/lbl_SongPlaylist" 
+				style="@style/SongPlaylist"
 				/>
 		</LinearLayout>
 	   
