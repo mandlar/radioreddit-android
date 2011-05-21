@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import net.mandaria.radioreddit.R;
+import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.objects.RadioStream;
 import net.mandaria.radioreddit.utils.HTTPUtil;
 import android.content.Context;
@@ -15,7 +16,7 @@ import android.widget.Toast;
 
 public class RadioRedditAPI
 {
-	public static void GetStreams(Context context)
+	public static void GetStreams(Context context, RadioRedditApplication application)
 	{
 		try
 		{
@@ -48,8 +49,8 @@ public class RadioRedditAPI
 	            
 	            radiostreams.add(radiostream);
 	        }
-	        
-	        //TODO: do something with the radiostreams object
+	       
+	        application.RadioStreams = radiostreams;
 		}
 		catch(Exception ex)
 		{

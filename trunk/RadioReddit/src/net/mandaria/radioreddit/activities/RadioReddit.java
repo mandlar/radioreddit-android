@@ -66,8 +66,9 @@ public class RadioReddit extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
+		RadioRedditApplication application = (RadioRedditApplication)getApplication();
 		//TODO: move this to AsyncTask, testing for now in onCreate:
-		RadioRedditAPI.GetStreams(this);
+		RadioRedditAPI.GetStreams(this, application);
 		
 		init();
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -75,7 +76,7 @@ public class RadioReddit extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
-		RadioRedditApplication application = (RadioRedditApplication)getApplication();
+		
 		
 		lbl_station = (TextView) findViewById(R.id.lbl_station);
 		lbl_station.setText(application.current_station);
