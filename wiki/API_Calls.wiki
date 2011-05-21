@@ -24,6 +24,8 @@ A Relay object consists of
 
 Stream information should be only called onCreate and should not need to be called again during lifecycle of the application
 
+For now, stream information will be kept in memory in Application object. Later, maybe save it to a database? (E.g. to handle case of web server goes down but stream is still up)
+
 = List of all API calls (from iOS version) =
 
 //RadioRedditServer stuff
