@@ -16,7 +16,7 @@ A Stream object consists of:
   * String Server (Use this for streaming, will be moved to status.json for each stream soon)
   * String Transcoder (not used)
   * String Status (This is the path to other JSON calls, e.g. /api/electronic maps to http://radioreddit.com/api/electronic/status.json, etc.)
-  * String Playlists (another directory mapping? Seems to be for playing in browser)
+  * String Playlists (another directory mapping? Seems to be for playing in browser, not used)
   * List of Relays (list of stream addresses, not used)
 
 A Relay object consists of
