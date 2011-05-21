@@ -6,9 +6,10 @@ public class RadioStream
 {
 	public String Name;
 	public String Description;
-	public String Server;
 	public String Status;
+	public String Relay;
 	// Not used
+	//public String Server;
 	//public String Transcoder;
 	//public String Playlists
 	//public String[] Relays;
