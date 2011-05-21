@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Radio Reddit APIs -->
+	<string name="radio_reddit_base_url">http://radioreddit.com/</string>
+    <string name="radio_reddit_streams">http://radioreddit.com/config/streams.json</string>
+    <string name="radio_reddit_charts_all">http://radioreddit.com/api/charts_all.json</string>
+    <string name="radio_reddit_charts_month">http://radioreddit.com/api/charts_month.json</string>
+    <string name="radio_reddit_charts_week">http://radioreddit.com/api/charts_week.json</string>
+    <string name="radio_reddit_charts_day">http://radioreddit.com/api/charts_day.json</string>
+ 
+ 	<!-- Reddit APIs -->
+ 	<string name="reddit_login">http://www.reddit.com/api/login</string>
+ 	<string name="reddit_vote">http://www.reddit.com/api/vote</string>
+ 	<string name="reddit_save">http://www.reddit.com/api/save</string>
+ 	<string name="reddit_unsave">http://www.reddit.com/api/unsave</string>
+ 	<string name="reddit_link_by">http://www.reddit.com/api/info.json?url=</string>
+ 	<string name="reddit_get_saved">http://www.reddit.com/saved.json</string>
+ 	<string name="reddit_submit">http://www.reddit.com/api/submit</string>
+ 	<string name="reddit_captcha">http://www.reddit.com/captcha/</string>
+
+</resources>
