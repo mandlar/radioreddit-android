@@ -13,14 +13,14 @@ The json returns a List of Streams.
 
 A Stream object consists of:
   * String Description
-  * String Server (ip address.... not sure what used for)
-  * String Transcoder (ip address... again not sure)
+  * String Server (Use this for streaming, will be moved to status.json for each stream soon)
+  * String Transcoder (not used)
   * String Status (This is the path to other JSON calls, e.g. /api/electronic maps to http://radioreddit.com/api/electronic/status.json, etc.)
   * String Playlists (another directory mapping? Seems to be for playing in browser)
-  * List of Relays (these are the addresses we stream from)
+  * List of Relays (list of stream addresses, not used)
 
 A Relay object consists of
-  * String Server (address to stream from)
+  * String Server (address to stream from, not used)
 
 Stream information should be only called onCreate and should not need to be called again during lifecycle of the application
 
