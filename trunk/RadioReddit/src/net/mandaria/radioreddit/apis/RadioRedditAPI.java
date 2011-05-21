@@ -22,7 +22,6 @@ public class RadioRedditAPI
 			String url = context.getString(R.string.radio_reddit_streams);
 	        JSONTokener tokener = new JSONTokener(HTTPUtil.get(context, url));
 	        JSONObject json = new JSONObject(tokener);
-	        int length = json.length();
 	
 	        JSONObject streams = json.getJSONObject("streams");
 	        JSONArray streams_names = streams.names();
@@ -37,8 +36,15 @@ public class RadioRedditAPI
 	        	RadioStream radiostream = new RadioStream();
 	        	radiostream.Name = name;
 	        	radiostream.Description = stream.getString("description");
-	        	radiostream.Server = stream.getString("server");
 	        	radiostream.Status = stream.getString("status");
+	        	
+	        	// call status.json to get Relay
+	        	// form url radioreddit.com + status + json
+	        	String status_url = context.getString(R.string.radio_reddit_base_url) + radiostream.Status + context.getString(R.string.radio_reddit_status);
+	        	JSONTokener status_tokener = new JSONTokener(HTTPUtil.get(context, status_url));
+		        JSONObject status_json = new JSONObject(status_tokener);
+	        	
+	        	radiostream.Relay = status_json.getString("relay");
 	            
 	            radiostreams.add(radiostream);
 	        }
@@ -47,6 +53,7 @@ public class RadioRedditAPI
 		}
 		catch(Exception ex)
 		{
+			// We fail to get the streams...
 			Toast.makeText(context, ex.toString(), Toast.LENGTH_LONG).show();
 		}
  
