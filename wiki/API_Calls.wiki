@@ -9,18 +9,20 @@ This document is to show how to make the API calls to radio reddit
 
 Make a call to http://radioreddit.com/config/streams.json to get a list of all the streams.
 
-The json returns a List of Streams.
+The json returns a List of RadioStreams.
 
-A Stream object consists of:
+A RadioStream object consists of:
+  * String Name (pulled from the parent JSON object)
   * String Description
-  * String Server (Use this for streaming, will be moved to status.json for each stream soon)
+  * String Relay (pulled from each stream's status.json "Relay")
+  * String Server (not used)
   * String Transcoder (not used)
   * String Status (This is the path to other JSON calls, e.g. /api/electronic maps to http://radioreddit.com/api/electronic/status.json, etc.)
   * String Playlists (another directory mapping? Seems to be for playing in browser, not used)
   * List of Relays (list of stream addresses, not used)
 
 A Relay object consists of
-  * String Server (address to stream from, not used)
+  * String Server (address to stream from, not used. Pull the one from status.json instead)
 
 Stream information should be only called onCreate and should not need to be called again during lifecycle of the application
 
