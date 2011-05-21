@@ -7,6 +7,7 @@ import net.mandaria.radioreddit.R.drawable;
 import net.mandaria.radioreddit.R.id;
 import net.mandaria.radioreddit.R.layout;
 import net.mandaria.radioreddit.RadioRedditApplication;
+import net.mandaria.radioreddit.apis.RadioRedditAPI;
 import net.mandaria.radioreddit.media.PlaybackService;
 import net.mandaria.radioreddit.media.StreamProxy;
 import net.mandaria.radioreddit.media.PlaybackService.ListenBinder;
@@ -65,6 +66,9 @@ public class RadioReddit extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
+		//TODO: move this to AsyncTask, testing for now in onCreate:
+		RadioRedditAPI.GetStreams(this);
+		
 		init();
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
