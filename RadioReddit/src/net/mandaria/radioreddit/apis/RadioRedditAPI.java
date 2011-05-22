@@ -1,6 +1,7 @@
 package net.mandaria.radioreddit.apis;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -49,8 +50,13 @@ public class RadioRedditAPI
 	            
 	            radiostreams.add(radiostream);
 	        }
+	        
+	        // JSON parsing reverses the list for some reason, fixing it...
+	        Collections.reverse(radiostreams);
 	       
 	        application.RadioStreams = radiostreams;
+	        
+	        application.CurrentStream = radiostreams.get(0);
 		}
 		catch(Exception ex)
 		{

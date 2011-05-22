@@ -11,6 +11,7 @@ import net.mandaria.radioreddit.apis.RadioRedditAPI;
 import net.mandaria.radioreddit.media.PlaybackService;
 import net.mandaria.radioreddit.media.StreamProxy;
 import net.mandaria.radioreddit.media.PlaybackService.ListenBinder;
+import net.mandaria.radioreddit.objects.RadioStream;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -79,7 +80,7 @@ public class RadioReddit extends Activity {
 		
 		
 		lbl_station = (TextView) findViewById(R.id.lbl_station);
-		lbl_station.setText(application.current_station);
+		lbl_station.setText(application.CurrentStream.Name);
 		lbl_station.setOnClickListener(new OnClickListener() 
 		{	
 			@Override
@@ -117,12 +118,7 @@ public class RadioReddit extends Activity {
 					} 
 					else 
 					{			
-						RadioRedditApplication application = (RadioRedditApplication)getApplication();
-						playStation(application.current_station);
-						
-						// show progress bar while waiting to load song information
-						progress_LoadingSong.setVisibility(View.VISIBLE);
-						
+						playStream();
 					}
 				}
 			}
@@ -316,38 +312,47 @@ public class RadioReddit extends Activity {
 	{
 		if(resultCode == Activity.RESULT_OK)
 		{
-			String station = data.getStringExtra("station");
-			RadioRedditApplication application = (RadioRedditApplication)getApplication();
+			boolean changedStream = data.getBooleanExtra("changed_stream", false);
 			
-			if(!station.equals(application.current_station)) // check if already playing
+			//String stream_name = data.getStringExtra("stream_name");
+			//String stream_url = data.getStringExtra("stream_url");
+			
+			if(changedStream) // check if already playing
 			{
-				application.current_station = station;
-				playStation(station);
+				playStream();
 			}
 		}
 	}
 	
-	private void playStation(String station)
+	private void playStream()
 	{
-		if(station.equals("main stream"))
-		{
-			listen(getString(R.string.main_stream_url));
-		}
-		else if (station.equals("electronic"))
-		{
-			listen(getString(R.string.electronic_stream_url));
-		}
-		else if (station.equals("rock"))
-		{
-			listen(getString(R.string.rock_stream_url));
-		}
-		else if (station.equals("hip hop and rap"))
-		{
-			listen(getString(R.string.hip_hop_and_rap_stream_url));
-		}
+		RadioRedditApplication application = (RadioRedditApplication)getApplication();
+		listen(application.CurrentStream.Relay);
 		
+//		if(station.equals("main stream"))
+//		{
+//			listen(getString(R.string.main_stream_url));
+//		}
+//		else if (station.equals("electronic"))
+//		{
+//			listen(getString(R.string.electronic_stream_url));
+//		}
+//		else if (station.equals("rock"))
+//		{
+//			listen(getString(R.string.rock_stream_url));
+//		}
+//		else if (station.equals("hip hop and rap"))
+//		{
+//			listen(getString(R.string.hip_hop_and_rap_stream_url));
+//		}
 		
-		lbl_station.setText(station); // TODO: move to on resume
+		lbl_station.setText(application.CurrentStream.Name);
+		
+		hideSongInformation();
+		
+		// show progress bar while waiting to load song information
+		progress_LoadingSong.setVisibility(View.VISIBLE);
+		
 	}
 	
 }

@@ -7,7 +7,8 @@ import android.app.Application;
 
 public class RadioRedditApplication extends Application 
 {
-	public String current_station = "main"; // TODO: don't hard code "main" here, pull it programatically
+	//public String current_station = "main"; // TODO: don't hard code "main" here, pull it programatically
+	public RadioStream CurrentStream;
 	public ArrayList<RadioStream> RadioStreams;
 	
 	@Override
