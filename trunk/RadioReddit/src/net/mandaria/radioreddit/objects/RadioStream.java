@@ -13,5 +13,4 @@ public class RadioStream
 	//public String Transcoder;
 	//public String Playlists
 	//public String[] Relays;
-	
 }
