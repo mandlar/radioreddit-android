@@ -31,7 +31,7 @@ For now, stream information will be kept in memory in Application object. Later,
 
 = Getting Song Information =
 
-Make a call to http://radioreddit.com[API]status.json to get the stream's current status. [API] is pulled from the streams.json's "Status" variable. For example, http://radioreddit.com/api/electronic/status.json is for electronic stream.
+Make a call to http://radioreddit.com(API)status.json to get the stream's current status. (API) is pulled from the streams.json's "Status" variable. For example, http://radioreddit.com/api/electronic/status.json is for electronic stream.
 
 The json returns a List of Songs, the current playlist, online status, relay, and number of listeners
 
