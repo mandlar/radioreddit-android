@@ -86,3 +86,10 @@ NSString * const RedditGetSavedURL = @"http://www.reddit.com/saved.json";
 NSString * const RedditSubmitURL = @"http://www.reddit.com/api/submit";
 
 NSString * const RedditCaptchaURL = @"http://www.reddit.com/captcha/";
+
+= My API requests =
+
+A short list of things I'd like to see in the API:
+  * A better "name" of the station, e.g. "hiphop" vs "Hip Hop and Rap" (add to streams.json)
+  * Amazon MP3 purchase links (for Android users)
+  * A value that returns true when the station is playing an advertisement (for promoting donations, pro versions, etc.). Add to stream's status.json
