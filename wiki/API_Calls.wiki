@@ -15,6 +15,7 @@ A RadioStream object consists of:
   * String Name (pulled from the parent JSON object)
   * String Description
   * String Relay (pulled from each stream's status.json "Relay")
+  * Boolean Online (pulled from each stream's status.json "Online")
   * String Server (not used)
   * String Transcoder (not used)
   * String Status (This is the path to other JSON calls, e.g. /api/electronic maps to http://radioreddit.com/api/electronic/status.json, etc.)
@@ -28,6 +29,29 @@ Stream information should be only called onCreate and should not need to be call
 
 For now, stream information will be kept in memory in Application object. Later, maybe save it to a database? (E.g. to handle case of web server goes down but stream is still up)
 
+= Getting Song Information =
+
+Make a call to http://radioreddit.com[API]status.json to get the stream's current status. [API] is pulled from the streams.json's "Status" variable. For example, http://radioreddit.com/api/electronic/status.json is for electronic stream.
+
+The json returns a List of Songs, the current playlist, online status, relay, and number of listeners
+
+A Song object consists of:
+  * Int ID (not used?)
+  * String Title
+  * String Artist
+  * String redditor (note: return Artist (redditor) as one String)
+  * String Genre
+  * String Playlist (pulled from parent node)
+  * String reddit_title (Name of reddit link)
+  * String reddit_url (reddit link)
+  * String preview_url (Used for previewing song? Always exists?)
+  * String download_url (Used for downloading song? Different url, but same mp3 as preview_url? May not exist)
+  * String bandcamp_link (Link to song on bandcamp, May not exist)
+  * String bancamp_art (album art from bandcamp, May not exist)
+  * String itunes_link (Link to song on itunes, May not exist)
+  * String itunes_art (Link to album art from itunes, May not exist)
+  * String itunes_price (Price of song on itunes, May not exist)
+  
 = List of all API calls (from iOS version) =
 
 //RadioRedditServer stuff
