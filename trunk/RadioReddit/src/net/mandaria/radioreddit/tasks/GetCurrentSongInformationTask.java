@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Locale;
 
 import net.mandaria.radioreddit.RadioRedditApplication;
+import net.mandaria.radioreddit.apis.RadioRedditAPI;
+import net.mandaria.radioreddit.objects.RadioSong;
 import android.app.Application;
 import android.content.Context;
 import android.location.Address;
@@ -15,17 +17,17 @@ import android.util.Log;
 import android.widget.Toast;
 
 
-public class GetCurrentSongInformationTask extends AsyncTask<Void, Integer, Integer> 
+public class GetCurrentSongInformationTask extends AsyncTask<Void, RadioSong, RadioSong> 
 {
 	private static String TAG = "RadioReddit";
 	private Context _context;
 	private Locale _locale;
-	private Application _application;
+	private RadioRedditApplication _application;
 	private Exception ex;
 	
 	
 
-    public GetCurrentSongInformationTask(Application application, Context context, Locale locale) 
+    public GetCurrentSongInformationTask(RadioRedditApplication application, Context context, Locale locale) 
     {
     	_context = context;
     	_locale = locale;
@@ -33,37 +35,37 @@ public class GetCurrentSongInformationTask extends AsyncTask<Void, Integer, Inte
     }
 
 	@Override
-	protected Integer doInBackground(Void... unused) 
+	protected RadioSong doInBackground(Void... unused) 
 	{
-		int adRefreshRate = -1;
+		RadioSong song = null;
 		try 
 		{
-			
+			song = RadioRedditAPI.GetCurrentSongInformation(_context, _application);
             
-            Log.e(TAG, "New ad refresh rate: " + adRefreshRate);
+            //Log.e(TAG, "New ad refresh rate: " + adRefreshRate);
 		}
 		catch(Exception e)
 		{
 			ex = e;
-			Log.e(TAG, "FAIL: New ad refresh rate: " + e);
+			Log.e(TAG, "FAIL: get current song information: " + e);
 		}
 		
-		return adRefreshRate;
+		return song;
 	}
 
 	@Override
-	protected void onProgressUpdate(Integer... item) 
+	protected void onProgressUpdate(RadioSong... item) 
 	{
 
 	}
 
 	@Override
-	protected void onPostExecute(Integer result) 
+	protected void onPostExecute(RadioSong result) 
 	{
-		RadioRedditApplication appState = ((RadioRedditApplication)_application);
-		if(result != -1)
+		if(result != null)
 		{
-			 Log.e(TAG, "Post execute: " + result);
+			_application.CurrentSong = result;
+			Log.e(TAG, "Post execute: " + result);
 			//Settings.setAdRefreshRate(_context, result);
 		}
 		else
