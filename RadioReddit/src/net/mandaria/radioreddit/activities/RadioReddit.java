@@ -132,7 +132,34 @@ public class RadioReddit extends Activity {
 				}
 			}
 		});
+		
+		startUpdateTimer();
 	}	
+	
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		startUpdateTimer();
+	}
+	
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		stopUpdateTimer();
+	}
+	
+	private void startUpdateTimer()
+	{
+		mHandler.removeCallbacks(mUpdateTimeTask);
+		mHandler.postDelayed(mUpdateTimeTask, 0);
+	}
+
+	private void stopUpdateTimer()
+	{
+		mHandler.removeCallbacks(mUpdateTimeTask);
+	}
 
 	@Override
 	public void onAttachedToWindow() 
@@ -330,8 +357,6 @@ public class RadioReddit extends Activity {
 		
 		// show progress bar while waiting to load song information
 		progress_LoadingSong.setVisibility(View.VISIBLE);
-		
-		mHandler.postDelayed(mUpdateTimeTask, 0);
 		
 	}
 	
