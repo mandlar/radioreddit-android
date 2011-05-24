@@ -178,7 +178,7 @@ public class RadioReddit extends Activity {
 	public void onDetachedFromWindow() 
 	{
 		super.onDetachedFromWindow();
-		Toast.makeText(this, "detached from window", Toast.LENGTH_LONG).show();
+		//Toast.makeText(this, "detached from window", Toast.LENGTH_LONG).show();
 		// Log.d(LOG_TAG, "detached from window");
 		unregisterReceiver(changeReceiver);
 		unregisterReceiver(updateReceiver);
@@ -186,33 +186,21 @@ public class RadioReddit extends Activity {
 		getApplicationContext().unbindService(conn);
 	}
 	
-	private void showSongInformation()
+	private void showStopButton()
 	{
 		Resources res = getResources();
 
 		Drawable stop = res.getDrawable(R.drawable.stopbutton);
 		btn_play.setBackgroundDrawable(stop);
-
-		lbl_SongVote.setText(getString(R.string.vote_to_submit_song));
-		lbl_SongTitle.setText(getString(R.string.dummy_song_title));
-		lbl_SongArtist.setText(getString(R.string.dummy_song_artist));
-		lbl_SongPlaylist.setText(getString(R.string.dummy_song_playlist));
-
 	}
-	
-	private void hideSongInformation()
+
+	private void showPlayButton()
 	{
 		Resources res = getResources();
 		Drawable play = res.getDrawable(R.drawable.playbutton);
 		btn_play.setBackgroundDrawable(play);
-		
-		// remove song information
-		lbl_SongVote.setText("");
-		lbl_SongTitle.setText("");
-		lbl_SongArtist.setText("");
-		lbl_SongPlaylist.setText("");
 	}
-
+	
 	private class PlaybackChangeReceiver extends BroadcastReceiver 
 	{
 		@Override
@@ -220,18 +208,12 @@ public class RadioReddit extends Activity {
 		{
 			String title = intent.getStringExtra(PlaybackService.EXTRA_TITLE);
 			// infoText.setText(title);
-			Toast.makeText(RadioReddit.this, "PlaybackChange - onReceive", Toast.LENGTH_LONG).show();
-			// "get" song information -- TODO: eventually needs to be called every 30 seconds
-			progress_LoadingSong.setVisibility(View.GONE);
+			//Toast.makeText(RadioReddit.this, "PlaybackChange - onReceive", Toast.LENGTH_LONG).show();
 			
 			if(player != null && player.isPlaying())
-			{
-				showSongInformation();
-			}
+				showStopButton();
 			else
-			{
-				hideSongInformation();
-			}
+				showPlayButton();
 		}
 	}
 
@@ -240,7 +222,7 @@ public class RadioReddit extends Activity {
 		@Override
 		public void onReceive(Context context, Intent intent) 
 		{
-			Toast.makeText(RadioReddit.this, "PlaybackUpdate - onReceive", Toast.LENGTH_LONG).show();
+			//Toast.makeText(RadioReddit.this, "PlaybackUpdate - onReceive", Toast.LENGTH_LONG).show();
 			int duration = intent.getIntExtra(PlaybackService.EXTRA_DURATION, 1);
 			int position = intent.getIntExtra(PlaybackService.EXTRA_POSITION, 0);
 			int downloaded = intent.getIntExtra(PlaybackService.EXTRA_DOWNLOADED, 1);
@@ -261,7 +243,7 @@ public class RadioReddit extends Activity {
 		@Override
 		public void onReceive(Context context, Intent intent) 
 		{
-			Toast.makeText(RadioReddit.this, "PlaybackClose - onReceive", Toast.LENGTH_LONG).show();
+			//Toast.makeText(RadioReddit.this, "PlaybackClose - onReceive", Toast.LENGTH_LONG).show();
 			// playButton.setEnabled(false);
 			// playButton.setImageResource(android.R.drawable.ic_media_play);
 			// progressBar.setEnabled(false);
@@ -327,6 +309,9 @@ public class RadioReddit extends Activity {
 			
 			if(changedStream) // check if already playing
 			{
+				RadioRedditApplication application = (RadioRedditApplication)getApplication();
+				application.CurrentSong = null; // clear the current song
+				
 				playStream();
 			}
 		}
@@ -361,7 +346,7 @@ public class RadioReddit extends Activity {
 		// show progress bar while waiting to load song information
 		progress_LoadingSong.setVisibility(View.VISIBLE);
 		
-		mHandler.postDelayed(mUpdateTimeTask, 5000);
+		mHandler.postDelayed(mUpdateTimeTask, 0);
 		
 	}
 	
@@ -371,7 +356,7 @@ public class RadioReddit extends Activity {
 		@Override
 		public void run()
 		{
-			if(player.isPlaying())
+			if(player != null && player.isPlaying())
 			{
 				RadioRedditApplication application = (RadioRedditApplication)getApplication();
 				// Update song information every 30 seconds
@@ -383,16 +368,41 @@ public class RadioReddit extends Activity {
 				// Update current song information
 				if(application.CurrentSong != null)
 				{
-					lbl_SongTitle.setText(application.CurrentSong.Title);
-					// TODO: set this up for localization
-					lbl_SongArtist.setText(application.CurrentSong.Artist + "(" + application.CurrentSong.Redditor + ")");
-					lbl_SongPlaylist.setText("playlist: " + application.CurrentSong.Playlist);
+					showSongInformation();
+					
+					progress_LoadingSong.setVisibility(View.GONE);
 				}
 			}
+			else
+			{
+				hideSongInformation();
+			}
 			
-			mHandler.postDelayed(this, 5000); // update every 5 seconds
+			mHandler.postDelayed(this, 1000); // update every 1 second
 		}
 		
 	};
+	
+	private void showSongInformation()
+	{
+		RadioRedditApplication application = (RadioRedditApplication)getApplication();
+		lbl_SongVote.setText(getString(R.string.vote_to_submit_song));
+		lbl_SongTitle.setText(application.CurrentSong.Title);
+		lbl_SongArtist.setText(application.CurrentSong.Artist + " (" + application.CurrentSong.Redditor + ")");
+		lbl_SongPlaylist.setText("playlist: " + application.CurrentSong.Playlist);
+		//lbl_SongTitle.setText(getString(R.string.dummy_song_title));
+		//lbl_SongArtist.setText(getString(R.string.dummy_song_artist));
+		//lbl_SongPlaylist.setText(getString(R.string.dummy_song_playlist));
+
+	}
+	
+	private void hideSongInformation()
+	{
+		// remove song information
+		lbl_SongVote.setText("");
+		lbl_SongTitle.setText("");
+		lbl_SongArtist.setText("");
+		lbl_SongPlaylist.setText("");
+	}
 	
 }
