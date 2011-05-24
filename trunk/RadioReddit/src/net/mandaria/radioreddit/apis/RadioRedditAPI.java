@@ -80,7 +80,7 @@ public class RadioRedditAPI
 	        
 	        RadioSong radiosong = new RadioSong();
 	
-	        radiosong.Playlist = status_json.getString("playlist");
+	        radiosong.Playlist = status_json.getString("playlist");  // TODO: check char length, if too long, add an ellipsis...
 	        
 	        JSONObject songs = status_json.getJSONObject("songs");
 	        JSONArray songs_array = songs.getJSONArray("song");
