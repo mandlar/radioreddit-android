@@ -8,6 +8,7 @@ public class RadioStream
 	public String Description;
 	public String Status;
 	public String Relay;
+	public boolean Online; //TODO: implement
 	// Not used
 	//public String Server;
 	//public String Transcoder;

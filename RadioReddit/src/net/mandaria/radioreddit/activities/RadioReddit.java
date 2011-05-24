@@ -70,6 +70,7 @@ public class RadioReddit extends Activity {
 		RadioRedditApplication application = (RadioRedditApplication)getApplication();
 		//TODO: move this to AsyncTask, testing for now in onCreate:
 		RadioRedditAPI.GetStreams(this, application);
+		RadioRedditAPI.GetCurrentSongInformation(this, application);
 		
 		init();
 		requestWindowFeature(Window.FEATURE_NO_TITLE);

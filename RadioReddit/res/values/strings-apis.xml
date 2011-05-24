@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- Radio Reddit APIs -->
-	<string name="radio_reddit_base_url">http://radioreddit.com/</string>
+	<string name="radio_reddit_base_url">http://radioreddit.com</string>
 	<string name="radio_reddit_status">status.json</string>
     <string name="radio_reddit_streams">http://radioreddit.com/config/streams.json</string>
     <string name="radio_reddit_charts_all">http://radioreddit.com/api/charts_all.json</string>
