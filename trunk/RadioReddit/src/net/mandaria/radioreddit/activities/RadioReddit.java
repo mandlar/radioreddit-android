@@ -122,6 +122,8 @@ public class RadioReddit extends Activity {
 						player.stop();
 						
 						hideSongInformation();
+						
+						showPlayButton();
 					} 
 					else 
 					{			
