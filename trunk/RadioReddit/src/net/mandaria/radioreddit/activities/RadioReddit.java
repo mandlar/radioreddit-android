@@ -68,7 +68,6 @@ public class RadioReddit extends Activity {
 	private BroadcastReceiver changeReceiver = new PlaybackChangeReceiver();
 	private BroadcastReceiver updateReceiver = new PlaybackUpdateReceiver();
 	private BroadcastReceiver closeReceiver = new PlaybackCloseReceiver();
-	private boolean playButtonisPause = false;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -250,22 +249,6 @@ public class RadioReddit extends Activity {
 			// progressBar.setProgress(0);
 			// progressBar.setSecondaryProgress(0);
 			// infoText.setText(null);
-		}
-	}
-
-	private void togglePlay() 
-	{
-		if (player.isPlaying()) 
-		{
-			player.pause();
-			// playButton.setImageResource(android.R.drawable.ic_media_play);
-			playButtonisPause = false;
-		} 
-		else 
-		{
-			player.play();
-			// playButton.setImageResource(android.R.drawable.ic_media_pause);
-			playButtonisPause = true;
 		}
 	}
 
