@@ -15,7 +15,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 
-public class GetSongInformationTask extends AsyncTask<Void, Integer, Integer> 
+public class GetCurrentSongInformationTask extends AsyncTask<Void, Integer, Integer> 
 {
 	private static String TAG = "RadioReddit";
 	private Context _context;
@@ -25,7 +25,7 @@ public class GetSongInformationTask extends AsyncTask<Void, Integer, Integer>
 	
 	
 
-    public GetSongInformationTask(Application application, Context context, Locale locale) 
+    public GetCurrentSongInformationTask(Application application, Context context, Locale locale) 
     {
     	_context = context;
     	_locale = locale;
