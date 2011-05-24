@@ -1,6 +1,7 @@
 package net.mandaria.radioreddit.activities;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.R.drawable;
@@ -12,6 +13,7 @@ import net.mandaria.radioreddit.media.PlaybackService;
 import net.mandaria.radioreddit.media.StreamProxy;
 import net.mandaria.radioreddit.media.PlaybackService.ListenBinder;
 import net.mandaria.radioreddit.objects.RadioStream;
+import net.mandaria.radioreddit.tasks.GetCurrentSongInformationTask;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -27,7 +29,9 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +59,9 @@ public class RadioReddit extends Activity {
 	MediaPlayer mediaPlayer = new MediaPlayer();;
 	Button btn_play;
 	StreamProxy proxy;
+	
+	private long mLastCurrentSongInformationUpdateMillis = 0;
+	private Handler mHandler = new Handler();
 
 	private PlaybackService player;
 	private ServiceConnection conn;
@@ -70,7 +77,7 @@ public class RadioReddit extends Activity {
 		RadioRedditApplication application = (RadioRedditApplication)getApplication();
 		//TODO: move this to AsyncTask, testing for now in onCreate:
 		RadioRedditAPI.GetStreams(this, application);
-		RadioRedditAPI.GetCurrentSongInformation(this, application);
+		
 		
 		init();
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -354,6 +361,38 @@ public class RadioReddit extends Activity {
 		// show progress bar while waiting to load song information
 		progress_LoadingSong.setVisibility(View.VISIBLE);
 		
+		mHandler.postDelayed(mUpdateTimeTask, 5000);
+		
 	}
+	
+	private Runnable mUpdateTimeTask = new Runnable()
+	{
+
+		@Override
+		public void run()
+		{
+			if(player.isPlaying())
+			{
+				RadioRedditApplication application = (RadioRedditApplication)getApplication();
+				// Update song information every 30 seconds
+				if((SystemClock.elapsedRealtime() - mLastCurrentSongInformationUpdateMillis) > 30000)
+				{
+					new GetCurrentSongInformationTask(application, getApplicationContext(), Locale.getDefault()).execute();
+				}
+				
+				// Update current song information
+				if(application.CurrentSong != null)
+				{
+					lbl_SongTitle.setText(application.CurrentSong.Title);
+					// TODO: set this up for localization
+					lbl_SongArtist.setText(application.CurrentSong.Artist + "(" + application.CurrentSong.Redditor + ")");
+					lbl_SongPlaylist.setText("playlist: " + application.CurrentSong.Playlist);
+				}
+			}
+			
+			mHandler.postDelayed(this, 5000); // update every 5 seconds
+		}
+		
+	};
 	
 }

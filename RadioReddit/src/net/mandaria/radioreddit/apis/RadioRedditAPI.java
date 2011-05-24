@@ -70,7 +70,7 @@ public class RadioRedditAPI
  
 	}
 	
-	public static void GetCurrentSongInformation(Context context, RadioRedditApplication application)
+	public static RadioSong GetCurrentSongInformation(Context context, RadioRedditApplication application)
 	{
 		try
 		{
@@ -111,12 +111,13 @@ public class RadioRedditAPI
 	        
 	        // TODO: get vote score
 	        
-	        application.CurrentSong = radiosong;
+	        return radiosong;
 		}
 		catch(Exception ex)
 		{
 			// We fail to get the streams...
 			Toast.makeText(context, ex.toString(), Toast.LENGTH_LONG).show();
+			return null;
 		}
  
 	}
