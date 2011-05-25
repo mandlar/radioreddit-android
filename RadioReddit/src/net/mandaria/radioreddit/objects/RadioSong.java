@@ -17,4 +17,5 @@ public class RadioSong
 	public String Itunes_link; //(Link to song on itunes, May not exist)
 	public String Itunes_art; //(Link to album art from itunes, May not exist)
 	public String Itunes_price; //(Price of song on itunes, May not exist)
+	public String Score; // Current voting score of the song
 }

@@ -1,5 +1,6 @@
 package net.mandaria.radioreddit.apis;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -109,7 +110,30 @@ public class RadioRedditAPI
 	        if(song.has("itunes_price"))
 	        	radiosong.Itunes_price = song.getString("itunes_price");
 	        
-	        // TODO: get vote score
+	        // get vote score
+	        // TODO: handle if reddit fails (is down)
+	        String reddit_info_url = context.getString(R.string.reddit_link_by) + URLEncoder.encode(radiosong.Reddit_url);
+	        JSONTokener reddit_info_tokener = new JSONTokener(HTTPUtil.get(context, reddit_info_url));
+	        JSONObject reddit_info_json = new JSONObject(reddit_info_tokener);
+	        
+	        JSONObject data = reddit_info_json.getJSONObject("data");
+	        
+	        // default value of score
+	        String score = context.getString(R.string.vote_to_submit_song);
+
+        	JSONArray children_array = data.getJSONArray("children");
+        	
+        	// Song hasn't been submitted yet
+        	if(children_array.length() > 0)
+        	{
+        		JSONObject children = children_array.getJSONObject(0);
+        		
+	        	JSONObject children_data = children.getJSONObject("data");		        
+	        	score = children_data.getString("score");
+        	}
+
+	        
+	        radiosong.Score = score;
 	        
 	        return radiosong;
 		}

@@ -396,10 +396,11 @@ public class RadioReddit extends Activity {
 	private void showSongInformation()
 	{
 		RadioRedditApplication application = (RadioRedditApplication)getApplication();
-		lbl_SongVote.setText(getString(R.string.vote_to_submit_song));
+		lbl_SongVote.setText(application.CurrentSong.Score);
 		lbl_SongTitle.setText(application.CurrentSong.Title);
 		lbl_SongArtist.setText(application.CurrentSong.Artist + " (" + application.CurrentSong.Redditor + ")");
 		lbl_SongPlaylist.setText("playlist: " + application.CurrentSong.Playlist);
+		//lbl_SongVote.setText(getString(R.string.vote_to_submit_song));
 		//lbl_SongTitle.setText(getString(R.string.dummy_song_title));
 		//lbl_SongArtist.setText(getString(R.string.dummy_song_artist));
 		//lbl_SongPlaylist.setText(getString(R.string.dummy_song_playlist));
