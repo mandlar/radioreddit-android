@@ -51,6 +51,7 @@ A Song object consists of:
   * String itunes_link (Link to song on itunes, May not exist)
   * String itunes_art (Link to album art from itunes, May not exist)
   * String itunes_price (Price of song on itunes, May not exist)
+  * Int score (Must call http://www.reddit.com/api/info.json?url=(URL ENCODED reddit_url) and get "score". Example: http://www.reddit.com/api/info.json?url=http%3A%2F%2Fwww.radioreddit.com%2Fsongs%2F%3Fsong%3DBlack_Water_%2528zoq-fot-pik%2529_On_A_Grid )
   
 = List of all API calls (from iOS version) =
 
