@@ -1,4 +1,4 @@
-# Design ideas for the app
+#summary Design ideas for the app
 
 = Login=
 
