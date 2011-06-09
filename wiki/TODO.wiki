@@ -2,6 +2,7 @@
 
 == Alpha ==
 
+  * Override volume control to media volume
   * Add Flurry tracking
   * UI state for buttons (hover, pressed, etc.)
   * Check if stream has changed when getting current info
