@@ -31,6 +31,7 @@ import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnInfoListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
@@ -87,6 +88,7 @@ public class PlaybackService extends Service implements OnPreparedListener,
   private Thread updateProgressThread;
   
   private PowerManager.WakeLock mWakeLock;
+  private WifiManager.WifiLock mWifiLock;
 
   // Amount of time to rewind playback when resuming after call 
   private final static int RESUME_REWIND_TIME = 3000;
@@ -215,7 +217,12 @@ public class PlaybackService extends Service implements OnPreparedListener,
 
     mediaPlayer.start();
     
-    // Activate wake lock to prevent phone form losing wifi connection when screen is off
+    // Activate wifi lock to prevent phone from losing wifi conection when screen is off
+    WifiManager wm = ((WifiManager)getSystemService( WIFI_SERVICE ));
+    mWifiLock = wm.createWifiLock( WifiManager.WIFI_MODE_FULL , LOG_TAG );
+    mWifiLock.acquire();
+    
+    // Activate wake lock to prevent phone from losing wifi connection when screen is off. This will keep CPU running 
     PowerManager pm = (PowerManager)getSystemService (Context.POWER_SERVICE); 
     mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, LOG_TAG); 
     mWakeLock.acquire(); 
@@ -515,6 +522,9 @@ public class PlaybackService extends Service implements OnPreparedListener,
     
     if(mWakeLock != null && mWakeLock.isHeld() == true)
     	 mWakeLock.release(); 
+    
+    if(mWifiLock != null && mWifiLock.isHeld() == true)
+    	mWifiLock.release();
   }
 
 
