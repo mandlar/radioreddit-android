@@ -34,6 +34,7 @@ import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -84,6 +85,8 @@ public class PlaybackService extends Service implements OnPreparedListener,
   private Intent lastUpdateBroadcast;
   private int lastBufferPercent = 0;
   private Thread updateProgressThread;
+  
+  private PowerManager.WakeLock mWakeLock;
 
   // Amount of time to rewind playback when resuming after call 
   private final static int RESUME_REWIND_TIME = 3000;
@@ -211,9 +214,14 @@ public class PlaybackService extends Service implements OnPreparedListener,
     }
 
     mediaPlayer.start();
+    
+    // Activate wake lock to prevent phone form losing wifi connection when screen is off
+    PowerManager pm = (PowerManager)getSystemService (Context.POWER_SERVICE); 
+    mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, LOG_TAG); 
+    mWakeLock.acquire(); 
 
     int icon = R.drawable.stat_notify_musicplayer;
-    CharSequence contentText = "Radio Station Name Here?";
+    CharSequence contentText = "Radio Station Name Here?"; // TODO: show station / song name?
     long when = System.currentTimeMillis();
     Notification notification = new Notification(icon, contentText, when);
     notification.flags = Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
@@ -504,6 +512,9 @@ public class PlaybackService extends Service implements OnPreparedListener,
       getApplicationContext().removeStickyBroadcast(lastUpdateBroadcast);
     }
     getApplicationContext().sendBroadcast(new Intent(SERVICE_CLOSE_NAME));
+    
+    if(mWakeLock != null && mWakeLock.isHeld() == true)
+    	 mWakeLock.release(); 
   }
 
 
