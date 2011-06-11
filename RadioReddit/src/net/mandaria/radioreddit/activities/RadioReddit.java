@@ -141,6 +141,8 @@ public class RadioReddit extends Activity {
 	{
 		super.onResume();
 		startUpdateTimer();
+		
+		this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 	}
 	
 	@Override
