@@ -10,7 +10,7 @@
     * Check if stream is online
     * Check if radioreddit is down
     * Check if reddit is down
-  * Wifi Wake lock
+  * (DONE) Wifi Wake lock
   * Lose connection to stream: attempt to replay, etc.?
   * Update notification with current song info
   * Better landscape orientation
