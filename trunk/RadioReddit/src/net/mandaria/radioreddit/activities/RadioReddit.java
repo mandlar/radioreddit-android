@@ -60,6 +60,8 @@ public class RadioReddit extends Activity {
 	Button btn_play;
 	StreamProxy proxy;
 	
+	private String LOG_TAG = "RadioReddit";
+	
 	private long mLastCurrentSongInformationUpdateMillis = 0;
 	private Handler mHandler = new Handler();
 
@@ -117,17 +119,33 @@ public class RadioReddit extends Activity {
 				}
 				else
 				{
-					if (player.isPlaying()) 
+					if(!player.isPreparing()) // We can't do anything while media player is preparing....
 					{
-						player.stop();
+						if (player.isPlaying()) 
+						{
+							player.stop();
+							
+							hideSongInformation();
+							
+							showPlayButton();
+							
+							progress_LoadingSong.setVisibility(View.GONE);
+						} 
+						else 
+						{			
+							playStream();
+						}
+					}
+					else
+					{
+						// But we can tell the media player we actually don't want to start playing, we changed our mind
+						player.abort();
 						
 						hideSongInformation();
 						
 						showPlayButton();
-					} 
-					else 
-					{			
-						playStream();
+						
+						progress_LoadingSong.setVisibility(View.GONE);
 					}
 				}
 			}

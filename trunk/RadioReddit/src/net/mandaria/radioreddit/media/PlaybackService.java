@@ -73,6 +73,8 @@ public class PlaybackService extends Service implements OnPreparedListener,
 
   private MediaPlayer mediaPlayer;
   private boolean isPrepared = false;
+  private boolean isPreparing = false;
+  private boolean isAborting = false;
 
   private StreamProxy proxy;
   private NotificationManager notificationManager;
@@ -171,6 +173,11 @@ public class PlaybackService extends Service implements OnPreparedListener,
       return mediaPlayer.isPlaying();
     }
     return false;
+  }
+  
+  synchronized public boolean isPreparing()
+  {
+	  return isPreparing;
   }
 
   synchronized public int getPosition() 
@@ -280,7 +287,12 @@ public class PlaybackService extends Service implements OnPreparedListener,
     }
     cleanup();
   }
-
+  
+  // Used to stop the media player from playing once it is in the "prepared" state
+  synchronized public void abort()
+  {
+	  isAborting = true;
+  }
   
   /**
    * Start listening to the given URL.
@@ -329,6 +341,7 @@ public class PlaybackService extends Service implements OnPreparedListener,
       mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
       Log.d(LOG_TAG, "Preparing: " + playUrl);
       mediaPlayer.prepareAsync();
+      isPreparing = true;
       Log.d(LOG_TAG, "Waiting for prepare");
     }
   }
@@ -342,8 +355,16 @@ public class PlaybackService extends Service implements OnPreparedListener,
       if (mediaPlayer != null) 
       {
         isPrepared = true;
+        isPreparing = false;
       }
     }
+    
+    if(isAborting) // The user chose to stop the stream during Preparing state, so we are no longer going to play the stream
+    {
+    	isAborting = false;
+    	return;
+    }
+    
     play();
     if (onPreparedListener != null) 
     {
