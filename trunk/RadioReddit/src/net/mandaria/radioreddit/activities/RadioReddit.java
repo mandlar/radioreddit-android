@@ -139,13 +139,28 @@ public class RadioReddit extends Activity {
 					else
 					{
 						// But we can tell the media player we actually don't want to start playing, we changed our mind
-						player.abort();
-						
-						hideSongInformation();
-						
-						showPlayButton();
-						
-						progress_LoadingSong.setVisibility(View.GONE);
+						if(!player.isAborting())
+						{
+							// Mediaplayer is preparing, we want to not stream
+							player.abort();
+							
+							hideSongInformation();
+							
+							showPlayButton();
+							
+							progress_LoadingSong.setVisibility(View.GONE);
+						}
+						else
+						{
+							// Mediaplayer is preparing, we want to stream (even though we previously aborted)
+							player.stopAbort();
+							
+							hideSongInformation();
+							
+							showStopButton();
+							
+							progress_LoadingSong.setVisibility(View.VISIBLE);
+						}
 					}
 				}
 			}

@@ -179,6 +179,11 @@ public class PlaybackService extends Service implements OnPreparedListener,
   {
 	  return isPreparing;
   }
+  
+  synchronized public boolean isAborting()
+  {
+	  return isAborting;
+  }
 
   synchronized public int getPosition() 
   {
@@ -292,6 +297,13 @@ public class PlaybackService extends Service implements OnPreparedListener,
   synchronized public void abort()
   {
 	  isAborting = true;
+  }
+  
+  // Used to start the media player (after being aborted) while the MediaPlayer is still in "preparing" state
+  
+  synchronized public void stopAbort()
+  {
+	  isAborting = false;
   }
   
   /**
