@@ -6,6 +6,7 @@
   * Add Flurry tracking
   * (DONE) UI state for buttons (hover, pressed, etc.)
   * (DONE) Fix state issues with playback control
+    * isAborting - user decides to change mind and wants to play again while still inPreparing.  Remove isAborting flag?
   * Check if stream has changed when getting current info
   * More robust API calling
     * Check if stream is online
