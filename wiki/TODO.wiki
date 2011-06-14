@@ -4,7 +4,8 @@
 
   * (DONE) Override volume control to media volume
   * Add Flurry tracking
-  * UI state for buttons (hover, pressed, etc.)
+  * (DONE) UI state for buttons (hover, pressed, etc.)
+  * (DONE) Fix state issues with playback control
   * Check if stream has changed when getting current info
   * More robust API calling
     * Check if stream is online
