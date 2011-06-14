@@ -220,14 +220,14 @@ public class RadioReddit extends Activity {
 	{
 		Resources res = getResources();
 
-		Drawable stop = res.getDrawable(R.drawable.stopbutton);
+		Drawable stop = res.getDrawable(R.drawable.stop_button);
 		btn_play.setBackgroundDrawable(stop);
 	}
 
 	private void showPlayButton()
 	{
 		Resources res = getResources();
-		Drawable play = res.getDrawable(R.drawable.playbutton);
+		Drawable play = res.getDrawable(R.drawable.play_button);
 		btn_play.setBackgroundDrawable(play);
 	}
 	

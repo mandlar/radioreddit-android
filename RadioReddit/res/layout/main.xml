@@ -107,13 +107,13 @@
     		>
 	    	<Button
 	    		android:id="@+id/btn_downvote"
-	    		android:background="@drawable/willdownvote"
+	    		android:background="@drawable/willdownvote_button"
 	    		android:layout_width="40dp"
 		    	android:layout_height="40dp"
 		    	/>
 	    	 <Button 
 		    	android:id="@+id/btn_play"
-		    	android:background="@drawable/playbutton"
+		    	android:background="@drawable/play_button"
 		    	android:layout_width="40dp"
 		    	android:layout_height="40dp"
 		    	android:layout_marginLeft="40dp"
@@ -121,7 +121,7 @@
 		    	/>
 		    <Button
 	    		android:id="@+id/btn_upvote"
-	    		android:background="@drawable/willupvote"
+	    		android:background="@drawable/willupvote_button"
 	    		android:layout_width="40dp"
 		    	android:layout_height="40dp"
 		    	/>
