@@ -17,6 +17,7 @@
   * Update notification with current song info
   * Better landscape orientation
   * Fix wrapping issues with songs/artists/playlists that are too long
+  * Check for TODO's in code
   * Android 3.0 support (push to Beta?)
 
 == Beta ==
