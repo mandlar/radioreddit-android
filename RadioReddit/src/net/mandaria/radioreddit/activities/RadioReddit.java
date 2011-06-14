@@ -360,6 +360,8 @@ public class RadioReddit extends Activity {
 		// show progress bar while waiting to load song information
 		progress_LoadingSong.setVisibility(View.VISIBLE);
 		
+		showStopButton();
+		
 	}
 	
 	private Runnable mUpdateTimeTask = new Runnable()
