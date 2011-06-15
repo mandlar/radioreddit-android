@@ -29,6 +29,7 @@
   * Bookmarks
   * Previewing songs (bookmarked or top charts)
   * Download song (if available)
+  * Recently played
   * iTunes link (Amazon???)
   * Album art?
  
