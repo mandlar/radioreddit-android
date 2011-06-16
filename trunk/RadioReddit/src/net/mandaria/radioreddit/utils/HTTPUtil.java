@@ -27,6 +27,7 @@ public class HTTPUtil
 	    return out.toString();
 	}
 	
+	// gets http output from URL
 	public static String get(Context c, String url) throws ClientProtocolException, IOException 
 	{
        HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
@@ -44,6 +45,7 @@ public class HTTPUtil
        return output;
 	}
 	
+	// posts data to http, gets output from URL
 	public static String post(Context c, String url, List<NameValuePair> params) throws ClientProtocolException, IOException 
 	{
 	   StringBuilder post = new StringBuilder(); // Using the built in method to post a List<NameValuePair> fails on Android 2.1 / 2.2.... manually post the data

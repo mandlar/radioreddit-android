@@ -15,6 +15,7 @@ import net.mandaria.radioreddit.objects.RadioStream;
 import net.mandaria.radioreddit.utils.HTTPUtil;
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.Toast;
 
 public class RadioRedditAPI
@@ -24,49 +25,84 @@ public class RadioRedditAPI
 		try
 		{
 			String url = context.getString(R.string.radio_reddit_streams);
-	        JSONTokener tokener = new JSONTokener(HTTPUtil.get(context, url));
-	        JSONObject json = new JSONObject(tokener);
-	
-	        JSONObject streams = json.getJSONObject("streams");
-	        JSONArray streams_names = streams.names();
-	        ArrayList<RadioStream> radiostreams = new ArrayList<RadioStream>();
-	
-	        // loop through each stream
-	        for(int i = 0; i < streams.length(); i++) 
-	        {
-	        	String name = streams_names.getString(i);
-	        	JSONObject stream = streams.getJSONObject(name);
-	        	
-	        	RadioStream radiostream = new RadioStream();
-	        	radiostream.Name = name;
-	        	radiostream.Description = stream.getString("description");
-	        	radiostream.Status = stream.getString("status");
-	        	
-	        	// call status.json to get Relay
-	        	// form url radioreddit.com + status + json
-	        	String status_url = context.getString(R.string.radio_reddit_base_url) + radiostream.Status + context.getString(R.string.radio_reddit_status);
-	        	JSONTokener status_tokener = new JSONTokener(HTTPUtil.get(context, status_url));
-		        JSONObject status_json = new JSONObject(status_tokener);
-	        	
-	        	radiostream.Relay = status_json.getString("relay");
-	        	
-	        	// TODO: get online status
-	        	// if offline, do not add
-	            
-	            radiostreams.add(radiostream);
-	        }
-	        
-	        // JSON parsing reverses the list for some reason, fixing it...
-	        Collections.reverse(radiostreams);
-	       
-	        application.RadioStreams = radiostreams;
-	        
-	        application.CurrentStream = radiostreams.get(0);
+			String outputStreams = "";
+			boolean errorGettingStreams = false;
+			
+			try
+			{
+				outputStreams = HTTPUtil.get(context, url);
+			}
+			catch(Exception ex)
+			{
+				errorGettingStreams = true;
+				Toast.makeText(context, context.getString(R.string.radioRedditServerIsDownNotification), Toast.LENGTH_LONG).show();
+			}
+			
+			if(!errorGettingStreams)
+			{
+		        JSONTokener tokener = new JSONTokener(outputStreams);
+		        JSONObject json = new JSONObject(tokener);
+		
+		        JSONObject streams = json.getJSONObject("streams");
+		        JSONArray streams_names = streams.names();
+		        ArrayList<RadioStream> radiostreams = new ArrayList<RadioStream>();
+		
+		        // loop through each stream
+		        for(int i = 0; i < streams.length(); i++) 
+		        {
+		        	String name = streams_names.getString(i);
+		        	JSONObject stream = streams.getJSONObject(name);
+		        	
+		        	RadioStream radiostream = new RadioStream();
+		        	radiostream.Name = name;
+		        	radiostream.Description = stream.getString("description");
+		        	radiostream.Status = stream.getString("status");
+		        	
+		        	// call status.json to get Relay
+		        	// form url radioreddit.com + status + json
+		        	String status_url = context.getString(R.string.radio_reddit_base_url) + radiostream.Status + context.getString(R.string.radio_reddit_status);
+		        	
+		        	String outputStatus = "";
+		        	boolean errorGettingStatus = false;
+					
+					try
+					{
+						outputStatus = HTTPUtil.get(context, status_url);
+					}
+					catch(Exception ex)
+					{
+						errorGettingStatus = true;
+						Toast.makeText(context, context.getString(R.string.radioRedditServerIsDownNotification), Toast.LENGTH_LONG).show();
+					}
+					
+					if(!errorGettingStatus)
+					{
+		        	
+			        	JSONTokener status_tokener = new JSONTokener(outputStatus);
+				        JSONObject status_json = new JSONObject(status_tokener);
+			        	
+			        	radiostream.Relay = status_json.getString("relay");
+			        	
+			        	// TODO: get online status
+			        	// if offline, do not add
+			            
+			            radiostreams.add(radiostream);
+					}
+		        }
+		        
+		        // JSON parsing reverses the list for some reason, fixing it...
+		        Collections.reverse(radiostreams);
+		       
+		        application.RadioStreams = radiostreams;
+		        
+		        application.CurrentStream = radiostreams.get(0);
+			}
 		}
 		catch(Exception ex)
 		{
 			// We fail to get the streams...
 			Toast.makeText(context, ex.toString(), Toast.LENGTH_LONG).show();
+			ex.printStackTrace();
 		}
  
 	}
