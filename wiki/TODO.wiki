@@ -2,6 +2,7 @@
 
 == Alpha ==
 
+  * Change station needs to be a button click on a layout, not the text (it is currently hard to tap on)
   * (DONE) Override volume control to media volume
   * Add Flurry tracking
   * (DONE) UI state for buttons (hover, pressed, etc.)
