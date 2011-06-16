@@ -10,8 +10,12 @@
   * Check if stream has changed when getting current info
   * More robust API calling
     * Check if stream is online
-    * Check if radioreddit is down
-    * Check if reddit is down
+    * (DONE) Check if radioreddit is down
+    * (DONE) Check if reddit is down
+    * Check for 404s or other possible errors...
+  * Move get streams to async task
+    * Have it called every so often (also 30 seconds? or longer? 5 minutes?)
+    * Fix behavior of startup with this now being async
   * (DONE) Wifi Wake lock
   * Lose connection to stream: attempt to replay, etc.?
   * Update notification with current song info
