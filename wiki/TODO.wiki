@@ -3,6 +3,8 @@
 == Alpha ==
 
   * Change station needs to be a button click on a layout, not the text (it is currently hard to tap on)
+  * Show buffering spinning please wait
+  * If removed head phones, stop media player
   * (DONE) Override volume control to media volume
   * Add Flurry tracking
   * (DONE) UI state for buttons (hover, pressed, etc.)
