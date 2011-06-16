@@ -415,6 +415,7 @@ public class RadioReddit extends Activity {
 				if((SystemClock.elapsedRealtime() - mLastCurrentSongInformationUpdateMillis) > 30000)
 				{
 					new GetCurrentSongInformationTask(application, getApplicationContext(), Locale.getDefault()).execute();
+					mLastCurrentSongInformationUpdateMillis = SystemClock.elapsedRealtime(); 
 				}
 				
 				// Update current song information
