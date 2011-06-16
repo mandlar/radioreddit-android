@@ -9,4 +9,6 @@
 	<string name="dummy_song_title">Happy Birthday</string>
 	<string name="dummy_song_artist">by Galaxy Danger Danger (cocainezombie)</string>
 	<string name="dummy_song_playlist">playlist: One Ad</string>
+	<!-- Error messages -->
+	<string name="radioRedditServerIsDownNotification">Can\'t reach radio reddit, the server may be down or your network is flaky. Please try again later!</string>
 </resources>

@@ -89,15 +89,27 @@ public class RadioReddit extends Activity {
 		
 		
 		lbl_station = (TextView) findViewById(R.id.lbl_station);
-		lbl_station.setText(application.CurrentStream.Name);
+		
+		if(application.CurrentStream != null)
+			lbl_station.setText(application.CurrentStream.Name);
+		
 		lbl_station.setOnClickListener(new OnClickListener() 
 		{	
 			@Override
 			public void onClick(View v) 
 			{
-				// TODO Auto-generated method stub
-				Intent i = new Intent(RadioReddit.this, SelectStation.class);
-				startActivityForResult(i, 1);
+				RadioRedditApplication application = (RadioRedditApplication)getApplication();
+				
+				if(application.RadioStreams != null && application.RadioStreams.size() > 0)
+				{
+					Intent i = new Intent(RadioReddit.this, SelectStation.class);
+					startActivityForResult(i, 1);
+				}
+				else
+				{
+					// Try to get streams again
+					RadioRedditAPI.GetStreams(RadioReddit.this, application);
+				}
 			}
 		});
 		
@@ -367,33 +379,26 @@ public class RadioReddit extends Activity {
 	private void playStream()
 	{
 		RadioRedditApplication application = (RadioRedditApplication)getApplication();
-		listen(application.CurrentStream.Relay);
 		
-//		if(station.equals("main stream"))
-//		{
-//			listen(getString(R.string.main_stream_url));
-//		}
-//		else if (station.equals("electronic"))
-//		{
-//			listen(getString(R.string.electronic_stream_url));
-//		}
-//		else if (station.equals("rock"))
-//		{
-//			listen(getString(R.string.rock_stream_url));
-//		}
-//		else if (station.equals("hip hop and rap"))
-//		{
-//			listen(getString(R.string.hip_hop_and_rap_stream_url));
-//		}
-		
-		lbl_station.setText(application.CurrentStream.Name);
-		
-		hideSongInformation();
-		
-		// show progress bar while waiting to load song information
-		progress_LoadingSong.setVisibility(View.VISIBLE);
-		
-		showStopButton();
+		if(application.CurrentStream != null)
+		{
+			listen(application.CurrentStream.Relay);
+			
+			lbl_station.setText(application.CurrentStream.Name);
+			
+			hideSongInformation();
+			
+			// show progress bar while waiting to load song information
+			progress_LoadingSong.setVisibility(View.VISIBLE);
+			
+			showStopButton();
+		}
+		else
+		{
+			Toast.makeText(this, getString(R.string.radioRedditServerIsDownNotification), Toast.LENGTH_LONG).show();
+			// Try to get streams again
+			RadioRedditAPI.GetStreams(this, application);
+		}
 		
 	}
 	
