@@ -42,6 +42,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -54,6 +55,7 @@ public class RadioReddit extends Activity {
 	TextView lbl_SongTitle;
 	TextView lbl_SongArtist;
 	TextView lbl_SongPlaylist;
+	LinearLayout div_station;
 	ProgressBar progress_LoadingSong;
 	
 	MediaPlayer mediaPlayer = new MediaPlayer();;
@@ -93,7 +95,9 @@ public class RadioReddit extends Activity {
 		if(application.CurrentStream != null)
 			lbl_station.setText(application.CurrentStream.Name);
 		
-		lbl_station.setOnClickListener(new OnClickListener() 
+		
+		div_station = (LinearLayout) findViewById(R.id.div_station);
+		div_station.setOnClickListener(new OnClickListener() 
 		{	
 			@Override
 			public void onClick(View v) 
