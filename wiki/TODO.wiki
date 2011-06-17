@@ -8,8 +8,8 @@
     * More things to look at: 
       * https://github.com/Ramblurr/mp3tunes-android/blob/5588742d2b50a08bef686670d72c9770eac7a69c/src/com/mp3tunes/android/service/Mp3tunesService.java 
       * https://github.com/atwupack/lastfm-android/blob/10f18a88465eb3d1f830ae431e2259dd4553151a/app/src/fm/last/android/player/RadioPlayerService.java
-      * https://github.com/c99koder/lastfm-android/blob/master/app/src/fm/last/android/player/RadioPlayerService.java
-      *
+      * Official last.fm client: https://github.com/c99koder/lastfm-android/blob/master/app/src/fm/last/android/player/RadioPlayerService.java
+      * Stop worrying about onBuffering, focus on onCompletion (when it stops streaming) and whether to "re-try" the stream or not?
   * If removed head phones, stop media player
   * (DONE) Override volume control to media volume
   * Add Flurry tracking
