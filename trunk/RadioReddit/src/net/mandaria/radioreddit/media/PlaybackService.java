@@ -18,10 +18,12 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -91,6 +93,8 @@ public class PlaybackService extends Service implements OnPreparedListener,
   private int lastBufferPercent = 0;
   private Thread updateProgressThread;
   
+  private HeadsetBroadcastReceiver headsetReceiver;
+  
   private PowerManager.WakeLock mWakeLock;
   private WifiManager.WifiLock mWifiLock;
 
@@ -111,7 +115,7 @@ public class PlaybackService extends Service implements OnPreparedListener,
 
     telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
     // Create a PhoneStateListener to watch for offhook and idle events
-    listener = new PhoneStateListener() 
+    listener = new PhoneStateListener() // TODO: pull listener into its own class
     {
       @Override
       public void onCallStateChanged(int state, String incomingNumber) 
@@ -141,6 +145,10 @@ public class PlaybackService extends Service implements OnPreparedListener,
 
     // Register the listener with the telephony manager.
     telephonyManager.listen(listener, PhoneStateListener.LISTEN_CALL_STATE);
+    
+    // Register headset receiver
+    headsetReceiver = new HeadsetBroadcastReceiver();
+    registerReceiver(headsetReceiver, new IntentFilter(Intent.ACTION_HEADSET_PLUG));
   }
 
   @Override
@@ -446,6 +454,8 @@ public class PlaybackService extends Service implements OnPreparedListener,
     }
 
     telephonyManager.listen(listener, PhoneStateListener.LISTEN_NONE);
+    
+    unregisterReceiver(headsetReceiver);
   }
 
   public class ListenBinder extends Binder 
@@ -578,6 +588,33 @@ public class PlaybackService extends Service implements OnPreparedListener,
     if(mWifiLock != null && mWifiLock.isHeld() == true)
     	mWifiLock.release();
   }
+  
+  // -----------
+  // Headset receiver
+  public class HeadsetBroadcastReceiver extends BroadcastReceiver
+  {
+
+      @Override
+      public void onReceive(Context context, Intent intent) 
+      {
+
+          String action = intent.getAction();
+          if( (action.compareTo(Intent.ACTION_HEADSET_PLUG))  == 0)   
+          {
+              int headSetState = intent.getIntExtra("state", 0);      
+              //int hasMicrophone = intent.getIntExtra("microphone", 0);
+              if( headSetState == 0)
+              {
+            	  if(isPrepared && mediaPlayer.isPlaying())
+            	  {
+            		  stop();
+            	  }
+              }
+          }           
+
+      }
+  }
+
 
 
   // -----------
