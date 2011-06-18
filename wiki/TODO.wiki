@@ -2,6 +2,7 @@
 
 == Alpha ==
 
+  * Add a quit/exit button
   * Add support for talk station (No official APIs yet)
   * Show buffering spinning please wait
     * See: http://stackoverflow.com/questions/4445663/mediaplayer-prepare-is-throwing-an-illegalstateexception-when-playing-m4a-file
