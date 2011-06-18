@@ -39,6 +39,7 @@ import android.os.PowerManager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -67,6 +68,7 @@ public class PlaybackService extends Service implements OnPreparedListener,
   public static final String SERVICE_UPDATE_NAME = SERVICE_PREFIX + "UPDATE";
   
   public static final String EXTRA_TITLE = "title";
+  public static final String EXTRA_BUFFERED = "buffered";
   public static final String EXTRA_DOWNLOADED = "downloaded";
   public static final String EXTRA_DURATION = "duration";
   public static final String EXTRA_POSITION = "position";
@@ -458,10 +460,24 @@ public class PlaybackService extends Service implements OnPreparedListener,
   @Override
   public void onBufferingUpdate(MediaPlayer mp, int progress) 
   {
+	  //Log.e("radio reddit buffer", String.valueOf(progress));
+	lastBufferPercent = progress;
+	updateProgress();
     if (isPrepared) 
     {
-      lastBufferPercent = progress;
-      updateProgress();
+      
+      
+      // This does weird things with live stream, such as repeating the last 10 second interval, over and over and over
+      if(!mediaPlayer.isPlaying() && progress > 50)
+      {
+    	  if(isPrepared)
+    	  {
+    		  //Toast.makeText(this, "Starting...", Toast.LENGTH_LONG).show();
+    		  //mediaPlayer.start();
+    	  }
+    	  
+    	  return;
+      }
     }
   }
 
@@ -470,22 +486,25 @@ public class PlaybackService extends Service implements OnPreparedListener,
    */
   private void updateProgress() 
   {
-//    if (isPrepared && mediaPlayer != null && mediaPlayer.isPlaying()) {
-//      // Update broadcasts are sticky, so when a new receiver connects, it will
-//      // have the data without polling.
-//      if (lastUpdateBroadcast != null) {
-//        getApplicationContext().removeStickyBroadcast(lastUpdateBroadcast);
-//      }
-//      lastUpdateBroadcast = new Intent(SERVICE_UPDATE_NAME);
-//      int position = mediaPlayer.getCurrentPosition();
-//      int duration = mediaPlayer.getDuration();
-//      lastUpdateBroadcast.putExtra(EXTRA_DURATION, mediaPlayer.getDuration());
+    if (isPrepared && mediaPlayer != null && mediaPlayer.isPlaying()) {
+      // Update broadcasts are sticky, so when a new receiver connects, it will
+      // have the data without polling.
+      if (lastUpdateBroadcast != null) {
+        getApplicationContext().removeStickyBroadcast(lastUpdateBroadcast);
+      }
+      lastUpdateBroadcast = new Intent(SERVICE_UPDATE_NAME);
+      lastUpdateBroadcast.putExtra(EXTRA_BUFFERED, lastBufferPercent);
+      
+      
+      //int position = mediaPlayer.getCurrentPosition();
+      //int duration = mediaPlayer.getDuration();
+      //lastUpdateBroadcast.putExtra(EXTRA_DURATION, mediaPlayer.getDuration());
 //      lastUpdateBroadcast.putExtra(EXTRA_DOWNLOADED,
 //          (int) ((lastBufferPercent / 100.0) * mediaPlayer.getDuration()));
-//      lastUpdateBroadcast.putExtra(EXTRA_POSITION,
-//          mediaPlayer.getCurrentPosition());
-//      getApplicationContext().sendStickyBroadcast(lastUpdateBroadcast);
-//    }
+      //lastUpdateBroadcast.putExtra(EXTRA_POSITION,
+      //    mediaPlayer.getCurrentPosition());
+      getApplicationContext().sendStickyBroadcast(lastUpdateBroadcast);
+    }
   }
   
   @Override

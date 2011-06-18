@@ -55,6 +55,7 @@ public class RadioReddit extends Activity {
 	TextView lbl_SongTitle;
 	TextView lbl_SongArtist;
 	TextView lbl_SongPlaylist;
+	TextView lbl_Buffering;
 	LinearLayout div_station;
 	ProgressBar progress_LoadingSong;
 	
@@ -121,6 +122,7 @@ public class RadioReddit extends Activity {
 		lbl_SongTitle = (TextView) findViewById(R.id.lbl_SongTitle);
 		lbl_SongArtist = (TextView) findViewById(R.id.lbl_SongArtist);
 		lbl_SongPlaylist = (TextView) findViewById(R.id.lbl_SongPlaylist);
+		lbl_Buffering = (TextView) findViewById(R.id.lbl_Buffering);
 		progress_LoadingSong = (ProgressBar) findViewById(R.id.progress_LoadingSong);
 
 		btn_play = (Button) findViewById(R.id.btn_play);
@@ -302,9 +304,27 @@ public class RadioReddit extends Activity {
 		public void onReceive(Context context, Intent intent) 
 		{
 			//Toast.makeText(RadioReddit.this, "PlaybackUpdate - onReceive", Toast.LENGTH_LONG).show();
+			int buffered = intent.getIntExtra(PlaybackService.EXTRA_BUFFERED, 0);
 			int duration = intent.getIntExtra(PlaybackService.EXTRA_DURATION, 1);
 			int position = intent.getIntExtra(PlaybackService.EXTRA_POSITION, 0);
 			int downloaded = intent.getIntExtra(PlaybackService.EXTRA_DOWNLOADED, 1);
+			
+//			Log.e("RADIO REDDIT BUFFERED", String.valueOf(buffered));
+//			Log.e("RADIO REDDIT DURATION", String.valueOf(duration));
+//			Log.e("RADIO REDDIT POSITION", String.valueOf(position));
+//			Log.e("RADIO REDDIT DOWNLOADED", String.valueOf(downloaded));
+			
+			if(buffered > 0 && buffered < 100)
+			{
+				hideSongInformation(); // TODO: Need some sort of flag to keep showSongInfo from working until buffering is done. Otherwise we get "flashes"
+				lbl_Buffering.setVisibility(View.VISIBLE);
+				lbl_Buffering.setText("Buffering..." + buffered + "%");
+				//Toast.makeText(RadioReddit.this, "Buffering..." + buffered + "%", Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
+				lbl_Buffering.setVisibility(View.GONE);
+			}
 			// if (!playButtonisPause && player != null && player.isPlaying()) {
 			// playButton.setImageResource(android.R.drawable.ic_media_pause);
 			// playButtonisPause = true;
