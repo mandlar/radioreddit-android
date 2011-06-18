@@ -453,6 +453,8 @@ public class RadioReddit extends Activity {
 			else
 			{
 				hideSongInformation();
+				if(player != null && !player.isPreparing())
+					showPlayButton();
 			}
 			
 			mHandler.postDelayed(this, 1000); // update every 1 second
