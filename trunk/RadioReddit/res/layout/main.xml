@@ -64,6 +64,11 @@
 				android:indeterminate="true"
 				android:visibility="gone"
 				/>
+			<TextView
+				android:id="@+id/lbl_Buffering" 
+				style="@style/SongTitle"
+				android:visibility="gone"
+				/>
 			<!-- Song Vote -->
 			<TextView
 				android:id="@+id/lbl_SongVote" 
