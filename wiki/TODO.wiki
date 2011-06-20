@@ -34,7 +34,7 @@
   * (DONE) Wifi Wake lock
   * (DONE) UI state for buttons (hover, pressed, etc.)
   * (DONE) Update notification with current song info
-    * (DONE) Fix state issues with playback control
+  * (DONE) Fix state issues with playback control
     * (DONE) isAborting - user decides to change mind and wants to play again while still isPreparing.  Remove isAborting flag?
 
 
