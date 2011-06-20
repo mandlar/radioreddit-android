@@ -36,7 +36,9 @@ import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.telephony.PhoneStateListener;
@@ -100,6 +102,8 @@ public class PlaybackService extends Service implements OnPreparedListener,
   private Intent lastUpdateBroadcast;
   private int lastBufferPercent = 0;
   private Thread updateProgressThread;
+  
+  private Handler mHandler = new Handler();
   
   private HeadsetBroadcastReceiver headsetReceiver;
   
@@ -424,37 +428,63 @@ public class PlaybackService extends Service implements OnPreparedListener,
     {
       onPreparedListener.onPrepared(mp);
     }
+    
+    startUpdateTimer();
 
-    updateProgressThread = new Thread(new Runnable() 
-    {
-      public void run() 
-      {
-        // Initially, don't send any updates, since it takes a while for the
-        // media player to settle down. 
-        try 
-        {
-          Thread.sleep(2000);
-        } 
-        catch (InterruptedException e) 
-        {
-          return;
-        }
-        while (true) 
-        {
-          updateProgress();
-          try 
-          {
-            Thread.sleep(500);
-          } 
-          catch (InterruptedException e) 
-          {
-            break;
-          }
-        }
-      }
-    });
-    updateProgressThread.start();
+//    updateProgressThread = new Thread(new Runnable() 
+//    {
+//      public void run() 
+//      {
+//        // Initially, don't send any updates, since it takes a while for the
+//        // media player to settle down. 
+//        try 
+//        {
+//          Thread.sleep(2000);
+//        } 
+//        catch (InterruptedException e) 
+//        {
+//          return;
+//        }
+//        while (true) 
+//        {
+//          updateProgress();
+//          try 
+//          {
+//            Thread.sleep(500);
+//          } 
+//          catch (InterruptedException e) 
+//          {
+//            break;
+//          }
+//        }
+//      }
+//    });
+//    updateProgressThread.start();
   }
+  
+  private Runnable mUpdateTimeTask = new Runnable()
+  {
+	public void run()
+	{
+		updateProgress();
+		boolean success = mHandler.postDelayed(this, 100); // 1/10 second
+	}
+  };
+  
+    private void startUpdateTimer()
+	{
+		//Log.i(TAG, "Begin startUpdateTimer()");
+		mHandler.removeCallbacks(mUpdateTimeTask);
+		mHandler.postDelayed(mUpdateTimeTask, 100);
+		//Log.i(TAG, "End startUpdateTimer()");
+	}
+
+	private void stopUpdateTimer()
+	{
+		//Log.i(TAG, "Begin stopUpdateTimer()");
+		mHandler.removeCallbacks(mUpdateTimeTask);
+		//Log.i(TAG, "Stop stopUpdateTimer()");
+	}
 
   @Override
   public void onDestroy() 
@@ -462,18 +492,19 @@ public class PlaybackService extends Service implements OnPreparedListener,
     super.onDestroy();
     Log.w(LOG_TAG, "Service exiting");
 
-    if (updateProgressThread != null) 
-    {
-      updateProgressThread.interrupt();
-      try 
-      {
-        updateProgressThread.join(3000);
-      } 
-      catch (InterruptedException e) 
-      {
-        Log.e(LOG_TAG, "", e);
-      }
-    }
+    stopUpdateTimer();
+//    if (updateProgressThread != null) 
+//    {
+//      updateProgressThread.interrupt();
+//      try 
+//      {
+//        updateProgressThread.join(3000);
+//      } 
+//      catch (InterruptedException e) 
+//      {
+//        Log.e(LOG_TAG, "", e);
+//      }
+//    }
 
     stop();
     synchronized (this) 
