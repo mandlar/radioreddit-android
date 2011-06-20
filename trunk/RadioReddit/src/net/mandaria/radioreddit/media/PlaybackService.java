@@ -53,6 +53,7 @@ import java.net.URLConnection;
 import java.util.List;
 
 import net.mandaria.radioreddit.R;
+import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.R.drawable;
 import net.mandaria.radioreddit.R.string;
 import net.mandaria.radioreddit.activities.RadioReddit;
@@ -249,23 +250,7 @@ public class PlaybackService extends Service implements OnPreparedListener,
     mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, LOG_TAG); 
     mWakeLock.acquire(); 
 
-    int icon = R.drawable.stat_notify_musicplayer;
-    CharSequence contentText = "Radio Station Name Here?"; // TODO: show station / song name?
-    long when = System.currentTimeMillis();
-    Notification notification = new Notification(icon, contentText, when);
-    notification.flags = Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
-    Context c = getApplicationContext();
-    CharSequence title = getString(R.string.app_name);
-    Intent notificationIntent;
-    notificationIntent = new Intent(this, RadioReddit.class);
-      
-    notificationIntent.setAction(Intent.ACTION_VIEW);
-    notificationIntent.addCategory(Intent.CATEGORY_DEFAULT);
-    //notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // TODO: as a test, use this and then have the service return to UI the current status of stream. This would cover the case of activity being destroyed by OS
-    notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-    PendingIntent contentIntent = PendingIntent.getActivity(c, 0,  notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-    notification.setLatestEventInfo(c, title, contentText, contentIntent);
-    notificationManager.notify(NOTIFICATION_ID, notification);
+    updateNotification();
 
     // Change broadcasts are sticky, so when a new receiver connects, it will
     // have the data without polling.
@@ -276,6 +261,38 @@ public class PlaybackService extends Service implements OnPreparedListener,
     lastChangeBroadcast = new Intent(SERVICE_CHANGE_NAME);
     //lastChangeBroadcast.putExtra(EXTRA_TITLE, current.title);
     getApplicationContext().sendStickyBroadcast(lastChangeBroadcast); // broadcasts that playing has started
+  }
+  
+  private void updateNotification()
+  {
+	  	RadioRedditApplication application = (RadioRedditApplication)getApplication();
+	  	int icon = R.drawable.stat_notify_musicplayer;
+	  
+	  	String songTitle = getString(R.string.app_name); // TODO: show station / song name?
+	  	String songArtist = "";
+	  	if(application.CurrentSong != null)
+	  	{
+	  		if(application.CurrentSong.Title != null)
+	  			songTitle = application.CurrentSong.Title;
+	  		if(application.CurrentSong.Artist != null && application.CurrentSong.Redditor != null)
+	  			songArtist = application.CurrentSong.Artist + " (" + application.CurrentSong.Redditor + ")";
+	  	}
+	  	
+		long when = System.currentTimeMillis();
+		Notification notification = new Notification(icon, songTitle, when);
+		notification.flags = Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
+		Context c = getApplicationContext();
+		
+		Intent notificationIntent;
+		notificationIntent = new Intent(this, RadioReddit.class);
+		  
+		notificationIntent.setAction(Intent.ACTION_VIEW);
+		notificationIntent.addCategory(Intent.CATEGORY_DEFAULT);
+		//notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // TODO: as a test, use this and then have the service return to UI the current status of stream. This would cover the case of activity being destroyed by OS
+		notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		PendingIntent contentIntent = PendingIntent.getActivity(c, 0,  notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+		notification.setLatestEventInfo(c, songTitle, songArtist, contentIntent);
+		notificationManager.notify(NOTIFICATION_ID, notification);
   }
 
   synchronized public void pause() 
@@ -498,6 +515,10 @@ public class PlaybackService extends Service implements OnPreparedListener,
   private void updateProgress() 
   {
     if (isPrepared && mediaPlayer != null && mediaPlayer.isPlaying()) {
+    	
+      // Update notification
+      updateNotification();
+    	
       // Update broadcasts are sticky, so when a new receiver connects, it will
       // have the data without polling.
       if (lastUpdateBroadcast != null) {
