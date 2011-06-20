@@ -2,6 +2,7 @@
 
 == Alpha ==
 
+  * Fix weird state issue with activity sometimes spawning new, which then doesn't use the correct application state so it resets displayed info to main stream (even if it is playing a different stream). Proposed fix: don't use app state in activity, get the information from the service (service should push info to whatever activity is showing)
   * Add a quit/exit button
   * Add support for talk station (No official APIs yet)
   * Show buffering spinning please wait
@@ -24,7 +25,6 @@
     * Have it called every so often (also 30 seconds? or longer? 5 minutes?)
     * Fix behavior of startup with this now being async
   * Lose connection to stream: attempt to replay, etc.?
-  * Update notification with current song info
   * Better landscape orientation
   * Fix wrapping issues with songs/artists/playlists that are too long
   * Check for TODO's in code
@@ -35,6 +35,7 @@
   * (DONE) Override volume control to media volume
   * (DONE) Wifi Wake lock
   * (DONE) UI state for buttons (hover, pressed, etc.)
+  * (DONE) Update notification with current song info
 
 
 == Beta ==
