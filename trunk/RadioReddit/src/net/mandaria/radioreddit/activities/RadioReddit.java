@@ -59,7 +59,6 @@ public class RadioReddit extends Activity {
 	LinearLayout div_station;
 	ProgressBar progress_LoadingSong;
 	
-	MediaPlayer mediaPlayer = new MediaPlayer();;
 	Button btn_play;
 	StreamProxy proxy;
 	
@@ -96,7 +95,6 @@ public class RadioReddit extends Activity {
 		if(application.CurrentStream != null)
 			lbl_station.setText(application.CurrentStream.Name);
 		
-		
 		div_station = (LinearLayout) findViewById(R.id.div_station);
 		div_station.setOnClickListener(new OnClickListener() 
 		{	
@@ -105,15 +103,22 @@ public class RadioReddit extends Activity {
 			{
 				RadioRedditApplication application = (RadioRedditApplication)getApplication();
 				
-				if(application.RadioStreams != null && application.RadioStreams.size() > 0)
+				if(!player.isPreparing()) // check if a current listen is in progress to prevent state exception
 				{
-					Intent i = new Intent(RadioReddit.this, SelectStation.class);
-					startActivityForResult(i, 1);
+					if(application.RadioStreams != null && application.RadioStreams.size() > 0)
+					{
+						Intent i = new Intent(RadioReddit.this, SelectStation.class);
+						startActivityForResult(i, 1);
+					}
+					else
+					{
+						// Try to get streams again
+						RadioRedditAPI.GetStreams(RadioReddit.this, application);
+					}
 				}
 				else
 				{
-					// Try to get streams again
-					RadioRedditAPI.GetStreams(RadioReddit.this, application);
+					Toast.makeText(RadioReddit.this, getString(R.string.pleaseWaitToChangeStation), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -354,7 +359,6 @@ public class RadioReddit extends Activity {
 
 	protected void listen(String url) 
 	{
-		// TODO: check if a current listen is in progress to prevent state exception
 		if (player != null) 
 		{
 			try 
@@ -365,18 +369,6 @@ public class RadioReddit extends Activity {
 			{
 				Toast.makeText(this, "Error on listen: " + ex.toString(), Toast.LENGTH_LONG).show();
 			}
-//			catch (IllegalArgumentException e) 
-//			{
-//				// Log.e(LOG_TAG, "", e);
-//			} 
-//			catch (IllegalStateException e) 
-//			{
-//				// Log.e(LOG_TAG, "", e);
-//			} 
-//			catch (IOException e) 
-//			{
-//				// Log.e(LOG_TAG, "", e);
-//			}
 		}
 	}
 	
