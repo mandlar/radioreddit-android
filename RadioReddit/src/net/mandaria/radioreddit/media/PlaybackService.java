@@ -85,6 +85,8 @@ public class PlaybackService extends Service implements OnPreparedListener,
   private boolean isAborting = false;
   
   private long mLastCurrentSongInformationUpdateMillis = 0;
+  private String lastSongTitle = "";
+  private String lastSongArtist = "";
 
   private StreamProxy proxy;
   private NotificationManager notificationManager;
@@ -283,21 +285,28 @@ public class PlaybackService extends Service implements OnPreparedListener,
 	  			songArtist = application.CurrentSong.Artist + " (" + application.CurrentSong.Redditor + ")";
 	  	}
 	  	
-		long when = System.currentTimeMillis();
-		Notification notification = new Notification(icon, songTitle, when);
-		notification.flags = Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
-		Context c = getApplicationContext();
-		
-		Intent notificationIntent;
-		notificationIntent = new Intent(this, RadioReddit.class);
-		  
-		notificationIntent.setAction(Intent.ACTION_VIEW);
-		notificationIntent.addCategory(Intent.CATEGORY_DEFAULT);
-		//notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // TODO: as a test, use this and then have the service return to UI the current status of stream. This would cover the case of activity being destroyed by OS
-		notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		PendingIntent contentIntent = PendingIntent.getActivity(c, 0,  notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-		notification.setLatestEventInfo(c, songTitle, songArtist, contentIntent);
-		notificationManager.notify(NOTIFICATION_ID, notification);
+	  	// Only update the notification if there has been a change
+	  	if(!lastSongArtist.equals(songArtist) || !lastSongTitle.equals(songTitle))
+	  	{
+	  		lastSongTitle = songTitle;
+	  		lastSongArtist = songArtist;
+	  		
+	  		long when = System.currentTimeMillis();
+			Notification notification = new Notification(icon, songTitle, when);
+			notification.flags = Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
+			Context c = getApplicationContext();
+			
+			Intent notificationIntent;
+			notificationIntent = new Intent(this, RadioReddit.class);
+			  
+			notificationIntent.setAction(Intent.ACTION_VIEW);
+			notificationIntent.addCategory(Intent.CATEGORY_DEFAULT);
+			//notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // TODO: as a test, use this and then have the service return to UI the current status of stream. This would cover the case of activity being destroyed by OS
+			notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			PendingIntent contentIntent = PendingIntent.getActivity(c, 0,  notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+			notification.setLatestEventInfo(c, songTitle, songArtist, contentIntent);
+			notificationManager.notify(NOTIFICATION_ID, notification);
+	  	}
   }
 
   synchronized public void pause() 
