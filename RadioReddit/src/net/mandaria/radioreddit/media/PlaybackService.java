@@ -291,7 +291,7 @@ public class PlaybackService extends Service implements OnPreparedListener,
 	  		lastSongTitle = songTitle;
 	  		lastSongArtist = songArtist;
 	  		
-	  		long when = System.currentTimeMillis();
+	  		long when = 0; // Doesn't display a time
 			Notification notification = new Notification(icon, songTitle, when);
 			notification.flags = Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
 			Context c = getApplicationContext();
