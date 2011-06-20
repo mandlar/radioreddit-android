@@ -88,13 +88,6 @@ public class RadioReddit extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
-		
-		
-		lbl_station = (TextView) findViewById(R.id.lbl_station);
-		
-		if(application.CurrentStream != null)
-			lbl_station.setText(application.CurrentStream.Name);
-		
 		div_station = (LinearLayout) findViewById(R.id.div_station);
 		div_station.setOnClickListener(new OnClickListener() 
 		{	
@@ -196,6 +189,13 @@ public class RadioReddit extends Activity {
 	protected void onResume()
 	{
 		super.onResume();
+		
+		RadioRedditApplication application = (RadioRedditApplication)getApplication();
+		lbl_station = (TextView) findViewById(R.id.lbl_station);
+		
+		if(application.CurrentStream != null)
+			lbl_station.setText(application.CurrentStream.Name);
+		
 		startUpdateTimer();
 		
 		this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
