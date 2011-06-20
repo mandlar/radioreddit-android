@@ -325,7 +325,7 @@ public class PlaybackService extends Service implements OnPreparedListener,
     // First, clean up any existing audio.
     if (isPlaying()) 
     {
-      stop();
+    	stop();
     }
 
     Log.d(LOG_TAG, "listening to " + url + " stream=" + stream);
