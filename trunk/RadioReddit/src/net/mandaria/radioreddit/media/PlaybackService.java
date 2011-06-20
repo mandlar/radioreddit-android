@@ -261,7 +261,8 @@ public class PlaybackService extends Service implements OnPreparedListener,
       
     notificationIntent.setAction(Intent.ACTION_VIEW);
     notificationIntent.addCategory(Intent.CATEGORY_DEFAULT);
-    notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    //notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // TODO: as a test, use this and then have the service return to UI the current status of stream. This would cover the case of activity being destroyed by OS
+    notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
     PendingIntent contentIntent = PendingIntent.getActivity(c, 0,  notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
     notification.setLatestEventInfo(c, title, contentText, contentIntent);
     notificationManager.notify(NOTIFICATION_ID, notification);
