@@ -38,6 +38,7 @@ import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -51,12 +52,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
+import java.util.Locale;
 
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.R.drawable;
 import net.mandaria.radioreddit.R.string;
 import net.mandaria.radioreddit.activities.RadioReddit;
+import net.mandaria.radioreddit.tasks.GetCurrentSongInformationTask;
 
 public class PlaybackService extends Service implements OnPreparedListener,
     OnBufferingUpdateListener, OnCompletionListener, OnErrorListener,
@@ -80,6 +83,8 @@ public class PlaybackService extends Service implements OnPreparedListener,
   private boolean isPrepared = false;
   private boolean isPreparing = false;
   private boolean isAborting = false;
+  
+  private long mLastCurrentSongInformationUpdateMillis = 0;
 
   private StreamProxy proxy;
   private NotificationManager notificationManager;
@@ -514,7 +519,17 @@ public class PlaybackService extends Service implements OnPreparedListener,
    */
   private void updateProgress() 
   {
-    if (isPrepared && mediaPlayer != null && mediaPlayer.isPlaying()) {
+    if (isPrepared && mediaPlayer != null && mediaPlayer.isPlaying()) 
+    {
+      // Update song information
+		RadioRedditApplication application = (RadioRedditApplication)getApplication();
+		// Update song information every 30 seconds
+		if((SystemClock.elapsedRealtime() - mLastCurrentSongInformationUpdateMillis) > 30000)
+		{
+			new GetCurrentSongInformationTask(application, this, Locale.getDefault()).execute();
+			mLastCurrentSongInformationUpdateMillis = SystemClock.elapsedRealtime(); 
+		}
+    	
     	
       // Update notification
       updateNotification();

@@ -64,7 +64,6 @@ public class RadioReddit extends Activity {
 	
 	private String LOG_TAG = "RadioReddit";
 	
-	private long mLastCurrentSongInformationUpdateMillis = 0;
 	private Handler mHandler = new Handler();
 
 	private PlaybackService player;
@@ -78,7 +77,7 @@ public class RadioReddit extends Activity {
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		RadioRedditApplication application = (RadioRedditApplication)getApplication();
-		//TODO: move this to AsyncTask, testing for now in onCreate:
+		//TODO: move this to Task, testing for now in onCreate:
 		RadioRedditAPI.GetStreams(this, application);
 		
 		
@@ -427,12 +426,6 @@ public class RadioReddit extends Activity {
 			if(player != null && player.isPlaying())
 			{
 				RadioRedditApplication application = (RadioRedditApplication)getApplication();
-				// Update song information every 30 seconds
-				if((SystemClock.elapsedRealtime() - mLastCurrentSongInformationUpdateMillis) > 30000)
-				{
-					new GetCurrentSongInformationTask(application, RadioReddit.this, Locale.getDefault()).execute();
-					mLastCurrentSongInformationUpdateMillis = SystemClock.elapsedRealtime(); 
-				}
 				
 				// Update current song information
 				if(application.CurrentSong != null)
