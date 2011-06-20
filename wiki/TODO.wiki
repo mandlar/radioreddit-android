@@ -14,7 +14,6 @@
   * Add Flurry tracking
   * (DONE) Fix state issues with playback control
     * (DONE) isAborting - user decides to change mind and wants to play again while still isPreparing.  Remove isAborting flag?
-    * Handle condition of being in preparing state when switching stations (currently throws illegal state)
   * Check if stream has changed when getting current info
   * More robust API calling
     * Check if stream is online
@@ -30,6 +29,7 @@
   * Fix wrapping issues with songs/artists/playlists that are too long
   * Check for TODO's in code
   * Android 3.0 support (push to Beta?)
+  * (DONE Handle condition of being in preparing state when switching stations (currently throws illegal state)
   * (DONE) Change station needs to be a button click on a layout, not the text (it is currently hard to tap on)
   * (DONE) If removed head phones, stop media player
   * (DONE) Override volume control to media volume
