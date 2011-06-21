@@ -2,6 +2,7 @@
 
 == Alpha ==
 
+  * Exit still isn't working just quite right
   * Fix wrapping issues with songs/artists/playlists that are too long
   * Show buffering spinning please wait
     * See: http://stackoverflow.com/questions/4445663/mediaplayer-prepare-is-throwing-an-illegalstateexception-when-playing-m4a-file
