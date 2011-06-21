@@ -95,7 +95,8 @@ public class RadioRedditAPI
 		       
 		        application.RadioStreams = radiostreams;
 		        
-		        application.CurrentStream = radiostreams.get(0);
+		        if(application.CurrentStream == null)
+		        	application.CurrentStream = radiostreams.get(0);
 			}
 		}
 		catch(Exception ex)
