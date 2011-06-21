@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
@@ -34,6 +35,9 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -183,6 +187,94 @@ public class RadioReddit extends Activity {
 		
 		startUpdateTimer();
 	}	
+	
+	@Override
+  	public boolean onCreateOptionsMenu(Menu menu)
+  	{
+  		super.onCreateOptionsMenu(menu);
+  		MenuInflater inflater = getMenuInflater();
+  		inflater.inflate(R.menu.menu, menu);
+  		//FlurryAgent.onEvent("radio reddit - Menu Button");
+  		return true;
+  	}
+
+  	@Override
+  	public boolean onOptionsItemSelected(MenuItem item)
+  	{
+  		switch(item.getItemId())
+  		{
+  			case R.id.email_feedback:
+  				//FlurryAgent.onEvent("radio reddit - Menu Button - Email Feedback");
+  				SendEmail();
+  				return true;
+  			case R.id.exit:
+  				ExitApp();
+  				return true;
+  		}
+  		return false;
+  	}
+  	
+private void ExitApp()
+{
+	// kill the service, then exit to home launcher
+	//finish();
+	player.onDestroy();
+	
+	Intent intent = new Intent(Intent.ACTION_MAIN);
+	intent.addCategory(Intent.CATEGORY_HOME);
+	intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	startActivity(intent);
+}
+  	
+private void SendEmail()
+{
+	// Setup an intent to send email
+	Intent sendIntent;
+	sendIntent = new Intent(Intent.ACTION_SEND);
+	sendIntent.setType("application/octet-stream");
+	// Address
+	sendIntent.putExtra(Intent.EXTRA_EMAIL,new String[] { getString(R.string.email_address) });
+	// Subject
+	String appName = getString(R.string.app_name);
+	String version = "";
+	try 
+	{
+		version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+	} catch (NameNotFoundException e) 
+	{
+
+	}
+	
+	sendIntent.putExtra(Intent.EXTRA_SUBJECT, appName + " " + version);
+	// Body
+	String body = "\n\n\n\n\n";
+	body += getString(R.string.email_using_custom_rom) + "\n";
+	body += "--------------------\n";
+	body += getString(R.string.email_do_not_edit_message) + "\n\n";
+	body += "BOARD: " + Build.BOARD + "\n";
+	body += "BRAND: " + Build.BRAND + "\n";
+	body += "CPU_ABI: " + Build.CPU_ABI + "\n";
+	body += "DEVICE: " + Build.DEVICE + "\n";
+	body += "DISPLAY: " + Build.DISPLAY + "\n";
+	body += "FINGERPRINT: " + Build.FINGERPRINT + "\n";
+	body += "HOST: " + Build.HOST + "\n";
+	body += "ID: " + Build.ID + "\n";
+	body += "MANUFACTURER: " + Build.MANUFACTURER + "\n";
+	body += "MODEL: " + Build.MODEL + "\n";
+	body += "PRODUCT: " + Build.PRODUCT + "\n";
+	body += "TAGS: " + Build.TAGS + "\n";
+	body += "TIME: " + Build.TIME + "\n";
+	body += "TYPE: " + Build.TYPE + "\n";
+	body += "USER: " + Build.USER + "\n";
+	body += "VERSION.CODENAME: " + Build.VERSION.CODENAME + "\n";
+	body += "VERSION.INCREMENTAL: " + Build.VERSION.INCREMENTAL + "\n";
+	body += "VERSION.RELEASE: " + Build.VERSION.RELEASE + "\n";
+	body += "VERSION.SDK: " + Build.VERSION.SDK + "\n";
+	body += "VERSION.SDK_INT: " + Build.VERSION.SDK_INT + "\n";
+	
+	sendIntent.putExtra(Intent.EXTRA_TEXT, body);
+	startActivity(Intent.createChooser(sendIntent, "Send Mail"));
+}
 	
 	@Override
 	protected void onResume()
