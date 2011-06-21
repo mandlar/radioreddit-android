@@ -518,7 +518,14 @@ public class PlaybackService extends Service implements OnPreparedListener,
 
     telephonyManager.listen(listener, PhoneStateListener.LISTEN_NONE);
     
-    unregisterReceiver(headsetReceiver);
+    try
+    {
+    	unregisterReceiver(headsetReceiver);
+    }
+    catch(IllegalArgumentException ex)
+    {
+    	// do nothing, there is no other way to tell if a receiver was registered before or not
+    }
   }
 
   public class ListenBinder extends Binder 

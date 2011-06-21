@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>    
+	<!--  Menu items -->
+	<string name="exit">Exit</string>
+	<string name="email_feedback">Email Feedback</string>
     <!--  * Support Email Feedback -->
 	<string name="email_using_custom_rom">Please indicate if you are using a custom rom.</string>
 	<string name="email_do_not_edit_message">The following is useful information for the developer.  Please do not edit.</string>

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<!--  Email -->
+	<string name="email_address">support@mandaria.net</string>
+
     <string name="main_stream_url">http://texas.radioreddit.com:8000</string>
     <string name="electronic_stream_url">http://texas.radioreddit.com:8010</string>
     <string name="rock_stream_url">http://texas.radioreddit.com:8020</string>
