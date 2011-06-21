@@ -2,7 +2,6 @@
 
 == Alpha ==
 
-  * Fix weird state issue with activity sometimes spawning new, which then doesn't use the correct application state so it resets displayed info to main stream (even if it is playing a different stream). Proposed fix: don't use app state in activity, get the information from the service (service should push info to whatever activity is showing)
   * Add a quit/exit button
   * Add support for talk station (No official APIs yet)
   * Show buffering spinning please wait
@@ -36,6 +35,7 @@
   * (DONE) Update notification with current song info
   * (DONE) Fix state issues with playback control
     * (DONE) isAborting - user decides to change mind and wants to play again while still isPreparing.  Remove isAborting flag?
+  * (DONE) Fix weird state issue with activity sometimes spawning new, which then doesn't use the correct application state so it resets displayed info to main stream (even if it is playing a different stream). Proposed fix: don't use app state in activity, get the information from the service (service should push info to whatever activity is showing) Actual fix: getStreams API call was overwriting the current stream value
 
 
 == Beta ==
