@@ -3,7 +3,6 @@
 == Alpha ==
 
   * Exit still isn't working just quite right
-  * Fix wrapping issues with songs/artists/playlists that are too long
   * Show buffering spinning please wait
     * See: http://stackoverflow.com/questions/4445663/mediaplayer-prepare-is-throwing-an-illegalstateexception-when-playing-m4a-file
     * More things to look at: 
@@ -38,6 +37,7 @@
   * (DONE) Fix weird state issue with activity sometimes spawning new, which then doesn't use the correct application state so it resets displayed info to main stream (even if it is playing a different stream). Proposed fix: don't use app state in activity, get the information from the service (service should push info to whatever activity is showing) Actual fix: getStreams API call was overwriting the current stream value
   * (DONE) Add Email Feedback menu button
   * (DONE) Add an Exit menu button
+  * (DONE) Fix wrapping issues with songs/artists/playlists that are too long
 
 
 == Beta ==
