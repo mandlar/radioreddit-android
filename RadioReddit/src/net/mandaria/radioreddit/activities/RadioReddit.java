@@ -473,7 +473,7 @@ private void SendEmail()
 			//String stream_name = data.getStringExtra("stream_name");
 			//String stream_url = data.getStringExtra("stream_url");
 			
-			if(changedStream) // check if already playing
+			if(changedStream || !player.isPlaying()) // check if already playing
 			{
 				RadioRedditApplication application = (RadioRedditApplication)getApplication();
 				application.CurrentSong = null; // clear the current song
