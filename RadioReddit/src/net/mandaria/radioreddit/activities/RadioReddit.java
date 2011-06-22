@@ -217,8 +217,7 @@ public class RadioReddit extends Activity {
 private void ExitApp()
 {
 	// kill the service, then exit to home launcher
-	//finish();
-	player.onDestroy();
+	player.stopSelf();
 	
 	Intent intent = new Intent(Intent.ACTION_MAIN);
 	intent.addCategory(Intent.CATEGORY_HOME);
@@ -458,6 +457,7 @@ private void SendEmail()
 			}
 			catch (Exception ex)
 			{
+				ex.printStackTrace();
 				Toast.makeText(this, "Error on listen: " + ex.toString(), Toast.LENGTH_LONG).show();
 			}
 		}
