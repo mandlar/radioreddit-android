@@ -2,6 +2,10 @@
 
 == Alpha ==
 
+  * Add Flurry tracking
+  * Move get streams to async task
+    * Have it called every so often (also 30 seconds? or longer? 5 minutes?)
+    * Fix behavior of startup with this now being async
   * Show buffering spinning please wait
     * See: http://stackoverflow.com/questions/4445663/mediaplayer-prepare-is-throwing-an-illegalstateexception-when-playing-m4a-file
     * More things to look at: 
@@ -9,10 +13,6 @@
       * https://github.com/atwupack/lastfm-android/blob/10f18a88465eb3d1f830ae431e2259dd4553151a/app/src/fm/last/android/player/RadioPlayerService.java
       * Official last.fm client: https://github.com/c99koder/lastfm-android/blob/master/app/src/fm/last/android/player/RadioPlayerService.java
       * Stop worrying about onBuffering, focus on onCompletion (when it stops streaming) and whether to "re-try" the stream or not?
-  * Add Flurry tracking
-  * Move get streams to async task
-    * Have it called every so often (also 30 seconds? or longer? 5 minutes?)
-    * Fix behavior of startup with this now being async
   * Lose connection to stream: attempt to replay, etc.?
   * Better landscape orientation
   * Add support for talk station (No official APIs yet)
