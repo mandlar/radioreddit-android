@@ -123,6 +123,9 @@ public class RadioRedditAPI
 	
 	public static RadioSong GetCurrentSongInformation(Context context, RadioRedditApplication application)
 	{
+		RadioSong radiosong = new RadioSong();
+		radiosong.ErrorMessage = "";
+		
 		try
 		{
 			String status_url = context.getString(R.string.radio_reddit_base_url) + application.CurrentStream.Status + context.getString(R.string.radio_reddit_status);
@@ -138,8 +141,8 @@ public class RadioRedditAPI
 			{
 				ex.printStackTrace();
 				errorGettingStatus = true;
-				// TODO: must move to UI thread
-				//Toast.makeText(context, context.getString(R.string.radioRedditServerIsDownNotification), Toast.LENGTH_LONG).show();
+				// For now, not used. It is acceptable to error out and not alert the user
+				//radiosong.ErrorMessage = context.getString(R.string.error_RadioRedditServerIsDownNotification);
 			}
 			
 			if(!errorGettingStatus)
@@ -147,8 +150,6 @@ public class RadioRedditAPI
 		        JSONTokener status_tokener = new JSONTokener(outputStatus);
 		        JSONObject status_json = new JSONObject(status_tokener);
 		        
-		        RadioSong radiosong = new RadioSong();
-		
 		        radiosong.Playlist = status_json.getString("playlist");
 		        
 		        JSONObject songs = status_json.getJSONObject("songs");
@@ -192,8 +193,8 @@ public class RadioRedditAPI
 				{
 					ex.printStackTrace();
 					errorGettingRedditInfo = true;
-					// TODO: must move to UI thread
-					//Toast.makeText(context, context.getString(R.string.radioRedditServerIsDownNotification), Toast.LENGTH_LONG).show();
+					// For now, not used. It is acceptable to error out and not alert the user
+					//radiosong.ErrorMessage = "Unable to connect to reddit";//context.getString(R.string.error_RadioRedditServerIsDownNotification);
 				}
 				
 				if(!errorGettingRedditInfo)
@@ -232,11 +233,10 @@ public class RadioRedditAPI
 		}
 		catch(Exception ex)
 		{
+			// We fail to get the current song information...
 			ex.printStackTrace();
-			// We fail to get the streams...
-			// TODO: must move to UI thread
-			//Toast.makeText(context, ex.toString(), Toast.LENGTH_LONG).show();
-			return null;
+			radiosong.ErrorMessage = ex.toString();
+			return radiosong;
 		}
  
 	}

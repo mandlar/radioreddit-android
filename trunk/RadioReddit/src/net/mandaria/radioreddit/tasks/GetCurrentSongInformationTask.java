@@ -41,8 +41,6 @@ public class GetCurrentSongInformationTask extends AsyncTask<Void, RadioSong, Ra
 		try 
 		{
 			song = RadioRedditAPI.GetCurrentSongInformation(_context, _application);
-            
-            //Log.e(TAG, "New ad refresh rate: " + adRefreshRate);
 		}
 		catch(Exception e)
 		{
@@ -62,14 +60,16 @@ public class GetCurrentSongInformationTask extends AsyncTask<Void, RadioSong, Ra
 	@Override
 	protected void onPostExecute(RadioSong result) 
 	{
-		if(result != null)
+		
+		if(result != null && result.ErrorMessage.equals(""))
 		{
 			_application.CurrentSong = result;
-			Log.e(TAG, "Post execute: " + result);
 		}
 		else
 		{
-			Log.e(TAG, "FAIL: Post execute: " + result);
+			if(result != null)
+				Toast.makeText(_context, result.ErrorMessage, Toast.LENGTH_LONG).show();
+			Log.e(TAG, "FAIL: Post execute: " + result.ErrorMessage);
 		}
 		
 		if(ex != null)
