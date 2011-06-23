@@ -10,7 +10,6 @@
       * Official last.fm client: https://github.com/c99koder/lastfm-android/blob/master/app/src/fm/last/android/player/RadioPlayerService.java
       * Stop worrying about onBuffering, focus on onCompletion (when it stops streaming) and whether to "re-try" the stream or not?
   * Add Flurry tracking
-  * Check if stream has changed when getting current info
   * Move get streams to async task
     * Have it called every so often (also 30 seconds? or longer? 5 minutes?)
     * Fix behavior of startup with this now being async
@@ -38,7 +37,7 @@
     * (DONE) Check if radioreddit is down
     * (DONE) Check if reddit is down
     * (DECLINED) Check for 404s or other possible errors... - don't think this is necessary for just getting information, for other methods (login, vote), yes
-
+  * (DECLINED) Check if stream has changed when getting current info - not really an issue; very, very rare and would be correct in 30 seconds anyways
 
 == Beta ==
 
