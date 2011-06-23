@@ -80,13 +80,15 @@ public class RadioRedditAPI
 		        	
 			        	JSONTokener status_tokener = new JSONTokener(outputStatus);
 				        JSONObject status_json = new JSONObject(status_tokener);
-			        	
-			        	radiostream.Relay = status_json.getString("relay");
-			        	
-			        	// TODO: get online status
-			        	// if offline, do not add
-			            
-			            radiostreams.add(radiostream);
+				        
+				        radiostream.Online = Boolean.parseBoolean(status_json.getString("online").toLowerCase());				        
+				        
+				        if(radiostream.Online == true) // if offline, no other nodes are available
+				        {
+				        	radiostream.Relay = status_json.getString("relay");
+				            
+				            radiostreams.add(radiostream);
+				        }
 					}
 		        }
 		        
