@@ -11,11 +11,6 @@
       * Stop worrying about onBuffering, focus on onCompletion (when it stops streaming) and whether to "re-try" the stream or not?
   * Add Flurry tracking
   * Check if stream has changed when getting current info
-  * More robust API calling
-    * (DONE) Check if stream is online
-    * (DONE) Check if radioreddit is down
-    * (DONE) Check if reddit is down
-    * Check for 404s or other possible errors... - don't think this is necessary for just getting information
   * Move get streams to async task
     * Have it called every so often (also 30 seconds? or longer? 5 minutes?)
     * Fix behavior of startup with this now being async
@@ -38,6 +33,11 @@
   * (DONE) Add an Exit menu button
       * (DONE) Exit still isn't working just quite right
   * (DONE) Fix wrapping issues with songs/artists/playlists that are too long
+  * (DONE) More robust API calling
+    * (DONE) Check if stream is online
+    * (DONE) Check if radioreddit is down
+    * (DONE) Check if reddit is down
+    * (DECLINED) Check for 404s or other possible errors... - don't think this is necessary for just getting information, for other methods (login, vote), yes
 
 
 == Beta ==
