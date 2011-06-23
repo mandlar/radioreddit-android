@@ -502,7 +502,7 @@ private void SendEmail()
 		}
 		else
 		{
-			Toast.makeText(this, getString(R.string.radioRedditServerIsDownNotification), Toast.LENGTH_LONG).show();
+			Toast.makeText(this, getString(R.string.error_RadioRedditServerIsDownNotification), Toast.LENGTH_LONG).show();
 			// Try to get streams again
 			RadioRedditAPI.GetStreams(this, application);
 		}
