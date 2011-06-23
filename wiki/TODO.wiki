@@ -12,7 +12,7 @@
   * Add Flurry tracking
   * Check if stream has changed when getting current info
   * More robust API calling
-    * Check if stream is online
+    * (DONE) Check if stream is online
     * (DONE) Check if radioreddit is down
     * (DONE) Check if reddit is down
     * Check for 404s or other possible errors...
