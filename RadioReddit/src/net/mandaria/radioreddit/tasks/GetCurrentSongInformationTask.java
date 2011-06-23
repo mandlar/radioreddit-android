@@ -62,7 +62,6 @@ public class GetCurrentSongInformationTask extends AsyncTask<Void, RadioSong, Ra
 	@Override
 	protected void onPostExecute(RadioSong result) 
 	{
-		// TODO: has the station changed since we started the async call?  If so, then don't update the current song
 		if(result != null)
 		{
 			_application.CurrentSong = result;
