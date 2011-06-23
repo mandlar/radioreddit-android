@@ -18,6 +18,7 @@
   * Add support for talk station (No official APIs yet)
   * Check for TODO's in code
   * Android 3.0 support (push to Beta?)
+  * Headset controls support (play/stop? next/prev switch streams?)
   * (DONE Handle condition of being in preparing state when switching stations (currently throws illegal state)
   * (DONE) Change station needs to be a button click on a layout, not the text (it is currently hard to tap on)
   * (DONE) If removed head phones, stop media player
