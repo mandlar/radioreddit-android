@@ -35,7 +35,8 @@ public class RadioRedditAPI
 			catch(Exception ex)
 			{
 				errorGettingStreams = true;
-				Toast.makeText(context, context.getString(R.string.radioRedditServerIsDownNotification), Toast.LENGTH_LONG).show();
+				// TODO: will need to move to UI thread
+				Toast.makeText(context, context.getString(R.string.error_RadioRedditServerIsDownNotification), Toast.LENGTH_LONG).show();
 			}
 			
 			if(!errorGettingStreams)
@@ -72,7 +73,8 @@ public class RadioRedditAPI
 					catch(Exception ex)
 					{
 						errorGettingStatus = true;
-						Toast.makeText(context, context.getString(R.string.radioRedditServerIsDownNotification), Toast.LENGTH_LONG).show();
+						// TODO: will need to move to UI thread
+						Toast.makeText(context, context.getString(R.string.error_RadioRedditServerIsDownNotification), Toast.LENGTH_LONG).show();
 					}
 					
 					if(!errorGettingStatus)
@@ -93,17 +95,26 @@ public class RadioRedditAPI
 		        }
 		        
 		        // JSON parsing reverses the list for some reason, fixing it...
-		        Collections.reverse(radiostreams);
+		        if(radiostreams.size() > 0)
+		        {
+		        	Collections.reverse(radiostreams);
 		       
-		        application.RadioStreams = radiostreams;
-		        
-		        if(application.CurrentStream == null)
-		        	application.CurrentStream = radiostreams.get(0);
+			        application.RadioStreams = radiostreams;
+			        
+			        if(application.CurrentStream == null)
+			        	application.CurrentStream = radiostreams.get(0);
+		        }
+		        else
+		        {
+		        	// TODO: will need to move to UI thread
+		        	Toast.makeText(context, context.getString(R.string.error_NoStreams), Toast.LENGTH_LONG).show();
+		        }
 			}
 		}
 		catch(Exception ex)
 		{
 			// We fail to get the streams...
+			// TODO: will need to move to UI thread
 			Toast.makeText(context, ex.toString(), Toast.LENGTH_LONG).show();
 			ex.printStackTrace();
 		}
@@ -125,7 +136,7 @@ public class RadioRedditAPI
 			}
 			catch(Exception ex)
 			{
-				//ex.printStackTrace();
+				ex.printStackTrace();
 				errorGettingStatus = true;
 				// TODO: must move to UI thread
 				//Toast.makeText(context, context.getString(R.string.radioRedditServerIsDownNotification), Toast.LENGTH_LONG).show();
@@ -138,7 +149,7 @@ public class RadioRedditAPI
 		        
 		        RadioSong radiosong = new RadioSong();
 		
-		        radiosong.Playlist = status_json.getString("playlist");  // TODO: check char length, if too long, add an ellipsis...
+		        radiosong.Playlist = status_json.getString("playlist");
 		        
 		        JSONObject songs = status_json.getJSONObject("songs");
 		        JSONArray songs_array = songs.getJSONArray("song");
@@ -168,7 +179,6 @@ public class RadioRedditAPI
 		        	radiosong.Itunes_price = song.getString("itunes_price");
 		        
 		        // get vote score
-		        // TODO: handle if reddit fails (is down)
 		        String reddit_info_url = context.getString(R.string.reddit_link_by) + URLEncoder.encode(radiosong.Reddit_url);
 		        
 		        String outputRedditInfo = "";
@@ -181,19 +191,15 @@ public class RadioRedditAPI
 				catch(Exception ex)
 				{
 					ex.printStackTrace();
-					Log.e("radio_reddit_test", "inner exception!");
 					errorGettingRedditInfo = true;
-					Log.e("radio_reddit_test", "flag!");
 					// TODO: must move to UI thread
 					//Toast.makeText(context, context.getString(R.string.radioRedditServerIsDownNotification), Toast.LENGTH_LONG).show();
-					Log.e("radio_reddit_test", "toast!");
 				}
-				Log.e("radio_reddit_test", "lol what?!");
 				
 				if(!errorGettingRedditInfo)
 				{
-					Log.e("radio_reddit_test", "Length: " + outputRedditInfo.length());
-					Log.e("radio_reddit_test", "Value: " + outputRedditInfo); // TODO: sometimes the value contains "error: 404", need to check for that
+					//Log.e("radio_reddit_test", "Length: " + outputRedditInfo.length());
+					//Log.e("radio_reddit_test", "Value: " + outputRedditInfo); // TODO: sometimes the value contains "error: 404", need to check for that
 			        JSONTokener reddit_info_tokener = new JSONTokener(outputRedditInfo);
 			        JSONObject reddit_info_json = new JSONObject(reddit_info_tokener);
 			        
@@ -213,26 +219,20 @@ public class RadioRedditAPI
 			        	score = children_data.getString("score");
 		        	}
 					
-		
-			        
 			        radiosong.Score = score;
 				}
 				else
 				{
-					Log.e("radio_reddit_test", "hit my else!");
-					radiosong.Score = "?";//context.getString(R.string.unknown_score);
+					radiosong.Score = "?";
 				}
 		        
 		        return radiosong;
 			}
-			Log.e("radio_reddit_test", "return null");
 			return null;
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
-			Log.e("radio_reddit_test", "outer exception");
-			Log.e("radio_reddit_test", ex.toString());
 			// We fail to get the streams...
 			// TODO: must move to UI thread
 			//Toast.makeText(context, ex.toString(), Toast.LENGTH_LONG).show();
