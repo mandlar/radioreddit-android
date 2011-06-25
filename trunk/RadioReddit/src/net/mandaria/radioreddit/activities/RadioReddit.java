@@ -14,6 +14,7 @@ import net.mandaria.radioreddit.media.StreamProxy;
 import net.mandaria.radioreddit.media.PlaybackService.ListenBinder;
 import net.mandaria.radioreddit.objects.RadioStream;
 import net.mandaria.radioreddit.tasks.GetCurrentSongInformationTask;
+import net.mandaria.radioreddit.tasks.GetRadioStreamsTask;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -60,15 +61,19 @@ public class RadioReddit extends Activity {
 	TextView lbl_SongArtist;
 	TextView lbl_SongPlaylist;
 	TextView lbl_Buffering;
+	TextView lbl_Connecting;
 	LinearLayout div_station;
 	ProgressBar progress_LoadingSong;
 	
 	Button btn_play;
+	Button btn_downvote;
+	Button btn_upvote;
 	StreamProxy proxy;
 	
 	private String LOG_TAG = "RadioReddit";
 	
 	private Handler mHandler = new Handler();
+	 private long mLastStreamsInformationUpdateMillis = 0;
 
 	private PlaybackService player;
 	private ServiceConnection conn;
@@ -82,7 +87,8 @@ public class RadioReddit extends Activity {
 	{
 		RadioRedditApplication application = (RadioRedditApplication)getApplication();
 		//TODO: move this to Task, testing for now in onCreate:
-		RadioRedditAPI.GetStreams(this, application);
+		//RadioRedditAPI.GetStreams(this, application);
+		new GetRadioStreamsTask(application, RadioReddit.this, Locale.getDefault()).execute();
 		
 		
 		init();
@@ -109,7 +115,8 @@ public class RadioReddit extends Activity {
 					else
 					{
 						// Try to get streams again
-						RadioRedditAPI.GetStreams(RadioReddit.this, application);
+						//RadioRedditAPI.GetStreams(RadioReddit.this, application);
+						new GetRadioStreamsTask(application, RadioReddit.this, Locale.getDefault()).execute();
 					}
 				}
 				else
@@ -124,8 +131,11 @@ public class RadioReddit extends Activity {
 		lbl_SongArtist = (TextView) findViewById(R.id.lbl_SongArtist);
 		lbl_SongPlaylist = (TextView) findViewById(R.id.lbl_SongPlaylist);
 		lbl_Buffering = (TextView) findViewById(R.id.lbl_Buffering);
+		lbl_Connecting = (TextView) findViewById(R.id.lbl_Connecting);
 		progress_LoadingSong = (ProgressBar) findViewById(R.id.progress_LoadingSong);
 
+		btn_upvote = (Button) findViewById(R.id.btn_upvote);
+		btn_downvote = (Button) findViewById(R.id.btn_downvote);
 		btn_play = (Button) findViewById(R.id.btn_play);
 		btn_play.setOnClickListener(new OnClickListener() 
 		{
@@ -504,7 +514,8 @@ private void SendEmail()
 		{
 			Toast.makeText(this, getString(R.string.error_RadioRedditServerIsDownNotification), Toast.LENGTH_LONG).show();
 			// Try to get streams again
-			RadioRedditAPI.GetStreams(this, application);
+			//RadioRedditAPI.GetStreams(this, application);
+			new GetRadioStreamsTask(application, RadioReddit.this, Locale.getDefault()).execute();
 		}
 		
 	}
@@ -515,9 +526,35 @@ private void SendEmail()
 		@Override
 		public void run()
 		{
+			RadioRedditApplication application = (RadioRedditApplication)getApplication();
+			
+			// Update stream information every 30 seconds
+			if((SystemClock.elapsedRealtime() - mLastStreamsInformationUpdateMillis) > 30000)
+			{
+				new GetRadioStreamsTask(application, RadioReddit.this, Locale.getDefault()).execute();
+				mLastStreamsInformationUpdateMillis = SystemClock.elapsedRealtime(); 
+			}
+			
+			if(application.RadioStreams == null)
+			{
+				lbl_Connecting.setVisibility(View.VISIBLE);
+				lbl_station.setVisibility(View.GONE);
+				btn_play.setVisibility(View.GONE);
+				btn_upvote.setVisibility(View.GONE);
+				btn_downvote.setVisibility(View.GONE);
+				
+			}
+			else
+			{
+				lbl_Connecting.setVisibility(View.GONE);
+				lbl_station.setVisibility(View.VISIBLE);
+				btn_play.setVisibility(View.VISIBLE);
+				btn_upvote.setVisibility(View.VISIBLE);
+				btn_downvote.setVisibility(View.VISIBLE);
+			}
+			
 			if(player != null && player.isPlaying())
 			{
-				RadioRedditApplication application = (RadioRedditApplication)getApplication();
 				
 				// Update current song information
 				if(application.CurrentSong != null)
