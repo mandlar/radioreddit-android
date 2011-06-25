@@ -72,8 +72,11 @@ public class GetRadioStreamsTask extends AsyncTask<Void, RadioStreams, RadioStre
 		}
 		else
 		{
-			Toast.makeText(_context, result.ErrorMessage, Toast.LENGTH_LONG).show();
-			Log.e(TAG, "FAIL: Post execute: " + result.ErrorMessage);
+			if(result != null)
+			{
+				Toast.makeText(_context, result.ErrorMessage, Toast.LENGTH_LONG).show();
+				Log.e(TAG, "FAIL: Post execute: " + result.ErrorMessage);
+			}
 		}
 		
 		if(ex != null)
