@@ -227,7 +227,8 @@ public class RadioReddit extends Activity {
 private void ExitApp()
 {
 	// kill the service, then exit to home launcher
-	player.stopSelf();
+	if(player != null)
+		player.stopSelf();
 	
 	Intent intent = new Intent(Intent.ACTION_MAIN);
 	intent.addCategory(Intent.CATEGORY_HOME);
