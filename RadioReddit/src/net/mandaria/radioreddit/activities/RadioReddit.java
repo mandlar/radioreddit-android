@@ -409,6 +409,7 @@ private void SendEmail()
 		@Override
 		public void onReceive(Context context, Intent intent) 
 		{
+			RadioRedditApplication application = (RadioRedditApplication)getApplication();
 			//Toast.makeText(RadioReddit.this, "PlaybackUpdate - onReceive", Toast.LENGTH_LONG).show();
 			int buffered = intent.getIntExtra(PlaybackService.EXTRA_BUFFERED, 0);
 			int duration = intent.getIntExtra(PlaybackService.EXTRA_DURATION, 1);
@@ -420,17 +421,19 @@ private void SendEmail()
 //			Log.e("RADIO REDDIT POSITION", String.valueOf(position));
 //			Log.e("RADIO REDDIT DOWNLOADED", String.valueOf(downloaded));
 			
-
-			// TODO: this should be moved to the update loop in the service and create a isBuffering() method that can be called here for simplicity
 			if(player != null && player.isBuffering())
 			{
-				//hideSongInformation(); // TODO: Need some sort of flag to keep showSongInfo from working until buffering is done. Otherwise we get "flashes"
+				hideSongInformation(); // TODO: Need some sort of flag to keep showSongInfo from working until buffering is done. Otherwise we get "flashes"
 				lbl_Buffering.setVisibility(View.VISIBLE);
 				lbl_Buffering.setText("Buffering...");
+				progress_LoadingSong.setVisibility(View.VISIBLE);
+
 			}
 			else
 			{
 				lbl_Buffering.setVisibility(View.GONE);
+				if(application.CurrentSong != null)
+					progress_LoadingSong.setVisibility(View.GONE);
 			}
 					
 			
@@ -562,7 +565,7 @@ private void SendEmail()
 			{
 				
 				// Update current song information
-				if(application.CurrentSong != null)
+				if(application.CurrentSong != null && !player.isBuffering())
 				{
 					showSongInformation();
 					
@@ -584,6 +587,10 @@ private void SendEmail()
 	private void showSongInformation()
 	{
 		RadioRedditApplication application = (RadioRedditApplication)getApplication();
+		lbl_SongVote.setVisibility(View.VISIBLE);
+		lbl_SongTitle.setVisibility(View.VISIBLE);
+		lbl_SongArtist.setVisibility(View.VISIBLE);
+		lbl_SongPlaylist.setVisibility(View.VISIBLE);
 		lbl_SongVote.setText(application.CurrentSong.Score);
 		lbl_SongTitle.setText(application.CurrentSong.Title);
 		lbl_SongArtist.setText(application.CurrentSong.Artist + " (" + application.CurrentSong.Redditor + ")");
@@ -598,6 +605,10 @@ private void SendEmail()
 	private void hideSongInformation()
 	{
 		// remove song information
+		lbl_SongVote.setVisibility(View.GONE);
+		lbl_SongTitle.setVisibility(View.GONE);
+		lbl_SongArtist.setVisibility(View.GONE);
+		lbl_SongPlaylist.setVisibility(View.GONE);
 		lbl_SongVote.setText("");
 		lbl_SongTitle.setText("");
 		lbl_SongArtist.setText("");

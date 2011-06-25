@@ -586,7 +586,7 @@ public class PlaybackService extends Service implements OnPreparedListener,
 				mFirstDuplicateCurrentPositionMillis = SystemClock.elapsedRealtime();
 			}
 			
-			if((SystemClock.elapsedRealtime() - mFirstDuplicateCurrentPositionMillis) > 1000)
+			if((SystemClock.elapsedRealtime() - mFirstDuplicateCurrentPositionMillis) > 500)
 			{
 				isBuffering = true;
 			}

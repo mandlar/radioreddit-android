@@ -61,6 +61,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:id="@+id/progress_LoadingSong"
+				android:layout_marginBottom="15dp"
 				android:indeterminate="true"
 				android:visibility="gone"
 				/>
