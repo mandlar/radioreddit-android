@@ -3,14 +3,9 @@
 == Alpha ==
 
   * Add Flurry tracking
-  * Show buffering spinning please wait
-    * See: http://stackoverflow.com/questions/4445663/mediaplayer-prepare-is-throwing-an-illegalstateexception-when-playing-m4a-file
-    * More things to look at: 
-      * https://github.com/Ramblurr/mp3tunes-android/blob/5588742d2b50a08bef686670d72c9770eac7a69c/src/com/mp3tunes/android/service/Mp3tunesService.java 
-      * https://github.com/atwupack/lastfm-android/blob/10f18a88465eb3d1f830ae431e2259dd4553151a/app/src/fm/last/android/player/RadioPlayerService.java
-      * Official last.fm client: https://github.com/c99koder/lastfm-android/blob/master/app/src/fm/last/android/player/RadioPlayerService.java
-      * Stop worrying about onBuffering, focus on onCompletion (when it stops streaming) and whether to "re-try" the stream or not?
   * Lose connection to stream: attempt to replay, etc.?
+    * Stop worrying about onBuffering, focus on onCompletion (when it stops streaming) and whether to "re-try" the stream or not?
+    * Official last.fm client: https://github.com/c99koder/lastfm-android/blob/master/app/src/fm/last/android/player/RadioPlayerService.java
   * Better landscape orientation
   * Add support for talk station (No official APIs yet)
   * Check for TODO's in code
@@ -40,6 +35,11 @@
   * (DONE) Move get streams to async task
     * (DONE) Have it called every 30 seconds
     * (DONE) Fix behavior of startup with this now being async
+  * (DONE) Show buffering spinning please wait
+    * See: http://stackoverflow.com/questions/4445663/mediaplayer-prepare-is-throwing-an-illegalstateexception-when-playing-m4a-file
+    * More things to look at: 
+      * https://github.com/Ramblurr/mp3tunes-android/blob/5588742d2b50a08bef686670d72c9770eac7a69c/src/com/mp3tunes/android/service/Mp3tunesService.java 
+      * https://github.com/atwupack/lastfm-android/blob/10f18a88465eb3d1f830ae431e2259dd4553151a/app/src/fm/last/android/player/RadioPlayerService.java
 
 == Beta ==
 
