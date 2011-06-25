@@ -158,6 +158,7 @@ public class RadioReddit extends Activity {
 							
 							showPlayButton();
 							
+							lbl_Buffering.setVisibility(View.GONE);
 							progress_LoadingSong.setVisibility(View.GONE);
 						} 
 						else 
