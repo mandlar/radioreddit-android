@@ -547,6 +547,7 @@ private void SendEmail()
 			
 			if(application.RadioStreams == null)
 			{
+				progress_LoadingSong.setVisibility(View.VISIBLE);
 				lbl_Connecting.setVisibility(View.VISIBLE);
 				lbl_station.setVisibility(View.GONE);
 				btn_play.setVisibility(View.GONE);
@@ -556,6 +557,8 @@ private void SendEmail()
 			}
 			else
 			{
+				if(player != null && !player.isPlaying() && !player.isPreparing())
+					progress_LoadingSong.setVisibility(View.GONE);
 				lbl_Connecting.setVisibility(View.GONE);
 				lbl_station.setVisibility(View.VISIBLE);
 				btn_play.setVisibility(View.VISIBLE);
