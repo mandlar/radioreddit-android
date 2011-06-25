@@ -68,8 +68,10 @@ public class GetCurrentSongInformationTask extends AsyncTask<Void, RadioSong, Ra
 		else
 		{
 			if(result != null)
+			{
 				Toast.makeText(_context, result.ErrorMessage, Toast.LENGTH_LONG).show();
-			Log.e(TAG, "FAIL: Post execute: " + result.ErrorMessage);
+				Log.e(TAG, "FAIL: Post execute: " + result.ErrorMessage);
+			}
 		}
 		
 		if(ex != null)
