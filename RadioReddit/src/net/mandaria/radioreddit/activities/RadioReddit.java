@@ -73,7 +73,10 @@ public class RadioReddit extends Activity {
 	private String LOG_TAG = "RadioReddit";
 	
 	private Handler mHandler = new Handler();
-	 private long mLastStreamsInformationUpdateMillis = 0;
+	private long mLastStreamsInformationUpdateMillis = 0;
+	
+	private int mLastCurrentPosition = 0;
+	private long mFirstDuplicateCurrentPositionMillis = 0;
 
 	private PlaybackService player;
 	private ServiceConnection conn;
@@ -420,17 +423,34 @@ private void SendEmail()
 //			Log.e("RADIO REDDIT POSITION", String.valueOf(position));
 //			Log.e("RADIO REDDIT DOWNLOADED", String.valueOf(downloaded));
 			
-			if(buffered > 0 && buffered < 100)
+
+			// TODO: this should be moved to the update loop in the service and create a isBuffering() method that can be called here for simplicity
+			if(player != null && player.isPlaying() && position == mLastCurrentPosition)
 			{
-				hideSongInformation(); // TODO: Need some sort of flag to keep showSongInfo from working until buffering is done. Otherwise we get "flashes"
-				lbl_Buffering.setVisibility(View.VISIBLE);
-				lbl_Buffering.setText("Buffering..." + buffered + "%");
-				//Toast.makeText(RadioReddit.this, "Buffering..." + buffered + "%", Toast.LENGTH_SHORT).show();
+				if(mFirstDuplicateCurrentPositionMillis == 0)
+				{
+					mFirstDuplicateCurrentPositionMillis = SystemClock.elapsedRealtime();
+				}
+				
+				if((SystemClock.elapsedRealtime() - mFirstDuplicateCurrentPositionMillis) > 1000)
+				{
+					//hideSongInformation(); // TODO: Need some sort of flag to keep showSongInfo from working until buffering is done. Otherwise we get "flashes"
+					lbl_Buffering.setVisibility(View.VISIBLE);
+					lbl_Buffering.setText("Buffering...");
+					//Toast.makeText(RadioReddit.this, "Buffering..." + buffered + "%", Toast.LENGTH_SHORT).show();
+				}
+				else
+				{
+					lbl_Buffering.setVisibility(View.GONE);
+				}
 			}
 			else
 			{
 				lbl_Buffering.setVisibility(View.GONE);
+				mFirstDuplicateCurrentPositionMillis = 0;
 			}
+			
+			mLastCurrentPosition = position;
 			// if (!playButtonisPause && player != null && player.isPlaying()) {
 			// playButton.setImageResource(android.R.drawable.ic_media_pause);
 			// playButtonisPause = true;

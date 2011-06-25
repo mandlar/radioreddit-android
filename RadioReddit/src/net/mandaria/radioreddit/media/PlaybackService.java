@@ -595,8 +595,8 @@ public class PlaybackService extends Service implements OnPreparedListener,
       //lastUpdateBroadcast.putExtra(EXTRA_DURATION, mediaPlayer.getDuration());
 //      lastUpdateBroadcast.putExtra(EXTRA_DOWNLOADED,
 //          (int) ((lastBufferPercent / 100.0) * mediaPlayer.getDuration()));
-      //lastUpdateBroadcast.putExtra(EXTRA_POSITION,
-      //    mediaPlayer.getCurrentPosition());
+      lastUpdateBroadcast.putExtra(EXTRA_POSITION,
+          mediaPlayer.getCurrentPosition());
       getApplicationContext().sendStickyBroadcast(lastUpdateBroadcast);
     }
   }
