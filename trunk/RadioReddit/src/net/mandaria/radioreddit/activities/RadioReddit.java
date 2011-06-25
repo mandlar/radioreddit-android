@@ -427,7 +427,6 @@ private void SendEmail()
 			{
 				hideSongInformation(); // TODO: Need some sort of flag to keep showSongInfo from working until buffering is done. Otherwise we get "flashes"
 				lbl_Buffering.setVisibility(View.VISIBLE);
-				lbl_Buffering.setText("Buffering...");
 				progress_LoadingSong.setVisibility(View.VISIBLE);
 
 			}
