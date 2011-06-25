@@ -1,10 +1,15 @@
 package net.mandaria.radioreddit.tasks;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import net.mandaria.radioreddit.RadioRedditApplication;
+import net.mandaria.radioreddit.apis.RadioRedditAPI;
+import net.mandaria.radioreddit.objects.RadioSong;
+import net.mandaria.radioreddit.objects.RadioStream;
+import net.mandaria.radioreddit.objects.RadioStreams;
 import android.app.Application;
 import android.content.Context;
 import android.location.Address;
@@ -15,17 +20,17 @@ import android.util.Log;
 import android.widget.Toast;
 
 
-public class GetRadioStreamsTask extends AsyncTask<Void, Integer, Integer> 
+public class GetRadioStreamsTask extends AsyncTask<Void, RadioStreams, RadioStreams> 
 {
 	private static String TAG = "RadioReddit";
 	private Context _context;
 	private Locale _locale;
-	private Application _application;
+	private RadioRedditApplication _application;
 	private Exception ex;
 	
 	
 
-    public GetRadioStreamsTask(Application application, Context context, Locale locale) 
+    public GetRadioStreamsTask(RadioRedditApplication application, Context context, Locale locale) 
     {
     	_context = context;
     	_locale = locale;
@@ -33,46 +38,45 @@ public class GetRadioStreamsTask extends AsyncTask<Void, Integer, Integer>
     }
 
 	@Override
-	protected Integer doInBackground(Void... unused) 
+	protected RadioStreams doInBackground(Void... unused) 
 	{
-		int adRefreshRate = -1;
+		RadioStreams streams = null;
 		try 
 		{
-			
-            
-            Log.e(TAG, "New ad refresh rate: " + adRefreshRate);
+			streams = RadioRedditAPI.GetStreams(_context, _application);
 		}
 		catch(Exception e)
 		{
 			ex = e;
-			Log.e(TAG, "FAIL: New ad refresh rate: " + e);
+			Log.e(TAG, "FAIL: get current song information: " + e);
 		}
 		
-		return adRefreshRate;
+		return streams;
 	}
 
 	@Override
-	protected void onProgressUpdate(Integer... item) 
+	protected void onProgressUpdate(RadioStreams... item) 
 	{
 
 	}
 
 	@Override
-	protected void onPostExecute(Integer result) 
+	protected void onPostExecute(RadioStreams result) 
 	{
-		RadioRedditApplication appState = ((RadioRedditApplication)_application);
-		if(result != -1)
+		if(result != null && result.ErrorMessage.equals(""))
 		{
-			 Log.e(TAG, "Post execute: " + result);
-			//Settings.setAdRefreshRate(_context, result);
+			_application.RadioStreams = result.RadioStreams;
+	        
+	        if(_application.CurrentStream == null)
+	        	_application.CurrentStream = result.RadioStreams.get(0);
 		}
 		else
 		{
-			Log.e(TAG, "FAIL: Post execute: " + result);
+			Toast.makeText(_context, result.ErrorMessage, Toast.LENGTH_LONG).show();
+			Log.e(TAG, "FAIL: Post execute: " + result.ErrorMessage);
 		}
 		
 		if(ex != null)
 			Log.e(TAG, "FAIL: EXCEPTION: Post execute: " + ex);
-		
 	}
 }

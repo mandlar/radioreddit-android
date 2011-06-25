@@ -12,6 +12,7 @@ import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.objects.RadioSong;
 import net.mandaria.radioreddit.objects.RadioStream;
+import net.mandaria.radioreddit.objects.RadioStreams;
 import net.mandaria.radioreddit.utils.HTTPUtil;
 import android.content.Context;
 import android.net.Uri;
@@ -20,8 +21,11 @@ import android.widget.Toast;
 
 public class RadioRedditAPI
 {
-	public static void GetStreams(Context context, RadioRedditApplication application)
+	public static RadioStreams GetStreams(Context context, RadioRedditApplication application)
 	{
+		RadioStreams radiostreams = new RadioStreams(); // TODO: really bad name, please rename
+		radiostreams.ErrorMessage = "";
+		
 		try
 		{
 			String url = context.getString(R.string.radio_reddit_streams);
@@ -35,8 +39,9 @@ public class RadioRedditAPI
 			catch(Exception ex)
 			{
 				errorGettingStreams = true;
+				radiostreams.ErrorMessage = context.getString(R.string.error_RadioRedditServerIsDownNotification);
 				// TODO: will need to move to UI thread
-				Toast.makeText(context, context.getString(R.string.error_RadioRedditServerIsDownNotification), Toast.LENGTH_LONG).show();
+				//Toast.makeText(context, context.getString(R.string.error_RadioRedditServerIsDownNotification), Toast.LENGTH_LONG).show();
 			}
 			
 			if(!errorGettingStreams)
@@ -46,7 +51,7 @@ public class RadioRedditAPI
 		
 		        JSONObject streams = json.getJSONObject("streams");
 		        JSONArray streams_names = streams.names();
-		        ArrayList<RadioStream> radiostreams = new ArrayList<RadioStream>();
+		        ArrayList<RadioStream> list_radiostreams = new ArrayList<RadioStream>();
 		
 		        // loop through each stream
 		        for(int i = 0; i < streams.length(); i++) 
@@ -73,8 +78,9 @@ public class RadioRedditAPI
 					catch(Exception ex)
 					{
 						errorGettingStatus = true;
+						radiostreams.ErrorMessage = context.getString(R.string.error_RadioRedditServerIsDownNotification);
 						// TODO: will need to move to UI thread
-						Toast.makeText(context, context.getString(R.string.error_RadioRedditServerIsDownNotification), Toast.LENGTH_LONG).show();
+						//Toast.makeText(context, context.getString(R.string.error_RadioRedditServerIsDownNotification), Toast.LENGTH_LONG).show();
 					}
 					
 					if(!errorGettingStatus)
@@ -89,35 +95,37 @@ public class RadioRedditAPI
 				        {
 				        	radiostream.Relay = status_json.getString("relay");
 				            
-				            radiostreams.add(radiostream);
+				            list_radiostreams.add(radiostream);
 				        }
 					}
 		        }
 		        
 		        // JSON parsing reverses the list for some reason, fixing it...
-		        if(radiostreams.size() > 0)
+		        if(list_radiostreams.size() > 0)
 		        {
-		        	Collections.reverse(radiostreams);
-		       
-			        application.RadioStreams = radiostreams;
-			        
-			        if(application.CurrentStream == null)
-			        	application.CurrentStream = radiostreams.get(0);
+		        	Collections.reverse(list_radiostreams);
+		        	
+		        	radiostreams.RadioStreams = list_radiostreams;
 		        }
 		        else
 		        {
+		        	radiostreams.ErrorMessage = context.getString(R.string.error_NoStreams);
 		        	// TODO: will need to move to UI thread
-		        	Toast.makeText(context, context.getString(R.string.error_NoStreams), Toast.LENGTH_LONG).show();
+		        	//Toast.makeText(context, context.getString(R.string.error_NoStreams), Toast.LENGTH_LONG).show();
 		        }
 			}
 		}
 		catch(Exception ex)
 		{
+			// TODO: should be emailed
 			// We fail to get the streams...
 			// TODO: will need to move to UI thread
+			radiostreams.ErrorMessage = ex.toString();
 			Toast.makeText(context, ex.toString(), Toast.LENGTH_LONG).show();
 			ex.printStackTrace();
 		}
+		
+		return radiostreams;
  
 	}
 	
@@ -233,6 +241,7 @@ public class RadioRedditAPI
 		}
 		catch(Exception ex)
 		{
+			// TODO: should be emailed
 			// We fail to get the current song information...
 			ex.printStackTrace();
 			radiosong.ErrorMessage = ex.toString();

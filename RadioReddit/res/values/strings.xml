@@ -16,4 +16,5 @@
 	<string name="error_RadioRedditServerIsDownNotification">Can\'t reach radio reddit, the server may be down or your network is flaky. Please try again later!</string>
 	<string name="error_NoStreams">There are no streams available to play. Please try again later!</string>
 	<string name="pleaseWaitToChangeStation">Please wait one moment to switch to a new station...</string>
+	<string name="connectingToRadioReddit">Connecting to radio reddit...</string>
 </resources>

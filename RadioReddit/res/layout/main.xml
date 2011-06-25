@@ -69,6 +69,13 @@
 				style="@style/SongTitle"
 				android:visibility="gone"
 				/>
+			<TextView
+				android:id="@+id/lbl_Connecting" 
+				style="@style/SongTitle"
+				android:layout_marginTop="15dp"
+				android:visibility="gone"
+				android:text="@string/connectingToRadioReddit"
+				/>
 			<!-- Song Vote -->
 			<TextView
 				android:id="@+id/lbl_SongVote" 
