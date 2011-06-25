@@ -69,6 +69,7 @@
 				android:id="@+id/lbl_Buffering" 
 				style="@style/SongTitle"
 				android:visibility="gone"
+				android:text="@string/buffering"
 				/>
 			<TextView
 				android:id="@+id/lbl_Connecting" 
