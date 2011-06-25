@@ -3,9 +3,6 @@
 == Alpha ==
 
   * Add Flurry tracking
-  * Move get streams to async task
-    * Have it called every so often (also 30 seconds? or longer? 5 minutes?)
-    * Fix behavior of startup with this now being async
   * Show buffering spinning please wait
     * See: http://stackoverflow.com/questions/4445663/mediaplayer-prepare-is-throwing-an-illegalstateexception-when-playing-m4a-file
     * More things to look at: 
@@ -39,6 +36,9 @@
     * (DONE) Check if reddit is down
     * (DECLINED) Check for 404s or other possible errors... - don't think this is necessary for just getting information, for other methods (login, vote), yes
   * (DECLINED) Check if stream has changed when getting current info - not really an issue; very, very rare and would be correct in 30 seconds anyways
+  * (DONE) Move get streams to async task
+    * (DONE) Have it called every 30 seconds
+    * (DONE) Fix behavior of startup with this now being async
 
 == Beta ==
 
