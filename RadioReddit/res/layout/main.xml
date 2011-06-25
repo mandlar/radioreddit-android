@@ -64,6 +64,7 @@
 				android:layout_marginBottom="15dp"
 				android:indeterminate="true"
 				android:visibility="gone"
+				style="?android:attr/progressBarStyleInverse"
 				/>
 			<TextView
 				android:id="@+id/lbl_Buffering" 
