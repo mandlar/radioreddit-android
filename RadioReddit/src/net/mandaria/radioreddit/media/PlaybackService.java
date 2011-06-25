@@ -44,6 +44,7 @@ import android.os.SystemClock;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import java.io.File;
@@ -85,10 +86,14 @@ public class PlaybackService extends Service implements OnPreparedListener,
   private boolean isPrepared = false;
   private boolean isPreparing = false;
   private boolean isAborting = false;
+  private boolean isBuffering = false;
   
   private long mLastCurrentSongInformationUpdateMillis = 0;
   private String lastSongTitle = "";
   private String lastSongArtist = "";
+  
+  private int mLastCurrentPosition = 0;
+  private long mFirstDuplicateCurrentPositionMillis = 0;
 
   private StreamProxy proxy;
   private NotificationManager notificationManager;
@@ -186,6 +191,11 @@ public class PlaybackService extends Service implements OnPreparedListener,
       Log.d(LOG_TAG, "Will not stop self");
     }
     return false;
+  }
+  
+  synchronized public boolean isBuffering()
+  {
+	  return isBuffering;
   }
 
   synchronized public boolean isPlaying() 
@@ -568,6 +578,32 @@ public class PlaybackService extends Service implements OnPreparedListener,
   {
     if (isPrepared && mediaPlayer != null && mediaPlayer.isPlaying()) 
     {
+    	// Check if buffering
+    	if(mediaPlayer.getCurrentPosition() == mLastCurrentPosition)
+		{
+			if(mFirstDuplicateCurrentPositionMillis == 0)
+			{
+				mFirstDuplicateCurrentPositionMillis = SystemClock.elapsedRealtime();
+			}
+			
+			if((SystemClock.elapsedRealtime() - mFirstDuplicateCurrentPositionMillis) > 1000)
+			{
+				isBuffering = true;
+			}
+			else
+			{
+				isBuffering = false;
+			}
+		}
+		else
+		{
+			isBuffering = false;
+			mFirstDuplicateCurrentPositionMillis = 0;
+		}
+		
+		mLastCurrentPosition = mediaPlayer.getCurrentPosition();
+    	
+    	
       // Update song information
 		RadioRedditApplication application = (RadioRedditApplication)getApplication();
 		// Update song information every 30 seconds
@@ -595,8 +631,8 @@ public class PlaybackService extends Service implements OnPreparedListener,
       //lastUpdateBroadcast.putExtra(EXTRA_DURATION, mediaPlayer.getDuration());
 //      lastUpdateBroadcast.putExtra(EXTRA_DOWNLOADED,
 //          (int) ((lastBufferPercent / 100.0) * mediaPlayer.getDuration()));
-      lastUpdateBroadcast.putExtra(EXTRA_POSITION,
-          mediaPlayer.getCurrentPosition());
+      //lastUpdateBroadcast.putExtra(EXTRA_POSITION,
+      //    mediaPlayer.getCurrentPosition());
       getApplicationContext().sendStickyBroadcast(lastUpdateBroadcast);
     }
   }
