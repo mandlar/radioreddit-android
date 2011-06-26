@@ -105,7 +105,7 @@ public class RadioReddit extends Activity {
 			{
 				RadioRedditApplication application = (RadioRedditApplication)getApplication();
 				
-				if(!player.isPreparing()) // check if a current listen is in progress to prevent state exception
+				if(player != null && !player.isPreparing()) // check if a current listen is in progress to prevent state exception
 				{
 					if(application.RadioStreams != null && application.RadioStreams.size() > 0)
 					{
@@ -492,7 +492,7 @@ private void SendEmail()
 			//String stream_name = data.getStringExtra("stream_name");
 			//String stream_url = data.getStringExtra("stream_url");
 			
-			if(changedStream || !player.isPlaying()) // check if already playing
+			if(changedStream || (player != null && !player.isPlaying())) // check if already playing
 			{
 				RadioRedditApplication application = (RadioRedditApplication)getApplication();
 				application.CurrentSong = null; // clear the current song
