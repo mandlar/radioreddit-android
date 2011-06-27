@@ -581,6 +581,8 @@ private void SendEmail()
 				hideSongInformation();
 				if(player != null && !player.isPreparing())
 					showPlayButton();
+				else if (player != null && player.isPreparing() && !player.isAborting())
+					progress_LoadingSong.setVisibility(View.VISIBLE); // show please wait spinner when "re-connecting" to stream from network change
 			}
 			
 			mHandler.postDelayed(this, 1000); // update every 1 second

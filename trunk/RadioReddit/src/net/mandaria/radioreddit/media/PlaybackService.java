@@ -32,6 +32,8 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnInfoListener;
 import android.media.MediaPlayer.OnPreparedListener;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Binder;
@@ -87,6 +89,8 @@ public class PlaybackService extends Service implements OnPreparedListener,
   private boolean isPreparing = false;
   private boolean isAborting = false;
   private boolean isBuffering = false;
+  private boolean lostDataConnection = false;
+  private boolean mDoHasWiFi = false;
   
   private long mLastCurrentSongInformationUpdateMillis = 0;
   private String lastSongTitle = "";
@@ -162,6 +166,11 @@ public class PlaybackService extends Service implements OnPreparedListener,
 
     // Register the listener with the telephony manager.
     telephonyManager.listen(listener, PhoneStateListener.LISTEN_CALL_STATE);
+    
+    // Register the listener for connectivity
+    IntentFilter intentFilter = new IntentFilter();
+    intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+    registerReceiver(connectivityListener, intentFilter);
     
     // Register headset receiver
     headsetReceiver = new HeadsetBroadcastReceiver();
@@ -260,6 +269,11 @@ public class PlaybackService extends Service implements OnPreparedListener,
     }
 
     mediaPlayer.start();
+    
+    // Get wifi state
+    ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+    NetworkInfo ni = cm.getActiveNetworkInfo();
+    mDoHasWiFi = (ni == null || ni.getType() == ConnectivityManager.TYPE_WIFI);
     
     // Activate wifi lock to prevent phone from losing wifi conection when screen is off
     WifiManager wm = ((WifiManager)getSystemService( WIFI_SERVICE ));
@@ -536,6 +550,15 @@ public class PlaybackService extends Service implements OnPreparedListener,
     {
     	// do nothing, there is no other way to tell if a receiver was registered before or not
     }
+    
+    try
+    {
+    	unregisterReceiver(connectivityListener);
+    }
+    catch(IllegalArgumentException ex)
+    {
+    	// do nothing, there is no other way to tell if a receiver was registered before or not
+    }
   }
 
   public class ListenBinder extends Binder 
@@ -657,6 +680,33 @@ public class PlaybackService extends Service implements OnPreparedListener,
     {
       onCompletionListener.onCompletion(mp);
     }
+    
+    if(lostDataConnection)// && bufferPercent < 99) 
+    {
+    	Log.v(LOG_TAG, "Track ran out of data, pausing");
+    	stop();
+    	//pause();
+    	//mp.release();
+    	//mp = null;
+    	ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+    	NetworkInfo activeni = cm.getActiveNetworkInfo();
+    	if(activeni != null && activeni.isConnected()) 
+    	{
+    		Log.v(LOG_TAG, "Another data connection is available, attempting to resume");
+    		RadioRedditApplication application = (RadioRedditApplication)getApplication();
+    		try
+    		{
+    			listen(application.CurrentStream.Relay, true);//play();
+    			// TODO: needs to return a reconnecting state or similar to the UI so it knows we are connectin again
+    		}
+    		catch(Exception ex)
+    		{
+    			// failed none the less
+    		}
+    		//pause();
+    		lostDataConnection = false;
+    	}
+    }
 
     if (bindCount == 0 && !isPlaying()) 
     {
@@ -708,6 +758,69 @@ public class PlaybackService extends Service implements OnPreparedListener,
     if(mWifiLock != null && mWifiLock.isHeld() == true)
     	mWifiLock.release();
   }
+  
+  // -----------
+  // Connection receiver
+  // Borrowed from Last.FM: https://github.com/c99koder/lastfm-android/blob/master/app/src/fm/last/android/player/RadioPlayerService.java
+  BroadcastReceiver connectivityListener = new BroadcastReceiver() 
+  {
+
+	  @Override
+	  public void onReceive(Context context, Intent intent) 
+	  {
+		  NetworkInfo ni = intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
+
+		  if (ni.getState() == NetworkInfo.State.DISCONNECTED || ni.getState() == NetworkInfo.State.SUSPENDED) 
+		  {
+			  if (isPlaying())//mState != STATE_STOPPED && mState != STATE_ERROR && mState != STATE_PAUSED) 
+			  {
+				  ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+				  NetworkInfo activeni = cm.getActiveNetworkInfo();
+				  if(activeni != null && activeni.isConnected()) 
+				  {
+					  Log.v(LOG_TAG, "A network other than the active network has disconnected, ignoring");
+					  lostDataConnection = true; // This is necessary. If you go from 3g to wifi it won't think the active network is being disconnected (even though wifi is "taking over")
+					  return;
+				  }
+				  // Ignore disconnections that don't change our WiFi / cell
+				  // state
+				  if ((ni.getType() == ConnectivityManager.TYPE_WIFI) != mDoHasWiFi) 
+				  {
+					  return;
+				  }
+		
+				  // We just lost the WiFi connection so update our state
+				  if (ni.getType() == ConnectivityManager.TYPE_WIFI)
+					  mDoHasWiFi = false;
+		
+				  Log.v(LOG_TAG, "Data connection lost! Type: " + ni.getTypeName() + " Subtype: " + ni.getSubtypeName() + "Extra Info: " + ni.getExtraInfo() + " Reason: " + ni.getReason());
+				  lostDataConnection = true;
+			  }
+		  } 
+		  else if (ni.getState() == NetworkInfo.State.CONNECTED && isPlaying())//mState != STATE_STOPPED && mState != STATE_ERROR) 
+		  {
+			  if (lostDataConnection || ni.isFailover() || ni.getType() == ConnectivityManager.TYPE_WIFI) 
+			  {
+				  if (ni.getType() == ConnectivityManager.TYPE_WIFI) 
+				  {
+					  if (!mDoHasWiFi)
+						  mDoHasWiFi = true;
+					  else
+						  return;
+				  }
+				  Log.v(LOG_TAG, "New data connection attached! Type: " + ni.getTypeName() + " Subtype: " + ni.getSubtypeName() + "Extra Info: " + ni.getExtraInfo() + " Reason: " + ni.getReason());
+				  if(lostDataConnection) 
+				  {
+					  if(!isPlaying())//mState == STATE_PAUSED) 
+					  {
+						  play();//pause();
+						  lostDataConnection = false;
+					  }
+				  }
+			  }
+		  }
+	  }
+};
   
   // -----------
   // Headset receiver
