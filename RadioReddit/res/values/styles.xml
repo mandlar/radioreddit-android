@@ -52,11 +52,17 @@
     	<item name="android:layout_height">110dp</item>
     	<item name="android:background">@drawable/controls_gradient_bottom</item>
     </style>
+    <style name="PlaybackControls_Body.Landscape">
+    	<item name="android:layout_height">50dp</item>
+    </style>
     <style name="PlaybackControls_ButtonsContainer">
     	<item name="android:layout_width">fill_parent</item>
     	<item name="android:layout_height">fill_parent</item>
     	<item name="android:gravity">center_horizontal</item>
     	<item name="android:layout_marginTop">20dp</item>
+    </style>
+    <style name="PlaybackControls_ButtonsContainer.Landscape">
+    	<item name="android:layout_marginTop">0dp</item>
     </style>
     <!-- Playback controls buttons -->
     <style name="PlaybackControls_UpVoteButton">
