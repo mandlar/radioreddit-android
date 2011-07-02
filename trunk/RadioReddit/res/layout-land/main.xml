@@ -122,10 +122,10 @@
     	/>
     <!-- Controls -->
     <LinearLayout
-    	style="@style/PlaybackControls_Body"
+    	style="@style/PlaybackControls_Body.Landscape"
     	>
     	<LinearLayout
-    		style="@style/PlaybackControls_ButtonsContainer"
+    		style="@style/PlaybackControls_ButtonsContainer.Landscape"
     		>
 	    	<Button
 	    		android:id="@+id/btn_upvote"
