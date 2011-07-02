@@ -128,16 +128,16 @@
     		style="@style/PlaybackControls_ButtonsContainer"
     		>
 	    	<Button
-	    		android:id="@+id/btn_downvote"
-	    		style="@style/PlaybackControls_DownVoteButton"
+	    		android:id="@+id/btn_upvote"
+	    		style="@style/PlaybackControls_UpVoteButton"
 		    	/>
 	    	 <Button 
 		    	android:id="@+id/btn_play"
 		    	style="@style/PlaybackControls_PlayButton"
 		    	/>
 		    <Button
-	    		android:id="@+id/btn_upvote"
-	    		style="@style/PlaybackControls_UpVoteButtonButton"
+	    		android:id="@+id/btn_downvote"
+	    		style="@style/PlaybackControls_DownVoteButton"
 		    	/>
 		</LinearLayout>
     </LinearLayout>
