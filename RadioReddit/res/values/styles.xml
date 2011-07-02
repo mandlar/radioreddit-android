@@ -36,4 +36,44 @@
 		<item name="android:layout_weight">1</item>	
 		<item name="android:gravity">center_horizontal</item>
 	</style>	
+	<!-- Playback controls -->
+	<style name="PlaybackControls_Border">
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">0.5dp</item>
+		<item name="android:background">#aaaaaa</item>
+	</style>
+	<style name="PlaybackControls_TopGradient">
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">15dp</item>
+		<item name="android:background">@drawable/controls_gradient_top</item>
+	</style>	
+    <style name="PlaybackControls_Body">
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">110dp</item>
+    	<item name="android:background">@drawable/controls_gradient_bottom</item>
+    </style>
+    <style name="PlaybackControls_ButtonsContainer">
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">fill_parent</item>
+    	<item name="android:gravity">center_horizontal</item>
+    	<item name="android:layout_marginTop">20dp</item>
+    </style>
+    <!-- Playback controls buttons -->
+    <style name="PlaybackControls_DownVoteButton">
+    	<item name="android:background">@drawable/willdownvote_button</item>
+    	<item name="android:layout_width">40dp</item>
+    	<item name="android:layout_height">40dp</item>
+    </style>
+    <style name="PlaybackControls_PlayButton">
+    	<item name="android:background">@drawable/play_button</item>
+    	<item name="android:layout_width">40dp</item>
+    	<item name="android:layout_height">40dp</item>
+    	<item name="android:layout_marginLeft">40dp</item>
+    	<item name="android:layout_marginRight">40dp</item>
+    </style>
+    <style name="PlaybackControls_UpVoteButtonButton">
+    	<item name="android:background">@drawable/willupvote_button</item>
+    	<item name="android:layout_width">40dp</item>
+    	<item name="android:layout_height">40dp</item>
+    </style>
 </resources>

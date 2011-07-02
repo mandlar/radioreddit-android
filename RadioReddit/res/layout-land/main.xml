@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <!-- Header -->
+    <LinearLayout
+    	android:layout_width="fill_parent"
+    	android:layout_height="50dp"
+    	android:gravity="center"
+    	android:background="@drawable/title_gradient"
+    	>
+    	<LinearLayout
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:id="@+id/div_station"
+    		>
+	    	<TextView
+	    		android:id="@+id/lbl_station"
+	    		android:layout_width="wrap_content"
+	    		android:layout_height="wrap_content"
+	    		android:text="main"
+	    		android:textColor="#ffffff"
+	    		android:textSize="22sp"
+	    		android:textStyle="bold"
+	    		/>
+    	</LinearLayout>
+    </LinearLayout>
+    <!-- Border -->
+    <LinearLayout
+    	android:layout_width="fill_parent"
+    	android:layout_height="0.5dp"
+    	android:background="#777777"
+    	/>
+    <!-- Logo / current song info -->
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:background="@drawable/background"
+		android:layout_weight="1"
+		>
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:gravity="center"
+			android:layout_weight="1"
+			>
+			<ImageView
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"			
+				android:src="@drawable/logo"
+				android:adjustViewBounds="true"
+				android:scaleType="centerInside"
+				android:paddingLeft="30dp"
+				android:paddingRight="30dp"
+				android:paddingTop="10dp"
+				/>
+		</LinearLayout>
+		<!-- Current song info -->
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			android:layout_marginTop="10dp"
+			android:layout_marginBottom="10dp"
+			android:orientation="vertical"
+			android:gravity="center_horizontal"
+			>
+			<ProgressBar
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/progress_LoadingSong"
+				android:layout_marginBottom="15dp"
+				android:indeterminate="true"
+				android:visibility="gone"
+				style="?android:attr/progressBarStyleInverse"
+				/>
+			<TextView
+				android:id="@+id/lbl_Buffering" 
+				style="@style/SongTitle"
+				android:visibility="gone"
+				android:text="@string/buffering"
+				/>
+			<TextView
+				android:id="@+id/lbl_Connecting" 
+				style="@style/SongTitle"
+				android:visibility="gone"
+				android:text="@string/connectingToRadioReddit"
+				/>
+			<!-- Song Vote -->
+			<TextView
+				android:id="@+id/lbl_SongVote" 
+				style="@style/SongVote"
+				/>
+			<!--  Song Title -->
+			<TextView
+				android:id="@+id/lbl_SongTitle" 
+				style="@style/SongTitle"
+				/>
+			<!-- Song Artist -->
+			<TextView
+				android:id="@+id/lbl_SongArtist" 
+				style="@style/SongArtist"
+				/>
+			<!-- Song Playlist -->
+			<TextView
+				android:id="@+id/lbl_SongPlaylist" 
+				style="@style/SongPlaylist"
+				/>
+		</LinearLayout>
+	   
+    </LinearLayout>
+    <!-- Border -->
+    <LinearLayout
+    	style="@style/PlaybackControls_Border"
+    	/>
+    <!-- Controls top gradient -->
+    <LinearLayout
+    	style="@style/PlaybackControls_TopGradient"
+    	/>
+    <!-- Controls -->
+    <LinearLayout
+    	style="@style/PlaybackControls_Body"
+    	>
+    	<LinearLayout
+    		style="@style/PlaybackControls_ButtonsContainer"
+    		>
+	    	<Button
+	    		android:id="@+id/btn_downvote"
+	    		style="@style/PlaybackControls_DownVoteButton"
+		    	/>
+	    	 <Button 
+		    	android:id="@+id/btn_play"
+		    	style="@style/PlaybackControls_PlayButton"
+		    	/>
+		    <Button
+	    		android:id="@+id/btn_upvote"
+	    		style="@style/PlaybackControls_UpVoteButtonButton"
+		    	/>
+		</LinearLayout>
+    </LinearLayout>
+</LinearLayout>
