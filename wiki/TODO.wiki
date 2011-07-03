@@ -6,6 +6,7 @@
   * Add support for talk station (No official APIs yet)
   * Check for TODO's in code
   * Android 3.0 support (push to Beta?)
+    * See: http://www.kaloer.com/making-your-app-tablet-friendly-3-steps
   * Clean up code, add GPL licensing to each file
   * Headset controls support (play/stop? next/prev switch streams?)
   * (DONE Handle condition of being in preparing state when switching stations (currently throws illegal state)
