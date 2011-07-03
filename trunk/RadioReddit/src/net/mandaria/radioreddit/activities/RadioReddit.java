@@ -47,6 +47,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -64,6 +65,7 @@ public class RadioReddit extends Activity {
 	TextView lbl_Connecting;
 	LinearLayout div_station;
 	ProgressBar progress_LoadingSong;
+	ImageView img_Logo;
 	
 	Button btn_play;
 	Button btn_downvote;
@@ -132,6 +134,7 @@ public class RadioReddit extends Activity {
 		lbl_SongPlaylist = (TextView) findViewById(R.id.lbl_SongPlaylist);
 		lbl_Buffering = (TextView) findViewById(R.id.lbl_Buffering);
 		lbl_Connecting = (TextView) findViewById(R.id.lbl_Connecting);
+		img_Logo = (ImageView) findViewById(R.id.img_Logo);
 		progress_LoadingSong = (ProgressBar) findViewById(R.id.progress_LoadingSong);
 
 		btn_upvote = (Button) findViewById(R.id.btn_upvote);
@@ -544,6 +547,7 @@ private void SendEmail()
 				mLastStreamsInformationUpdateMillis = SystemClock.elapsedRealtime(); 
 			}
 			
+			// Connecting to radio reddit 
 			if(application.RadioStreams == null)
 			{
 				progress_LoadingSong.setVisibility(View.VISIBLE);
@@ -552,7 +556,7 @@ private void SendEmail()
 				btn_play.setVisibility(View.GONE);
 				btn_upvote.setVisibility(View.GONE);
 				btn_downvote.setVisibility(View.GONE);
-				
+				img_Logo.setImageResource(R.drawable.logo_darkeyes);
 			}
 			else
 			{
@@ -563,6 +567,7 @@ private void SendEmail()
 				btn_play.setVisibility(View.VISIBLE);
 				btn_upvote.setVisibility(View.VISIBLE);
 				btn_downvote.setVisibility(View.VISIBLE);
+				img_Logo.setImageResource(R.drawable.logo);
 			}
 			
 			if(player != null && player.isPlaying())
