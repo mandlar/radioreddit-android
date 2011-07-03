@@ -262,6 +262,7 @@ public class PlaybackService extends Service implements OnPreparedListener,
 
   synchronized public void play() 
   {
+	Log.w(LOG_TAG, "Playback service - play() start");
     if (!isPrepared) 
     {
       Log.e(LOG_TAG, "play - not prepared");
@@ -296,10 +297,12 @@ public class PlaybackService extends Service implements OnPreparedListener,
     lastChangeBroadcast = new Intent(SERVICE_CHANGE_NAME);
     //lastChangeBroadcast.putExtra(EXTRA_TITLE, current.title);
     getApplicationContext().sendStickyBroadcast(lastChangeBroadcast); // broadcasts that playing has started
+    Log.w(LOG_TAG, "Playback service - play() end");
   }
   
   private void updateNotification()
   {
+	  //Log.w(LOG_TAG, "Playback service - updateNotification() start");
 	  	RadioRedditApplication application = (RadioRedditApplication)getApplication();
 	  	int icon = R.drawable.stat_notify_musicplayer;
 	  
@@ -335,6 +338,7 @@ public class PlaybackService extends Service implements OnPreparedListener,
 			notification.setLatestEventInfo(c, songTitle, songArtist, contentIntent);
 			notificationManager.notify(NOTIFICATION_ID, notification);
 	  	}
+	  	//Log.w(LOG_TAG, "Playback service - updateNotification() stop");
   }
 
   synchronized public void pause() 
@@ -382,6 +386,7 @@ public class PlaybackService extends Service implements OnPreparedListener,
   public void listen(String url, boolean stream)
       throws IllegalArgumentException, IllegalStateException, IOException 
   {
+	  Log.w(LOG_TAG, "Playback service - listen() start");
     // First, clean up any existing audio.
     if (isPlaying()) 
     {
@@ -426,6 +431,7 @@ public class PlaybackService extends Service implements OnPreparedListener,
       isPreparing = true;
       Log.d(LOG_TAG, "Waiting for prepare");
     }
+    Log.w(LOG_TAG, "Playback service - listen() stop");
   }
 
   @Override
@@ -497,22 +503,23 @@ public class PlaybackService extends Service implements OnPreparedListener,
   
     private void startUpdateTimer()
 	{
-		//Log.i(TAG, "Begin startUpdateTimer()");
+		Log.i(LOG_TAG, "Begin startUpdateTimer()");
 		mHandler.removeCallbacks(mUpdateTimeTask);
 		mHandler.postDelayed(mUpdateTimeTask, 100);
-		//Log.i(TAG, "End startUpdateTimer()");
+		Log.i(LOG_TAG, "End startUpdateTimer()");
 	}
 
 	private void stopUpdateTimer()
 	{
-		//Log.i(TAG, "Begin stopUpdateTimer()");
+		Log.i(LOG_TAG, "Begin stopUpdateTimer()");
 		mHandler.removeCallbacks(mUpdateTimeTask);
-		//Log.i(TAG, "Stop stopUpdateTimer()");
+		Log.i(LOG_TAG, "Stop stopUpdateTimer()");
 	}
 
   @Override
   public void onDestroy() 
   {
+	Log.w(LOG_TAG, "Playback service - onDestroy() start");
     super.onDestroy();
     Log.w(LOG_TAG, "Service exiting");
 
@@ -559,6 +566,8 @@ public class PlaybackService extends Service implements OnPreparedListener,
     {
     	// do nothing, there is no other way to tell if a receiver was registered before or not
     }
+    
+    Log.w(LOG_TAG, "Playback service - onDestroy() stop");
   }
 
   public class ListenBinder extends Binder 
@@ -573,7 +582,7 @@ public class PlaybackService extends Service implements OnPreparedListener,
   @Override
   public void onBufferingUpdate(MediaPlayer mp, int progress) 
   {
-	  //Log.e("radio reddit buffer", String.valueOf(progress));
+	//Log.w(LOG_TAG, "Buffering progress:" + String.valueOf(progress));
 	lastBufferPercent = progress;
 	updateProgress();
     if (isPrepared) 
@@ -599,6 +608,7 @@ public class PlaybackService extends Service implements OnPreparedListener,
    */
   private void updateProgress() 
   {
+	//Log.w(LOG_TAG, "Playback service - updateProgress() start");
     if (isPrepared && mediaPlayer != null && mediaPlayer.isPlaying()) 
     {
     	// Check if buffering
@@ -658,12 +668,13 @@ public class PlaybackService extends Service implements OnPreparedListener,
       //    mediaPlayer.getCurrentPosition());
       getApplicationContext().sendStickyBroadcast(lastUpdateBroadcast);
     }
+    //Log.w(LOG_TAG, "Playback service - updateProgress() stop");
   }
   
   @Override
   public void onCompletion(MediaPlayer mp) 
   {
-    Log.w(LOG_TAG, "onComplete()");
+	  Log.w(LOG_TAG, "Playback service - onCompletion() start");
 
     synchronized (this) 
     {
@@ -712,6 +723,8 @@ public class PlaybackService extends Service implements OnPreparedListener,
     {
       stopSelf();
     }
+    
+    Log.w(LOG_TAG, "Playback service - onCompletion() stop");
   }
 
   @Override
@@ -726,7 +739,10 @@ public class PlaybackService extends Service implements OnPreparedListener,
         Log.w(LOG_TAG, "MediaPlayer refused to play current item. Bailing on prepare.");
       }
     }
-    return false;
+    
+    Toast.makeText(getApplicationContext(), getResources().getString(R.string.error_StreamConnectionError), Toast.LENGTH_LONG).show();
+    
+    return false; // false causes the onCompletion handler to be called. True means we handled the error
   }
 
   @Override
@@ -741,6 +757,7 @@ public class PlaybackService extends Service implements OnPreparedListener,
    */
   private void cleanup() 
   {
+	Log.w(LOG_TAG, "Playback service - cleanup() start");
     notificationManager.cancel(NOTIFICATION_ID);
     if (lastChangeBroadcast != null) 
     {
@@ -757,6 +774,8 @@ public class PlaybackService extends Service implements OnPreparedListener,
     
     if(mWifiLock != null && mWifiLock.isHeld() == true)
     	mWifiLock.release();
+    
+    Log.w(LOG_TAG, "Playback service - cleanup() stop");
   }
   
   // -----------
