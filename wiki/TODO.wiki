@@ -5,7 +5,6 @@
   * Add "Change station" to menu
   * Gray out alien eyes while connecting
   * Move more things into styles
-  * Add Arrow down under choosing streams
   * Scale text for tablets (create /values/ for -large -xlarge???)
   * Add Flurry tracking
   * Add support for talk station (No official APIs yet)
@@ -46,6 +45,7 @@
     * Stop worrying about onBuffering, focus on onCompletion (when it stops streaming) and whether to "re-try" the stream or not?
     * Official last.fm client: https://github.com/c99koder/lastfm-android/blob/master/app/src/fm/last/android/player/RadioPlayerService.java
   * (DONE) Better landscape orientation
+  * (DONE) Add Arrow down under choosing streams
 
 == Beta ==
 
