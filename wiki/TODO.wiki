@@ -3,7 +3,6 @@
 == Alpha ==
 
   * Add "Change station" to menu
-  * Gray out alien eyes while connecting
   * Move more things into styles
   * Scale text for tablets (create /values/ for -large -xlarge???)
   * Add Flurry tracking
@@ -46,6 +45,7 @@
     * Official last.fm client: https://github.com/c99koder/lastfm-android/blob/master/app/src/fm/last/android/player/RadioPlayerService.java
   * (DONE) Better landscape orientation
   * (DONE) Add Arrow down under choosing streams
+  * (DONE) Gray out alien eyes while connecting
 
 == Beta ==
 
