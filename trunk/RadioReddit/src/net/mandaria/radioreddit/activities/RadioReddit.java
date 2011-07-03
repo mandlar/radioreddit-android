@@ -548,7 +548,7 @@ private void SendEmail()
 			{
 				progress_LoadingSong.setVisibility(View.VISIBLE);
 				lbl_Connecting.setVisibility(View.VISIBLE);
-				lbl_station.setVisibility(View.GONE);
+				div_station.setVisibility(View.GONE);
 				btn_play.setVisibility(View.GONE);
 				btn_upvote.setVisibility(View.GONE);
 				btn_downvote.setVisibility(View.GONE);
@@ -559,7 +559,7 @@ private void SendEmail()
 				if(player != null && !player.isPlaying() && !player.isPreparing())
 					progress_LoadingSong.setVisibility(View.GONE);
 				lbl_Connecting.setVisibility(View.GONE);
-				lbl_station.setVisibility(View.VISIBLE);
+				div_station.setVisibility(View.VISIBLE);
 				btn_play.setVisibility(View.VISIBLE);
 				btn_upvote.setVisibility(View.VISIBLE);
 				btn_downvote.setVisibility(View.VISIBLE);
