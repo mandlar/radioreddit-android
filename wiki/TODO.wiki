@@ -2,6 +2,7 @@
 
 == Alpha ==
 
+  * Gray out alien eyes while connecting
   * Move more things into styles
   * Add Arrow down under choosing streams
   * Scale text for tablets (create /values/ for -large -xlarge???)
