@@ -2,6 +2,7 @@
 
 == Alpha ==
 
+  * Add "Change station" to menu
   * Gray out alien eyes while connecting
   * Move more things into styles
   * Add Arrow down under choosing streams
