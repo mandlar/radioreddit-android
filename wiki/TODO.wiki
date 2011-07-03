@@ -3,7 +3,6 @@
 == Alpha ==
 
   * Add Flurry tracking
-  * Better landscape orientation
   * Add support for talk station (No official APIs yet)
   * Check for TODO's in code
   * Android 3.0 support (push to Beta?)
@@ -40,6 +39,7 @@
   * (DONE) Lose connection to stream: attempt to replay, etc.?
     * Stop worrying about onBuffering, focus on onCompletion (when it stops streaming) and whether to "re-try" the stream or not?
     * Official last.fm client: https://github.com/c99koder/lastfm-android/blob/master/app/src/fm/last/android/player/RadioPlayerService.java
+  * (DONE) Better landscape orientation
 
 == Beta ==
 
