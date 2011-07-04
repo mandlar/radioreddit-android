@@ -68,6 +68,11 @@ public class ViewEpisodeInformation extends Activity {
 		
 		RadioRedditApplication application = (RadioRedditApplication)getApplication();
 		
+		if(sdkVersion >= 11)
+		{	    	
+			if(application.CurrentStream != null)
+				getActionBar().setTitle("Current Station: " + application.CurrentStream.Name);
+		}
 		
 		if(application.CurrentEpisode != null)
 		{

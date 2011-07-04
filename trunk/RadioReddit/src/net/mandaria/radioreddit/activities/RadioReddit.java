@@ -137,9 +137,7 @@ public class RadioReddit extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Go to episode information details
-				Intent i = new Intent(RadioReddit.this, ViewEpisodeInformation.class);
-				startActivity(i);
+				ViewEpisodeInfo();
 			}
 		});
 		
@@ -220,6 +218,7 @@ public class RadioReddit extends Activity {
 		RadioRedditApplication application = (RadioRedditApplication)getApplication();
 		
 		MenuItem chooseStation = (MenuItem)menu.findItem(R.id.chooseStation);
+		MenuItem viewEpisodeInfo = (MenuItem)menu.findItem(R.id.viewEpisodeInfo);
 		
 		// Connecting to radio reddit 
 		if(application.RadioStreams == null)
@@ -230,6 +229,11 @@ public class RadioReddit extends Activity {
 		{
 			chooseStation.setEnabled(true);
 		}
+		
+		if(application.CurrentEpisode != null)
+			viewEpisodeInfo.setVisible(true);
+		else
+			viewEpisodeInfo.setVisible(false);
 		
 		if(sdkVersion >= 11)
 		{
@@ -259,6 +263,9 @@ public class RadioReddit extends Activity {
   			case R.id.chooseStation:
   				ChooseStation();
   				return true;
+  			case R.id.viewEpisodeInfo:
+  				ViewEpisodeInfo();
+  				return true;
   			case R.id.email_feedback:
   				//FlurryAgent.onEvent("radio reddit - Menu Button - Email Feedback");
   				SendEmail();
@@ -269,6 +276,12 @@ public class RadioReddit extends Activity {
   		}
   		return false;
   	}
+
+private void ViewEpisodeInfo()
+{
+	Intent i = new Intent(RadioReddit.this, ViewEpisodeInformation.class);
+	startActivity(i);
+}
 
 private void ChooseStation()
 {
