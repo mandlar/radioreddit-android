@@ -4,7 +4,6 @@
 
   * Add "Change station" to menu
   * Move more things into styles
-  * Scale text for tablets (create /values/ for -large -xlarge???)
   * Add Flurry tracking
   * Add support for talk station (No official APIs yet)
   * Check for TODO's in code
@@ -46,6 +45,8 @@
   * (DONE) Better landscape orientation
   * (DONE) Add Arrow down under choosing streams
   * (DONE) Gray out alien eyes while connecting
+  * (DONE) Scale text for tablets (create /values/ for -large -xlarge???)
+
 
 == Beta ==
 
