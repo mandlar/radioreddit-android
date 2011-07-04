@@ -61,6 +61,7 @@ public class RadioReddit extends Activity {
 	TextView lbl_SongTitle;
 	TextView lbl_SongArtist;
 	TextView lbl_SongPlaylist;
+	ImageView btn_SongInfo;
 	TextView lbl_Buffering;
 	TextView lbl_Connecting;
 	LinearLayout div_header;
@@ -131,6 +132,16 @@ public class RadioReddit extends Activity {
 		lbl_SongTitle = (TextView) findViewById(R.id.lbl_SongTitle);
 		lbl_SongArtist = (TextView) findViewById(R.id.lbl_SongArtist);
 		lbl_SongPlaylist = (TextView) findViewById(R.id.lbl_SongPlaylist);
+		btn_SongInfo = (ImageView) findViewById(R.id.btn_SongInfo);
+		btn_SongInfo.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Go to episode information details
+				
+			}
+		});
+		
 		lbl_Buffering = (TextView) findViewById(R.id.lbl_Buffering);
 		lbl_Connecting = (TextView) findViewById(R.id.lbl_Connecting);
 		img_Logo = (ImageView) findViewById(R.id.img_Logo);
@@ -667,11 +678,12 @@ private void SendEmail()
 		lbl_SongVote.setVisibility(View.VISIBLE);
 		lbl_SongTitle.setVisibility(View.VISIBLE);
 		lbl_SongArtist.setVisibility(View.VISIBLE);
-		lbl_SongPlaylist.setVisibility(View.VISIBLE);
+		lbl_SongPlaylist.setVisibility(View.GONE);
 		lbl_SongVote.setText(application.CurrentEpisode.Score);
 		lbl_SongTitle.setText(application.CurrentEpisode.EpisodeTitle);
 		lbl_SongArtist.setText(application.CurrentEpisode.ShowTitle);
-		lbl_SongPlaylist.setText("playlist: " + application.CurrentEpisode.Playlist); // TODO: pull playlist to strings.xml
+		btn_SongInfo.setVisibility(View.VISIBLE);
+		//lbl_SongPlaylist.setText("playlist: " + application.CurrentEpisode.Playlist); // TODO: pull playlist to strings.xml
 		//lbl_SongVote.setText(getString(R.string.vote_to_submit_song));
 		//lbl_SongTitle.setText(getString(R.string.dummy_song_title));
 		//lbl_SongArtist.setText(getString(R.string.dummy_song_artist));
@@ -690,6 +702,7 @@ private void SendEmail()
 		lbl_SongTitle.setText(application.CurrentSong.Title);
 		lbl_SongArtist.setText(application.CurrentSong.Artist + " (" + application.CurrentSong.Redditor + ")");
 		lbl_SongPlaylist.setText("playlist: " + application.CurrentSong.Playlist); // TODO: pull playlist to strings.xml
+		btn_SongInfo.setVisibility(View.GONE);
 		//lbl_SongVote.setText(getString(R.string.vote_to_submit_song));
 		//lbl_SongTitle.setText(getString(R.string.dummy_song_title));
 		//lbl_SongArtist.setText(getString(R.string.dummy_song_artist));
@@ -708,6 +721,7 @@ private void SendEmail()
 		lbl_SongTitle.setText("");
 		lbl_SongArtist.setText("");
 		lbl_SongPlaylist.setText("");
+		btn_SongInfo.setVisibility(View.GONE);
 	}
 	
 }

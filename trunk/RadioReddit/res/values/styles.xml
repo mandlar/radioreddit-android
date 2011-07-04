@@ -117,6 +117,14 @@
 		<item name="android:gravity">center_horizontal</item>
 		<item name="android:layout_marginTop">15dp</item>
 	</style>	
+	<!--  Song info -->
+	<style name="SongInformation_SongInfo">
+		<item name="android:layout_width">35dp</item>
+		<item name="android:layout_height">35dp</item>
+		<item name="android:src">@android:drawable/ic_menu_info_details</item>
+		<item name="android:visibility">gone</item>
+		<item name="android:layout_marginTop">15dp</item>
+	</style>
 	<!-- Playback controls -->
 	<style name="PlaybackControls_Border">
 		<item name="android:layout_width">fill_parent</item>

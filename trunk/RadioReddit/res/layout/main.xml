@@ -79,6 +79,11 @@
 				android:id="@+id/lbl_SongPlaylist" 
 				style="@style/SongInformation_SongPlaylist"
 				/>
+			<!-- Song Info -->
+			<ImageView
+				android:id="@+id/btn_SongInfo"
+				style="@style/SongInformation_SongInfo"
+				/>
 		</LinearLayout>
 	   
     </LinearLayout>
