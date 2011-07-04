@@ -63,9 +63,10 @@ public class GetCurrentEpisodeInformationTask extends AsyncTask<Void, RadioEpiso
 	protected void onPostExecute(RadioEpisode result) 
 	{
 		
-		if(result != null && result.ErrorMessage.equals("") && _application.CurrentStream.Name.equals(_startingStream)) // make sure we're on the same stream
+		if(result != null && result.ErrorMessage.equals(""))
 		{
-			_application.CurrentEpisode = result;
+			if(_application.CurrentStream.Name.equals(_startingStream)) // make sure we're on the same stream)
+				_application.CurrentEpisode = result;
 		}
 		else
 		{
