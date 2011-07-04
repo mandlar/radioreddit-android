@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>    
 	<!--  Menu items -->
+	<string name="chooseStation">Choose Station</string>
 	<string name="exit">Exit</string>
 	<string name="email_feedback">Email Feedback</string>
     <!--  * Support Email Feedback -->
