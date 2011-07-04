@@ -3,10 +3,12 @@
 	<item
 		android:id="@+id/chooseStation"
 		android:title="@string/chooseStation"
+		android:showAsAction="ifRoom|withText"
 		/>
 	<item
 		android:id="@+id/exit"
 		android:title="@string/exit"
+		android:showAsAction="always|withText"
 		/>
 	<item
 		android:id="@+id/email_feedback"
