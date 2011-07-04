@@ -10,6 +10,7 @@ import org.json.JSONTokener;
 
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
+import net.mandaria.radioreddit.objects.RadioEpisode;
 import net.mandaria.radioreddit.objects.RadioSong;
 import net.mandaria.radioreddit.objects.RadioStream;
 import net.mandaria.radioreddit.objects.RadioStreams;
@@ -61,6 +62,8 @@ public class RadioRedditAPI
 		        	
 		        	RadioStream radiostream = new RadioStream();
 		        	radiostream.Name = name;
+		        	//if(stream.has("type"))
+		        	radiostream.Type = stream.getString("type");
 		        	radiostream.Description = stream.getString("description");
 		        	radiostream.Status = stream.getString("status");
 		        	
@@ -79,8 +82,6 @@ public class RadioRedditAPI
 					{
 						errorGettingStatus = true;
 						radiostreams.ErrorMessage = context.getString(R.string.error_RadioRedditServerIsDownNotification);
-						// TODO: will need to move to UI thread
-						//Toast.makeText(context, context.getString(R.string.error_RadioRedditServerIsDownNotification), Toast.LENGTH_LONG).show();
 					}
 					
 					if(!errorGettingStatus)
@@ -110,8 +111,6 @@ public class RadioRedditAPI
 		        else
 		        {
 		        	radiostreams.ErrorMessage = context.getString(R.string.error_NoStreams);
-		        	// TODO: will need to move to UI thread
-		        	//Toast.makeText(context, context.getString(R.string.error_NoStreams), Toast.LENGTH_LONG).show();
 		        }
 			}
 		}
@@ -246,6 +245,120 @@ public class RadioRedditAPI
 			ex.printStackTrace();
 			radiosong.ErrorMessage = ex.toString();
 			return radiosong;
+		}
+	}
+		
+	public static RadioEpisode GetCurrentEpisodeInformation(Context context, RadioRedditApplication application)
+	{
+		RadioEpisode radioepisode = new RadioEpisode();
+		radioepisode.ErrorMessage = "";
+		
+		try
+		{
+			String status_url = context.getString(R.string.radio_reddit_base_url) + application.CurrentStream.Status + context.getString(R.string.radio_reddit_status);
+			
+			String outputStatus = "";
+			boolean errorGettingStatus = false;
+			
+			try
+			{
+				outputStatus = HTTPUtil.get(context, status_url);
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				errorGettingStatus = true;
+				// For now, not used. It is acceptable to error out and not alert the user
+				//radiosong.ErrorMessage = context.getString(R.string.error_RadioRedditServerIsDownNotification);
+			}
+			
+			if(!errorGettingStatus)
+			{
+		        JSONTokener status_tokener = new JSONTokener(outputStatus);
+		        JSONObject status_json = new JSONObject(status_tokener);
+		        
+		        radioepisode.Playlist = status_json.getString("playlist");
+		        
+		        JSONObject episodes = status_json.getJSONObject("episodes");
+		        JSONArray episodes_array = episodes.getJSONArray("episode");
+		        
+		        // get the first episode in the array
+		        JSONObject song = episodes_array.getJSONObject(0);
+		        radioepisode.ID = song.getInt("id");
+		        radioepisode.EpisodeTitle = song.getString("episode_title");
+		        radioepisode.EpisodeDescription = song.getString("episode_description");
+		        radioepisode.EpisodeKeywords = song.getString("episode_keywords");
+		        radioepisode.ShowTitle = song.getString("show_title");
+		        radioepisode.ShowHosts = song.getString("show_hosts");
+		        radioepisode.ShowRedditors = song.getString("show_redditors");
+		        radioepisode.ShowGenre = song.getString("show_genre");
+		        radioepisode.ShowFeed = song.getString("show_feed");
+		        radioepisode.Reddit_title = song.getString("reddit_title");
+		        radioepisode.Reddit_url = song.getString("reddit_url");
+		        if(song.has("preview_url"))
+		        	radioepisode.Preview_url = song.getString("preview_url");
+		        if(song.has("download_url"))
+		        	radioepisode.Download_url = song.getString("download_url");
+		        
+		        // get vote score
+		        String reddit_info_url = context.getString(R.string.reddit_link_by) + URLEncoder.encode(radioepisode.Reddit_url);
+		        
+		        String outputRedditInfo = "";
+				boolean errorGettingRedditInfo = false;
+				
+				try
+				{
+					outputRedditInfo = HTTPUtil.get(context, reddit_info_url);
+				}
+				catch(Exception ex)
+				{
+					ex.printStackTrace();
+					errorGettingRedditInfo = true;
+					// For now, not used. It is acceptable to error out and not alert the user
+					//radiosong.ErrorMessage = "Unable to connect to reddit";//context.getString(R.string.error_RadioRedditServerIsDownNotification);
+				}
+				
+				if(!errorGettingRedditInfo)
+				{
+					//Log.e("radio_reddit_test", "Length: " + outputRedditInfo.length());
+					//Log.e("radio_reddit_test", "Value: " + outputRedditInfo); // TODO: sometimes the value contains "error: 404", need to check for that
+			        JSONTokener reddit_info_tokener = new JSONTokener(outputRedditInfo);
+			        JSONObject reddit_info_json = new JSONObject(reddit_info_tokener);
+			        
+			        JSONObject data = reddit_info_json.getJSONObject("data");
+			        
+			        // default value of score
+			        String score = context.getString(R.string.vote_to_submit_song);
+		
+		        	JSONArray children_array = data.getJSONArray("children");
+		        	
+		        	// Episode hasn't been submitted yet
+		        	if(children_array.length() > 0)
+		        	{
+		        		JSONObject children = children_array.getJSONObject(0);
+		        		
+			        	JSONObject children_data = children.getJSONObject("data");		        
+			        	score = children_data.getString("score");
+		        	}
+					
+			        radioepisode.Score = score;
+				}
+				else
+				{
+					radioepisode.Score = "?";
+				}
+		        
+		        return radioepisode;
+			}
+			return null;
+		}
+		catch(Exception ex)
+		{
+			// TODO: should be emailed
+			// We fail to get the current song information...
+			ex.printStackTrace();
+			radioepisode.ErrorMessage = ex.toString();
+			return radioepisode;
 		}
  
 	}

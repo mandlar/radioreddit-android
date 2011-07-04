@@ -637,7 +637,7 @@ public class PlaybackService extends Service implements OnPreparedListener,
 		mLastCurrentPosition = mediaPlayer.getCurrentPosition();
     	
     	
-      // Update song information
+		// Update song information
 		RadioRedditApplication application = (RadioRedditApplication)getApplication();
 		// Update song information every 30 seconds
 		if((SystemClock.elapsedRealtime() - mLastCurrentSongInformationUpdateMillis) > 30000)

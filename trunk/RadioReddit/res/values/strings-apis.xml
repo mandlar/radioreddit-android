@@ -3,7 +3,7 @@
 	<!-- Radio Reddit APIs -->
 	<string name="radio_reddit_base_url">http://radioreddit.com</string>
 	<string name="radio_reddit_status">status.json</string>
-    <string name="radio_reddit_streams">http://radioreddit.com/config/streams.json</string>
+    <string name="radio_reddit_streams">http://radioreddit.com/config/streams.new.json</string>
     <string name="radio_reddit_charts_all">http://radioreddit.com/api/charts_all.json</string>
     <string name="radio_reddit_charts_month">http://radioreddit.com/api/charts_month.json</string>
     <string name="radio_reddit_charts_week">http://radioreddit.com/api/charts_week.json</string>
