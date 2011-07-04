@@ -2,6 +2,7 @@
 
 == Alpha ==
 
+  * Media volume should change on change station activity
   * Add Flurry tracking
   * Add support for talk station (No official APIs yet)
   * Check for TODO's in code
