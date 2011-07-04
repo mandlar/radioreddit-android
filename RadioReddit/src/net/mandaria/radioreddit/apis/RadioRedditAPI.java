@@ -289,8 +289,8 @@ public class RadioRedditAPI
 		        radioepisode.EpisodeDescription = song.getString("episode_description");
 		        radioepisode.EpisodeKeywords = song.getString("episode_keywords");
 		        radioepisode.ShowTitle = song.getString("show_title");
-		        radioepisode.ShowHosts = song.getString("show_hosts");
-		        radioepisode.ShowRedditors = song.getString("show_redditors");
+		        radioepisode.ShowHosts = song.getString("show_hosts").replaceAll(",", ", ");
+		        radioepisode.ShowRedditors = song.getString("show_redditors").replaceAll(",", ", ");
 		        radioepisode.ShowGenre = song.getString("show_genre");
 		        radioepisode.ShowFeed = song.getString("show_feed");
 		        radioepisode.Reddit_title = song.getString("reddit_title");
