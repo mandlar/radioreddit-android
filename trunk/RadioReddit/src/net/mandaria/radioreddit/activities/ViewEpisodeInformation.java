@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -80,7 +81,7 @@ public class ViewEpisodeInformation extends Activity {
 			lbl_EpisodeTitle.setText(application.CurrentEpisode.EpisodeTitle);
 			lbl_ShowHosts.setText(application.CurrentEpisode.ShowHosts);
 			lbl_ShowRedditors.setText(application.CurrentEpisode.ShowRedditors);
-			lbl_EpisodeDescription.setText(application.CurrentEpisode.EpisodeDescription);
+			lbl_EpisodeDescription.setText(Html.fromHtml(application.CurrentEpisode.EpisodeDescription));
 		}
 	}
 	
