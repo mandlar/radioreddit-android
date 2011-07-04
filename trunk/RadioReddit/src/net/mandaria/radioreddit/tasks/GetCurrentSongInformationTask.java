@@ -24,6 +24,7 @@ public class GetCurrentSongInformationTask extends AsyncTask<Void, RadioSong, Ra
 	private Locale _locale;
 	private RadioRedditApplication _application;
 	private Exception ex;
+	private String _startingStream;
 	
 	
 
@@ -32,6 +33,7 @@ public class GetCurrentSongInformationTask extends AsyncTask<Void, RadioSong, Ra
     	_context = context;
     	_locale = locale;
     	_application = application;
+    	_startingStream = application.CurrentStream.Name;
     }
 
 	@Override
@@ -61,7 +63,7 @@ public class GetCurrentSongInformationTask extends AsyncTask<Void, RadioSong, Ra
 	protected void onPostExecute(RadioSong result) 
 	{
 		
-		if(result != null && result.ErrorMessage.equals(""))
+		if(result != null && result.ErrorMessage.equals("") && _application.CurrentStream.Name.equals(_startingStream)) // make sure we're on the same stream
 		{
 			_application.CurrentSong = result;
 		}
