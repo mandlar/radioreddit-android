@@ -6,116 +6,76 @@
     >
     <!-- Header -->
     <LinearLayout
-    	android:layout_width="fill_parent"
-    	android:layout_height="50dp"
-    	android:gravity="center"
-    	android:background="@drawable/title_gradient"
+    	style="@style/Header_Body"
     	>
     	<LinearLayout
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content"
-    		android:orientation="vertical"
     		android:id="@+id/div_station"
-    		android:gravity="center_horizontal"
+    		style="@style/Header_ChooseStationBody"
     		>
 	    	<TextView
 	    		android:id="@+id/lbl_station"
-	    		android:layout_width="wrap_content"
-	    		android:layout_height="wrap_content"
-	    		android:text="main"
-	    		android:textColor="#ffffff"
-	    		android:textSize="22sp"
-	    		android:textStyle="bold"
+	    		style="@style/Header_ChooseStationLabel"
 	    		/>
 	    	<ImageView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"			
-				android:src="@drawable/streamtitlebutton"
+				style="@style/Header_ChooseStationDownArrow"
 				/>
     	</LinearLayout>
     </LinearLayout>
     <!-- Border -->
     <LinearLayout
-    	android:layout_width="fill_parent"
-    	android:layout_height="0.5dp"
-    	android:background="#777777"
+    	style="@style/Header_Border"
     	/>
     <!-- Logo / current song info -->
 	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:background="@drawable/background"
-		android:layout_weight="1"
+		style="@style/Body_MainBody.Landscape"
 		>
 		<LinearLayout
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			android:gravity="center"
-			android:layout_weight="1"
+			style="@style/Logo_Body"
 			>
 			<ImageView
 				android:id="@+id/img_Logo"
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent"			
-				android:src="@drawable/logo"
-				android:adjustViewBounds="true"
-				android:scaleType="centerInside"
-				android:paddingLeft="30dp"
-				android:paddingRight="30dp"
-				android:paddingTop="10dp"
+				style="@style/Logo_Image"
 				/>
 		</LinearLayout>
 		<!-- Current song info -->
 		<LinearLayout
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			android:layout_weight="1"
-			android:layout_marginTop="10dp"
-			android:layout_marginBottom="10dp"
-			android:orientation="vertical"
-			android:gravity="center"
+			style="@style/SongInformation_Body.Landscape"
 			>
 			<ProgressBar
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
 				android:id="@+id/progress_LoadingSong"
-				android:layout_marginBottom="15dp"
-				android:indeterminate="true"
-				android:visibility="gone"
-				style="?android:attr/progressBarStyleInverse"
+				style="@style/SongInformation_ProgressBar"
 				/>
 			<TextView
 				android:id="@+id/lbl_Buffering" 
-				style="@style/SongTitle"
+				style="@style/SongInformation_SongTitle"
 				android:visibility="gone"
 				android:text="@string/buffering"
 				/>
 			<TextView
 				android:id="@+id/lbl_Connecting" 
-				style="@style/SongTitle"
+				style="@style/SongInformation_SongTitle"
 				android:visibility="gone"
 				android:text="@string/connectingToRadioReddit"
 				/>
 			<!-- Song Vote -->
 			<TextView
 				android:id="@+id/lbl_SongVote" 
-				style="@style/SongVote"
+				style="@style/SongInformation_SongVote"
 				/>
 			<!--  Song Title -->
 			<TextView
 				android:id="@+id/lbl_SongTitle" 
-				style="@style/SongTitle"
+				style="@style/SongInformation_SongTitle"
 				/>
 			<!-- Song Artist -->
 			<TextView
 				android:id="@+id/lbl_SongArtist" 
-				style="@style/SongArtist"
+				style="@style/SongInformation_SongArtist"
 				/>
 			<!-- Song Playlist -->
 			<TextView
 				android:id="@+id/lbl_SongPlaylist" 
-				style="@style/SongPlaylist"
+				style="@style/SongInformation_SongPlaylist"
 				/>
 		</LinearLayout>
 	   

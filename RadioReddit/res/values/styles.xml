@@ -1,6 +1,88 @@
 <resources>
+	<!-- Header -->
+	<style name="Header_Body">
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">50dp</item>
+		<item name="android:gravity">center</item>
+		<item name="android:background">@drawable/title_gradient</item>
+	</style>	
+	<!-- Choose station -->
+	<style name="Header_ChooseStationBody">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:orientation">vertical</item>
+		<item name="android:gravity">center_horizontal</item>
+	</style>
+	<style name="Header_ChooseStationLabel">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:text">main</item>
+		<item name="android:textColor">#ffffff</item>
+		<item name="android:textSize">22sp</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+	<style name="Header_ChooseStationDownArrow">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:src">@drawable/streamtitlebutton</item>
+	</style>
+	<!-- Border -->
+	<style name="Header_Border">
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">0.5dp</item>
+		<item name="android:background">#777777</item>
+	</style>
+	<!-- Body -->
+	<style name="Body_MainBody">
+		<item name="android:orientation">vertical</item>
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">fill_parent</item>
+		<item name="android:background">@drawable/background</item>
+		<item name="android:layout_weight">1</item>
+	</style>
+	<style name="Body_MainBody.Landscape">
+		<item name="android:orientation">horizontal</item>
+	</style>
+	<!-- Logo -->
+	<style name="Logo_Body">
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">fill_parent</item>
+		<item name="android:gravity">center</item>
+		<item name="android:layout_weight">1</item>
+	</style>
+	<style name="Logo_Image">
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">fill_parent</item>
+		<item name="android:src">@drawable/logo</item>
+		<item name="android:adjustViewBounds">true</item>
+		<item name="android:scaleType">centerInside</item>
+		<item name="android:paddingLeft">30dp</item>
+		<item name="android:paddingRight">30dp</item>
+		<item name="android:paddingTop">10dp</item>
+	</style>
+	<!-- Song information -->
+	<style name="SongInformation_Body">
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">fill_parent</item>
+		<item name="android:layout_weight">1</item>
+		<item name="android:layout_marginTop">-20dp</item>
+		<item name="android:layout_marginBottom">10dp</item>
+		<item name="android:orientation">vertical</item>
+		<item name="android:gravity">center_horizontal</item>
+	</style>
+	<style name="SongInformation_Body.Landscape">
+		<item name="android:layout_marginTop">10dp</item>
+		<item name="android:gravity">center</item>
+	</style>
+	<style name="SongInformation_ProgressBar" parent="@android:attr/progressBarStyleInverse">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_marginBottom">15dp</item>
+		<item name="android:indeterminate">true</item>
+		<item name="android:visibility">gone</item>
+	</style>
 	<!-- Vote to submit song -->
-	<style name="SongVote">
+	<style name="SongInformation_SongVote">
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:textColor">#b6b6b6</item>
@@ -9,7 +91,7 @@
 		<item name="android:gravity">center_horizontal</item>
 	</style>
 	<!-- Song Title -->
-	<style name="SongTitle">
+	<style name="SongInformation_SongTitle">
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:textColor">#333333</item>
@@ -18,7 +100,7 @@
 		<item name="android:layout_marginTop">15dp</item>
 	</style>
 	<!-- Song artist -->
-	<style name="SongArtist">
+	<style name="SongInformation_SongArtist">
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:textColor">#010101</item>
@@ -27,7 +109,7 @@
 		<item name="android:layout_marginTop">15dp</item>
 	</style>
 	<!-- Song playlist -->
-	<style name="SongPlaylist">
+	<style name="SongInformation_SongPlaylist">
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:textColor">#787878</item>
