@@ -63,9 +63,10 @@ public class GetCurrentSongInformationTask extends AsyncTask<Void, RadioSong, Ra
 	protected void onPostExecute(RadioSong result) 
 	{
 		
-		if(result != null && result.ErrorMessage.equals("") && _application.CurrentStream.Name.equals(_startingStream)) // make sure we're on the same stream
+		if(result != null && result.ErrorMessage.equals(""))
 		{
-			_application.CurrentSong = result;
+			if(_application.CurrentStream.Name.equals(_startingStream)) // make sure we're on the same stream)
+				_application.CurrentSong = result;
 		}
 		else
 		{
