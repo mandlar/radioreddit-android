@@ -225,7 +225,7 @@ public class RadioReddit extends Activity {
 		if(sdkVersion >= 11)
 		{
 			if(application.CurrentStream != null)
-				getActionBar().setTitle("Current Station: " + application.CurrentStream.Name);
+				getActionBar().setTitle(getResources().getString(R.string.currentStation) + ": " + application.CurrentStream.Name);
 		}
 	        
 	    return true;
