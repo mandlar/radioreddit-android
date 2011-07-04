@@ -64,6 +64,7 @@ import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.R.drawable;
 import net.mandaria.radioreddit.R.string;
 import net.mandaria.radioreddit.activities.RadioReddit;
+import net.mandaria.radioreddit.tasks.GetCurrentEpisodeInformationTask;
 import net.mandaria.radioreddit.tasks.GetCurrentSongInformationTask;
 
 public class PlaybackService extends Service implements OnPreparedListener,
@@ -642,7 +643,11 @@ public class PlaybackService extends Service implements OnPreparedListener,
 		// Update song information every 30 seconds
 		if((SystemClock.elapsedRealtime() - mLastCurrentSongInformationUpdateMillis) > 30000)
 		{
-			new GetCurrentSongInformationTask(application, this, Locale.getDefault()).execute();
+			if(application.CurrentStream.Type.equals("music"))
+				new GetCurrentSongInformationTask(application, this, Locale.getDefault()).execute();
+			else if(application.CurrentStream.Type.equals("talk"))
+				new GetCurrentEpisodeInformationTask(application, this, Locale.getDefault()).execute();
+			
 			mLastCurrentSongInformationUpdateMillis = SystemClock.elapsedRealtime(); 
 		}
     	
