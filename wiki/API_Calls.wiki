@@ -70,7 +70,7 @@ Make a call to http://radioreddit.com(API)status.json to get the stream's curren
 
 The json returns a List of Episodes, the current playlist, online status, relay, and number of listeners
 
-A Song object consists of:
+A Episode object consists of:
   * Int ID (not used?)
   * String EpisodeTitle
   * String EpisodeDescription
@@ -80,6 +80,7 @@ A Song object consists of:
   * String[] ShowRedditors
   * String[] ShowGenre (most likely not going to be used)
   * String ShowFeed (to subscribe to podcasts?)
+  * String Playlist (pulled from parent node)
   * String reddit_title (Name of reddit link)
   * String reddit_url (reddit link)
   * String preview_url (Used for previewing episode? Always exists?)
