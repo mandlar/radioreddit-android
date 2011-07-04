@@ -63,7 +63,9 @@ public class RadioReddit extends Activity {
 	TextView lbl_SongPlaylist;
 	TextView lbl_Buffering;
 	TextView lbl_Connecting;
+	LinearLayout div_header;
 	LinearLayout div_station;
+	
 	ProgressBar progress_LoadingSong;
 	ImageView img_Logo;
 	
@@ -73,6 +75,7 @@ public class RadioReddit extends Activity {
 	StreamProxy proxy;
 	
 	private String LOG_TAG = "RadioReddit";
+	private int sdkVersion = 0;
 	
 	private Handler mHandler = new Handler();
 	private long mLastStreamsInformationUpdateMillis = 0;
@@ -94,10 +97,28 @@ public class RadioReddit extends Activity {
 		
 		
 		init();
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
+	    try 
+	    {
+	      sdkVersion = Integer.parseInt(Build.VERSION.SDK);
+	    } 
+	    catch (NumberFormatException e) 
+	    {
+	    	
+	    }
+	    
+	    // Disable title on phones, enable action bar on tablets
+	    if(sdkVersion < 11)
+	    	requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		div_header = (LinearLayout) findViewById(R.id.div_header);
+		if(sdkVersion >= 11)
+		{	    	
+			div_header.setVisibility(View.GONE);
+		}
 		
 		div_station = (LinearLayout) findViewById(R.id.div_station);
 		div_station.setOnClickListener(new OnClickListener() 
@@ -199,6 +220,12 @@ public class RadioReddit extends Activity {
 		else
 		{
 			chooseStation.setEnabled(true);
+		}
+		
+		if(sdkVersion >= 11)
+		{
+			if(application.CurrentStream != null)
+				getActionBar().setTitle("Current Station: " + application.CurrentStream.Name);
 		}
 	        
 	    return true;
@@ -598,6 +625,9 @@ private void SendEmail()
 				btn_downvote.setVisibility(View.VISIBLE);
 				img_Logo.setImageResource(R.drawable.logo);
 			}
+			
+			if(sdkVersion >= 11)
+				invalidateOptionsMenu(); // force update of menu to enable "Choose Station" when connected
 			
 			if(player != null && player.isPlaying())
 			{

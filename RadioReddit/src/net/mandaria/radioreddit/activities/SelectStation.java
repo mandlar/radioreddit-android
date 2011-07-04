@@ -9,7 +9,9 @@ import net.mandaria.radioreddit.data.CustomRadioStreamsAdapter;
 import net.mandaria.radioreddit.objects.RadioStream;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -20,15 +22,34 @@ import android.widget.TextView;
 
 public class SelectStation extends Activity 
 {
+	private int sdkVersion = 0;
+	
 	@Override
     public void onCreate(Bundle savedInstanceState) 
     {
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		try 
+	    {
+	      sdkVersion = Integer.parseInt(Build.VERSION.SDK);
+	    } 
+	    catch (NumberFormatException e) 
+	    {
+	    	
+	    }
+	    
+	    // Disable title on phones, enable action bar on tablets
+	    if(sdkVersion < 11)
+	    	requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.selectstation);
 		
 		RadioRedditApplication application = (RadioRedditApplication)getApplication();
+		
+	    if(sdkVersion >= 11)
+		{	    	
+			if(application.CurrentStream != null)
+				getActionBar().setTitle("Current Station: " + application.CurrentStream.Name);
+		}
 		
 		ListView list_Stations = (ListView)findViewById(R.id.list_Stations);
 		CustomRadioStreamsAdapter adapter = new CustomRadioStreamsAdapter(this, R.layout.radio_stream_item, application.RadioStreams);
@@ -64,5 +85,21 @@ public class SelectStation extends Activity
         	}
         });
     }
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
+	    switch (item.getItemId()) 
+	    {
+	        case android.R.id.home:
+	            // app icon in Action Bar clicked; return result	            
+	            Intent result = new Intent();
+	            setResult(Activity.RESULT_CANCELED, result);
+        	    finish();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
 
 }
