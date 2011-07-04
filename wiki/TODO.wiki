@@ -2,7 +2,6 @@
 
 == Alpha ==
 
-  * Add "Change station" to menu
   * Add Flurry tracking
   * Add support for talk station (No official APIs yet)
   * Check for TODO's in code
@@ -46,6 +45,7 @@
   * (DONE) Gray out alien eyes while connecting
   * (DONE) Scale text for tablets (create /values/ for -large -xlarge???)
   * (DONE) Move more things into styles
+  * (DONE) Add "Change station" to menu
 
 == Beta ==
 
