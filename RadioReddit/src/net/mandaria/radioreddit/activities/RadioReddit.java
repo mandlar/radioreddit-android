@@ -489,7 +489,7 @@ private void SendEmail()
 			else
 			{
 				lbl_Buffering.setVisibility(View.GONE);
-				if(application.CurrentSong != null)
+				if(application.CurrentSong != null || application.CurrentEpisode != null)
 					progress_LoadingSong.setVisibility(View.GONE);
 			}
 					
@@ -552,6 +552,7 @@ private void SendEmail()
 			{
 				RadioRedditApplication application = (RadioRedditApplication)getApplication();
 				application.CurrentSong = null; // clear the current song
+				application.CurrentEpisode = null; // clear the current episode
 				
 				playStream();
 			}
@@ -630,11 +631,20 @@ private void SendEmail()
 			{
 				
 				// Update current song information
-				if(application.CurrentSong != null && !player.isBuffering())
+				if(!player.isBuffering())
 				{
-					showSongInformation();
-					
-					progress_LoadingSong.setVisibility(View.GONE);
+					if(application.CurrentSong != null && !player.isBuffering())
+					{
+						showSongInformation();
+						
+						progress_LoadingSong.setVisibility(View.GONE);
+					}
+					else if(application.CurrentEpisode != null)
+					{
+						showEpisodeInformation();
+						
+						progress_LoadingSong.setVisibility(View.GONE);
+					}
 				}
 			}
 			else
@@ -651,6 +661,24 @@ private void SendEmail()
 		
 	};
 	
+	private void showEpisodeInformation()
+	{
+		RadioRedditApplication application = (RadioRedditApplication)getApplication();
+		lbl_SongVote.setVisibility(View.VISIBLE);
+		lbl_SongTitle.setVisibility(View.VISIBLE);
+		lbl_SongArtist.setVisibility(View.VISIBLE);
+		lbl_SongPlaylist.setVisibility(View.VISIBLE);
+		lbl_SongVote.setText(application.CurrentEpisode.Score);
+		lbl_SongTitle.setText(application.CurrentEpisode.EpisodeTitle);
+		lbl_SongArtist.setText(application.CurrentEpisode.ShowTitle);
+		lbl_SongPlaylist.setText("playlist: " + application.CurrentEpisode.Playlist); // TODO: pull playlist to strings.xml
+		//lbl_SongVote.setText(getString(R.string.vote_to_submit_song));
+		//lbl_SongTitle.setText(getString(R.string.dummy_song_title));
+		//lbl_SongArtist.setText(getString(R.string.dummy_song_artist));
+		//lbl_SongPlaylist.setText(getString(R.string.dummy_song_playlist));
+
+	}
+	
 	private void showSongInformation()
 	{
 		RadioRedditApplication application = (RadioRedditApplication)getApplication();
@@ -661,7 +689,7 @@ private void SendEmail()
 		lbl_SongVote.setText(application.CurrentSong.Score);
 		lbl_SongTitle.setText(application.CurrentSong.Title);
 		lbl_SongArtist.setText(application.CurrentSong.Artist + " (" + application.CurrentSong.Redditor + ")");
-		lbl_SongPlaylist.setText("playlist: " + application.CurrentSong.Playlist);
+		lbl_SongPlaylist.setText("playlist: " + application.CurrentSong.Playlist); // TODO: pull playlist to strings.xml
 		//lbl_SongVote.setText(getString(R.string.vote_to_submit_song));
 		//lbl_SongTitle.setText(getString(R.string.dummy_song_title));
 		//lbl_SongArtist.setText(getString(R.string.dummy_song_artist));
