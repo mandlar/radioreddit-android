@@ -23,6 +23,7 @@ The json returns a List of RadioStreams.
 
 A RadioStream object consists of:
   * String Name (pulled from the parent JSON object)
+  * String Type (BETA: switch for music / talk)
   * String Description
   * String Relay (pulled from each stream's status.json "Relay")
   * Boolean Online (pulled from each stream's status.json "Online")
