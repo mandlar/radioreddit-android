@@ -4,7 +4,6 @@
 
   * Use Android 3.0 fragments (push to beta?)
   * Add Flurry tracking
-  * Add support for talk station (No official APIs yet)
   * Check for TODO's in code
   * Clean up code, add GPL licensing to each file
   * Headset controls support (play/stop? next/prev switch streams?)
@@ -48,6 +47,7 @@
   * (DONE) Android 3.0 support (push to Beta?)
     * See: http://www.kaloer.com/making-your-app-tablet-friendly-3-steps
   * (DONE) Media volume should change on change station activity
+  * (DONE) Add support for talk station
 
 == Beta ==
 
