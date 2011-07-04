@@ -4,6 +4,16 @@
 
 This document is to show how to make the API calls to radio reddit
 
+= Beta streams =
+
+Beta streams for to the new stations (including the Talk station) are found here:
+
+http://radioreddit.com/config/streams.new.json or .xml
+
+http://radioreddit.com/api/talk/status.json or .xml
+
+This was done because the API cannot be updated until the latest iOS version is released.
+
 
 = Getting Streams Information =
 
