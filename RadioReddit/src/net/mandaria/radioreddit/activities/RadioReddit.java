@@ -95,9 +95,6 @@ public class RadioReddit extends Activity {
 		//RadioRedditAPI.GetStreams(this, application);
 		new GetRadioStreamsTask(application, RadioReddit.this, Locale.getDefault()).execute();
 		
-		
-		init();
-		
 	    try 
 	    {
 	      sdkVersion = Integer.parseInt(Build.VERSION.SDK);
@@ -352,6 +349,11 @@ private void SendEmail()
 	{
 		super.onResume();
 		
+		if(player == null)
+		{
+			attachToPlaybackService();
+		}
+		
 		RadioRedditApplication application = (RadioRedditApplication)getApplication();
 		lbl_station = (TextView) findViewById(R.id.lbl_station);
 		
@@ -386,11 +388,6 @@ private void SendEmail()
 	{
 		super.onAttachedToWindow();
 
-	}
-
-	private void init() 
-	{
-		attachToPlaybackService();
 	}
 
 	public void attachToPlaybackService() 
