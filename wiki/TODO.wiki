@@ -3,7 +3,6 @@
 == Alpha ==
 
   * Add "Change station" to menu
-  * Move more things into styles
   * Add Flurry tracking
   * Add support for talk station (No official APIs yet)
   * Check for TODO's in code
@@ -46,7 +45,7 @@
   * (DONE) Add Arrow down under choosing streams
   * (DONE) Gray out alien eyes while connecting
   * (DONE) Scale text for tablets (create /values/ for -large -xlarge???)
-
+  * (DONE) Move more things into styles
 
 == Beta ==
 
