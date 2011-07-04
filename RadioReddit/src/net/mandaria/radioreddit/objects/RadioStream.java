@@ -5,10 +5,11 @@ package net.mandaria.radioreddit.objects;
 public class RadioStream
 {
 	public String Name;
+	public String Type;
 	public String Description;
 	public String Status;
 	public String Relay;
-	public boolean Online; //TODO: implement
+	public boolean Online;
 	// Not used
 	//public String Server;
 	//public String Transcoder;
