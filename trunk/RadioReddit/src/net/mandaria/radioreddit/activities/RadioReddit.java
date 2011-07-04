@@ -105,26 +105,7 @@ public class RadioReddit extends Activity {
 			@Override
 			public void onClick(View v) 
 			{
-				RadioRedditApplication application = (RadioRedditApplication)getApplication();
-				
-				if(player != null && !player.isPreparing()) // check if a current listen is in progress to prevent state exception
-				{
-					if(application.RadioStreams != null && application.RadioStreams.size() > 0)
-					{
-						Intent i = new Intent(RadioReddit.this, SelectStation.class);
-						startActivityForResult(i, 1);
-					}
-					else
-					{
-						// Try to get streams again
-						//RadioRedditAPI.GetStreams(RadioReddit.this, application);
-						new GetRadioStreamsTask(application, RadioReddit.this, Locale.getDefault()).execute();
-					}
-				}
-				else
-				{
-					Toast.makeText(RadioReddit.this, getString(R.string.pleaseWaitToChangeStation), Toast.LENGTH_LONG).show();
-				}
+				ChooseStation();
 			}
 		});
 		
@@ -204,6 +185,27 @@ public class RadioReddit extends Activity {
 	}	
 	
 	@Override
+	public boolean onPrepareOptionsMenu (Menu menu) 
+	{
+		RadioRedditApplication application = (RadioRedditApplication)getApplication();
+		
+		MenuItem chooseStation = (MenuItem)menu.findItem(R.id.chooseStation);
+		
+		// Connecting to radio reddit 
+		if(application.RadioStreams == null)
+		{
+			chooseStation.setEnabled(false);
+		}
+		else
+		{
+			chooseStation.setEnabled(true);
+		}
+	        
+	    return true;
+	}
+
+	
+	@Override
   	public boolean onCreateOptionsMenu(Menu menu)
   	{
   		super.onCreateOptionsMenu(menu);
@@ -218,6 +220,9 @@ public class RadioReddit extends Activity {
   	{
   		switch(item.getItemId())
   		{
+  			case R.id.chooseStation:
+  				ChooseStation();
+  				return true;
   			case R.id.email_feedback:
   				//FlurryAgent.onEvent("radio reddit - Menu Button - Email Feedback");
   				SendEmail();
@@ -228,6 +233,30 @@ public class RadioReddit extends Activity {
   		}
   		return false;
   	}
+
+private void ChooseStation()
+{
+	RadioRedditApplication application = (RadioRedditApplication)getApplication();
+	
+	if(player != null && !player.isPreparing()) // check if a current listen is in progress to prevent state exception
+	{
+		if(application.RadioStreams != null && application.RadioStreams.size() > 0)
+		{
+			Intent i = new Intent(RadioReddit.this, SelectStation.class);
+			startActivityForResult(i, 1);
+		}
+		else
+		{
+			// Try to get streams again
+			//RadioRedditAPI.GetStreams(RadioReddit.this, application);
+			new GetRadioStreamsTask(application, RadioReddit.this, Locale.getDefault()).execute();
+		}
+	}
+	else
+	{
+		Toast.makeText(RadioReddit.this, getString(R.string.pleaseWaitToChangeStation), Toast.LENGTH_LONG).show();
+	}
+}
   	
 private void ExitApp()
 {
