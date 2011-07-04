@@ -1,4 +1,5 @@
 <resources>
+	<!--  !!! Styles for Radio Reddit activity !!! -->
 	<!-- Header -->
 	<style name="Header_Body">
 		<item name="android:layout_width">fill_parent</item>
@@ -170,5 +171,20 @@
     	<item name="android:background">@drawable/willdownvote_button</item>
     	<item name="android:layout_width">40dp</item>
     	<item name="android:layout_height">40dp</item>
+    </style>
+    <!--  !!! Styles for View Episode Information activity !!! -->
+    <style name="EpisodeInformation_DescriptionHeader">
+    	<item name="android:textStyle">bold</item>
+    	<item name="android:textSize">18sp</item>
+    	<item name="android:textColor">#ffffff</item>
+    	<item name="android:layout_width">wrap_content</item>
+    	<item name="android:layout_height">wrap_content</item>
+    	<item name="android:layout_marginTop">10dp</item>
+    </style>
+    <style name="EpisodeInformation_DescriptionBody">
+    	<item name="android:textSize">18sp</item>
+    	<item name="android:textColor">#ffffff</item>
+    	<item name="android:layout_width">wrap_content</item>
+    	<item name="android:layout_height">wrap_content</item>
     </style>
 </resources>

@@ -138,7 +138,8 @@ public class RadioReddit extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Go to episode information details
-				
+				Intent i = new Intent(RadioReddit.this, ViewEpisodeInformation.class);
+				startActivity(i);
 			}
 		});
 		
