@@ -9,8 +9,10 @@ import net.mandaria.radioreddit.data.CustomRadioStreamsAdapter;
 import net.mandaria.radioreddit.objects.RadioStream;
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -27,6 +29,8 @@ public class SelectStation extends Activity
 	@Override
     public void onCreate(Bundle savedInstanceState) 
     {
+		this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+		
 		try 
 	    {
 	      sdkVersion = Integer.parseInt(Build.VERSION.SDK);
@@ -54,7 +58,8 @@ public class SelectStation extends Activity
 		ListView list_Stations = (ListView)findViewById(R.id.list_Stations);
 		CustomRadioStreamsAdapter adapter = new CustomRadioStreamsAdapter(this, R.layout.radio_stream_item, application.RadioStreams);
 		//ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.stations, android.R.layout.simple_list_item_1); 
-		list_Stations.setAdapter(adapter);
+		
+		list_Stations.setAdapter(adapter); // TODO: there is a null pointer exception here if we run out of memory and return to this activity on low memory
         
 		list_Stations.setOnItemClickListener(new OnItemClickListener(){
         	@Override
