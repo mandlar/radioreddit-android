@@ -20,6 +20,11 @@
 
 package net.mandaria.radioreddit.activities;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.flurry.android.FlurryAgent;
+
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.data.CustomRadioStreamsAdapter;
@@ -40,6 +45,20 @@ public class SelectStation extends Activity
 {
 	private int sdkVersion = 0;
 
+	@Override
+	public void onStart()
+	{
+	   super.onStart();
+	   FlurryAgent.onStartSession(this, getString(R.string.flurrykey));
+	}
+	
+	@Override
+	public void onStop()
+	{
+	   super.onStop();
+	   FlurryAgent.onEndSession(this);
+	}
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -92,6 +111,11 @@ public class SelectStation extends Activity
 				result.putExtra("changed_stream", changedStream);
 
 				application.CurrentStream = newStream;
+				
+				Map params = new HashMap();
+				params.put("station", application.CurrentStream.Name);
+				params.put("changed stream", changedStream);
+				FlurryAgent.onEvent("select station - station selected", params);
 
 				setResult(Activity.RESULT_OK, result);
 				finish();
