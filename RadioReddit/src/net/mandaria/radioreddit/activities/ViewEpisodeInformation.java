@@ -61,7 +61,7 @@ public class ViewEpisodeInformation extends Activity
 		if(sdkVersion >= 11)
 		{
 			if(application.CurrentStream != null)
-				getActionBar().setTitle("Current Station: " + application.CurrentStream.Name);  // TODO: pull into strings.xml
+				getActionBar().setTitle(getString(R.string.current_station) + ": " + application.CurrentStream.Name);
 		}
 
 		if(application.CurrentEpisode != null)
