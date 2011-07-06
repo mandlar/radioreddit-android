@@ -1,0 +1,13 @@
+=============================================================================================
+* 								radio reddit for android									*
+=============================================================================================
+
+Change log:
+
+* 0.1
+- Initial alpha release
+ - Basic UI, for both phones and tablets (Android 3.0+)
+ - Loads and displays all streams
+ - Plays streams (music and talk)
+ - Displays current song or episode information
+ - Displays detailed episode information
