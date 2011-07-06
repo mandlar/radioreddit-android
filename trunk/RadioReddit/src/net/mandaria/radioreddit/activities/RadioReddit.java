@@ -668,7 +668,7 @@ public class RadioReddit extends Activity
 				// Update current song information
 				if(!player.isBuffering())
 				{
-					if(application.CurrentSong != null && !player.isBuffering())
+					if(application.CurrentSong != null)
 					{
 						showSongInformation();
 
