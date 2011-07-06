@@ -2,9 +2,6 @@ package net.mandaria.radioreddit.activities;
 
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
-import net.mandaria.radioreddit.R.array;
-import net.mandaria.radioreddit.R.id;
-import net.mandaria.radioreddit.R.layout;
 import net.mandaria.radioreddit.data.CustomRadioStreamsAdapter;
 import net.mandaria.radioreddit.objects.RadioStream;
 import android.app.Activity;
@@ -12,15 +9,12 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.TextView;
 
 public class SelectStation extends Activity
 {
