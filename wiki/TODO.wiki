@@ -3,7 +3,6 @@
 == Alpha ==
 
   * Use Android 3.0 fragments (push to beta?)
-  * Add Flurry tracking
   * Headset controls support (play/stop? next/prev switch streams?)
   * (DONE Handle condition of being in preparing state when switching stations (currently throws illegal state)
   * (DONE) Change station needs to be a button click on a layout, not the text (it is currently hard to tap on)
@@ -48,6 +47,7 @@
   * (DONE) Add support for talk station
   * (DONE) Check for TODO's in code
   * (DONE) Clean up code, add GPL licensing to each file
+  * (DONE) Add Flurry tracking
 
 == Beta ==
 
