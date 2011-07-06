@@ -22,89 +22,83 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
-public class SelectStation extends Activity 
+public class SelectStation extends Activity
 {
 	private int sdkVersion = 0;
-	
+
 	@Override
-    public void onCreate(Bundle savedInstanceState) 
-    {
+	public void onCreate(Bundle savedInstanceState)
+	{
 		this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
-		
-		try 
-	    {
-	      sdkVersion = Integer.parseInt(Build.VERSION.SDK);
-	    } 
-	    catch (NumberFormatException e) 
-	    {
-	    	
-	    }
-	    
-	    // Disable title on phones, enable action bar on tablets
-	    if(sdkVersion < 11)
-	    	requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		try
+		{
+			sdkVersion = Integer.parseInt(Build.VERSION.SDK);
+		}
+		catch(NumberFormatException e)
+		{
+
+		}
+
+		// Disable title on phones, enable action bar on tablets
+		if(sdkVersion < 11)
+			requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.selectstation);
-		
-		RadioRedditApplication application = (RadioRedditApplication)getApplication();
-		
-	    if(sdkVersion >= 11)
-		{	    	
+
+		RadioRedditApplication application = (RadioRedditApplication) getApplication();
+
+		if(sdkVersion >= 11)
+		{
 			if(application.CurrentStream != null)
 				getActionBar().setTitle("Current Station: " + application.CurrentStream.Name);
 		}
-		
-		ListView list_Stations = (ListView)findViewById(R.id.list_Stations);
+
+		ListView list_Stations = (ListView) findViewById(R.id.list_Stations);
 		CustomRadioStreamsAdapter adapter = new CustomRadioStreamsAdapter(this, R.layout.radio_stream_item, application.RadioStreams);
-		//ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.stations, android.R.layout.simple_list_item_1); 
-		
+
 		list_Stations.setAdapter(adapter); // TODO: there is a null pointer exception here if we run out of memory and return to this activity on low memory
-        
-		list_Stations.setOnItemClickListener(new OnItemClickListener(){
-        	@Override
-        	public void onItemClick(AdapterView parent, View view, int position, long id)
-        	{
-        		Intent result = new Intent();
-        		
-        		RadioRedditApplication application = (RadioRedditApplication)getApplication();
-        		
-        		RadioStream newStream =  application.RadioStreams.get(position);
-        		
-        		boolean changedStream = false;
-        		if(!application.CurrentStream.Name.equals(newStream.Name))
-        			changedStream = true;
-        		
-        		result.putExtra("changed_stream", changedStream);
-        		
-        		application.CurrentStream = newStream;
 
-//        		TextView lbl_stream_name = (TextView)view.findViewById(R.id.lbl_stream_name);
-//        	    result.putExtra("stream_name", lbl_stream_name.getText());
-//        		
-//            	TextView lbl_stream_url = (TextView)view.findViewById(R.id.lbl_stream_url);
-//        	    result.putExtra("stream_url", lbl_stream_url.getText());
+		list_Stations.setOnItemClickListener(new OnItemClickListener()
+		{
+			@Override
+			public void onItemClick(AdapterView parent, View view, int position, long id)
+			{
+				Intent result = new Intent();
 
-        	    setResult(Activity.RESULT_OK, result);
-        	    finish();
-        	}
-        });
-    }
-	
+				RadioRedditApplication application = (RadioRedditApplication) getApplication();
+
+				RadioStream newStream = application.RadioStreams.get(position);
+
+				boolean changedStream = false;
+				if(!application.CurrentStream.Name.equals(newStream.Name))
+					changedStream = true;
+
+				result.putExtra("changed_stream", changedStream);
+
+				application.CurrentStream = newStream;
+
+				setResult(Activity.RESULT_OK, result);
+				finish();
+			}
+		});
+	}
+
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
+	public boolean onOptionsItemSelected(MenuItem item)
 	{
-	    switch (item.getItemId()) 
-	    {
-	        case android.R.id.home:
-	            // app icon in Action Bar clicked; return result	            
-	            Intent result = new Intent();
-	            setResult(Activity.RESULT_CANCELED, result);
-        	    finish();
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+		switch(item.getItemId())
+		{
+			case android.R.id.home:
+				// app icon in Action Bar (Android 3.0) clicked; return result
+				Intent result = new Intent();
+				setResult(Activity.RESULT_CANCELED, result);
+				finish();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 
 }
