@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <!-- Header -->
+    <LinearLayout
+    	android:id="@+id/div_header"
+    	style="@style/Header_Body"
+    	>
+    	<LinearLayout
+    		android:id="@+id/div_station"
+    		style="@style/Header_ChooseStationBody"
+    		>
+	    	<TextView
+	    		android:id="@+id/lbl_station"
+	    		style="@style/Header_ChooseStationLabel"
+	    		/>
+	    	<ImageView
+				style="@style/Header_ChooseStationDownArrow"
+				/>
+    	</LinearLayout>
+    </LinearLayout>
+    <!-- Border -->
+    <LinearLayout
+    	style="@style/Header_Border"
+    	/>
+    <!-- Logo / current song info -->
+	<LinearLayout
+		style="@style/Body_MainBody.Landscape"
+		>
+		<LinearLayout
+			style="@style/Logo_Body"
+			>
+			<ImageView
+				android:id="@+id/img_Logo"
+				style="@style/Logo_Image"
+				/>
+		</LinearLayout>
+		<!-- Current song info -->
+		<LinearLayout
+			style="@style/SongInformation_Body.Landscape"
+			>
+			<ProgressBar
+				android:id="@+id/progress_LoadingSong"
+				style="@style/SongInformation_ProgressBar"
+				/>
+			<TextView
+				android:id="@+id/lbl_Buffering" 
+				style="@style/SongInformation_SongTitle"
+				android:visibility="gone"
+				android:text="@string/buffering"
+				/>
+			<TextView
+				android:id="@+id/lbl_Connecting" 
+				style="@style/SongInformation_SongTitle"
+				android:visibility="gone"
+				android:text="@string/connectingToRadioReddit"
+				/>
+			<!-- Song Vote -->
+			<TextView
+				android:id="@+id/lbl_SongVote" 
+				style="@style/SongInformation_SongVote"
+				/>
+			<!--  Song Title -->
+			<TextView
+				android:id="@+id/lbl_SongTitle" 
+				style="@style/SongInformation_SongTitle"
+				/>
+			<!-- Song Artist -->
+			<TextView
+				android:id="@+id/lbl_SongArtist" 
+				style="@style/SongInformation_SongArtist"
+				/>
+			<!-- Song Playlist -->
+			<TextView
+				android:id="@+id/lbl_SongPlaylist" 
+				style="@style/SongInformation_SongPlaylist"
+				/>
+			<!-- Song Info -->
+			<ImageView
+				android:id="@+id/btn_SongInfo"
+				style="@style/SongInformation_SongInfo"
+				/>
+		</LinearLayout>
+	   
+    </LinearLayout>
+    <!-- Border -->
+    <LinearLayout
+    	style="@style/PlaybackControls_Border"
+    	/>
+    <!-- Controls top gradient -->
+    <LinearLayout
+    	style="@style/PlaybackControls_TopGradient"
+    	/>
+    <!-- Controls -->
+    <LinearLayout
+    	style="@style/PlaybackControls_Body.Landscape"
+    	>
+    	<LinearLayout
+    		style="@style/PlaybackControls_ButtonsContainer.Landscape"
+    		>
+	    	<Button
+	    		android:id="@+id/btn_upvote"
+	    		style="@style/PlaybackControls_UpVoteButton"
+		    	/>
+	    	 <Button 
+		    	android:id="@+id/btn_play"
+		    	style="@style/PlaybackControls_PlayButton"
+		    	/>
+		    <Button
+	    		android:id="@+id/btn_downvote"
+	    		style="@style/PlaybackControls_DownVoteButton"
+		    	/>
+		</LinearLayout>
+    </LinearLayout>
+</LinearLayout>

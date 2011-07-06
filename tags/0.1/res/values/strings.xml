@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>    
+	<!--  Menu items -->
+	<string name="currentStation">Current Station</string>
+	<string name="chooseStation">Choose Station</string>
+	<string name="exit">Exit</string>
+	<string name="email_feedback">Email Feedback</string>
+    <!--  * Support Email Feedback -->
+	<string name="email_using_custom_rom">Please indicate if you are using a custom rom.</string>
+	<string name="email_do_not_edit_message">The following is useful information for the developer.  Please do not edit.</string>
+	<!-- Song Information -->
+	<string name="vote_to_submit_song">vote to submit</string>
+	<string name="playlist">playlist</string>
+	<string name="current_station">Current Station</string>
+	<!-- Dummy strings -->
+	<string name="dummy_song_title">Happy Birthday</string>
+	<string name="dummy_song_artist">by Galaxy Danger Danger (cocainezombie)</string>
+	<string name="dummy_song_playlist">playlist: One Ad</string>
+	<!-- Error messages -->
+	<string name="error_RadioRedditServerIsDownNotification">Can\'t reach radio reddit, the server may be down or your network is flaky. Please try again later!</string>
+	<string name="error_NoStreams">There are no streams available to play. Please try again later!</string>
+	<string name="error_StreamConnectionError">There was an error connecting to the radio reddit stream... Please try again later!</string>
+	<string name="pleaseWaitToChangeStation">Please wait one moment to switch to a new station...</string>
+	<string name="connectingToRadioReddit">Connecting to radio reddit...</string>
+	<string name="buffering">Buffering...</string>
+</resources>
