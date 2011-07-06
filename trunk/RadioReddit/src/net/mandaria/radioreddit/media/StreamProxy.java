@@ -14,7 +14,6 @@
 
 package net.mandaria.radioreddit.media;
 
-
 import android.util.Log;
 
 import org.apache.http.Header;
@@ -58,305 +57,360 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.StringTokenizer;
 
-public class StreamProxy implements Runnable {
-  private static final String LOG_TAG = StreamProxy.class.getName();
-  
-  private int port = 0;
+public class StreamProxy implements Runnable
+{
+	private static final String LOG_TAG = StreamProxy.class.getName();
 
-  public int getPort() {
-    return port;
-  }
+	private int port = 0;
 
-  private boolean isRunning = true;
-  private ServerSocket socket;
-  private Thread thread;
+	public int getPort()
+	{
+		return port;
+	}
 
-  public void init() {
-    try {
-      socket = new ServerSocket(port, 0, InetAddress.getByAddress(new byte[] {127,0,0,1}));
-      socket.setSoTimeout(5000);
-      port = socket.getLocalPort();
-      Log.d(LOG_TAG, "port " + port + " obtained");
-    } catch (UnknownHostException e) {
-      Log.e(LOG_TAG, "Error initializing server", e);
-    } catch (IOException e) {
-      Log.e(LOG_TAG, "Error initializing server", e);
-    }
-  }
+	private boolean isRunning = true;
+	private ServerSocket socket;
+	private Thread thread;
 
-  public void start() {
+	public void init()
+	{
+		try
+		{
+			socket = new ServerSocket(port, 0, InetAddress.getByAddress(new byte[] { 127, 0, 0, 1 }));
+			socket.setSoTimeout(5000);
+			port = socket.getLocalPort();
+			Log.d(LOG_TAG, "port " + port + " obtained");
+		}
+		catch(UnknownHostException e)
+		{
+			Log.e(LOG_TAG, "Error initializing server", e);
+		}
+		catch(IOException e)
+		{
+			Log.e(LOG_TAG, "Error initializing server", e);
+		}
+	}
 
-    if (socket == null) {
-      throw new IllegalStateException("Cannot start proxy; it has not been initialized.");
-    }
-    
-    thread = new Thread(this);
-    thread.start();
-  }
+	public void start()
+	{
 
-  public void stop() {
-    isRunning = false;
-    
-    if (thread == null) {
-      throw new IllegalStateException("Cannot stop proxy; it has not been started.");
-    }
-    
-    thread.interrupt();
-    try {
-      thread.join(5000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-  }
+		if(socket == null)
+		{
+			throw new IllegalStateException("Cannot start proxy; it has not been initialized.");
+		}
 
-  @Override
-  public void run() {
-    Log.d(LOG_TAG, "running");
-    while (isRunning) {
-      try {
-        Socket client = socket.accept();
-        if (client == null) {
-          continue;
-        }
-        Log.d(LOG_TAG, "client connected");
-        HttpRequest request = readRequest(client);
-        processRequest(request, client);
-      } catch (SocketTimeoutException e) {
-        // Do nothing
-      } catch (IOException e) {
-        Log.e(LOG_TAG, "Error connecting to client", e);
-      }
-    }
-    Log.d(LOG_TAG, "Proxy interrupted. Shutting down.");
-  }
+		thread = new Thread(this);
+		thread.start();
+	}
 
-  private HttpRequest readRequest(Socket client) {
-    HttpRequest request = null;
-    InputStream is;
-    String firstLine;
-    try {
-      is = client.getInputStream();
-      BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-      firstLine = reader.readLine();
-    } catch (IOException e) {
-      Log.e(LOG_TAG, "Error parsing request", e);
-      return request;
-    }
-    
-    if (firstLine == null) {
-      Log.i(LOG_TAG, "Proxy client closed connection without a request.");
-      return request;
-    }
+	public void stop()
+	{
+		isRunning = false;
 
-    StringTokenizer st = new StringTokenizer(firstLine);
-    String method = st.nextToken();
-    String uri = st.nextToken();
-    Log.d(LOG_TAG, uri);
-    String realUri = uri.substring(1);
-    Log.d(LOG_TAG, realUri);
-    request = new BasicHttpRequest(method, realUri);
-    return request;
-  }
+		if(thread == null)
+		{
+			throw new IllegalStateException("Cannot stop proxy; it has not been started.");
+		}
 
-  private HttpResponse download(String url) {
-    DefaultHttpClient seed = new DefaultHttpClient();
-    SchemeRegistry registry = new SchemeRegistry();
-    registry.register(
-            new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
-    SingleClientConnManager mgr = new MyClientConnManager(seed.getParams(),
-        registry);
-    DefaultHttpClient http = new DefaultHttpClient(mgr, seed.getParams());
-    HttpGet method = new HttpGet(url);
-    HttpResponse response = null;
-    try {
-      Log.d(LOG_TAG, "starting download");
-      response = http.execute(method);
-      Log.d(LOG_TAG, "downloaded");
-    } catch (ClientProtocolException e) {
-      Log.e(LOG_TAG, "Error downloading", e);
-    } catch (IOException e) {
-      Log.e(LOG_TAG, "Error downloading", e);
-    }
-    return response;
-  }
+		thread.interrupt();
+		try
+		{
+			thread.join(5000);
+		}
+		catch(InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+	}
 
-  private void processRequest(HttpRequest request, Socket client)
-      throws IllegalStateException, IOException {
-    if (request == null) {
-      return;
-    }
-    Log.d(LOG_TAG, "processing");
-    String url = request.getRequestLine().getUri();
-    HttpResponse realResponse = download(url);
-    if (realResponse == null) {
-      return;
-    }
+	@Override
+	public void run()
+	{
+		Log.d(LOG_TAG, "running");
+		while(isRunning)
+		{
+			try
+			{
+				Socket client = socket.accept();
+				if(client == null)
+				{
+					continue;
+				}
+				Log.d(LOG_TAG, "client connected");
+				HttpRequest request = readRequest(client);
+				processRequest(request, client);
+			}
+			catch(SocketTimeoutException e)
+			{
+				// Do nothing
+			}
+			catch(IOException e)
+			{
+				Log.e(LOG_TAG, "Error connecting to client", e);
+			}
+		}
+		Log.d(LOG_TAG, "Proxy interrupted. Shutting down.");
+	}
 
-    Log.d(LOG_TAG, "downloading...");
+	private HttpRequest readRequest(Socket client)
+	{
+		HttpRequest request = null;
+		InputStream is;
+		String firstLine;
+		try
+		{
+			is = client.getInputStream();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+			firstLine = reader.readLine();
+		}
+		catch(IOException e)
+		{
+			Log.e(LOG_TAG, "Error parsing request", e);
+			return request;
+		}
 
-    InputStream data = realResponse.getEntity().getContent();
-    StatusLine line = realResponse.getStatusLine();
-    HttpResponse response = new BasicHttpResponse(line);
-    response.setHeaders(realResponse.getAllHeaders());
+		if(firstLine == null)
+		{
+			Log.i(LOG_TAG, "Proxy client closed connection without a request.");
+			return request;
+		}
 
-    Log.d(LOG_TAG, "reading headers");
-    StringBuilder httpString = new StringBuilder();
-    httpString.append(response.getStatusLine().toString());
-    
-    httpString.append("\n");
-    for (Header h : response.getAllHeaders()) {
-      httpString.append(h.getName()).append(": ").append(h.getValue()).append(
-          "\n");
-    }
-    httpString.append("\n");
-    Log.d(LOG_TAG, "headers done");
+		StringTokenizer st = new StringTokenizer(firstLine);
+		String method = st.nextToken();
+		String uri = st.nextToken();
+		Log.d(LOG_TAG, uri);
+		String realUri = uri.substring(1);
+		Log.d(LOG_TAG, realUri);
+		request = new BasicHttpRequest(method, realUri);
+		return request;
+	}
 
-    try {
-      byte[] buffer = httpString.toString().getBytes();
-      int readBytes = -1;
-      Log.d(LOG_TAG, "writing to client");
-      client.getOutputStream().write(buffer, 0, buffer.length);
+	private HttpResponse download(String url)
+	{
+		DefaultHttpClient seed = new DefaultHttpClient();
+		SchemeRegistry registry = new SchemeRegistry();
+		registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+		SingleClientConnManager mgr = new MyClientConnManager(seed.getParams(), registry);
+		DefaultHttpClient http = new DefaultHttpClient(mgr, seed.getParams());
+		HttpGet method = new HttpGet(url);
+		HttpResponse response = null;
+		try
+		{
+			Log.d(LOG_TAG, "starting download");
+			response = http.execute(method);
+			Log.d(LOG_TAG, "downloaded");
+		}
+		catch(ClientProtocolException e)
+		{
+			Log.e(LOG_TAG, "Error downloading", e);
+		}
+		catch(IOException e)
+		{
+			Log.e(LOG_TAG, "Error downloading", e);
+		}
+		return response;
+	}
 
-      // Start streaming content.
-      byte[] buff = new byte[1024 * 50];
-      while (isRunning && (readBytes = data.read(buff, 0, buff.length)) != -1) {
-        client.getOutputStream().write(buff, 0, readBytes);
-      }
-    } catch (Exception e) {
-      Log.e("", e.getMessage(), e);
-    } finally {
-      if (data != null) {
-        data.close();
-      }
-      client.close();
-    }
-  }
+	private void processRequest(HttpRequest request, Socket client) throws IllegalStateException, IOException
+	{
+		if(request == null)
+		{
+			return;
+		}
+		Log.d(LOG_TAG, "processing");
+		String url = request.getRequestLine().getUri();
+		HttpResponse realResponse = download(url);
+		if(realResponse == null)
+		{
+			return;
+		}
 
-  private class IcyLineParser extends BasicLineParser {
-    private static final String ICY_PROTOCOL_NAME = "ICY";
-    private IcyLineParser() {
-      super();
-    }
+		Log.d(LOG_TAG, "downloading...");
 
-    @Override
-    public boolean hasProtocolVersion(CharArrayBuffer buffer,
-        ParserCursor cursor) {
-      boolean superFound = super.hasProtocolVersion(buffer, cursor);
-      if (superFound) {
-        return true;
-      }
-      int index = cursor.getPos();
+		InputStream data = realResponse.getEntity().getContent();
+		StatusLine line = realResponse.getStatusLine();
+		HttpResponse response = new BasicHttpResponse(line);
+		response.setHeaders(realResponse.getAllHeaders());
 
-      final int protolength = ICY_PROTOCOL_NAME.length();
+		Log.d(LOG_TAG, "reading headers");
+		StringBuilder httpString = new StringBuilder();
+		httpString.append(response.getStatusLine().toString());
 
-      if (buffer.length() < protolength)
-          return false; // not long enough for "HTTP/1.1"
+		httpString.append("\n");
+		for(Header h : response.getAllHeaders())
+		{
+			httpString.append(h.getName()).append(": ").append(h.getValue()).append("\n");
+		}
+		httpString.append("\n");
+		Log.d(LOG_TAG, "headers done");
 
-      if (index < 0) {
-          // end of line, no tolerance for trailing whitespace
-          // this works only for single-digit major and minor version
-          index = buffer.length() - protolength;
-      } else if (index == 0) {
-          // beginning of line, tolerate leading whitespace
-          while ((index < buffer.length()) &&
-                  HTTP.isWhitespace(buffer.charAt(index))) {
-               index++;
-           }
-      } // else within line, don't tolerate whitespace
+		try
+		{
+			byte[] buffer = httpString.toString().getBytes();
+			int readBytes = -1;
+			Log.d(LOG_TAG, "writing to client");
+			client.getOutputStream().write(buffer, 0, buffer.length);
 
-      if (index + protolength > buffer.length())
-          return false;
+			// Start streaming content.
+			byte[] buff = new byte[1024 * 50];
+			while(isRunning && (readBytes = data.read(buff, 0, buff.length)) != -1)
+			{
+				client.getOutputStream().write(buff, 0, readBytes);
+			}
+		}
+		catch(Exception e)
+		{
+			Log.e("", e.getMessage(), e);
+		}
+		finally
+		{
+			if(data != null)
+			{
+				data.close();
+			}
+			client.close();
+		}
+	}
 
-      return buffer.substring(index, index + protolength).equals(ICY_PROTOCOL_NAME);
-    }
+	private class IcyLineParser extends BasicLineParser
+	{
+		private static final String ICY_PROTOCOL_NAME = "ICY";
 
-    @Override
-    public Header parseHeader(CharArrayBuffer buffer) throws ParseException {
-      return super.parseHeader(buffer);
-    }
+		private IcyLineParser()
+		{
+			super();
+		}
 
-    @Override
-    public ProtocolVersion parseProtocolVersion(CharArrayBuffer buffer,
-        ParserCursor cursor) throws ParseException {
+		@Override
+		public boolean hasProtocolVersion(CharArrayBuffer buffer, ParserCursor cursor)
+		{
+			boolean superFound = super.hasProtocolVersion(buffer, cursor);
+			if(superFound)
+			{
+				return true;
+			}
+			int index = cursor.getPos();
 
-      if (buffer == null) {
-          throw new IllegalArgumentException("Char array buffer may not be null");
-      }
-      if (cursor == null) {
-          throw new IllegalArgumentException("Parser cursor may not be null");
-      }
+			final int protolength = ICY_PROTOCOL_NAME.length();
 
-      final int protolength = ICY_PROTOCOL_NAME.length();
+			if(buffer.length() < protolength)
+				return false; // not long enough for "HTTP/1.1"
 
-      int indexFrom = cursor.getPos();
-      int indexTo = cursor.getUpperBound();
-      
-      skipWhitespace(buffer, cursor);
+			if(index < 0)
+			{
+				// end of line, no tolerance for trailing whitespace
+				// this works only for single-digit major and minor version
+				index = buffer.length() - protolength;
+			}
+			else if(index == 0)
+			{
+				// beginning of line, tolerate leading whitespace
+				while((index < buffer.length()) && HTTP.isWhitespace(buffer.charAt(index)))
+				{
+					index++;
+				}
+			} // else within line, don't tolerate whitespace
 
-      int i = cursor.getPos();
-      
-      // long enough for "HTTP/1.1"?
-      if (i + protolength + 4 > indexTo) {
-          throw new ParseException
-              ("Not a valid protocol version: " +
-               buffer.substring(indexFrom, indexTo));
-      }
+			if(index + protolength > buffer.length())
+				return false;
 
-      // check the protocol name and slash
-      if (!buffer.substring(i, i + protolength).equals(ICY_PROTOCOL_NAME)) {
-        return super.parseProtocolVersion(buffer, cursor);
-      }
+			return buffer.substring(index, index + protolength).equals(ICY_PROTOCOL_NAME);
+		}
 
-      cursor.updatePos(i + protolength);
+		@Override
+		public Header parseHeader(CharArrayBuffer buffer) throws ParseException
+		{
+			return super.parseHeader(buffer);
+		}
 
-      return createProtocolVersion(1, 0);
-    }
+		@Override
+		public ProtocolVersion parseProtocolVersion(CharArrayBuffer buffer, ParserCursor cursor) throws ParseException
+		{
 
-    @Override
-    public RequestLine parseRequestLine(CharArrayBuffer buffer,
-        ParserCursor cursor) throws ParseException {
-      return super.parseRequestLine(buffer, cursor);
-    }
+			if(buffer == null)
+			{
+				throw new IllegalArgumentException("Char array buffer may not be null");
+			}
+			if(cursor == null)
+			{
+				throw new IllegalArgumentException("Parser cursor may not be null");
+			}
 
-    @Override
-    public StatusLine parseStatusLine(CharArrayBuffer buffer,
-        ParserCursor cursor) throws ParseException {
-      StatusLine superLine = super.parseStatusLine(buffer, cursor);
-      return superLine;
-    }
-  }
+			final int protolength = ICY_PROTOCOL_NAME.length();
 
-  class MyClientConnection extends DefaultClientConnection {
-    @Override
-    protected HttpMessageParser createResponseParser(
-        final SessionInputBuffer buffer,
-        final HttpResponseFactory responseFactory, final HttpParams params) {
-      return new DefaultResponseParser(buffer, new IcyLineParser(),
-          responseFactory, params);
-    }
-  }
+			int indexFrom = cursor.getPos();
+			int indexTo = cursor.getUpperBound();
 
-  class MyClientConnectionOperator extends DefaultClientConnectionOperator {
-    public MyClientConnectionOperator(final SchemeRegistry sr) {
-      super(sr);
-    }
+			skipWhitespace(buffer, cursor);
 
-    @Override
-    public OperatedClientConnection createConnection() {
-      return new MyClientConnection();
-    }
-  }
+			int i = cursor.getPos();
 
-  class MyClientConnManager extends SingleClientConnManager {
-    private MyClientConnManager(HttpParams params, SchemeRegistry schreg) {
-      super(params, schreg);
-    }
+			// long enough for "HTTP/1.1"?
+			if(i + protolength + 4 > indexTo)
+			{
+				throw new ParseException("Not a valid protocol version: " + buffer.substring(indexFrom, indexTo));
+			}
 
-    @Override
-    protected ClientConnectionOperator createConnectionOperator(
-        final SchemeRegistry sr) {
-      return new MyClientConnectionOperator(sr);
-    }
-  }
+			// check the protocol name and slash
+			if(!buffer.substring(i, i + protolength).equals(ICY_PROTOCOL_NAME))
+			{
+				return super.parseProtocolVersion(buffer, cursor);
+			}
+
+			cursor.updatePos(i + protolength);
+
+			return createProtocolVersion(1, 0);
+		}
+
+		@Override
+		public RequestLine parseRequestLine(CharArrayBuffer buffer, ParserCursor cursor) throws ParseException
+		{
+			return super.parseRequestLine(buffer, cursor);
+		}
+
+		@Override
+		public StatusLine parseStatusLine(CharArrayBuffer buffer, ParserCursor cursor) throws ParseException
+		{
+			StatusLine superLine = super.parseStatusLine(buffer, cursor);
+			return superLine;
+		}
+	}
+
+	class MyClientConnection extends DefaultClientConnection
+	{
+		@Override
+		protected HttpMessageParser createResponseParser(final SessionInputBuffer buffer, final HttpResponseFactory responseFactory, final HttpParams params)
+		{
+			return new DefaultResponseParser(buffer, new IcyLineParser(), responseFactory, params);
+		}
+	}
+
+	class MyClientConnectionOperator extends DefaultClientConnectionOperator
+	{
+		public MyClientConnectionOperator(final SchemeRegistry sr)
+		{
+			super(sr);
+		}
+
+		@Override
+		public OperatedClientConnection createConnection()
+		{
+			return new MyClientConnection();
+		}
+	}
+
+	class MyClientConnManager extends SingleClientConnManager
+	{
+		private MyClientConnManager(HttpParams params, SchemeRegistry schreg)
+		{
+			super(params, schreg);
+		}
+
+		@Override
+		protected ClientConnectionOperator createConnectionOperator(final SchemeRegistry sr)
+		{
+			return new MyClientConnectionOperator(sr);
+		}
+	}
 
 }
