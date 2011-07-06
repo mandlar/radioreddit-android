@@ -33,6 +33,11 @@ Currently, no other contributors
 Please see project's page for details on contributing:
 http://code.google.com/p/radioreddit-android/
 
+=======CONTACT=======
+
+Feel free to email the developer at support@mandaria.net.  
+Please include "radio reddit source" as your subject line.
+
 ======LICENSING======
 
 All code here is licensed through GPL3.
