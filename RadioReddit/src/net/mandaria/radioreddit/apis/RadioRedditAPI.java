@@ -17,9 +17,6 @@ import net.mandaria.radioreddit.objects.RadioStream;
 import net.mandaria.radioreddit.objects.RadioStreams;
 import net.mandaria.radioreddit.utils.HTTPUtil;
 import android.content.Context;
-import android.net.Uri;
-import android.util.Log;
-import android.widget.Toast;
 
 public class RadioRedditAPI
 {
