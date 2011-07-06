@@ -10,6 +10,7 @@
 	<string name="email_do_not_edit_message">The following is useful information for the developer.  Please do not edit.</string>
 	<!-- Song Information -->
 	<string name="vote_to_submit_song">vote to submit</string>
+	<string name="playlist">playlist</string>
 	<!-- Dummy strings -->
 	<string name="dummy_song_title">Happy Birthday</string>
 	<string name="dummy_song_artist">by Galaxy Danger Danger (cocainezombie)</string>

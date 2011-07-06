@@ -673,7 +673,7 @@ public class RadioReddit extends Activity
 		lbl_SongVote.setText(application.CurrentSong.Score);
 		lbl_SongTitle.setText(application.CurrentSong.Title);
 		lbl_SongArtist.setText(application.CurrentSong.Artist + " (" + application.CurrentSong.Redditor + ")");
-		lbl_SongPlaylist.setText("playlist: " + application.CurrentSong.Playlist); // TODO: pull playlist to strings.xml
+		lbl_SongPlaylist.setText(getString(R.string.playlist) + ": " + application.CurrentSong.Playlist);
 		btn_SongInfo.setVisibility(View.GONE);
 		// lbl_SongVote.setText(getString(R.string.vote_to_submit_song));
 		// lbl_SongTitle.setText(getString(R.string.dummy_song_title));
