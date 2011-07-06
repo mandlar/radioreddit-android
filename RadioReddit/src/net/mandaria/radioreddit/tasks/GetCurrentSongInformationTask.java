@@ -1,23 +1,16 @@
 package net.mandaria.radioreddit.tasks;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.Locale;
 
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.apis.RadioRedditAPI;
 import net.mandaria.radioreddit.objects.RadioSong;
-import android.app.Application;
 import android.content.Context;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.AsyncTask;
-import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
-
-public class GetCurrentSongInformationTask extends AsyncTask<Void, RadioSong, RadioSong> 
+public class GetCurrentSongInformationTask extends AsyncTask<Void, RadioSong, RadioSong>
 {
 	private static String TAG = "RadioReddit";
 	private Context _context;
@@ -25,22 +18,20 @@ public class GetCurrentSongInformationTask extends AsyncTask<Void, RadioSong, Ra
 	private RadioRedditApplication _application;
 	private Exception ex;
 	private String _startingStream;
-	
-	
 
-    public GetCurrentSongInformationTask(RadioRedditApplication application, Context context, Locale locale) 
-    {
-    	_context = context;
-    	_locale = locale;
-    	_application = application;
-    	_startingStream = application.CurrentStream.Name;
-    }
+	public GetCurrentSongInformationTask(RadioRedditApplication application, Context context, Locale locale)
+	{
+		_context = context;
+		_locale = locale;
+		_application = application;
+		_startingStream = application.CurrentStream.Name;
+	}
 
 	@Override
-	protected RadioSong doInBackground(Void... unused) 
+	protected RadioSong doInBackground(Void... unused)
 	{
 		RadioSong song = null;
-		try 
+		try
 		{
 			song = RadioRedditAPI.GetCurrentSongInformation(_context, _application);
 		}
@@ -49,20 +40,20 @@ public class GetCurrentSongInformationTask extends AsyncTask<Void, RadioSong, Ra
 			ex = e;
 			Log.e(TAG, "FAIL: get current song information: " + e);
 		}
-		
+
 		return song;
 	}
 
 	@Override
-	protected void onProgressUpdate(RadioSong... item) 
+	protected void onProgressUpdate(RadioSong... item)
 	{
 
 	}
 
 	@Override
-	protected void onPostExecute(RadioSong result) 
+	protected void onPostExecute(RadioSong result)
 	{
-		
+
 		if(result != null && result.ErrorMessage.equals(""))
 		{
 			if(_application.CurrentStream.Name.equals(_startingStream)) // make sure we're on the same stream)
@@ -76,9 +67,9 @@ public class GetCurrentSongInformationTask extends AsyncTask<Void, RadioSong, Ra
 				Log.e(TAG, "FAIL: Post execute: " + result.ErrorMessage);
 			}
 		}
-		
+
 		if(ex != null)
 			Log.e(TAG, "FAIL: EXCEPTION: Post execute: " + ex);
-		
+
 	}
 }

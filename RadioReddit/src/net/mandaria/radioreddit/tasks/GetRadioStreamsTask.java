@@ -1,47 +1,35 @@
 package net.mandaria.radioreddit.tasks;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.apis.RadioRedditAPI;
-import net.mandaria.radioreddit.objects.RadioSong;
-import net.mandaria.radioreddit.objects.RadioStream;
 import net.mandaria.radioreddit.objects.RadioStreams;
-import android.app.Application;
 import android.content.Context;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.AsyncTask;
-import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
-
-public class GetRadioStreamsTask extends AsyncTask<Void, RadioStreams, RadioStreams> 
+public class GetRadioStreamsTask extends AsyncTask<Void, RadioStreams, RadioStreams>
 {
 	private static String TAG = "RadioReddit";
 	private Context _context;
 	private Locale _locale;
 	private RadioRedditApplication _application;
 	private Exception ex;
-	
-	
 
-    public GetRadioStreamsTask(RadioRedditApplication application, Context context, Locale locale) 
-    {
-    	_context = context;
-    	_locale = locale;
-    	_application = application;
-    }
+	public GetRadioStreamsTask(RadioRedditApplication application, Context context, Locale locale)
+	{
+		_context = context;
+		_locale = locale;
+		_application = application;
+	}
 
 	@Override
-	protected RadioStreams doInBackground(Void... unused) 
+	protected RadioStreams doInBackground(Void... unused)
 	{
 		RadioStreams streams = null;
-		try 
+		try
 		{
 			streams = RadioRedditAPI.GetStreams(_context, _application);
 		}
@@ -50,25 +38,25 @@ public class GetRadioStreamsTask extends AsyncTask<Void, RadioStreams, RadioStre
 			ex = e;
 			Log.e(TAG, "FAIL: get current song information: " + e);
 		}
-		
+
 		return streams;
 	}
 
 	@Override
-	protected void onProgressUpdate(RadioStreams... item) 
+	protected void onProgressUpdate(RadioStreams... item)
 	{
 
 	}
 
 	@Override
-	protected void onPostExecute(RadioStreams result) 
+	protected void onPostExecute(RadioStreams result)
 	{
 		if(result != null && result.ErrorMessage.equals(""))
 		{
 			_application.RadioStreams = result.RadioStreams;
-	        
-	        if(_application.CurrentStream == null)
-	        	_application.CurrentStream = result.RadioStreams.get(0);
+
+			if(_application.CurrentStream == null)
+				_application.CurrentStream = result.RadioStreams.get(0);
 		}
 		else
 		{
@@ -78,7 +66,7 @@ public class GetRadioStreamsTask extends AsyncTask<Void, RadioStreams, RadioStre
 				Log.e(TAG, "FAIL: Post execute: " + result.ErrorMessage);
 			}
 		}
-		
+
 		if(ex != null)
 			Log.e(TAG, "FAIL: EXCEPTION: Post execute: " + ex);
 	}

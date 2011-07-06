@@ -1,23 +1,16 @@
 package net.mandaria.radioreddit.tasks;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.Locale;
 
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.apis.RadioRedditAPI;
 import net.mandaria.radioreddit.objects.RadioEpisode;
-import net.mandaria.radioreddit.objects.RadioSong;
-import android.app.Application;
 import android.content.Context;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.AsyncTask;
-import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
-public class GetCurrentEpisodeInformationTask extends AsyncTask<Void, RadioEpisode, RadioEpisode> 
+public class GetCurrentEpisodeInformationTask extends AsyncTask<Void, RadioEpisode, RadioEpisode>
 {
 	private static String TAG = "RadioReddit";
 	private Context _context;
@@ -25,22 +18,20 @@ public class GetCurrentEpisodeInformationTask extends AsyncTask<Void, RadioEpiso
 	private RadioRedditApplication _application;
 	private Exception ex;
 	private String _startingStream;
-	
-	
 
-    public GetCurrentEpisodeInformationTask(RadioRedditApplication application, Context context, Locale locale) 
-    {
-    	_context = context;
-    	_locale = locale;
-    	_application = application;
-    	_startingStream = application.CurrentStream.Name;
-    }
+	public GetCurrentEpisodeInformationTask(RadioRedditApplication application, Context context, Locale locale)
+	{
+		_context = context;
+		_locale = locale;
+		_application = application;
+		_startingStream = application.CurrentStream.Name;
+	}
 
 	@Override
-	protected RadioEpisode doInBackground(Void... unused) 
+	protected RadioEpisode doInBackground(Void... unused)
 	{
 		RadioEpisode episode = null;
-		try 
+		try
 		{
 			episode = RadioRedditAPI.GetCurrentEpisodeInformation(_context, _application);
 		}
@@ -49,20 +40,20 @@ public class GetCurrentEpisodeInformationTask extends AsyncTask<Void, RadioEpiso
 			ex = e;
 			Log.e(TAG, "FAIL: get current episode information: " + e);
 		}
-		
+
 		return episode;
 	}
 
 	@Override
-	protected void onProgressUpdate(RadioEpisode... item) 
+	protected void onProgressUpdate(RadioEpisode... item)
 	{
 
 	}
 
 	@Override
-	protected void onPostExecute(RadioEpisode result) 
+	protected void onPostExecute(RadioEpisode result)
 	{
-		
+
 		if(result != null && result.ErrorMessage.equals(""))
 		{
 			if(_application.CurrentStream.Name.equals(_startingStream)) // make sure we're on the same stream)
@@ -76,9 +67,9 @@ public class GetCurrentEpisodeInformationTask extends AsyncTask<Void, RadioEpiso
 				Log.e(TAG, "FAIL: Post execute: " + result.ErrorMessage);
 			}
 		}
-		
+
 		if(ex != null)
 			Log.e(TAG, "FAIL: EXCEPTION: Post execute: " + ex);
-		
+
 	}
 }
