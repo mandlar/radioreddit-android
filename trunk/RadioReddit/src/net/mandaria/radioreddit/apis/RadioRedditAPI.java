@@ -10,6 +10,7 @@ import org.json.JSONTokener;
 
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
+import net.mandaria.radioreddit.errors.CustomExceptionHandler;
 import net.mandaria.radioreddit.objects.RadioEpisode;
 import net.mandaria.radioreddit.objects.RadioSong;
 import net.mandaria.radioreddit.objects.RadioStream;
@@ -28,7 +29,7 @@ public class RadioRedditAPI
 		radiostreams.ErrorMessage = "";
 
 		try
-		{
+		{			
 			String url = context.getString(R.string.radio_reddit_streams);
 			String outputStreams = "";
 			boolean errorGettingStreams = false;
@@ -114,8 +115,10 @@ public class RadioRedditAPI
 		}
 		catch(Exception ex)
 		{
-			// TODO: should be emailed
 			// We fail to get the streams...
+			CustomExceptionHandler ceh = new CustomExceptionHandler(context);
+			ceh.sendEmail(ex);
+
 			radiostreams.ErrorMessage = ex.toString();
 			ex.printStackTrace();
 		}
@@ -235,8 +238,10 @@ public class RadioRedditAPI
 		}
 		catch(Exception ex)
 		{
-			// TODO: should be emailed
 			// We fail to get the current song information...
+			CustomExceptionHandler ceh = new CustomExceptionHandler(context);
+			ceh.sendEmail(ex);
+
 			ex.printStackTrace();
 			radiosong.ErrorMessage = ex.toString();
 			return radiosong;
@@ -349,8 +354,10 @@ public class RadioRedditAPI
 		}
 		catch(Exception ex)
 		{
-			// TODO: should be emailed
 			// We fail to get the current song information...
+			CustomExceptionHandler ceh = new CustomExceptionHandler(context);
+			ceh.sendEmail(ex);
+
 			ex.printStackTrace();
 			radioepisode.ErrorMessage = ex.toString();
 			return radioepisode;

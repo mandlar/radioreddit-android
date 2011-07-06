@@ -31,7 +31,7 @@ import android.util.Log;
 public class CustomExceptionHandler implements UncaughtExceptionHandler 
 {
 
-	private static String TAG = "CarDashboard";
+	private static String TAG = "RadioReddit";
 	
     private UncaughtExceptionHandler defaultUEH;
 
@@ -48,67 +48,71 @@ public class CustomExceptionHandler implements UncaughtExceptionHandler
         this.url = "http://www.bryandenny.com/software/BugReport.aspx";
         this.defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
     }
+    
+    public void sendEmail(Throwable e)
+    {
+    	Log.i(TAG, "Exception caught, preparing email");
+    	// Stacktrace
+        final Writer result = new StringWriter();
+        final PrintWriter printWriter = new PrintWriter(result);
+        e.printStackTrace(printWriter);
+        String stacktrace = result.toString();
+        printWriter.close();
+        //Log.i(TAG, "StackTrace done");
+        // Application
+		String appName = context.getString(R.string.app_name);
+		String version = "";
+		try 
+		{
+			version = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+		} catch (NameNotFoundException ex) 
+		{
+
+		}
+		
+		String application = appName + " " + version;
+		//Log.i(TAG, "Application done");
+		// Debug
+		// TODO: can combine this with email feedback intent
+        String debug = "\n\n\n\n\n";
+        debug += context.getString(R.string.email_using_custom_rom) + "\n";
+        debug += "--------------------\n";
+		debug += context.getString(R.string.email_do_not_edit_message) + "\n\n";
+        debug += "BRAND: " + Build.BRAND + "\n";
+        debug += "CPU_ABI: " + Build.CPU_ABI + "\n";
+        debug += "DEVICE: " + Build.DEVICE + "\n";
+        debug += "DISPLAY: " + Build.DISPLAY + "\n";
+        debug += "FINGERPRINT: " + Build.FINGERPRINT + "\n";
+        debug += "HOST: " + Build.HOST + "\n";
+        debug += "ID: " + Build.ID + "\n";
+        debug += "MANUFACTURER: " + Build.MANUFACTURER + "\n";
+        debug += "MODEL: " + Build.MODEL + "\n";
+        debug += "PRODUCT: " + Build.PRODUCT + "\n";
+        debug += "TAGS: " + Build.TAGS + "\n";
+        debug += "TIME: " + Build.TIME + "\n";
+        debug += "TYPE: " + Build.TYPE + "\n";
+        debug += "USER: " + Build.USER + "\n";
+        debug += "VERSION.CODENAME: " + Build.VERSION.CODENAME + "\n";
+        debug += "VERSION.INCREMENTAL: " + Build.VERSION.INCREMENTAL + "\n";
+        debug += "VERSION.RELEASE: " + Build.VERSION.RELEASE + "\n";
+        debug += "VERSION.SDK: " + Build.VERSION.SDK + "\n";
+        debug += "VERSION.SDK_INT: " + Build.VERSION.SDK_INT + "\n";
+        debug += "Total Internal Memory: " + getTotalInternalMemorySize() + "\n";
+        debug += "Available Internal Memory: " + getAvailableInternalMemorySize() + "\n";
+        //Log.i(TAG, "Debug done");
+        
+        if (url != null) 
+        {
+            sendToServer(stacktrace, debug, application);
+            Log.i(TAG, "Debug email sent to developer");
+        }
+    }
 
     public void uncaughtException(Thread t, Throwable e) 
     {
     	try
     	{
-	    	Log.i(TAG, "Exception caught");
-	    	// Stacktrace
-	        final Writer result = new StringWriter();
-	        final PrintWriter printWriter = new PrintWriter(result);
-	        e.printStackTrace(printWriter);
-	        String stacktrace = result.toString();
-	        printWriter.close();
-	        Log.i(TAG, "StackTrace done");
-	        // Application
-			String appName = context.getString(R.string.app_name);
-			Log.i(TAG, "get string");
-			String version = "";
-			try 
-			{
-				version = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
-			} catch (NameNotFoundException ex) 
-			{
-	
-			}
-			
-			String application = appName + " " + version;
-			Log.i(TAG, "Application done");
-			// Debug
-			// TODO: can combine this with email feedback intent
-	        String debug = "\n\n\n\n\n";
-	        debug += context.getString(R.string.email_using_custom_rom) + "\n";
-	        debug += "--------------------\n";
-			debug += context.getString(R.string.email_do_not_edit_message) + "\n\n";
-	        debug += "BRAND: " + Build.BRAND + "\n";
-	        debug += "CPU_ABI: " + Build.CPU_ABI + "\n";
-	        debug += "DEVICE: " + Build.DEVICE + "\n";
-	        debug += "DISPLAY: " + Build.DISPLAY + "\n";
-	        debug += "FINGERPRINT: " + Build.FINGERPRINT + "\n";
-	        debug += "HOST: " + Build.HOST + "\n";
-	        debug += "ID: " + Build.ID + "\n";
-	        debug += "MANUFACTURER: " + Build.MANUFACTURER + "\n";
-	        debug += "MODEL: " + Build.MODEL + "\n";
-	        debug += "PRODUCT: " + Build.PRODUCT + "\n";
-	        debug += "TAGS: " + Build.TAGS + "\n";
-	        debug += "TIME: " + Build.TIME + "\n";
-	        debug += "TYPE: " + Build.TYPE + "\n";
-	        debug += "USER: " + Build.USER + "\n";
-	        debug += "VERSION.CODENAME: " + Build.VERSION.CODENAME + "\n";
-	        debug += "VERSION.INCREMENTAL: " + Build.VERSION.INCREMENTAL + "\n";
-	        debug += "VERSION.RELEASE: " + Build.VERSION.RELEASE + "\n";
-	        debug += "VERSION.SDK: " + Build.VERSION.SDK + "\n";
-	        debug += "VERSION.SDK_INT: " + Build.VERSION.SDK_INT + "\n";
-	        debug += "Total Internal Memory: " + getTotalInternalMemorySize() + "\n";
-	        debug += "Available Internal Memory: " + getAvailableInternalMemorySize() + "\n";
-	        Log.i(TAG, "Debug done");
-	        
-	        if (url != null) 
-	        {
-	            sendToServer(stacktrace, debug, application);
-	            Log.i(TAG, "Email Sent");
-	        }
+    		sendEmail(e);
     	}
     	catch(Exception ex)
     	{
@@ -116,7 +120,7 @@ public class CustomExceptionHandler implements UncaughtExceptionHandler
     	}
 
         defaultUEH.uncaughtException(t, e);
-        Log.i(TAG, "Default UEH done");
+        //Log.i(TAG, "Default UEH done");
     }
     
     public long getAvailableInternalMemorySize() 
