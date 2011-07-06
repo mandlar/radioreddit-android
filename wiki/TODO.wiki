@@ -2,6 +2,7 @@
 
 == Beta ==
 
+  * Fix notifications for talk streams
   * Use Android 3.0 fragments
   * Headset controls support (play/stop? next/prev switch streams?)
   * Login to Reddit
