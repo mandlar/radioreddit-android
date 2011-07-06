@@ -55,6 +55,8 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.Locale;
 
+import com.flurry.android.FlurryAgent;
+
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.activities.RadioReddit;
@@ -114,6 +116,13 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 	// Amount of time to rewind playback when resuming after call
 	private final static int RESUME_REWIND_TIME = 3000;
 
+	@Override
+	public void onStart(Intent intent, int startId)
+	{
+	   super.onStart(intent, startId);
+	   FlurryAgent.onStartSession(this, getString(R.string.flurrykey));
+	}
+	
 	@Override
 	public void onCreate()
 	{

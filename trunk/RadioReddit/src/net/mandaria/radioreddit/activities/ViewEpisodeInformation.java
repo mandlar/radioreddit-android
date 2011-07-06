@@ -20,6 +20,8 @@
 
 package net.mandaria.radioreddit.activities;
 
+import com.flurry.android.FlurryAgent;
+
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import android.app.Activity;
@@ -42,6 +44,20 @@ public class ViewEpisodeInformation extends Activity
 	TextView lbl_ShowRedditors;
 	TextView lbl_EpisodeDescription;
 
+	@Override
+	public void onStart()
+	{
+	   super.onStart();
+	   FlurryAgent.onStartSession(this, getString(R.string.flurrykey));
+	}
+	
+	@Override
+	public void onStop()
+	{
+	   super.onStop();
+	   FlurryAgent.onEndSession(this);
+	}
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState)

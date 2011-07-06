@@ -20,7 +20,11 @@
 
 package net.mandaria.radioreddit.activities;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+
+import com.flurry.android.FlurryAgent;
 
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
@@ -89,6 +93,20 @@ public class RadioReddit extends Activity
 	private BroadcastReceiver changeReceiver = new PlaybackChangeReceiver();
 	private BroadcastReceiver updateReceiver = new PlaybackUpdateReceiver();
 	private BroadcastReceiver closeReceiver = new PlaybackCloseReceiver();
+	
+	@Override
+	public void onStart()
+	{
+	   super.onStart();
+	   FlurryAgent.onStartSession(this, getString(R.string.flurrykey));
+	}
+	
+	@Override
+	public void onStop()
+	{
+	   super.onStop();
+	   FlurryAgent.onEndSession(this);
+	}
 
 	/** Called when the activity is first created. */
 	@Override
@@ -141,6 +159,7 @@ public class RadioReddit extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				FlurryAgent.onEvent("radio reddit - View Episode Info");
 				ViewEpisodeInfo();
 			}
 		});
@@ -168,6 +187,7 @@ public class RadioReddit extends Activity
 					{
 						if(player.isPlaying())
 						{
+							FlurryAgent.onEvent("radio reddit - Stop Button");
 							player.stop();
 
 							hideSongInformation();
@@ -179,6 +199,7 @@ public class RadioReddit extends Activity
 						}
 						else
 						{
+							FlurryAgent.onEvent("radio reddit - Play Button");
 							playStream();
 						}
 					}
@@ -187,6 +208,7 @@ public class RadioReddit extends Activity
 						// But we can tell the media player we actually don't want to start playing, we changed our mind
 						if(!player.isAborting())
 						{
+							FlurryAgent.onEvent("radio reddit - Stop Button - Abort");
 							// Mediaplayer is preparing, we want to not stream
 							player.abort();
 
@@ -199,6 +221,7 @@ public class RadioReddit extends Activity
 						}
 						else
 						{
+							FlurryAgent.onEvent("radio reddit - Play Button - Stop Abort");
 							// Mediaplayer is preparing, we want to stream (even though we previously aborted)
 							player.stopAbort();
 
@@ -254,7 +277,7 @@ public class RadioReddit extends Activity
 		super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu, menu);
-		// FlurryAgent.onEvent("radio reddit - Menu Button");
+		FlurryAgent.onEvent("radio reddit - Menu Button");
 		return true;
 	}
 
@@ -264,16 +287,19 @@ public class RadioReddit extends Activity
 		switch(item.getItemId())
 		{
 			case R.id.chooseStation:
+				FlurryAgent.onEvent("radio reddit - Menu Button - Choose Station");
 				ChooseStation();
 				return true;
 			case R.id.viewEpisodeInfo:
+				FlurryAgent.onEvent("radio reddit - Menu Button - View Episode Info");
 				ViewEpisodeInfo();
 				return true;
 			case R.id.email_feedback:
-				// FlurryAgent.onEvent("radio reddit - Menu Button - Email Feedback");
+				FlurryAgent.onEvent("radio reddit - Menu Button - Email Feedback");
 				SendEmail();
 				return true;
 			case R.id.exit:
+				FlurryAgent.onEvent("radio reddit - Menu Button - Exit App");
 				ExitApp();
 				return true;
 		}
@@ -508,6 +534,7 @@ public class RadioReddit extends Activity
 
 			if(player != null && player.isBuffering())
 			{
+				FlurryAgent.onEvent("radio reddit - Is Buffering");
 				hideSongInformation();
 				lbl_Buffering.setVisibility(View.VISIBLE);
 				progress_LoadingSong.setVisibility(View.VISIBLE);
@@ -515,6 +542,7 @@ public class RadioReddit extends Activity
 			}
 			else
 			{
+				FlurryAgent.onEvent("radio reddit - Is Not Buffering");
 				lbl_Buffering.setVisibility(View.GONE);
 				if(application.CurrentSong != null || application.CurrentEpisode != null)
 					progress_LoadingSong.setVisibility(View.GONE);
@@ -571,6 +599,9 @@ public class RadioReddit extends Activity
 
 		if(application.CurrentStream != null)
 		{
+			Map params = new HashMap();
+			params.put("station", application.CurrentStream.Name);
+			FlurryAgent.onEvent("radio reddit - Play Stream", params);
 			listen(application.CurrentStream.Relay);
 
 			lbl_station.setText(application.CurrentStream.Name);
