@@ -4,6 +4,9 @@
 
 Change log:
 
+* 0.2 - Not released yet
+- Removed GPS permissions (not intentionally added to begin with)
+
 * 0.1 - July 6th, 2011
 - Initial alpha release
  - Basic UI, for both phones and tablets (Android 3.0+)
