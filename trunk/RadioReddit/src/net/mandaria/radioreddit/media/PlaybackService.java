@@ -272,6 +272,14 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 		lastChangeBroadcast = new Intent(SERVICE_CHANGE_NAME);
 		// lastChangeBroadcast.putExtra(EXTRA_TITLE, current.title);
 		getApplicationContext().sendStickyBroadcast(lastChangeBroadcast); // broadcasts that playing has started
+		
+		// Setup notification so service can start in foreground
+		String songTitle = getString(R.string.app_name);
+		String songArtist = "";
+		
+		Notification notification = getNotification(songTitle, songArtist);
+		
+		startForeground(NOTIFICATION_ID, notification);
 		Log.w(LOG_TAG, "Playback service - play() end");
 	}
 
@@ -279,7 +287,7 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 	{
 		// Log.w(LOG_TAG, "Playback service - updateNotification() start");
 		RadioRedditApplication application = (RadioRedditApplication) getApplication();
-		int icon = R.drawable.stat_notify_musicplayer;
+		
 
 		String songTitle = getString(R.string.app_name);
 		String songArtist = "";
@@ -303,24 +311,35 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 		{
 			lastSongTitle = songTitle;
 			lastSongArtist = songArtist;
-
-			long when = 0; // Doesn't display a time
-			Notification notification = new Notification(icon, songTitle, when);
-			notification.flags = Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
-			Context c = getApplicationContext();
-
-			Intent notificationIntent;
-			notificationIntent = new Intent(this, RadioReddit.class);
-
-			notificationIntent.setAction(Intent.ACTION_VIEW);
-			notificationIntent.addCategory(Intent.CATEGORY_DEFAULT);
-			// notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // Useful test, use this and then have the service return to UI the current status of stream. This would cover the case of activity being destroyed by OS
-			notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-			PendingIntent contentIntent = PendingIntent.getActivity(c, 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-			notification.setLatestEventInfo(c, songTitle, songArtist, contentIntent);
+			
+			Notification notification = getNotification(songTitle, songArtist);
+			
 			notificationManager.notify(NOTIFICATION_ID, notification);
 		}
 		// Log.w(LOG_TAG, "Playback service - updateNotification() stop");
+	}
+	
+	
+	// Get a notification object to display
+	private Notification getNotification(String songTitle, String songArtist)
+	{
+		int icon = R.drawable.stat_notify_musicplayer;
+		long when = 0; // Doesn't display a time
+		Notification notification = new Notification(icon, songTitle, when);
+		notification.flags = Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
+		Context c = getApplicationContext();
+
+		Intent notificationIntent;
+		notificationIntent = new Intent(this, RadioReddit.class);
+
+		notificationIntent.setAction(Intent.ACTION_VIEW);
+		notificationIntent.addCategory(Intent.CATEGORY_DEFAULT);
+		// notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // Useful test, use this and then have the service return to UI the current status of stream. This would cover the case of activity being destroyed by OS
+		notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		PendingIntent contentIntent = PendingIntent.getActivity(c, 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+		notification.setLatestEventInfo(c, songTitle, songArtist, contentIntent);
+		
+		return notification;
 	}
 
 	synchronized public void pause()
@@ -678,7 +697,19 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 	private void cleanup()
 	{
 		Log.w(LOG_TAG, "Playback service - cleanup() start");
+		
+		// Stop notifications and service from running on foreground
 		notificationManager.cancel(NOTIFICATION_ID);
+		stopForeground(true);
+		
+		// Clear song information
+		RadioRedditApplication application = (RadioRedditApplication) getApplication();
+		application.CurrentEpisode = null;
+		application.CurrentSong = null;
+		lastSongTitle = "";
+		lastSongArtist = "";
+		
+		// Stop broadcasts
 		if(lastChangeBroadcast != null)
 		{
 			getApplicationContext().removeStickyBroadcast(lastChangeBroadcast);
@@ -689,6 +720,7 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 		}
 		getApplicationContext().sendBroadcast(new Intent(SERVICE_CLOSE_NAME));
 
+		// Stop locks on wifi/wake
 		if(mWakeLock != null && mWakeLock.isHeld() == true)
 			mWakeLock.release();
 
