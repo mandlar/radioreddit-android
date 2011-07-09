@@ -290,6 +290,13 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 			if(application.CurrentSong.Artist != null && application.CurrentSong.Redditor != null)
 				songArtist = application.CurrentSong.Artist + " (" + application.CurrentSong.Redditor + ")";
 		}
+		else if(application.CurrentEpisode != null)
+		{
+			if(application.CurrentEpisode.EpisodeTitle != null)
+				songTitle = application.CurrentEpisode.EpisodeTitle;
+			if(application.CurrentEpisode.ShowTitle != null)
+				songArtist = application.CurrentEpisode.ShowTitle;
+		}
 
 		// Only update the notification if there has been a change
 		if(!lastSongArtist.equals(songArtist) || !lastSongTitle.equals(songTitle))
