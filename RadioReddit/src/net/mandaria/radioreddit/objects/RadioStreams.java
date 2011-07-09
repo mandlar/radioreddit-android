@@ -21,10 +21,43 @@
 package net.mandaria.radioreddit.objects;
 
 import java.util.ArrayList;
+import java.util.List;
 
 // This is a container class for the GetRadioStreams async task
 public class RadioStreams
 {
 	public ArrayList<RadioStream> RadioStreams;
 	public String ErrorMessage;
+	
+	public static ArrayList<RadioStream> getMusicStreams(ArrayList<RadioStream> streams)
+	{
+		ArrayList<RadioStream> musicStreams = new ArrayList<RadioStream>();
+		
+		for(RadioStream stream : streams)
+		{
+			if(stream.Type.equals("music"))
+			{
+				musicStreams.add(stream);
+			}
+		}
+		
+		// TODO: sort
+		
+		return musicStreams;
+	}
+	
+	public static ArrayList<RadioStream> getTalkStreams(ArrayList<RadioStream> streams)
+	{
+		ArrayList<RadioStream> talkStreams = new ArrayList<RadioStream>();
+		
+		for(RadioStream stream : streams)
+		{
+			if(stream.Type.equals("talk"))
+				talkStreams.add(stream);
+		}
+		
+		// TODO: sort
+		
+		return talkStreams;
+	}
 }
