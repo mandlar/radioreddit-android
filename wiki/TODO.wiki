@@ -2,6 +2,8 @@
 
 == Beta ==
 
+  * Break down listview of stations into music and talk
+    * See this: http://android.cyrilmottier.com/?p=440
   * Cache streams to database after first load
   * Attempt to reconnect X times when completely stopped (usually because of loss of signal).
   * Look into startForeground to keep service from being killed: http://developer.android.com/intl/de/reference/android/app/Service.html#startForeground%28int,%20android.app.Notification%29
