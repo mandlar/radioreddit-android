@@ -5,8 +5,6 @@
   * Cache streams to database after first load
   * Attempt to reconnect X times when completely stopped (usually because of loss of signal).
   * Look into startForeground to keep service from being killed: http://developer.android.com/intl/de/reference/android/app/Service.html#startForeground%28int,%20android.app.Notification%29
-
-  * Fix notifications for talk streams
   * Use Android 3.0 fragments
   * Headset controls support (play/stop? next/prev switch streams?)
   * Login to Reddit
@@ -22,6 +20,7 @@
   * Widget?
 
   * (DONE) Remove GPS from permissions
+  * (DONE) Fix notifications for talk streams
  
 == Alpha ==
 
