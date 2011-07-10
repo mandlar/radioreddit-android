@@ -134,22 +134,28 @@ First I make a request to radio reddit to get which song is playing and when I g
 When voting for a song we don't always know the name (an id that reddit uses for all submissions). This happens for example when voting for songs in the live stream before we have gotten the info from reddit, or if the song hasn't been submitted. We then have to:
 
 1. Get the song info from radio reddit.
+
 2. Ask reddit for the info about the song via this API:  http://www.reddit.com/api/info.json?url= 
 where the URL is the reddit_url in the song info we got from radio reddit. 
+
 3. When we get response from 2 we see if it exists or not. If it exists we can get the "name" from reddit.
+
 4. When we have the "name" we can vote by using http://www.reddit.com/api/vote with some different POST values. If it's not submitted we can use the submit API and then we get a response in a callback if there was an error (like requires captcha, already submitted (if someone submitted just before you did), submitting too fast etc).
 
 --------
 
-
 When voting I first ask radio reddit for what song is playing, just to make sure I have the latest available information before sending the vote request to reddit (as the "cashed" song might differ from what's actually playing due to the 30 second delay). 
+
 After I've done this step I have two ways I can go and must choose:
+
 1. The song I have cashed is the same as the one I got in the response from radio reddit. That means I most likely also have the "reddit id" /name stored and I can use that to send a vote request directly. So I just send the vote api with that song name and so on with reddits API.
+
 2. If they differ it means I first have to get the reddit id / name for the submission I want to vote for. I get this by asking reddit for information via their info api (http://www.reddit.com/api/info.json?url=). When I get that response I can vote. If I get an empty response it means that it hasn't been submitted, so I will use the submit API (3).
 
 3. When submitting i first try to just send the submit API. Then I get some different responses depending on some error happened. This response is not a JSON response but a JQuery string (ugh). In that string I check for known errors "RATELIMIT" "BAD CAPTCHA" and so on. Depending on what answer I get I present different message boxes to the user. Bad captcha means I have to present the captcha and send the submit request again with captcha code and answer POST values.. 
 
 4. In the lists I usually have most information already so I don't have to ask for the reddit id for example (with the exception for non-submitted songs and the songs in the charts). 
+
 The order is pretty much the same as before otherwise.
 I also store all reddit vote/save info and so in on in the song objects I have, so if you tap on song 1 in the lists, then song 2 and then song 1 again I don't have to download song 1 info from reddit all over again. I clear this "cache" when exiting the lists.
 
@@ -158,6 +164,7 @@ I also store all reddit vote/save info and so in on in the song objects I have, 
 == Bookmarks ==
 
 Yes, I store bookmarks locally. I wanted the possibility to bookmark without using a service. I made the "save on reddit" feature as a way of getting bookmarks on/off the device. The reddit submission doesn't contain all info about the song that radio_reddit API provides. Like the preview_url for example. Not all songs have download_url so then we have to use the preview_url. 
+
 The bad thing about preview_urls is that they will in the future be temporary and change every now and then. This means a bookmark can become non playable after a while if no dowload_url or preiew_url exists. I've thought about parsing the preview_url from the songs permalink but that's quite messy. Bookmarks will at least get the user a way to remember songs for later and perhaps download in the browser at home.
 
 I'm implementing a method that updates bookmarked songs with fresh info whenever a bookmarked song happens to be played in the radio streams.
@@ -169,9 +176,13 @@ Heard on radio, yes, I store them in an array that gets dumped each time you kil
 == Charts ==
 
 That API looks like this: 
+
 NSString * const RadioRedditChartsAll = @"http://radioreddit.com/api/charts_all.json";
+
 NSString * const RadioRedditChartsMonth = @"http://radioreddit.com/api/charts_month.json";
+
 NSString * const RadioRedditChartsWeek = @"http://radioreddit.com/api/charts_week.json";
+
 NSString * const RadioRedditChartsDay = @"http://radioreddit.com/api/charts_day.json";
 
 = My API requests =
