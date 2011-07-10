@@ -23,7 +23,7 @@ package net.mandaria.radioreddit.objects;
 /*
  * Used to for parsing http://radioreddit.com/config/streams.json
  */
-public class RadioStream
+public class RadioStream implements Comparable<RadioStream>
 {
 	public String Name;
 	public String Type;
@@ -36,4 +36,10 @@ public class RadioStream
 	// public String Transcoder;
 	// public String Playlists
 	// public String[] Relays;
+	
+	@Override
+	public int compareTo(RadioStream stream)
+	{
+		return Name.compareTo(stream.Name);
+	}
 }

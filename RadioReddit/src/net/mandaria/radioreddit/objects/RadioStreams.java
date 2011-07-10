@@ -21,6 +21,7 @@
 package net.mandaria.radioreddit.objects;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 // This is a container class for the GetRadioStreams async task
@@ -41,7 +42,7 @@ public class RadioStreams
 			}
 		}
 		
-		// TODO: sort
+		Collections.sort(musicStreams);
 		
 		return musicStreams;
 	}
@@ -56,8 +57,19 @@ public class RadioStreams
 				talkStreams.add(stream);
 		}
 		
-		// TODO: sort
+		Collections.sort(talkStreams);
 		
 		return talkStreams;
+	}
+	
+	public static RadioStream getStreamByStreamName(ArrayList<RadioStream> streams, String streamName)
+	{
+		for(RadioStream stream : streams)
+		{
+			if(stream.Name.equals(streamName))
+				return stream;
+		}
+		
+		return null; // no stream found
 	}
 }

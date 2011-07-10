@@ -8,6 +8,7 @@ Change log:
 - Removed GPS permissions (not intentionally added to begin with)
 - Notification now shows talk show information
 - Music service now runs in the foreground, will help prevent it from getting killed in low memory situations
+- Changing stations now has streams broken down into two categories: music and talk stations. Stations sorted by name.
 
 * 0.1 - July 6th, 2011
 - Initial alpha release
