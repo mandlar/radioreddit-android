@@ -88,7 +88,7 @@ public class SelectStation extends Activity
 		if(sdkVersion >= 11)
 		{
 			if(application.CurrentStream != null)
-				getActionBar().setTitle("Current Station: " + application.CurrentStream.Name);
+				getActionBar().setTitle(getString(R.string.currentStation)+ ": " + application.CurrentStream.Name);
 		}
 
 		ListView list_Stations = (ListView) findViewById(R.id.list_Stations);
@@ -96,9 +96,9 @@ public class SelectStation extends Activity
 		CustomRadioStreamsAdapter adapter_talk = new CustomRadioStreamsAdapter(this, R.layout.radio_stream_item, RadioStreams.getTalkStreams(application.RadioStreams));
 		
 		MergeAdapter mergedAdapter = new MergeAdapter();
-		mergedAdapter.addView(getHeaderView("Music Stations"), false);
+		mergedAdapter.addView(getHeaderView(getString(R.string.musicStations)), false);
 		mergedAdapter.addAdapter(adapter_music);
-		mergedAdapter.addView(getHeaderView("Talk Stations"), false);
+		mergedAdapter.addView(getHeaderView(getString(R.string.talkStations)), false);
 		mergedAdapter.addAdapter(adapter_talk);
 
 		list_Stations.setAdapter(mergedAdapter); // TODO: there is a null pointer exception here if we run out of memory and return to this activity on low memory
