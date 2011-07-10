@@ -120,7 +120,8 @@ public class RadioRedditAPI
 				// JSON parsing reverses the list for some reason, fixing it...
 				if(list_radiostreams.size() > 0)
 				{
-					Collections.reverse(list_radiostreams);
+					// Sorting will happen later on select station activity
+					//Collections.reverse(list_radiostreams);
 
 					radiostreams.RadioStreams = list_radiostreams;
 				}

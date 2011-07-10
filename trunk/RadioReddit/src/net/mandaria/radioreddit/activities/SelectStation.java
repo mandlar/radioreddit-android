@@ -23,12 +23,14 @@ package net.mandaria.radioreddit.activities;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.commonsware.cwac.merge.MergeAdapter;
 import com.flurry.android.FlurryAgent;
 
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.data.CustomRadioStreamsAdapter;
 import net.mandaria.radioreddit.objects.RadioStream;
+import net.mandaria.radioreddit.objects.RadioStreams;
 import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -39,6 +41,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class SelectStation extends Activity
@@ -89,9 +92,16 @@ public class SelectStation extends Activity
 		}
 
 		ListView list_Stations = (ListView) findViewById(R.id.list_Stations);
-		CustomRadioStreamsAdapter adapter = new CustomRadioStreamsAdapter(this, R.layout.radio_stream_item, application.RadioStreams);
+		CustomRadioStreamsAdapter adapter_music = new CustomRadioStreamsAdapter(this, R.layout.radio_stream_item, RadioStreams.getMusicStreams(application.RadioStreams));
+		CustomRadioStreamsAdapter adapter_talk = new CustomRadioStreamsAdapter(this, R.layout.radio_stream_item, RadioStreams.getTalkStreams(application.RadioStreams));
+		
+		MergeAdapter mergedAdapter = new MergeAdapter();
+		mergedAdapter.addView(getHeaderView("Music Stations"), false);
+		mergedAdapter.addAdapter(adapter_music);
+		mergedAdapter.addView(getHeaderView("Talk Stations"), false);
+		mergedAdapter.addAdapter(adapter_talk);
 
-		list_Stations.setAdapter(adapter); // TODO: there is a null pointer exception here if we run out of memory and return to this activity on low memory
+		list_Stations.setAdapter(mergedAdapter); // TODO: there is a null pointer exception here if we run out of memory and return to this activity on low memory
 
 		list_Stations.setOnItemClickListener(new OnItemClickListener()
 		{
@@ -99,10 +109,14 @@ public class SelectStation extends Activity
 			public void onItemClick(AdapterView parent, View view, int position, long id)
 			{
 				Intent result = new Intent();
+				
+				TextView lbl_stream_name = (TextView)view.findViewById(R.id.lbl_stream_name);
+				
+				String streamName = lbl_stream_name.getText().toString();
 
 				RadioRedditApplication application = (RadioRedditApplication) getApplication();
 
-				RadioStream newStream = application.RadioStreams.get(position);
+				RadioStream newStream = RadioStreams.getStreamByStreamName(application.RadioStreams, streamName);
 
 				boolean changedStream = false;
 				if(!application.CurrentStream.Name.equals(newStream.Name))
@@ -121,6 +135,14 @@ public class SelectStation extends Activity
 				finish();
 			}
 		});
+	}
+	
+	private View getHeaderView(String headerCaption)
+	{
+		TextView textView = (TextView)getLayoutInflater().inflate(R.layout.tmp_lv_separator, null);
+		textView.setText(headerCaption);
+		
+		return textView;
 	}
 
 	@Override
