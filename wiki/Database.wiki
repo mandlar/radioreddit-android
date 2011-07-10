@@ -1,0 +1,10 @@
+#summary Database Information
+
+= Introduction =
+
+This will hold a rough list of database designs.
+
+
+= StreamsCache =
+
+This database will hold the most recent information of all of the streams. This is used for the next start-up so we do not have to wait to retrieve all of the streams again.  Most likely, the streams haven't changed since the last time we've seen them (and if they have, we'll shortly after get the a fresher version of them).
