@@ -24,6 +24,7 @@ import java.util.Locale;
 
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.apis.RadioRedditAPI;
+import net.mandaria.radioreddit.data.DatabaseService;
 import net.mandaria.radioreddit.objects.RadioStreams;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -74,9 +75,13 @@ public class GetRadioStreamsTask extends AsyncTask<Void, RadioStreams, RadioStre
 		if(result != null && result.ErrorMessage.equals(""))
 		{
 			_application.RadioStreams = result.RadioStreams;
+			
+			// Update cache of streams
+			DatabaseService service = new DatabaseService(); 
+			service.UpdateCachedStreams(_context, result.RadioStreams);
 
 			if(_application.CurrentStream == null)
-				_application.CurrentStream = result.RadioStreams.get(0);
+				_application.CurrentStream = result.RadioStreams.get(0); // TODO: this needs to be set to a specific stream, e.g. main
 		}
 		else
 		{
