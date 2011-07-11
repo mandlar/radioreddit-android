@@ -1,0 +1,4 @@
+
+    <resources>
+        <string name="database">/data/data/net.mandaria.radioredditpro/databases/</string>
+    </resources>
