@@ -2,7 +2,6 @@
 
 == Beta ==
 
-  * Bug: if user presses play, it will switch to random (on first load).  Need to select main stream first
   * Attempt to reconnect X times when completely stopped (usually because of loss of signal).
   * Use Android 3.0 fragments
   * Headset controls support (play/stop? next/prev switch streams?)
@@ -24,6 +23,7 @@
   * (DONE) Break down listview of stations into music and talk
     * See this: http://android.cyrilmottier.com/?p=440
   * (DONE) Cache streams to database after first load
+  * (DONE) Bug: if user presses play, it will switch to random (on first load).  Need to select main stream first
  
 == Alpha ==
 
