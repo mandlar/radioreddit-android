@@ -28,6 +28,7 @@ import com.flurry.android.FlurryAgent;
 
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
+import net.mandaria.radioreddit.data.DatabaseService;
 import net.mandaria.radioreddit.media.PlaybackService;
 import net.mandaria.radioreddit.media.StreamProxy;
 import net.mandaria.radioreddit.tasks.GetRadioStreamsTask;
@@ -87,6 +88,7 @@ public class RadioReddit extends Activity
 
 	private Handler mHandler = new Handler();
 	private long mLastStreamsInformationUpdateMillis = 0;
+	private boolean isStreamCacheLoaded = false;
 
 	private PlaybackService player;
 	private ServiceConnection conn;
@@ -248,7 +250,7 @@ public class RadioReddit extends Activity
 		MenuItem viewEpisodeInfo = (MenuItem) menu.findItem(R.id.viewEpisodeInfo);
 
 		// Connecting to radio reddit
-		if(application.RadioStreams == null)
+		if(application.RadioStreams == null || application.RadioStreams.size() == 0)
 		{
 			chooseStation.setEnabled(false);
 		}
@@ -629,6 +631,18 @@ public class RadioReddit extends Activity
 		public void run()
 		{
 			RadioRedditApplication application = (RadioRedditApplication) getApplication();
+			
+			// Attempt to load songs from cache
+			if(application.RadioStreams == null && isStreamCacheLoaded == false)
+			{
+				DatabaseService service = new DatabaseService();
+				application.RadioStreams = service.GetCachedStreams(RadioReddit.this);
+				
+				if(application.CurrentStream == null && application.RadioStreams != null && application.RadioStreams.size() > 0)
+					application.CurrentStream = application.RadioStreams.get(0); // TODO: this needs to be set to a specific stream, e.g. main
+				
+				isStreamCacheLoaded = true;
+			}
 
 			// Update stream information every 30 seconds
 			if((SystemClock.elapsedRealtime() - mLastStreamsInformationUpdateMillis) > 30000)
@@ -638,7 +652,7 @@ public class RadioReddit extends Activity
 			}
 
 			// Connecting to radio reddit
-			if(application.RadioStreams == null)
+			if(application.RadioStreams == null || application.RadioStreams.size() == 0)
 			{
 				progress_LoadingSong.setVisibility(View.VISIBLE);
 				lbl_Connecting.setVisibility(View.VISIBLE);

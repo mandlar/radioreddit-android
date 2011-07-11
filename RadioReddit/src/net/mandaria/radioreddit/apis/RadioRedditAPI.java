@@ -202,7 +202,7 @@ public class RadioRedditAPI
 				if(song.has("itunes_price"))
 					radiosong.Itunes_price = song.getString("itunes_price");
 
-				// get vote score
+				// get vote score 
 				String reddit_info_url = context.getString(R.string.reddit_link_by) + URLEncoder.encode(radiosong.Reddit_url);
 
 				String outputRedditInfo = "";
