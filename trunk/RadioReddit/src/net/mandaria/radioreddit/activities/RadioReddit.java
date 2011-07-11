@@ -31,6 +31,7 @@ import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.data.DatabaseService;
 import net.mandaria.radioreddit.media.PlaybackService;
 import net.mandaria.radioreddit.media.StreamProxy;
+import net.mandaria.radioreddit.objects.RadioStreams;
 import net.mandaria.radioreddit.tasks.GetRadioStreamsTask;
 
 import android.app.Activity;
@@ -639,7 +640,11 @@ public class RadioReddit extends Activity
 				application.RadioStreams = service.GetCachedStreams(RadioReddit.this);
 				
 				if(application.CurrentStream == null && application.RadioStreams != null && application.RadioStreams.size() > 0)
-					application.CurrentStream = application.RadioStreams.get(0); // TODO: this needs to be set to a specific stream, e.g. main
+				{
+					application.CurrentStream = RadioStreams.getMainStream(application.RadioStreams);
+					
+					lbl_station.setText(application.CurrentStream.Name);
+				}	
 				
 				isStreamCacheLoaded = true;
 			}

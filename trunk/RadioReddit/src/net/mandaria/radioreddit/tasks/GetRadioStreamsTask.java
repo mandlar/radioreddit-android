@@ -81,7 +81,7 @@ public class GetRadioStreamsTask extends AsyncTask<Void, RadioStreams, RadioStre
 			service.UpdateCachedStreams(_context, result.RadioStreams);
 
 			if(_application.CurrentStream == null)
-				_application.CurrentStream = result.RadioStreams.get(0); // TODO: this needs to be set to a specific stream, e.g. main
+				_application.CurrentStream = RadioStreams.getMainStream(_application.RadioStreams);
 		}
 		else
 		{
