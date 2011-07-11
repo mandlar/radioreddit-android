@@ -3,7 +3,6 @@
 == Beta ==
 
   * Bug: if user presses play, it will switch to random (on first load).  Need to select main stream first
-  * Cache streams to database after first load
   * Attempt to reconnect X times when completely stopped (usually because of loss of signal).
   * Use Android 3.0 fragments
   * Headset controls support (play/stop? next/prev switch streams?)
@@ -24,6 +23,7 @@
   * (DONE) Look into startForeground to keep service from being killed: http://developer.android.com/intl/de/reference/android/app/Service.html#startForeground%28int,%20android.app.Notification%29
   * (DONE) Break down listview of stations into music and talk
     * See this: http://android.cyrilmottier.com/?p=440
+  * (DONE) Cache streams to database after first load
  
 == Alpha ==
 
