@@ -74,4 +74,15 @@ public class RadioStreams
 		
 		return null; // no stream found
 	}
+	
+	public static RadioStream getMainStream(ArrayList<RadioStream> streams)
+	{
+		RadioStream stream = getStreamByStreamName(streams, "main");
+		
+		// if there is no main stream, then grab the first available stream
+		if(stream == null)
+			stream = streams.get(0);
+		
+		return stream;
+	}
 }
