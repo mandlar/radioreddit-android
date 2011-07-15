@@ -2,6 +2,7 @@
 
 == Beta ==
 
+  * Notification of when "Buffering..."
   * Attempt to reconnect X times when completely stopped (usually because of loss of signal).
   * Use Android 3.0 fragments
   * Headset controls support (play/stop? next/prev switch streams?)
