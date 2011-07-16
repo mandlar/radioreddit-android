@@ -33,7 +33,7 @@ public class Settings extends PreferenceActivity
 			CheckBoxPreference enable_compatibility_mode = (CheckBoxPreference)findPreference("enable_compatibility_mode");
 			enable_compatibility_mode.setChecked(true);
 			enable_compatibility_mode.setEnabled(false);
-			enable_compatibility_mode.setSummary("Your device must run in compatiblity mode");
+			enable_compatibility_mode.setSummary("Your device must run in compatibility mode");
 		}
 		
 	}
