@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res/net.mandaria.tippytipper">
+	<PreferenceCategory android:title="Playback Options">
+		<CheckBoxPreference
+			android:key="enable_compatibility_mode"
+	   		android:title="Compatiblity Mode"
+	   		android:summary="Enable if you're having playback issues"
+	   		android:defaultValue="false"
+	   		android:disableDependentsState="false"
+			/>
+	</PreferenceCategory>
+</PreferenceScreen>

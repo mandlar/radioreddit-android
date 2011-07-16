@@ -10,6 +10,7 @@ Change log:
 - Music service now runs in the foreground, will help prevent it from getting killed in low memory situations
 - Changing stations now has streams broken down into two categories: music and talk stations. Stations sorted by name
 - Added cache for getting stations: subsequent start up times has been reduced as it will load stations from the database cache if possible
+- Added settings activity, compatibility mode option (for users with streaming issues)
 
 * 0.1 - July 6th, 2011
 - Initial alpha release

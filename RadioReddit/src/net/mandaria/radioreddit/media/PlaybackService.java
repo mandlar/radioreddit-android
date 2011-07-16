@@ -60,6 +60,7 @@ import com.flurry.android.FlurryAgent;
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.activities.RadioReddit;
+import net.mandaria.radioreddit.activities.Settings;
 import net.mandaria.radioreddit.tasks.GetCurrentEpisodeInformationTask;
 import net.mandaria.radioreddit.tasks.GetCurrentSongInformationTask;
 
@@ -407,8 +408,9 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 
 		}
 
-		if(stream && sdkVersion < 8)
+		if((stream && sdkVersion < 8) || Settings.getEnableCompatibilityMode(this))
 		{
+			Log.i(LOG_TAG, "Using proxy...");
 			if(proxy == null)
 			{
 				proxy = new StreamProxy();

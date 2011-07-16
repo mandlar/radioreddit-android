@@ -5,6 +5,8 @@
 	<string name="chooseStation">Choose Station</string>
 	<string name="exit">Exit</string>
 	<string name="email_feedback">Email Feedback</string>
+	<string name="viewEpisodeInfo">View Episode Info</string>
+	<string name="settings">Settings</string>
 	<!-- Select Station -->
 	<string name="musicStations">Music Stations</string>
 	<string name="talkStations">Talk Stations</string>
@@ -22,7 +24,7 @@
 	<!-- Error messages -->
 	<string name="error_RadioRedditServerIsDownNotification">Can\'t reach radio reddit, the server may be down or your network is flaky. Please try again later!</string>
 	<string name="error_NoStreams">There are no streams available to play. Please try again later!</string>
-	<string name="error_StreamConnectionError">There was an error connecting to the radio reddit stream... Please try again later!</string>
+	<string name="error_StreamConnectionError">There was an error connecting to the radio reddit stream... Please try again later! If you continue to have problems, try enabling compatibility mode in the settings.</string>
 	<string name="pleaseWaitToChangeStation">Please wait one moment to switch to a new station...</string>
 	<string name="connectingToRadioReddit">Connecting to radio reddit...</string>
 	<string name="buffering">Buffering...</string>
