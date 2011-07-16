@@ -297,6 +297,10 @@ public class RadioReddit extends Activity
 				FlurryAgent.onEvent("radio reddit - Menu Button - View Episode Info");
 				ViewEpisodeInfo();
 				return true;
+			case R.id.settings:
+				FlurryAgent.onEvent("radio reddit - Menu Button - Settings");
+				startActivity(new Intent(this, Settings.class));
+				return true;
 			case R.id.email_feedback:
 				FlurryAgent.onEvent("radio reddit - Menu Button - Email Feedback");
 				SendEmail();

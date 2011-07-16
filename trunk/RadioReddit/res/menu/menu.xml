@@ -7,9 +7,14 @@
 		/>
 	<item
 		android:id="@+id/viewEpisodeInfo"
-		android:title="View Episode Info"
+		android:title="@string/viewEpisodeInfo"
 		android:showAsAction="always|withText"
 		android:visible="false"
+		/>
+	<item
+		android:id="@+id/settings"
+		android:title="@string/settings"
+		android:showAsAction="never"
 		/>
 	<item
 		android:id="@+id/exit"
@@ -19,6 +24,7 @@
 	<item
 		android:id="@+id/email_feedback"
 		android:title="@string/email_feedback"
+		android:showAsAction="never"
 		/>	
 </menu>
     
