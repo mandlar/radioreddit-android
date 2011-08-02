@@ -1,4 +1,15 @@
 <resources>
+	<!--  !!! Styles for Login activity !!! -->
+	<style name="Login_Logo_Image">
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">fill_parent</item>
+		<item name="android:src">@drawable/login_logo</item>
+		<item name="android:adjustViewBounds">true</item>
+		<item name="android:scaleType">centerInside</item>
+		<item name="android:paddingLeft">0dp</item>
+		<item name="android:paddingRight">0dp</item>
+		<item name="android:paddingTop">0dp</item>
+	</style>
 	<!--  !!! Styles for Radio Reddit activity !!! -->
 	<!-- Header -->
 	<style name="Header_Body">

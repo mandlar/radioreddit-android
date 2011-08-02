@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <LinearLayout
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:layout_marginLeft="20dp"
+    	android:layout_marginRight="20dp"
+    	>
+    	
+	    <!-- Logo -->
+	    <LinearLayout
+			style="@style/Logo_Body"
+			android:layout_weight="1.5"
+			>
+			<ImageView
+				android:id="@+id/img_Logo"
+				style="@style/Login_Logo_Image"
+				/>
+		</LinearLayout>
+	    <LinearLayout
+	    	android:layout_height="fill_parent"
+	    	android:layout_width="fill_parent"
+	    	android:orientation="vertical"
+	    	android:layout_weight="1"
+	    	>
+	    	<TextView 
+	    		android:layout_height="wrap_content"
+	    		android:layout_width="wrap_content"
+	    		android:text="Enter your reddit credentials to continue."
+	    		android:textColor="#ffffff"
+	    		android:layout_gravity="center_horizontal"
+	    		android:layout_marginBottom="10dp"
+	    		/>
+	    	<TextView
+	    		android:layout_height="wrap_content"
+	    		android:layout_width="wrap_content"
+	    		android:text="Username"
+	    		android:textSize="20sp"
+	    		android:textColor="#ffffff"
+	    		/>
+	    	<EditText 
+	    		android:hint="Username"
+	    		android:layout_height="wrap_content"
+	    		android:layout_width="fill_parent"
+	    		android:layout_marginBottom="10dp"
+	    		/>
+	    	<TextView 
+	    		android:layout_height="wrap_content"
+	    		android:layout_width="wrap_content"
+	    		android:textSize="20sp"
+	    		android:text="Password"
+	    		android:textColor="#ffffff"
+	    		/>
+	    	<EditText 
+	    		android:hint="Password"
+	    		android:layout_height="wrap_content"
+	    		android:layout_width="fill_parent"
+	    		android:layout_marginBottom="10dp"
+	    		/>
+	    	<Button  
+	    		android:layout_height="wrap_content"
+	    		android:layout_width="fill_parent"
+				android:text="Login"
+				android:textColor="#ffffff" 
+				android:background="@drawable/btn_orange_matte"
+				android:textSize="18sp"
+				android:gravity="center"
+	    		/>
+    	</LinearLayout>
+    </LinearLayout>
+    	
+</LinearLayout>

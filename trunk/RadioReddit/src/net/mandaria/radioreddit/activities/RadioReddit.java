@@ -289,6 +289,10 @@ public class RadioReddit extends Activity
 	{
 		switch(item.getItemId())
 		{
+			case R.id.login:
+				FlurryAgent.onEvent("radio reddit - Menu Button - Login");
+				startActivity(new Intent(this, Login.class));
+				return true;
 			case R.id.chooseStation:
 				FlurryAgent.onEvent("radio reddit - Menu Button - Choose Station");
 				ChooseStation();
