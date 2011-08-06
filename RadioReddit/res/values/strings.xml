@@ -8,6 +8,10 @@
 	<string name="email_feedback">Email Feedback</string>
 	<string name="viewEpisodeInfo">View Episode Info</string>
 	<string name="settings">Settings</string>
+	<!-- Login -->
+	<string name="enterYourRedditCredentialsToContinue">Enter your reddit credentials to continue.</string>
+	<string name="username">Username</string>
+	<string name="password">Password</string>
 	<!-- Select Station -->
 	<string name="musicStations">Music Stations</string>
 	<string name="talkStations">Talk Stations</string>

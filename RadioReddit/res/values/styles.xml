@@ -10,6 +10,34 @@
 		<item name="android:paddingRight">0dp</item>
 		<item name="android:paddingTop">0dp</item>
 	</style>
+	<style name="Login_Subheading">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:text">@string/enterYourRedditCredentialsToContinue</item>
+		<item name="android:textColor">#ffffff</item>
+		<item name="android:layout_gravity">center_horizontal</item>
+		<item name="android:layout_marginBottom">10dp</item>
+	</style>
+	<style name="Login_Form_Header">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:textSize">20sp</item>
+		<item name="android:textColor">#ffffff</item>
+	</style>
+	<style name="Login_Form_Input">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_marginBottom">10dp</item>
+	</style>
+	<style name="Login_Button">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:text">@string/login</item>
+		<item name="android:textColor">#ffffff</item>
+		<item name="android:background">@drawable/btn_orange_matte</item>
+		<item name="android:textSize">18sp</item>
+		<item name="android:gravity">center</item>
+	</style>
 	<!--  !!! Styles for Radio Reddit activity !!! -->
 	<!-- Header -->
 	<style name="Header_Body">
