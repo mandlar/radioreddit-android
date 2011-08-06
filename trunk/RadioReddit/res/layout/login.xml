@@ -8,74 +8,53 @@
   		android:layout_width="fill_parent"
   		android:layout_height="fill_parent"
   		>
-    <LinearLayout
-    	android:orientation="vertical"
-    	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
-    	android:paddingLeft="20dp"
-    	android:paddingRight="20dp"
-    	>
-    	
-	    <!-- Logo -->
 	    <LinearLayout
-			style="@style/Logo_Body"
-			android:layout_weight="1.5"
-			>
-			<ImageView
-				android:id="@+id/img_Logo"
-				style="@style/Login_Logo_Image"
-				/>
-		</LinearLayout>
-	    <LinearLayout
-	    	android:layout_height="fill_parent"
-	    	android:layout_width="fill_parent"
 	    	android:orientation="vertical"
-	    	android:layout_weight="1"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="fill_parent"
+	    	android:paddingLeft="20dp"
+	    	android:paddingRight="20dp"
 	    	>
-	    	<TextView 
-	    		android:layout_height="wrap_content"
-	    		android:layout_width="wrap_content"
-	    		android:text="Enter your reddit credentials to continue."
-	    		android:textColor="#ffffff"
-	    		android:layout_gravity="center_horizontal"
-	    		android:layout_marginBottom="10dp"
-	    		/>
-	    	<TextView
-	    		android:layout_height="wrap_content"
-	    		android:layout_width="wrap_content"
-	    		android:text="Username"
-	    		android:textSize="20sp"
-	    		android:textColor="#ffffff"
-	    		/>
-	    	<EditText 
-	    		android:hint="Username"
-	    		android:layout_height="wrap_content"
-	    		android:layout_width="fill_parent"
-	    		android:layout_marginBottom="10dp"
-	    		/>
-	    	<TextView 
-	    		android:layout_height="wrap_content"
-	    		android:layout_width="wrap_content"
-	    		android:textSize="20sp"
-	    		android:text="Password"
-	    		android:textColor="#ffffff"
-	    		/>
-	    	<EditText 
-	    		android:hint="Password"
-	    		android:layout_height="wrap_content"
-	    		android:layout_width="fill_parent"
-	    		android:layout_marginBottom="10dp"
-	    		/>
-	    	<Button  
-	    		android:layout_height="wrap_content"
-	    		android:layout_width="fill_parent"
-				android:text="Login"
-				android:textColor="#ffffff" 
-				android:background="@drawable/btn_orange_matte"
-				android:textSize="18sp"
-				android:gravity="center"
-	    		/>
-    	</LinearLayout>
-    </LinearLayout>
+		    <!-- Logo -->
+		    <LinearLayout
+				style="@style/Logo_Body"
+				android:layout_weight="1.5"
+				>
+				<ImageView
+					android:id="@+id/img_Logo"
+					style="@style/Login_Logo_Image"
+					/>
+			</LinearLayout>
+		    <LinearLayout
+		    	android:layout_height="fill_parent"
+		    	android:layout_width="fill_parent"
+		    	android:orientation="vertical"
+		    	android:layout_weight="1"
+		    	>
+		    	<TextView 
+		    		style="@style/Login_Subheading"
+		    		/>
+		    	<TextView
+		    		android:text="@string/username"
+		    		style="@style/Login_Form_Header"
+		    		/>
+		    	<EditText 
+		    		android:hint="@string/username"
+		    		style="@style/Login_Form_Input"
+		    		/>
+		    	<TextView 
+		    		android:text="@string/password"
+		    		style="@style/Login_Form_Header"
+		    		/>
+		    	<EditText 
+		    		android:hint="@string/password"
+		    		style="@style/Login_Form_Input"
+		    		android:password="true"
+		    		/>
+		    	<Button  
+		    		style="@style/Login_Button"
+		    		/>
+	    	</LinearLayout>
+	    </LinearLayout>
     </net.mandaria.radioreddit.objects.ScrollToBottomView>
 </LinearLayout>
