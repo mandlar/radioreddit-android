@@ -4,12 +4,16 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
+    <net.mandaria.radioreddit.objects.ScrollToBottomView
+  		android:layout_width="fill_parent"
+  		android:layout_height="fill_parent"
+  		>
     <LinearLayout
     	android:orientation="vertical"
     	android:layout_width="fill_parent"
     	android:layout_height="fill_parent"
-    	android:layout_marginLeft="20dp"
-    	android:layout_marginRight="20dp"
+    	android:paddingLeft="20dp"
+    	android:paddingRight="20dp"
     	>
     	
 	    <!-- Logo -->
@@ -73,5 +77,5 @@
 	    		/>
     	</LinearLayout>
     </LinearLayout>
-    	
+    </net.mandaria.radioreddit.objects.ScrollToBottomView>
 </LinearLayout>
