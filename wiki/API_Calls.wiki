@@ -86,6 +86,27 @@ A Episode object consists of:
   * String preview_url (Used for previewing episode? Always exists?)
   * String download_url (Used for downloading episode? Different url, but same mp3 as preview_url? May not exist)
   * String Score (Current voting score of the song. Must call http://www.reddit.com/api/info.json?url=(URL ENCODED reddit_url) and get "score". Example: http://www.reddit.com/api/info.json?url=http%3A%2F%2Fwww.radioreddit.com%2Fsongs%2F%3Fsong%3DBlack_Water_%2528zoq-fot-pik%2529_On_A_Grid ) Can be an int value, "?", or "vote to submit"
+
+= Logging in =
+
+Make a post to http://www.reddit.com/api/login/USERNAME
+
+Post values:
+ * String user = username
+ * String passwd = plaintext password
+
+Always returns 200 OK, check for WRONG_PASSWORD or errors in return or empty data
+
+Returns:
+ * String modhash
+ * String cookie
+
+TODO: Do SSL login: http://www.reddit.com/r/changelog/comments/l4n6y/reddit_change_log_in_with_ssl_javascript_fixes/
+
+references: 
+ * https://github.com/talklittle/reddit-is-fun/blob/master/src/com/andrewshu/android/reddit/login/LoginTask.java 
+ * https://github.com/talklittle/reddit-is-fun/wiki/Login 
+ * https://github.com/reddit/reddit/wiki/API%3A-login
   
 = List of all API calls (from iOS version) =
 
