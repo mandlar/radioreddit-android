@@ -94,6 +94,7 @@ Make a post to http://www.reddit.com/api/login/USERNAME
 Post values:
  * String user = username
  * String passwd = plaintext password
+ * String api_type = json (always this value)
 
 Always returns 200 OK, check for WRONG_PASSWORD or errors in return or empty data
 
