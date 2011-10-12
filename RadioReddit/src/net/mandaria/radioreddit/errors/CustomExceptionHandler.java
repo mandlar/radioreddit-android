@@ -28,8 +28,12 @@ import java.io.Writer;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import net.mandaria.radioreddit.R;
+import net.mandaria.radioreddit.activities.RadioReddit;
+import net.mandaria.radioreddit.tasks.GetRadioStreamsTask;
+import net.mandaria.radioreddit.tasks.SendExceptionEmailTask;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -120,7 +124,8 @@ public class CustomExceptionHandler implements UncaughtExceptionHandler
 
 		if(url != null)
 		{
-			sendToServer(stacktrace, debug, application);
+			new SendExceptionEmailTask(context, stacktrace, debug, application).execute();
+			
 			Log.i(TAG, "Debug email sent to developer");
 		}
 	}
@@ -156,25 +161,5 @@ public class CustomExceptionHandler implements UncaughtExceptionHandler
 		long blockSize = stat.getBlockSize();
 		long totalBlocks = stat.getBlockCount();
 		return totalBlocks * blockSize;
-	}
-
-	// Posts debug info to website, which then sends a debug email to developer
-	private void sendToServer(String stacktrace, String debug, String application)
-	{
-		DefaultHttpClient httpClient = new DefaultHttpClient();
-		HttpPost httpPost = new HttpPost(url);
-		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-		nvps.add(new BasicNameValuePair("stacktrace", stacktrace));
-		nvps.add(new BasicNameValuePair("debug", debug));
-		nvps.add(new BasicNameValuePair("application", application));
-		try
-		{
-			httpPost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
-			httpClient.execute(httpPost);
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
 	}
 }
