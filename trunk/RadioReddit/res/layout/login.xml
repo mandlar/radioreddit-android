@@ -39,6 +39,7 @@
 		    		style="@style/Login_Form_Header"
 		    		/>
 		    	<EditText 
+		    		android:id="@+id/txt_username"
 		    		android:hint="@string/username"
 		    		style="@style/Login_Form_Input"
 		    		/>
@@ -47,12 +48,13 @@
 		    		style="@style/Login_Form_Header"
 		    		/>
 		    	<EditText 
+		    		android:id="@+id/txt_username"
 		    		android:hint="@string/password"
 		    		style="@style/Login_Form_Input"
 		    		android:password="true"
 		    		/>
 		    	<Button  
-		    		android:id="@+id/btn_Login"
+		    		android:id="@+id/btn_login"
 		    		style="@style/Login_Button"
 		    		/>
 	    	</LinearLayout>
