@@ -55,7 +55,7 @@ public class Login extends Activity
 				String username = txt_username.getText().toString();
 				String password = txt_password.getText().toString();
 				
-				// check if username or password are empty
+				// check if username or password are empty or if user name has a space (not allowed on reddit)
 				if(username.equals(""))
 				{
 					final AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
@@ -80,7 +80,18 @@ public class Login extends Activity
 				    final AlertDialog alert = builder.create();
 				    alert.show();
 				}
-				// TODO: check if username has space (not allowed)
+				else if (username.contains(" "))
+				{
+					final AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
+				    builder.setMessage("Username cannot have spaces")
+				    	.setTitle("Login Error")
+				    	.setIcon(android.R.drawable.ic_dialog_alert)
+				    	.setCancelable(true)
+				        .setPositiveButton("OK", null);
+				    
+				    final AlertDialog alert = builder.create();
+				    alert.show();
+				}
 				else
 				{
 					new LoginRedditTask((RadioRedditApplication)Login.this.getApplication(), Login.this, username, password).execute();
