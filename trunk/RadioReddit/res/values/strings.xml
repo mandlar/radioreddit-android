@@ -2,6 +2,7 @@
 <resources>    
 	<!--  Menu items -->
 	<string name="login">Login</string>
+	<string name="logout">Logout</string>
 	<string name="currentStation">Current Station</string>
 	<string name="chooseStation">Choose Station</string>
 	<string name="exit">Exit</string>

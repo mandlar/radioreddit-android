@@ -6,6 +6,12 @@
 		android:showAsAction="ifRoom|withText"
 		/>
 	<item
+		android:id="@+id/logout"
+		android:title="@string/logout"
+		android:showAsAction="never"
+		android:visible="false"
+		/>
+	<item
 		android:id="@+id/chooseStation"
 		android:title="@string/chooseStation"
 		android:showAsAction="ifRoom|withText"
