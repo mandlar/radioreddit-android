@@ -2,6 +2,7 @@ package net.mandaria.radioreddit.activities;
 
 import com.flurry.android.FlurryAgent;
 import net.mandaria.radioreddit.R;
+import net.mandaria.radioreddit.objects.RedditAccount;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.*;
@@ -55,6 +56,26 @@ public class Settings extends PreferenceActivity
 	public static boolean getEnableCompatibilityMode(Context context)
 	{
 		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("enable_compatibility_mode", false);
+	}
+	
+	public static RedditAccount getRedditAccount(Context context)
+	{
+		RedditAccount account = new RedditAccount();
+		account.Username = PreferenceManager.getDefaultSharedPreferences(context).getString("reddit_username", "");
+		account.Cookie = PreferenceManager.getDefaultSharedPreferences(context).getString("reddit_cookie", "");;
+		account.Modhash = PreferenceManager.getDefaultSharedPreferences(context).getString("reddit_modhash", "");;
+		
+		if(account.Username.equals(""))
+			return null;
+		else
+			return account;
+	}
+	
+	public static void setRedditAccount(Context context, RedditAccount account)
+	{
+		PreferenceManager.getDefaultSharedPreferences(context).edit().putString("reddit_username", account.Username).commit();
+		PreferenceManager.getDefaultSharedPreferences(context).edit().putString("reddit_cookie", account.Cookie).commit();
+		PreferenceManager.getDefaultSharedPreferences(context).edit().putString("reddit_modhash", account.Modhash).commit();
 	}
 	
 }

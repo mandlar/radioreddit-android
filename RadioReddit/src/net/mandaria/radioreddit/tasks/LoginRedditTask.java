@@ -5,6 +5,7 @@ import java.util.Locale;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.activities.Login;
 import net.mandaria.radioreddit.activities.RadioReddit;
+import net.mandaria.radioreddit.activities.Settings;
 import net.mandaria.radioreddit.apis.RadioRedditAPI;
 import net.mandaria.radioreddit.apis.RedditAPI;
 import net.mandaria.radioreddit.objects.RadioEpisode;
@@ -65,10 +66,10 @@ public class LoginRedditTask extends AsyncTask<Void, RedditAccount, RedditAccoun
 		_progressDialog.dismiss();
 		if(result != null && result.ErrorMessage.equals(""))
 		{
-			Toast.makeText(_context, "SUCCESS: yum, cookies: " + result.Cookie, Toast.LENGTH_LONG).show();
+			//Toast.makeText(_context, "SUCCESS: yum, cookies: " + result.Cookie, Toast.LENGTH_LONG).show();
 			
-			// TODO: save user name, cookie, and maybe modhash to database here
-			// also want to have it in a global object
+			// Save to database (preferences)
+			Settings.setRedditAccount(_context, result);
 			
 			// Go back to main activity
 			Intent intent = new Intent(_context, RadioReddit.class);
