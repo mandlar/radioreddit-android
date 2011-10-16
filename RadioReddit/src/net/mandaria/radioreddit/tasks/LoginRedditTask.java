@@ -71,6 +71,8 @@ public class LoginRedditTask extends AsyncTask<Void, RedditAccount, RedditAccoun
 			// Save to database (preferences)
 			Settings.setRedditAccount(_context, result);
 			
+			Toast.makeText(_context, "Logged in as " + result.Username, Toast.LENGTH_LONG).show();
+			
 			// Go back to main activity
 			Intent intent = new Intent(_context, RadioReddit.class);
         	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

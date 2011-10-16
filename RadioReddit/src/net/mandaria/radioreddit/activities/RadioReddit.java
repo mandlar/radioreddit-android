@@ -32,9 +32,11 @@ import net.mandaria.radioreddit.data.DatabaseService;
 import net.mandaria.radioreddit.media.PlaybackService;
 import net.mandaria.radioreddit.media.StreamProxy;
 import net.mandaria.radioreddit.objects.RadioStreams;
+import net.mandaria.radioreddit.objects.RedditAccount;
 import net.mandaria.radioreddit.tasks.GetRadioStreamsTask;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -249,6 +251,19 @@ public class RadioReddit extends Activity
 
 		MenuItem chooseStation = (MenuItem) menu.findItem(R.id.chooseStation);
 		MenuItem viewEpisodeInfo = (MenuItem) menu.findItem(R.id.viewEpisodeInfo);
+		MenuItem login = (MenuItem) menu.findItem(R.id.login);
+		MenuItem logout = (MenuItem) menu.findItem(R.id.logout);
+		
+		if(Settings.getRedditAccount(RadioReddit.this) != null)
+		{
+			login.setVisible(false);
+			logout.setVisible(true);
+		}
+		else
+		{
+			login.setVisible(true);
+			logout.setVisible(false);
+		}
 
 		// Connecting to radio reddit
 		if(application.RadioStreams == null || application.RadioStreams.size() == 0)
@@ -293,6 +308,10 @@ public class RadioReddit extends Activity
 				FlurryAgent.onEvent("radio reddit - Menu Button - Login");
 				startActivity(new Intent(this, Login.class));
 				return true;
+			case R.id.logout:
+				FlurryAgent.onEvent("radio reddit - Menu Button - Logout");
+				Logout();
+				return true;
 			case R.id.chooseStation:
 				FlurryAgent.onEvent("radio reddit - Menu Button - Choose Station");
 				ChooseStation();
@@ -315,6 +334,16 @@ public class RadioReddit extends Activity
 				return true;
 		}
 		return false;
+	}
+	
+	private void Logout()
+	{		
+		RedditAccount emptyAccount = new RedditAccount();
+		emptyAccount.Username = emptyAccount.Cookie = emptyAccount.Modhash = "";
+		
+		Settings.setRedditAccount(RadioReddit.this, emptyAccount);
+		
+		Toast.makeText(RadioReddit.this, "You have been logged out", Toast.LENGTH_LONG).show();
 	}
 
 	private void ViewEpisodeInfo()
