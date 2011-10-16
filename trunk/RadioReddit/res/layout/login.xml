@@ -48,7 +48,7 @@
 		    		style="@style/Login_Form_Header"
 		    		/>
 		    	<EditText 
-		    		android:id="@+id/txt_username"
+		    		android:id="@+id/txt_password"
 		    		android:hint="@string/password"
 		    		style="@style/Login_Form_Input"
 		    		android:password="true"
