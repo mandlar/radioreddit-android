@@ -5,6 +5,9 @@ import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.apis.RedditAPI;
 import net.mandaria.radioreddit.tasks.LoginRedditTask;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -52,7 +55,39 @@ public class Login extends Activity
 				String username = txt_username.getText().toString();
 				String password = txt_password.getText().toString();
 				
-				new LoginRedditTask((RadioRedditApplication)Login.this.getApplication(), Login.this, username, password).execute();
+				// check if username or password are empty
+				if(username.equals(""))
+				{
+					final AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
+				    builder.setMessage("Username is required")
+				    	.setTitle("Login Error")
+				    	.setIcon(android.R.drawable.ic_dialog_alert)
+				    	.setCancelable(true)
+				        .setPositiveButton("OK", null);
+				    
+				    final AlertDialog alert = builder.create();
+				    alert.show();
+				}
+				else if (password.equals(""))
+				{
+					final AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
+				    builder.setMessage("Password is required")
+				    	.setTitle("Login Error")
+				    	.setIcon(android.R.drawable.ic_dialog_alert)
+				    	.setCancelable(true)
+				        .setPositiveButton("OK", null);
+				    
+				    final AlertDialog alert = builder.create();
+				    alert.show();
+				}
+				// TODO: check if username has space (not allowed)
+				else
+				{
+					new LoginRedditTask((RadioRedditApplication)Login.this.getApplication(), Login.this, username, password).execute();
+				}
+				
+				
+				
 			}
 		});
 	}
