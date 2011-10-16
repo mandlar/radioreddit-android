@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.activities.Login;
+import net.mandaria.radioreddit.activities.RadioReddit;
 import net.mandaria.radioreddit.apis.RadioRedditAPI;
 import net.mandaria.radioreddit.apis.RedditAPI;
 import net.mandaria.radioreddit.objects.RadioEpisode;
@@ -11,6 +12,7 @@ import net.mandaria.radioreddit.objects.RedditAccount;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -67,6 +69,11 @@ public class LoginRedditTask extends AsyncTask<Void, RedditAccount, RedditAccoun
 			
 			// TODO: save user name, cookie, and maybe modhash to database here
 			// also want to have it in a global object
+			
+			// Go back to main activity
+			Intent intent = new Intent(_context, RadioReddit.class);
+        	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        	_context.startActivity(intent);
 		}
 		else
 		{
