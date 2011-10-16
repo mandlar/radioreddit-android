@@ -3,10 +3,13 @@ package net.mandaria.radioreddit.tasks;
 import java.util.Locale;
 
 import net.mandaria.radioreddit.RadioRedditApplication;
+import net.mandaria.radioreddit.activities.Login;
 import net.mandaria.radioreddit.apis.RadioRedditAPI;
 import net.mandaria.radioreddit.apis.RedditAPI;
 import net.mandaria.radioreddit.objects.RadioEpisode;
 import net.mandaria.radioreddit.objects.RedditAccount;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -20,6 +23,7 @@ public class LoginRedditTask extends AsyncTask<Void, RedditAccount, RedditAccoun
 	private Exception ex;
 	private String _username;
 	private String _password;
+	private ProgressDialog _progressDialog;
 
 	public LoginRedditTask(RadioRedditApplication application, Context context, String username, String password)
 	{
@@ -27,6 +31,7 @@ public class LoginRedditTask extends AsyncTask<Void, RedditAccount, RedditAccoun
 		_application = application;
 		_username = username;
 		_password = password;
+		_progressDialog = ProgressDialog.show(_context, "Logging in to reddit", "Please wait...", true);
 	}
 
 	@Override
@@ -55,22 +60,28 @@ public class LoginRedditTask extends AsyncTask<Void, RedditAccount, RedditAccoun
 	@Override
 	protected void onPostExecute(RedditAccount result)
 	{
-
+		_progressDialog.dismiss();
 		if(result != null && result.ErrorMessage.equals(""))
 		{
 			Toast.makeText(_context, "SUCCESS: yum, cookies: " + result.Cookie, Toast.LENGTH_LONG).show();
 			
 			// TODO: save user name, cookie, and maybe modhash to database here
 			// also want to have it in a global object
-			
-//			if(_application.CurrentStream.Name.equals(_startingStream)) // make sure we're on the same stream)
-//				_application.CurrentEpisode = result;
 		}
 		else
 		{
 			if(result != null)
 			{
-				Toast.makeText(_context, result.ErrorMessage, Toast.LENGTH_LONG).show();
+				final AlertDialog.Builder builder = new AlertDialog.Builder(_context);
+			    builder.setMessage("Error: " + result.ErrorMessage)
+			    	.setTitle("Login Error")
+			    	.setIcon(android.R.drawable.ic_dialog_alert)
+			    	.setCancelable(true)
+			        .setPositiveButton("OK", null);
+			    
+			    final AlertDialog alert = builder.create();
+			    alert.show();
+			    
 				Log.e(TAG, "FAIL: Post execute: " + result.ErrorMessage);
 			}
 		}
