@@ -35,6 +35,8 @@ import android.net.Uri;
 
 public class HTTPUtil
 {
+	
+	public static final String USER_AGENT = "Mozilla/5.0 (Linux; U; Android; radio reddit for Android; Mandaria Software)";
 
 	public static String slurp(InputStream in) throws IOException
 	{
@@ -51,7 +53,7 @@ public class HTTPUtil
 	public static String get(Context c, String url) throws ClientProtocolException, IOException
 	{
 		HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
-		// conn.setRequestProperty("User-Agent", Utils.USER_AGENT);
+		conn.setRequestProperty("User-Agent", HTTPUtil.USER_AGENT);
 
 		// Account a = Account.getActiveAccount(c); // Account is just a class to hold the reddit login cookie
 		// if(a != null)
@@ -77,7 +79,7 @@ public class HTTPUtil
 
 		HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
 		conn.setDoOutput(true);
-		// conn.setRequestProperty("User-Agent", Utils.USER_AGENT);
+		conn.setRequestProperty("User-Agent", HTTPUtil.USER_AGENT);
 		conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 		conn.setRequestProperty("Content-Length", Integer.toString(post.length()));
 
