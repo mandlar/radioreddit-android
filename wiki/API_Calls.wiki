@@ -104,7 +104,7 @@ Returns:
  * String modhash
  * String cookie
 
-TODO: Do SSL login: http://www.reddit.com/r/changelog/comments/l4n6y/reddit_change_log_in_with_ssl_javascript_fixes/
+Now using SSL login: http://www.reddit.com/r/changelog/comments/l4n6y/reddit_change_log_in_with_ssl_javascript_fixes/
 
 references: 
  * https://github.com/talklittle/reddit-is-fun/blob/master/src/com/andrewshu/android/reddit/login/LoginTask.java 
