@@ -114,10 +114,15 @@ references:
 = Voting / Submitting =
 
 1. Get most up to date song information (in case cached info is old)
+
 2. If it exist:
+
    a. Get the FULLNAME from reddit and vote on it: http://www.reddit.com/api/vote
+
 3. If it doesn't exist:
+
    a. Try to submit the post http://www.reddit.com/api/submit:
+
    b. If it fails, display error (or CAPTCHA) and try again
    
 references:
