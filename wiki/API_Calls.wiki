@@ -110,6 +110,19 @@ references:
  * https://github.com/talklittle/reddit-is-fun/blob/master/src/com/andrewshu/android/reddit/login/LoginTask.java 
  * https://github.com/talklittle/reddit-is-fun/wiki/Login 
  * https://github.com/reddit/reddit/wiki/API%3A-login
+
+= Voting / Submitting =
+
+1. Get most up to date song information (in case cached info is old)
+2. If it exist:
+   a. Get the FULLNAME from reddit and vote on it: http://www.reddit.com/api/vote
+3. If it doesn't exist:
+   a. Try to submit the post http://www.reddit.com/api/submit:
+   b. If it fails, display error (or CAPTCHA) and try again
+   
+references:
+ * https://github.com/reddit/reddit/wiki/API%3A-vote
+ * https://github.com/reddit/reddit/wiki/API (submit is towards the bottom)
   
 = List of all API calls (from iOS version) =
 
