@@ -128,6 +128,7 @@ references:
 references:
  * https://github.com/reddit/reddit/wiki/API%3A-vote
  * https://github.com/reddit/reddit/wiki/API (submit is towards the bottom)
+ * https://github.com/reddit/reddit/wiki/API%3A-submit
   
 = List of all API calls (from iOS version) =
 
