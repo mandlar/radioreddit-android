@@ -27,6 +27,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import net.mandaria.radioreddit.activities.Settings;
+import net.mandaria.radioreddit.objects.RedditAccount;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 
@@ -55,11 +58,11 @@ public class HTTPUtil
 		HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
 		conn.setRequestProperty("User-Agent", HTTPUtil.USER_AGENT);
 
-		// Account a = Account.getActiveAccount(c); // Account is just a class to hold the reddit login cookie
-		// if(a != null)
-		// {
-		// conn.setRequestProperty("Cookie", "reddit_session=" + a.redditSession); // I tried sending cookies in other ways but none worked on Android 2.1 or 2.2 except this
-		// }
+		RedditAccount account = Settings.getRedditAccount(c);
+		if(account != null)
+		{
+			conn.setRequestProperty("Cookie", "reddit_session=" + account.Cookie);
+		}
 
 		String output = HTTPUtil.slurp(conn.getInputStream());
 		conn.getInputStream().close();
@@ -83,11 +86,11 @@ public class HTTPUtil
 		conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 		conn.setRequestProperty("Content-Length", Integer.toString(post.length()));
 
-		// Account a = Account.getActiveAccount(c);
-		// if(a != null)
-		// {
-		// conn.setRequestProperty("Cookie", "reddit_session=" + a.redditSession);
-		// }
+		RedditAccount account = Settings.getRedditAccount(c);
+		if(account != null)
+		{
+			conn.setRequestProperty("Cookie", "reddit_session=" + account.Cookie);
+		}
 
 		OutputStream os = conn.getOutputStream();
 		os.write(post.toString().getBytes());
