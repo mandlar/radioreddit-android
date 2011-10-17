@@ -63,6 +63,7 @@ A Song object consists of:
   * String itunes_art (Link to album art from itunes, May not exist)
   * String itunes_price (Price of song on itunes, May not exist)
   * String Score (Current voting score of the song. Must call http://www.reddit.com/api/info.json?url=(URL ENCODED reddit_url) and get "score". Example: http://www.reddit.com/api/info.json?url=http%3A%2F%2Fwww.radioreddit.com%2Fsongs%2F%3Fsong%3DBlack_Water_%2528zoq-fot-pik%2529_On_A_Grid ) Can be an int value, "?", or "vote to submit"
+  * Bool Likes (null, or true if voted up, false if voted down)
 
 = Getting Episode Information =
 
@@ -86,6 +87,7 @@ A Episode object consists of:
   * String preview_url (Used for previewing episode? Always exists?)
   * String download_url (Used for downloading episode? Different url, but same mp3 as preview_url? May not exist)
   * String Score (Current voting score of the song. Must call http://www.reddit.com/api/info.json?url=(URL ENCODED reddit_url) and get "score". Example: http://www.reddit.com/api/info.json?url=http%3A%2F%2Fwww.radioreddit.com%2Fsongs%2F%3Fsong%3DBlack_Water_%2528zoq-fot-pik%2529_On_A_Grid ) Can be an int value, "?", or "vote to submit"
+  * Bool Likes (null, or true if voted up, false if voted down)
 
 = Logging in =
 
