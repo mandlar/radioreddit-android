@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>    
+    <!-- Colors -->
+    <color name="NoVote">#b6b6b6</color>
+    <color name="UpVote">#CB5A37</color>
+    <color name="DownVote">#8D87D4</color>
+</resources>
