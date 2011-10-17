@@ -2,6 +2,7 @@
 
 == Beta ==
 
+  * Check if user's login password change (detect if cookie is no longer valid?)
   * Pressing stop should kill the service completely
   * Notification of when "Buffering..."
   * Attempt to reconnect X times when completely stopped (usually because of loss of signal).
