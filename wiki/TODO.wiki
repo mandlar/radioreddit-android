@@ -7,9 +7,9 @@
   * Attempt to reconnect X times when completely stopped (usually because of loss of signal).
   * Use Android 3.0 fragments
   * Headset controls support (play/stop? next/prev switch streams?)
-  * Login to Reddit
   * Voting
     * Submit song if doesn't exist
+    * Handle CAPTCHA
   * Top charts
   * Bookmarks
   * Previewing songs (bookmarked or top charts)
@@ -19,6 +19,7 @@
   * Album art?
   * Widget?
 
+  * (DONE) Login to Reddit
   * (DONE) Remove GPS from permissions
   * (DONE) Fix notifications for talk streams
   * (DONE) Look into startForeground to keep service from being killed: http://developer.android.com/intl/de/reference/android/app/Service.html#startForeground%28int,%20android.app.Notification%29
