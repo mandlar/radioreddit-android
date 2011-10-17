@@ -11,6 +11,7 @@
  
  	<!-- Reddit APIs -->
  	<string name="reddit_login">http://www.reddit.com/api/login</string>
+ 	<string name="reddit_login_ssl">https://ssl.reddit.com/api/login</string>
  	<string name="reddit_vote">http://www.reddit.com/api/vote</string>
  	<string name="reddit_save">http://www.reddit.com/api/save</string>
  	<string name="reddit_unsave">http://www.reddit.com/api/unsave</string>
