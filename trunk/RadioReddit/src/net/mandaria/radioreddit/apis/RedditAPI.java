@@ -44,7 +44,7 @@ public class RedditAPI
 		
 		try
 		{
-			String url = context.getString(R.string.reddit_login) + "/" + username;
+			String url = context.getString(R.string.reddit_login_ssl) + "/" + username;
 			
 			// post values
 			ArrayList<NameValuePair> post_values = new ArrayList<NameValuePair>();
