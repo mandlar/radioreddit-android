@@ -751,6 +751,32 @@ public class RadioReddit extends Activity
 		}
 
 	};
+	
+	// when getting vote info, sets if user previously voted
+	private void setUpOrDownVote(String vote)
+	{
+		if(!vote.equals("null"))
+		{
+			if(vote.equals("true"))
+			{
+				lbl_SongVote.setTextColor(getResources().getColor(R.color.UpVote));
+				btn_upvote.setBackgroundResource(R.drawable.didupvote_button);
+				btn_downvote.setBackgroundResource(R.drawable.willdownvote_button);
+			}
+			else
+			{
+				lbl_SongVote.setTextColor(getResources().getColor(R.color.DownVote));
+				btn_upvote.setBackgroundResource(R.drawable.willupvote_button);
+				btn_downvote.setBackgroundResource(R.drawable.diddownvote_button);
+			}
+		}
+		else
+		{
+			lbl_SongVote.setTextColor(getResources().getColor(R.color.NoVote));
+			btn_upvote.setBackgroundResource(R.drawable.willupvote_button);
+			btn_downvote.setBackgroundResource(R.drawable.willdownvote_button);
+		}
+	}
 
 	private void showEpisodeInformation()
 	{
@@ -764,21 +790,7 @@ public class RadioReddit extends Activity
 		lbl_SongArtist.setText(application.CurrentEpisode.ShowTitle);
 		btn_SongInfo.setVisibility(View.VISIBLE);
 		
-		if(!application.CurrentEpisode.Likes.equals("null"))
-		{
-			if(application.CurrentEpisode.Likes.equals("true"))
-			{
-				lbl_SongVote.setTextColor(getResources().getColor(R.color.UpVote));
-			}
-			else
-			{
-				lbl_SongVote.setTextColor(getResources().getColor(R.color.DownVote));
-			}
-		}
-		else
-		{
-			lbl_SongVote.setTextColor(getResources().getColor(R.color.NoVote));
-		}
+		setUpOrDownVote(application.CurrentEpisode.Likes);
 		
 		// lbl_SongVote.setText(getString(R.string.vote_to_submit_song));
 		// lbl_SongTitle.setText(getString(R.string.dummy_song_title));
@@ -800,21 +812,8 @@ public class RadioReddit extends Activity
 		lbl_SongPlaylist.setText(getString(R.string.playlist) + ": " + application.CurrentSong.Playlist);
 		btn_SongInfo.setVisibility(View.GONE);
 		
-		if(!application.CurrentSong.Likes.equals("null"))
-		{
-			if(application.CurrentSong.Likes.equals("true"))
-			{
-				lbl_SongVote.setTextColor(getResources().getColor(R.color.UpVote));
-			}
-			else
-			{
-				lbl_SongVote.setTextColor(getResources().getColor(R.color.DownVote));
-			}
-		}
-		else
-		{
-			lbl_SongVote.setTextColor(getResources().getColor(R.color.NoVote));
-		}
+		setUpOrDownVote(application.CurrentSong.Likes);
+		
 		// lbl_SongVote.setText(getString(R.string.vote_to_submit_song));
 		// lbl_SongTitle.setText(getString(R.string.dummy_song_title));
 		// lbl_SongArtist.setText(getString(R.string.dummy_song_artist));
@@ -834,6 +833,8 @@ public class RadioReddit extends Activity
 		lbl_SongArtist.setText("");
 		lbl_SongPlaylist.setText("");
 		btn_SongInfo.setVisibility(View.GONE);
+		btn_upvote.setBackgroundResource(R.drawable.willupvote_button);
+		btn_downvote.setBackgroundResource(R.drawable.willdownvote_button);
 	}
 
 }
