@@ -115,9 +115,13 @@ references:
 
 1. Get most up to date song information (in case cached info is old)
 
-2. If it exist:
+2a. If it exist:
 
    a. Get the FULLNAME from reddit and vote on it: http://www.reddit.com/api/vote
+
+2b. If it exist, but is archived
+
+   a. Submit as a new post to be voted on? Or simply say that the song has been archived and cannot be voted on?
 
 3. If it doesn't exist:
 
