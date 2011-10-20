@@ -235,6 +235,7 @@ public class RadioRedditAPI
 					// default value of score
 					String score = context.getString(R.string.vote_to_submit_song);
 					String likes = "null";
+					String subreddit_id = "";
 
 					JSONArray children_array = data.getJSONArray("children");
 
@@ -247,15 +248,18 @@ public class RadioRedditAPI
 						score = children_data.getString("score");
 						
 						likes = children_data.getString("likes");
+						subreddit_id = children_data.getString("subreddit_id");
 					}
 
 					radiosong.Score = score;
 					radiosong.Likes = likes;
+					radiosong.SubRedditID = subreddit_id;
 				}
 				else
 				{
 					radiosong.Score = "?";
 					radiosong.Likes = "null";
+					radiosong.SubRedditID = "";
 				}
 
 				return radiosong;
@@ -356,6 +360,7 @@ public class RadioRedditAPI
 					// default value of score
 					String score = context.getString(R.string.vote_to_submit_song);
 					String likes = "null";
+					String subreddit_id = "";
 
 					JSONArray children_array = data.getJSONArray("children");
 
@@ -368,15 +373,18 @@ public class RadioRedditAPI
 						score = children_data.getString("score");
 						
 						likes = children_data.getString("likes");
+						subreddit_id = children_data.getString("subreddit_id");
 					}
 
 					radioepisode.Score = score;
 					radioepisode.Likes = likes;
+					radioepisode.SubRedditID = subreddit_id;
 				}
 				else
 				{
 					radioepisode.Score = "?";
 					radioepisode.Likes = "null";
+					radioepisode.SubRedditID = "";
 				}
 
 				return radioepisode;
