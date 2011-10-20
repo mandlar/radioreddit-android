@@ -23,6 +23,7 @@ package net.mandaria.radioreddit.apis;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,6 +36,8 @@ import net.mandaria.radioreddit.objects.RadioEpisode;
 import net.mandaria.radioreddit.objects.RadioSong;
 import net.mandaria.radioreddit.objects.RadioStream;
 import net.mandaria.radioreddit.objects.RadioStreams;
+import net.mandaria.radioreddit.tasks.GetCurrentEpisodeInformationTask;
+import net.mandaria.radioreddit.tasks.GetCurrentSongInformationTask;
 import net.mandaria.radioreddit.utils.HTTPUtil;
 import android.content.Context;
 
@@ -392,4 +395,26 @@ public class RadioRedditAPI
 		}
 
 	}
+	
+	public static void VoteOnCurrentlyPlaying(Context context, RadioRedditApplication application, boolean liked)
+	{
+//		1. Get most up to date song information (in case cached info is old)
+		// TODO: can't really use async tasks here, they need to be done sequentially 
+//		if(application.CurrentStream.Type.equals("music"))
+//			new GetCurrentSongInformationTask(application, context, Locale.getDefault()).execute();
+//		else if(application.CurrentStream.Type.equals("talk"))
+//			new GetCurrentEpisodeInformationTask(application, context, Locale.getDefault()).execute();
+
+//		2a. If it exist:
+//			a. Get the FULLNAME from reddit and vote on it: http://www.reddit.com/api/vote
+		
+//		2b. If it exist, but is archived
+//			a. Submit as a new post to be voted on? Or simply say that the song has been archived and cannot be voted on?
+//			b. BUG: apparently the API allows votes on archived posts. This needs to be discussed with reddit admins or similar
+		
+//		3. If it doesn't exist:
+//			a. Try to submit the post http://www.reddit.com/api/submit:
+//			b. If it fails, display error (or CAPTCHA) and try again
+	}
+	
 }

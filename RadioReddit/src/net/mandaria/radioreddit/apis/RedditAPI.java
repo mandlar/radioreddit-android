@@ -98,4 +98,11 @@ public class RedditAPI
 		
 		return account;
 	}
+	
+	// voteDirection = -1 vote down, 0 remove vote, 1 vote up
+	// fullname = A base-36 id of the form t[0-9]+_[a-z0-9]+ (e.g. t3_6nw57) that reddit associates with every Thing (post, comment, account)
+	public static void Vote(Context context, RedditAccount account, int voteDirection, String fullname)
+	{
+		
+	}
 }
