@@ -123,6 +123,8 @@ references:
 
    a. Submit as a new post to be voted on? Or simply say that the song has been archived and cannot be voted on?
 
+   b. BUG: apparently the API allows votes on archived posts.  This needs to be discussed with reddit admins or similar
+
 3. If it doesn't exist:
 
    a. Try to submit the post http://www.reddit.com/api/submit:
