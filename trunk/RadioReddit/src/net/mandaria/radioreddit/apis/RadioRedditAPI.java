@@ -31,11 +31,13 @@ import org.json.JSONTokener;
 
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
+import net.mandaria.radioreddit.activities.Settings;
 import net.mandaria.radioreddit.errors.CustomExceptionHandler;
 import net.mandaria.radioreddit.objects.RadioEpisode;
 import net.mandaria.radioreddit.objects.RadioSong;
 import net.mandaria.radioreddit.objects.RadioStream;
 import net.mandaria.radioreddit.objects.RadioStreams;
+import net.mandaria.radioreddit.objects.RedditAccount;
 import net.mandaria.radioreddit.tasks.GetCurrentEpisodeInformationTask;
 import net.mandaria.radioreddit.tasks.GetCurrentSongInformationTask;
 import net.mandaria.radioreddit.utils.HTTPUtil;
@@ -404,8 +406,23 @@ public class RadioRedditAPI
 
 	}
 	
-	public static void VoteOnCurrentlyPlaying(Context context, RadioRedditApplication application, boolean liked)
+	public static String VoteOnCurrentlyPlaying(Context context, RadioRedditApplication application, boolean liked)
 	{
+		String errorMessage = "";
+		RedditAccount account = Settings.getRedditAccount(context);
+		
+		if(account == null)
+		{
+			errorMessage = "You must be logged in to vote";
+			return errorMessage;
+		}
+		
+		int voteDirection = 0; // TODO: handle case to rescind vote
+		if(liked == true)
+			voteDirection = 1;
+		else
+			voteDirection = -1;
+		
 //		1. Get most up to date song information (in case cached info is old)
 		// TODO: can't really use async tasks here, they need to be done sequentially 
 //		if(application.CurrentStream.Type.equals("music"))
@@ -413,16 +430,35 @@ public class RadioRedditAPI
 //		else if(application.CurrentStream.Type.equals("talk"))
 //			new GetCurrentEpisodeInformationTask(application, context, Locale.getDefault()).execute();
 
+		
 //		2a. If it exist:
-//			a. Get the FULLNAME from reddit and vote on it: http://www.reddit.com/api/vote
+//		a. Get the FULLNAME from reddit and vote on it: http://www.reddit.com/api/vote
+		
+		// TODO: I don't really like the if else going on here due to currentsong vs currentepisode
+		if(application.CurrentStream.Type.equals("music"))
+		{
+			if(application.CurrentSong.SubRedditID != "")
+			{
+				errorMessage = RedditAPI.Vote(context, account, voteDirection, application.CurrentSong.SubRedditID);
+			}
+		}
+		else if(application.CurrentStream.Type.equals("talk"))
+		{
+			if(application.CurrentEpisode.SubRedditID != "")
+			{
+				errorMessage = RedditAPI.Vote(context, account, voteDirection, application.CurrentEpisode.SubRedditID);
+			}
+		}
 		
 //		2b. If it exist, but is archived
 //			a. Submit as a new post to be voted on? Or simply say that the song has been archived and cannot be voted on?
 //			b. BUG: apparently the API allows votes on archived posts. This needs to be discussed with reddit admins or similar
 		
+		// TODO: return to user that it must be submitted?  e.g. they must accept to submit, so pull the submit into its own function?
 //		3. If it doesn't exist:
 //			a. Try to submit the post http://www.reddit.com/api/submit:
 //			b. If it fails, display error (or CAPTCHA) and try again
+		return errorMessage;
 	}
 	
 }

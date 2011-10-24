@@ -34,6 +34,7 @@ import net.mandaria.radioreddit.media.StreamProxy;
 import net.mandaria.radioreddit.objects.RadioStreams;
 import net.mandaria.radioreddit.objects.RedditAccount;
 import net.mandaria.radioreddit.tasks.GetRadioStreamsTask;
+import net.mandaria.radioreddit.tasks.VoteRedditTask;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -175,7 +176,35 @@ public class RadioReddit extends Activity
 		progress_LoadingSong = (ProgressBar) findViewById(R.id.progress_LoadingSong);
 
 		btn_upvote = (Button) findViewById(R.id.btn_upvote);
+		btn_upvote.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				RadioRedditApplication application = (RadioRedditApplication) getApplication();
+				// TODO: when do we allow them to vote? only when song info is available?
+				if(application.CurrentSong != null || application.CurrentEpisode != null)
+				{
+					new VoteRedditTask(application, RadioReddit.this, true).execute();
+				}
+			}
+		});
+		
 		btn_downvote = (Button) findViewById(R.id.btn_downvote);
+		btn_downvote.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				RadioRedditApplication application = (RadioRedditApplication) getApplication();
+				// TODO: when do we allow them to vote? only when song info is available?
+				if(application.CurrentSong != null || application.CurrentEpisode != null)
+				{
+					new VoteRedditTask(application, RadioReddit.this, false).execute();
+				}
+			}
+		});
+		
 		btn_play = (Button) findViewById(R.id.btn_play);
 		btn_play.setOnClickListener(new OnClickListener()
 		{

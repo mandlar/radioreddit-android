@@ -101,8 +101,58 @@ public class RedditAPI
 	
 	// voteDirection = -1 vote down, 0 remove vote, 1 vote up
 	// fullname = A base-36 id of the form t[0-9]+_[a-z0-9]+ (e.g. t3_6nw57) that reddit associates with every Thing (post, comment, account)
-	public static void Vote(Context context, RedditAccount account, int voteDirection, String fullname)
+	public static String Vote(Context context, RedditAccount account, int voteDirection, String fullname)
 	{
+		String errorMessage = ""; 
 		
+		try
+		{
+			String url = context.getString(R.string.reddit_vote);
+			
+			// post values
+			ArrayList<NameValuePair> post_values = new ArrayList<NameValuePair>();
+			
+			BasicNameValuePair id = new BasicNameValuePair("id", fullname);
+			post_values.add(id);
+			
+			BasicNameValuePair dir = new BasicNameValuePair("dir", Integer.toString(voteDirection));
+			post_values.add(dir);
+			
+			BasicNameValuePair uh = new BasicNameValuePair("uh", account.Modhash);
+			post_values.add(uh);
+			
+			BasicNameValuePair api_type = new BasicNameValuePair("api_type", "json");
+			post_values.add(api_type);
+			
+			String outputVote = HTTPUtil.post(context, url, post_values);
+			
+			JSONTokener reddit_vote_tokener = new JSONTokener(outputVote);
+			JSONObject reddit_vote_json = new JSONObject(reddit_vote_tokener);
+			
+			if(reddit_vote_json.has("json"))
+			{
+				JSONObject json = reddit_vote_json.getJSONObject("json");
+			
+				if (json.has("errors") && json.getJSONArray("errors").length() > 0)
+			    {
+					String error = json.getJSONArray("errors").getJSONArray(0).getString(1);
+					
+					errorMessage = error;
+			    }
+			}
+			// success!
+		}
+		catch(Exception ex)
+		{
+			// We fail to vote...
+			CustomExceptionHandler ceh = new CustomExceptionHandler(context);
+			ceh.sendEmail(ex);
+
+			ex.printStackTrace();
+			
+			errorMessage = ex.toString();
+		}
+		
+		return errorMessage;
 	}
 }
