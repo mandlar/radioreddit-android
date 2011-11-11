@@ -331,36 +331,46 @@ public class RadioReddit extends Activity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		switch(item.getItemId())
+		if (item.getItemId() == R.id.login) 
 		{
-			case R.id.login:
-				FlurryAgent.onEvent("radio reddit - Menu Button - Login");
-				startActivity(new Intent(this, Login.class));
-				return true;
-			case R.id.logout:
-				FlurryAgent.onEvent("radio reddit - Menu Button - Logout");
-				Logout();
-				return true;
-			case R.id.chooseStation:
-				FlurryAgent.onEvent("radio reddit - Menu Button - Choose Station");
-				ChooseStation();
-				return true;
-			case R.id.viewEpisodeInfo:
-				FlurryAgent.onEvent("radio reddit - Menu Button - View Episode Info");
-				ViewEpisodeInfo();
-				return true;
-			case R.id.settings:
-				FlurryAgent.onEvent("radio reddit - Menu Button - Settings");
-				startActivity(new Intent(this, Settings.class));
-				return true;
-			case R.id.email_feedback:
-				FlurryAgent.onEvent("radio reddit - Menu Button - Email Feedback");
-				SendEmail();
-				return true;
-			case R.id.exit:
-				FlurryAgent.onEvent("radio reddit - Menu Button - Exit App");
-				ExitApp();
-				return true;
+			FlurryAgent.onEvent("radio reddit - Menu Button - Login");
+			startActivity(new Intent(this, Login.class));
+			return true;
+		}
+		else if (item.getItemId() == R.id.logout) 
+		{
+			FlurryAgent.onEvent("radio reddit - Menu Button - Logout");
+			Logout();
+			return true;
+		} 
+		else if (item.getItemId() == R.id.chooseStation) 
+		{
+			FlurryAgent.onEvent("radio reddit - Menu Button - Choose Station");
+			ChooseStation();
+			return true;
+		} 
+		else if (item.getItemId() == R.id.viewEpisodeInfo) 
+		{
+			FlurryAgent.onEvent("radio reddit - Menu Button - View Episode Info");
+			ViewEpisodeInfo();
+			return true;
+		} 
+		else if (item.getItemId() == R.id.settings) 
+		{
+			FlurryAgent.onEvent("radio reddit - Menu Button - Settings");
+			startActivity(new Intent(this, Settings.class));
+			return true;
+		} 
+		else if (item.getItemId() == R.id.email_feedback) {
+			FlurryAgent.onEvent("radio reddit - Menu Button - Email Feedback");
+			SendEmail();
+			return true;
+		} 
+		else if (item.getItemId() == R.id.exit) 
+		{
+			FlurryAgent.onEvent("radio reddit - Menu Button - Exit App");
+			ExitApp();
+			return true;
 		}
 		return false;
 	}
