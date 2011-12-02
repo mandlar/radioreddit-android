@@ -14,7 +14,7 @@
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:text">@string/enterYourRedditCredentialsToContinue</item>
-		<item name="android:textColor">#ffffff</item>
+		<item name="android:textColor">@color/White</item>
 		<item name="android:layout_gravity">center_horizontal</item>
 		<item name="android:layout_marginBottom">10dp</item>
 	</style>
@@ -22,7 +22,7 @@
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:textSize">20sp</item>
-		<item name="android:textColor">#ffffff</item>
+		<item name="android:textColor">@color/White</item>
 	</style>
 	<style name="Login_Form_Input">
 		<item name="android:layout_height">wrap_content</item>
@@ -33,7 +33,7 @@
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:layout_width">fill_parent</item>
 		<item name="android:text">@string/login</item>
-		<item name="android:textColor">#ffffff</item>
+		<item name="android:textColor">@color/White</item>
 		<item name="android:background">@drawable/btn_orange_matte</item>
 		<item name="android:textSize">18sp</item>
 		<item name="android:gravity">center</item>
@@ -57,7 +57,7 @@
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:text">main</item>
-		<item name="android:textColor">#ffffff</item>
+		<item name="android:textColor">@color/White</item>
 		<item name="android:textSize">22sp</item>
 		<item name="android:textStyle">bold</item>
 	</style>
@@ -215,14 +215,14 @@
     <style name="EpisodeInformation_DescriptionHeader">
     	<item name="android:textStyle">bold</item>
     	<item name="android:textSize">18sp</item>
-    	<item name="android:textColor">#ffffff</item>
+    	<item name="android:textColor">@color/White</item>
     	<item name="android:layout_width">wrap_content</item>
     	<item name="android:layout_height">wrap_content</item>
     	<item name="android:layout_marginTop">10dp</item>
     </style>
     <style name="EpisodeInformation_DescriptionBody">
     	<item name="android:textSize">18sp</item>
-    	<item name="android:textColor">#ffffff</item>
+    	<item name="android:textColor">@color/White</item>
     	<item name="android:layout_width">wrap_content</item>
     	<item name="android:layout_height">wrap_content</item>
     </style>
