@@ -1,4 +1,18 @@
 <resources>
+    <!-- !!! Theme for buttons -->
+	<style name="ButtonText">
+	    <item name="android:layout_width">fill_parent</item>
+	    <item name="android:layout_height">wrap_content</item>
+	    <item name="android:textColor">#ffffff</item>
+	    <item name="android:gravity">center</item>
+	    <item name="android:layout_margin">3dp</item>
+	    <item name="android:textSize">18sp</item>
+	    <item name="android:textStyle">bold</item>
+	    <item name="android:shadowColor">#000000</item>
+	    <item name="android:shadowDx">1</item>
+	    <item name="android:shadowDy">1</item>
+	    <item name="android:shadowRadius">2</item>
+	</style>
 	<!--  !!! Styles for Login activity !!! -->
 	<style name="Login_Logo_Image">
 		<item name="android:layout_width">fill_parent</item>
@@ -29,14 +43,9 @@
 		<item name="android:layout_width">fill_parent</item>
 		<item name="android:layout_marginBottom">10dp</item>
 	</style>
-	<style name="Login_Button">
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:layout_width">fill_parent</item>
+	<style name="Login_Button" parent="ButtonText">		
 		<item name="android:text">@string/login</item>
-		<item name="android:textColor">@color/White</item>
-		<item name="android:background">@drawable/btn_orange_matte</item>
-		<item name="android:textSize">18sp</item>
-		<item name="android:gravity">center</item>
+		<item name="android:background">@drawable/btn_orange</item>
 	</style>
 	<!--  !!! Styles for Radio Reddit activity !!! -->
 	<!-- Header -->
