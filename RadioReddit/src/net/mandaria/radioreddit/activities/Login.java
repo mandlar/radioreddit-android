@@ -59,11 +59,11 @@ public class Login extends Activity
 				if(username.equals(""))
 				{
 					final AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
-				    builder.setMessage("Username is required")
-				    	.setTitle("Login Error")
+				    builder.setMessage(R.string.usernameIsRequired)
+				    	.setTitle(R.string.loginError)
 				    	.setIcon(android.R.drawable.ic_dialog_alert)
 				    	.setCancelable(true)
-				        .setPositiveButton("OK", null);
+				        .setPositiveButton(R.string.ok, null);
 				    
 				    final AlertDialog alert = builder.create();
 				    alert.show();
@@ -71,11 +71,11 @@ public class Login extends Activity
 				else if (password.equals(""))
 				{
 					final AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
-				    builder.setMessage("Password is required")
-				    	.setTitle("Login Error")
+				    builder.setMessage(R.string.passwordIsRequired)
+				    	.setTitle(R.string.loginError)
 				    	.setIcon(android.R.drawable.ic_dialog_alert)
 				    	.setCancelable(true)
-				        .setPositiveButton("OK", null);
+				        .setPositiveButton(R.string.ok, null);
 				    
 				    final AlertDialog alert = builder.create();
 				    alert.show();
@@ -83,11 +83,11 @@ public class Login extends Activity
 				else if (username.contains(" "))
 				{
 					final AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
-				    builder.setMessage("Username cannot have spaces")
-				    	.setTitle("Login Error")
+				    builder.setMessage(R.string.usernameCannotHaveSpaces)
+				    	.setTitle(R.string.loginError)
 				    	.setIcon(android.R.drawable.ic_dialog_alert)
 				    	.setCancelable(true)
-				        .setPositiveButton("OK", null);
+				        .setPositiveButton(R.string.ok, null);
 				    
 				    final AlertDialog alert = builder.create();
 				    alert.show();

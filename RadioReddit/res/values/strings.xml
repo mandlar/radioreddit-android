@@ -13,6 +13,13 @@
 	<string name="enterYourRedditCredentialsToContinue">Enter your reddit credentials to continue.</string>
 	<string name="username">Username</string>
 	<string name="password">Password</string>
+	<!-- Login errors -->
+	<string name="loginError">Login Error</string>
+	<string name="usernameIsRequired">Username is required</string>
+	<string name="passwordIsRequired">Password is required</string>
+	<string name="usernameCannotHaveSpaces">Username cannot have spaces</string>
+	
+	<string name="ok">OK</string>
 	<!-- Select Station -->
 	<string name="musicStations">Music Stations</string>
 	<string name="talkStations">Talk Stations</string>
