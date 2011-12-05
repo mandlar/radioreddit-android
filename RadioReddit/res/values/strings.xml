@@ -13,7 +13,11 @@
 	<string name="enterYourRedditCredentialsToContinue">Enter your reddit credentials to continue.</string>
 	<string name="username">Username</string>
 	<string name="password">Password</string>
+	<string name="loggingInToReddit">Logging in to reddit</string>
+	<string name="pleaseWait">Please wait...</string>
+	<string name="loggedInAs">Logged in as</string>
 	<!-- Login errors -->
+	<string name="error">Error</string>
 	<string name="loginError">Login Error</string>
 	<string name="usernameIsRequired">Username is required</string>
 	<string name="passwordIsRequired">Password is required</string>

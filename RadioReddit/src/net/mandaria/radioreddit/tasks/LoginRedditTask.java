@@ -2,6 +2,7 @@ package net.mandaria.radioreddit.tasks;
 
 import java.util.Locale;
 
+import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.activities.Login;
 import net.mandaria.radioreddit.activities.RadioReddit;
@@ -34,7 +35,7 @@ public class LoginRedditTask extends AsyncTask<Void, RedditAccount, RedditAccoun
 		_application = application;
 		_username = username;
 		_password = password;
-		_progressDialog = ProgressDialog.show(_context, "Logging in to reddit", "Please wait...", true);
+		_progressDialog = ProgressDialog.show(_context, _context.getText(R.string.loggingInToReddit), _context.getText(R.string.pleaseWait), true);
 	}
 
 	@Override
@@ -71,7 +72,7 @@ public class LoginRedditTask extends AsyncTask<Void, RedditAccount, RedditAccoun
 			// Save to database (preferences)
 			Settings.setRedditAccount(_context, result);
 			
-			Toast.makeText(_context, "Logged in as " + result.Username, Toast.LENGTH_LONG).show();
+			Toast.makeText(_context, _context.getString(R.string.loggedInAs) + " " + result.Username, Toast.LENGTH_LONG).show();
 			
 			// Go back to main activity
 			Intent intent = new Intent(_context, RadioReddit.class);
@@ -83,11 +84,11 @@ public class LoginRedditTask extends AsyncTask<Void, RedditAccount, RedditAccoun
 			if(result != null)
 			{
 				final AlertDialog.Builder builder = new AlertDialog.Builder(_context);
-			    builder.setMessage("Error: " + result.ErrorMessage)
-			    	.setTitle("Login Error")
+			    builder.setMessage(_context.getString(R.string.error) + ": " + result.ErrorMessage)
+			    	.setTitle(_context.getString(R.string.loginError))
 			    	.setIcon(android.R.drawable.ic_dialog_alert)
 			    	.setCancelable(true)
-			        .setPositiveButton("OK", null);
+			        .setPositiveButton(_context.getString(R.string.ok), null);
 			    
 			    final AlertDialog alert = builder.create();
 			    alert.show();
