@@ -9,6 +9,8 @@
 	<string name="email_feedback">Email Feedback</string>
 	<string name="viewEpisodeInfo">View Episode Info</string>
 	<string name="settings">Settings</string>
+	<!-- Logout -->
+	<string name="youHaveBeenLoggedOut">You have been logged out</string>
 	<!-- Login -->
 	<string name="enterYourRedditCredentialsToContinue">Enter your reddit credentials to continue.</string>
 	<string name="username">Username</string>
