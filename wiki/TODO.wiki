@@ -2,6 +2,7 @@
 
 == Beta ==
 
+  * Return an error message if content from HTTPUtil.Get is empty?
   * On login page, have a link to login page on reddit to give the user a way to register a new account
   * Check if user's login password change (detect if cookie is no longer valid?)
   * Pressing stop should kill the service completely
