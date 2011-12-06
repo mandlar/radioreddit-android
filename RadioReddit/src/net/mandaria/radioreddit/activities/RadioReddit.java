@@ -382,7 +382,7 @@ public class RadioReddit extends Activity
 		
 		Settings.setRedditAccount(RadioReddit.this, emptyAccount);
 		
-		Toast.makeText(RadioReddit.this, "You have been logged out", Toast.LENGTH_LONG).show();
+		Toast.makeText(RadioReddit.this,  getString(R.string.youHaveBeenLoggedOut), Toast.LENGTH_LONG).show();
 	}
 
 	private void ViewEpisodeInfo()
