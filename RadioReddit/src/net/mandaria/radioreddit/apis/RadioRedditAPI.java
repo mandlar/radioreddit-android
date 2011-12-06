@@ -42,6 +42,7 @@ import net.mandaria.radioreddit.tasks.GetCurrentEpisodeInformationTask;
 import net.mandaria.radioreddit.tasks.GetCurrentSongInformationTask;
 import net.mandaria.radioreddit.utils.HTTPUtil;
 import android.content.Context;
+import android.util.Log;
 
 public class RadioRedditAPI
 {
@@ -66,7 +67,7 @@ public class RadioRedditAPI
 				radiostreams.ErrorMessage = context.getString(R.string.error_RadioRedditServerIsDownNotification);
 			}
 
-			if(!errorGettingStreams)
+			if(!errorGettingStreams && outputStreams.length() > 0)
 			{
 				JSONTokener tokener = new JSONTokener(outputStreams);
 				JSONObject json = new JSONObject(tokener);
@@ -105,9 +106,11 @@ public class RadioRedditAPI
 						radiostreams.ErrorMessage = context.getString(R.string.error_RadioRedditServerIsDownNotification);
 					}
 
-					if(!errorGettingStatus)
+					//Log.e("RadioReddit", "Length of output: "+ outputStatus.length() + "; Content of output: " + outputStatus);
+					// TODO: does  outputStatus.length() > 0 need to be checked here and return a ErrorMessage back and set ErrorGettingStatus = true? 
+					
+					if(!errorGettingStatus && outputStatus.length() > 0)
 					{
-
 						JSONTokener status_tokener = new JSONTokener(outputStatus);
 						JSONObject status_json = new JSONObject(status_tokener);
 
@@ -173,7 +176,7 @@ public class RadioRedditAPI
 				// radiosong.ErrorMessage = context.getString(R.string.error_RadioRedditServerIsDownNotification);
 			}
 
-			if(!errorGettingStatus)
+			if(!errorGettingStatus && outputStatus.length() > 0)
 			{
 				JSONTokener status_tokener = new JSONTokener(outputStatus);
 				JSONObject status_json = new JSONObject(status_tokener);
@@ -225,7 +228,7 @@ public class RadioRedditAPI
 					// radiosong.ErrorMessage = "Unable to connect to reddit";//context.getString(R.string.error_RadioRedditServerIsDownNotification);
 				}
 
-				if(!errorGettingRedditInfo)
+				if(!errorGettingRedditInfo && outputRedditInfo.length() > 0)
 				{
 					// Log.e("radio_reddit_test", "Length: " + outputRedditInfo.length());
 					// Log.e("radio_reddit_test", "Value: " + outputRedditInfo); // TODO: sometimes the value contains "error: 404", need to check for that. (We can probably safely ignore this for now)
@@ -304,7 +307,7 @@ public class RadioRedditAPI
 				// radiosong.ErrorMessage = context.getString(R.string.error_RadioRedditServerIsDownNotification);
 			}
 
-			if(!errorGettingStatus)
+			if(!errorGettingStatus && outputStatus.length() > 0)
 			{
 				JSONTokener status_tokener = new JSONTokener(outputStatus);
 				JSONObject status_json = new JSONObject(status_tokener);
@@ -350,7 +353,7 @@ public class RadioRedditAPI
 					// radiosong.ErrorMessage = "Unable to connect to reddit";//context.getString(R.string.error_RadioRedditServerIsDownNotification);
 				}
 
-				if(!errorGettingRedditInfo)
+				if(!errorGettingRedditInfo && outputRedditInfo.length() > 0)
 				{
 					// Log.e("radio_reddit_test", "Length: " + outputRedditInfo.length());
 					// Log.e("radio_reddit_test", "Value: " + outputRedditInfo); // TODO: sometimes the value contains "error: 404", need to check for that (We can probably safely ignore this for now)
