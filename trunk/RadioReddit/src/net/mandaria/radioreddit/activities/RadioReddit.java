@@ -311,8 +311,10 @@ public class RadioReddit extends Activity
 
 		if(sdkVersion >= 11)
 		{
+			// TODO: maybe check if there is enough room to write the full text "Current station: main"
+			//getResources().getString(R.string.currentStation) + ": " +
 			if(application.CurrentStream != null)
-				getActionBar().setTitle(getResources().getString(R.string.currentStation) + ": " + application.CurrentStream.Name);
+				getActionBar().setTitle( application.CurrentStream.Name);
 		}
 
 		return true;

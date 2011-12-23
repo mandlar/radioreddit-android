@@ -3,7 +3,7 @@
 	<item
 		android:id="@+id/login"
 		android:title="@string/login"
-		android:showAsAction="ifRoom|withText"
+		android:showAsAction="never"
 		/>
 	<item
 		android:id="@+id/logout"
@@ -12,15 +12,15 @@
 		android:visible="false"
 		/>
 	<item
-		android:id="@+id/chooseStation"
-		android:title="@string/chooseStation"
-		android:showAsAction="ifRoom|withText"
-		/>
-	<item
 		android:id="@+id/viewEpisodeInfo"
 		android:title="@string/viewEpisodeInfo"
-		android:showAsAction="always|withText"
+		android:showAsAction="ifRoom|withText"
 		android:visible="false"
+		/>
+	<item
+		android:id="@+id/chooseStation"
+		android:title="@string/chooseStation"
+		android:showAsAction="always|withText"
 		/>
 	<item
 		android:id="@+id/settings"
@@ -30,7 +30,7 @@
 	<item
 		android:id="@+id/exit"
 		android:title="@string/exit"
-		android:showAsAction="always|withText"
+		android:showAsAction="never"
 		/>
 	<item
 		android:id="@+id/email_feedback"
