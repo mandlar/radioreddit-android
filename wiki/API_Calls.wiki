@@ -141,6 +141,7 @@ references:
  * https://github.com/reddit/reddit/wiki/API%3A-submit
  * https://github.com/talklittle/reddit-is-fun/wiki/Voting
  * https://github.com/talklittle/reddit-is-fun/blob/master/src/com/andrewshu/android/reddit/common/tasks/VoteTask.java
+ * https://github.com/talklittle/reddit-is-fun/blob/master/src/com/andrewshu/android/reddit/common/Common.java (for update modhash function)
   
 = List of all API calls (from iOS version) =
 
