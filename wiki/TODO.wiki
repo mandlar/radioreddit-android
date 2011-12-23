@@ -21,6 +21,7 @@
   * iTunes link (Amazon???)
   * Album art?
   * Widget?
+  * Android 4.0: add playback controls to notification
 
   * (DONE) Login to Reddit
   * (DONE) Remove GPS from permissions
