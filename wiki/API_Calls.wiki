@@ -115,7 +115,9 @@ references:
 
 = Voting / Submitting =
 
-1. Get most up to date song information (in case cached info is old)
+1a. Get most up to date song information (in case cached info is old)
+
+1b. Check if modhash is up to date
 
 2a. If it exist:
 
@@ -137,6 +139,8 @@ references:
  * https://github.com/reddit/reddit/wiki/API%3A-vote
  * https://github.com/reddit/reddit/wiki/API (submit is towards the bottom)
  * https://github.com/reddit/reddit/wiki/API%3A-submit
+ * https://github.com/talklittle/reddit-is-fun/wiki/Voting
+ * https://github.com/talklittle/reddit-is-fun/blob/master/src/com/andrewshu/android/reddit/common/tasks/VoteTask.java
   
 = List of all API calls (from iOS version) =
 
