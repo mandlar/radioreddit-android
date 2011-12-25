@@ -19,5 +19,6 @@
  	<string name="reddit_get_saved">http://www.reddit.com/saved.json</string>
  	<string name="reddit_submit">http://www.reddit.com/api/submit</string>
  	<string name="reddit_captcha">http://www.reddit.com/captcha/</string>
+ 	<string name="reddit_me">http://www.reddit.com/api/me.json</string>
 
 </resources>

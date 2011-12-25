@@ -39,7 +39,7 @@ import android.net.Uri;
 public class HTTPUtil
 {
 	
-	public static final String USER_AGENT = "Mozilla/5.0 (Linux; U; Android; radio reddit for Android; Mandaria Software)";
+	public static final String USER_AGENT = "Mozilla/5.0 (Linux; U; Android; radio reddit for Android; Mandaria Software; support@mandaria.net)";
 
 	public static String slurp(InputStream in) throws IOException
 	{

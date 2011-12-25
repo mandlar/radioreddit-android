@@ -240,7 +240,7 @@ public class RadioRedditAPI
 					// default value of score
 					String score = context.getString(R.string.vote_to_submit_song);
 					String likes = "null";
-					String subreddit_id = "";
+					String name = "";
 
 					JSONArray children_array = data.getJSONArray("children");
 
@@ -253,18 +253,18 @@ public class RadioRedditAPI
 						score = children_data.getString("score");
 						
 						likes = children_data.getString("likes");
-						subreddit_id = children_data.getString("subreddit_id");
+						name = children_data.getString("name");
 					}
 
 					radiosong.Score = score;
 					radiosong.Likes = likes;
-					radiosong.SubRedditID = subreddit_id;
+					radiosong.Name = name;
 				}
 				else
 				{
 					radiosong.Score = "?";
 					radiosong.Likes = "null";
-					radiosong.SubRedditID = "";
+					radiosong.Name = "";
 				}
 
 				return radiosong;
@@ -365,7 +365,7 @@ public class RadioRedditAPI
 					// default value of score
 					String score = context.getString(R.string.vote_to_submit_song);
 					String likes = "null";
-					String subreddit_id = "";
+					String name = "";
 
 					JSONArray children_array = data.getJSONArray("children");
 
@@ -378,18 +378,18 @@ public class RadioRedditAPI
 						score = children_data.getString("score");
 						
 						likes = children_data.getString("likes");
-						subreddit_id = children_data.getString("subreddit_id");
+						name = children_data.getString("name");
 					}
 
 					radioepisode.Score = score;
 					radioepisode.Likes = likes;
-					radioepisode.SubRedditID = subreddit_id;
+					radioepisode.Name = name;
 				}
 				else
 				{
 					radioepisode.Score = "?";
 					radioepisode.Likes = "null";
-					radioepisode.SubRedditID = "";
+					radioepisode.Name = "";
 				}
 
 				return radioepisode;
@@ -440,16 +440,16 @@ public class RadioRedditAPI
 		// TODO: I don't really like the if else going on here due to currentsong vs currentepisode
 		if(application.CurrentStream.Type.equals("music"))
 		{
-			if(application.CurrentSong.SubRedditID != "")
+			if(application.CurrentSong.Name != "")
 			{
-				errorMessage = RedditAPI.Vote(context, account, voteDirection, application.CurrentSong.SubRedditID);
+				errorMessage = RedditAPI.Vote(context, account, voteDirection, application.CurrentSong.Name);
 			}
 		}
 		else if(application.CurrentStream.Type.equals("talk"))
 		{
-			if(application.CurrentEpisode.SubRedditID != "")
+			if(application.CurrentEpisode.Name != "")
 			{
-				errorMessage = RedditAPI.Vote(context, account, voteDirection, application.CurrentEpisode.SubRedditID);
+				errorMessage = RedditAPI.Vote(context, account, voteDirection, application.CurrentEpisode.Name);
 			}
 		}
 		
