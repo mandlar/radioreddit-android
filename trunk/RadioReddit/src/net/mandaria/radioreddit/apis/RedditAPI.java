@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -44,7 +45,7 @@ public class RedditAPI
 		
 		try
 		{
-			String url = context.getString(R.string.reddit_login_ssl) + "/" + username;
+			String url = context.getString(R.string.reddit_login) + "/" + username;
 			
 			// post values
 			ArrayList<NameValuePair> post_values = new ArrayList<NameValuePair>();
@@ -107,6 +108,23 @@ public class RedditAPI
 		
 		try
 		{
+			// TODO: update mod hash
+			try
+			{
+				account.Modhash = updateModHash(context);
+				
+				if(account.Modhash == null)
+				{
+					errorMessage = "There was a problem voting, please try again.";
+					return errorMessage;
+				}
+			}
+			catch (Exception ex)
+			{
+				errorMessage = ex.getMessage();
+				return errorMessage;
+			}
+			
 			String url = context.getString(R.string.reddit_vote);
 			
 			// post values
@@ -117,6 +135,10 @@ public class RedditAPI
 			
 			BasicNameValuePair dir = new BasicNameValuePair("dir", Integer.toString(voteDirection));
 			post_values.add(dir);
+			
+			// not required
+			//BasicNameValuePair r = new BasicNameValuePair("r", "radioreddit"); // TODO: shouldn't be hard coded, could be talkradioreddit
+			//post_values.add(r);
 			
 			BasicNameValuePair uh = new BasicNameValuePair("uh", account.Modhash);
 			post_values.add(uh);
@@ -154,5 +176,53 @@ public class RedditAPI
 		}
 		
 		return errorMessage;
+	}
+	
+	// updateModHash
+	public static String updateModHash(Context context)
+	{
+		// Calls me.json to get the current modhash for the user
+		String output = "";
+		boolean errorGettingModHash = false;
+		
+		try
+		{
+			try
+			{
+				output = HTTPUtil.get(context, context.getString(R.string.reddit_me));
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				errorGettingModHash = true;
+				// For now, not used. It is acceptable to error out and not alert the user
+				// radiosong.ErrorMessage = "Unable to connect to reddit";//context.getString(R.string.error_RadioRedditServerIsDownNotification);
+			}
+			
+			if(!errorGettingModHash && output.length() > 0)
+			{
+				JSONTokener reddit_me_tokener = new JSONTokener(output);
+				JSONObject reddit_me_json = new JSONObject(reddit_me_tokener);
+	
+				JSONObject data = reddit_me_json.getJSONObject("data");
+				
+				String modhash = data.getString("modhash");
+				
+				return modhash;
+			}
+			else
+			{
+				return null;
+			}
+		}
+		catch(Exception ex)
+		{
+			CustomExceptionHandler ceh = new CustomExceptionHandler(context);
+			ceh.sendEmail(ex);
+
+			ex.printStackTrace();
+			
+			return null;
+		}
 	}
 }

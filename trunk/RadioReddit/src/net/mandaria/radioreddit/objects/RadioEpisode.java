@@ -38,6 +38,6 @@ public class RadioEpisode
 	public String Download_url; // (Used for downloading song? Different url, but same mp3 as preview_url? May not exist)
 	public String Score; // Current voting score of the song
 	public String Likes; // Null if not voted, true if voted up, false if voted down
-	public String SubRedditID; // ID used to vote on
+	public String Name; // ID used to vote on
 	public String ErrorMessage;
 }
