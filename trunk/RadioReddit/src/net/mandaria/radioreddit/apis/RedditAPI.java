@@ -108,7 +108,6 @@ public class RedditAPI
 		
 		try
 		{
-			// TODO: update mod hash
 			try
 			{
 				account.Modhash = updateModHash(context);
@@ -217,8 +216,8 @@ public class RedditAPI
 		}
 		catch(Exception ex)
 		{
-			CustomExceptionHandler ceh = new CustomExceptionHandler(context);
-			ceh.sendEmail(ex);
+//			CustomExceptionHandler ceh = new CustomExceptionHandler(context);
+//			ceh.sendEmail(ex);
 
 			ex.printStackTrace();
 			
