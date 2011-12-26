@@ -42,6 +42,7 @@
 	<string name="error_StreamConnectionError">There was an error connecting to the radio reddit stream... Please try again later! If you continue to have problems, try enabling compatibility mode in the settings.</string>
 	<string name="error_YouMustBeLoggedInToVote">You must be logged in to vote</string>
 	<string name="error_ThereWasAProblemVotingPleaseTryAgain">There was a problem voting, please try again.</string>
+	<string name="error_ThereWasAProblemSubmittingPleaseTryAgain">There was a problem submitting, please try again.</string>
 	<string name="pleaseWaitToChangeStation">Please wait one moment to switch to a new station...</string>
 	<string name="connectingToRadioReddit">Connecting to radio reddit...</string>
 	<string name="buffering">Buffering...</string>
