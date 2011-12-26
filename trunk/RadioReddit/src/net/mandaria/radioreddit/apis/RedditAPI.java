@@ -114,7 +114,7 @@ public class RedditAPI
 				
 				if(account.Modhash == null)
 				{
-					errorMessage = "There was a problem voting, please try again.";
+					errorMessage = context.getString(R.string.error_ThereWasAProblemVotingPleaseTryAgain);
 					return errorMessage;
 				}
 			}
