@@ -22,6 +22,8 @@
 package net.mandaria.radioreddit.apis;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -166,6 +168,138 @@ public class RedditAPI
 		catch(Exception ex)
 		{
 			// We fail to vote...
+			CustomExceptionHandler ceh = new CustomExceptionHandler(context);
+			ceh.sendEmail(ex);
+
+			ex.printStackTrace();
+			
+			errorMessage = ex.toString();
+		}
+		
+		return errorMessage;
+	}
+	
+	// 1:subreddit 2:threadId 3:commentId
+	// The following commented-out one is good, but tough to get right, e.g.,
+	// http://www.reddit.com/eorhm vs. http://www.reddit.com/prefs, mobile, store, etc.
+	// So, for now require the captured URLs to have /comments or /tb prefix.
+//	public static final String COMMENT_PATH_PATTERN_STRING
+//		= "(?:/r/([^/]+)/comments|/comments|/tb)?/([^/]+)(?:/?$|/[^/]+/([a-zA-Z0-9]+)?)?";
+	public static final String COMMENT_PATH_PATTERN_STRING
+		= "(?:/r/([^/]+)/comments|/comments|/tb)/([^/]+)(?:/?$|/[^/]+/([a-zA-Z0-9]+)?)?";
+	
+	   // Group 1: Subreddit. Group 2: thread id (no t3_ prefix)
+    private final static Pattern NEW_THREAD_PATTERN = Pattern.compile(COMMENT_PATH_PATTERN_STRING);
+    // Group 1: whole error. Group 2: the time part
+    private final static Pattern RATELIMIT_RETRY_PATTERN = Pattern.compile("(you are doing that too much. try again in (.+?)\\.)");
+	// Group 1: Subreddit
+    private final static Pattern SUBMIT_PATH_PATTERN = Pattern.compile("/(?:r/([^/]+)/)?submit/?");
+	
+	// url = the url of the page being submitted 
+	// title = the text that the user submits as the link's title
+	// subreddit = the subreddit the post is being submitted to
+	public static String SubmitLink(Context context, RedditAccount account, String title, String url, String subreddit)
+	{
+		String errorMessage = ""; 
+		
+		try
+		{
+			try
+			{
+				account.Modhash = updateModHash(context);
+				
+				if(account.Modhash == null)
+				{
+					errorMessage = context.getString(R.string.error_ThereWasAProblemSubmittingPleaseTryAgain);
+					return errorMessage;
+				}
+			}
+			catch (Exception ex)
+			{
+				errorMessage = ex.getMessage();
+				return errorMessage;
+			}
+			
+			String posturl = context.getString(R.string.reddit_submit);
+			
+			// post values
+			ArrayList<NameValuePair> post_values = new ArrayList<NameValuePair>();
+			
+			BasicNameValuePair postTitle = new BasicNameValuePair("title", title);
+			post_values.add(postTitle);
+			
+			BasicNameValuePair postUrl = new BasicNameValuePair("url", url);
+			post_values.add(postUrl);
+			
+			BasicNameValuePair sr = new BasicNameValuePair("sr", subreddit);
+			post_values.add(sr);
+			
+			BasicNameValuePair kind = new BasicNameValuePair("kind", "link");
+			post_values.add(kind);
+			
+			BasicNameValuePair uh = new BasicNameValuePair("uh", account.Modhash);
+			post_values.add(uh);
+			
+			// json doesn't work for this call
+			//BasicNameValuePair api_type = new BasicNameValuePair("api_type", "json");
+			//post_values.add(api_type);
+			
+			String outputSubmit = HTTPUtil.post(context, posturl, post_values);
+			
+			// returns shitty jquery not json
+			if(outputSubmit.equals(""))
+				return "No content returned from reply POST";
+			
+			if(outputSubmit.contains("WRONG_PASSWORD"))
+				return "Wrong password";
+			
+			if(outputSubmit.contains("USER_REQUIRED"))
+				return "User required. Huh?";
+			
+			if(outputSubmit.contains("SUBREDDIT_NOEXIST"))
+				return "That subreddit does not exist.";
+			
+			if(outputSubmit.contains("SUBREDDIT_NOTALLOWED"))
+				return "You are not allowed to post to that subreddit";
+			
+			String newId = "";
+			String newSubreddit = "";
+			Matcher idMatcher = NEW_THREAD_PATTERN.matcher(outputSubmit);
+			if(idMatcher.find())
+			{
+				newSubreddit = idMatcher.group(1);
+				newId = idMatcher.group(2);
+			}
+			else
+			{
+				if(outputSubmit.contains("ALREADY_SUB"))
+					return "Sorry, someone snuck in the submission just before you! But hey, give it an up- or downvote!";
+				
+				if(outputSubmit.contains("RATELIMIT"))
+				{
+					// Try to find the number of minutes using regex
+					Matcher rateMatcher = RATELIMIT_RETRY_PATTERN.matcher(outputSubmit);
+					if(rateMatcher.find())
+						return rateMatcher.group(1);
+					else
+						return "You are trying to submit too fast. Try again in a few minutes.";
+				}
+				
+				if(outputSubmit.contains("BAD_CAPTCHA"))
+					return "Bad CAPTCHA. Try again.";
+				// TODO: handle captchas!
+				
+				if(outputSubmit.contains("verify your email"))
+					return "Your mail has not been verified, please try again in an hour or verify your email address";
+				// TODO: somehow add link to: http://www.reddit.com/verify?reason=submit
+				
+				return "No id returned by reply POST.";
+			}
+			// success!
+		}
+		catch(Exception ex)
+		{
+			// We fail to submit...
 			CustomExceptionHandler ceh = new CustomExceptionHandler(context);
 			ceh.sendEmail(ex);
 

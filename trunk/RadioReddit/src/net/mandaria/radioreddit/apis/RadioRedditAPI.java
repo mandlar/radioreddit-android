@@ -464,6 +464,8 @@ public class RadioRedditAPI
 //		a. Try to submit the post http://www.reddit.com/api/submit:
 //		b. If it fails, display error (or CAPTCHA) and try again
 		
+		//String title = "Song Title by Song Artist (redditor)";
+		
 		// TODO: I don't really like the if else going on here due to currentsong vs currentepisode
 		if(application.CurrentStream.Type.equals("music"))
 		{
@@ -472,8 +474,13 @@ public class RadioRedditAPI
 				errorMessage = RedditAPI.Vote(context, account, voteDirection, song.Name);
 			}
 			else // not yet submitted
-			{
-				return context.getString(R.string.error_ThereWasAProblemVotingPleaseTryAgain);
+			{	
+				String title = song.Title + " by " + song.Artist + " (" + song.Redditor + ")";
+				String url = song.Reddit_url;
+				String subreddit = "radioreddit";
+				
+				errorMessage = RedditAPI.SubmitLink(context, account, title, url, subreddit);
+				//return context.getString(R.string.error_ThereWasAProblemPleaseTryAgain);
 			}
 		}
 		else if(application.CurrentStream.Type.equals("talk"))
@@ -484,7 +491,12 @@ public class RadioRedditAPI
 			}
 			else // not yet submitted
 			{
-				return context.getString(R.string.error_ThereWasAProblemVotingPleaseTryAgain);
+				String title = episode.ShowTitle + ": " + episode.EpisodeTitle;
+				String url = episode.Reddit_url;
+				String subreddit = "talkradioreddit";
+				
+				errorMessage = RedditAPI.SubmitLink(context, account, title, url, subreddit);
+				//return context.getString(R.string.error_ThereWasAProblemVotingPleaseTryAgain);
 			}
 		}
 		
