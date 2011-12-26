@@ -416,7 +416,7 @@ public class RadioRedditAPI
 		
 		if(account == null)
 		{
-			errorMessage = "You must be logged in to vote";
+			errorMessage = context.getString(R.string.error_YouMustBeLoggedInToVote);
 			return errorMessage;
 		}
 		
@@ -426,41 +426,69 @@ public class RadioRedditAPI
 		else
 			voteDirection = -1;
 		
+		RadioSong song = null;
+		RadioEpisode episode = null;
+		
 //		1. Get most up to date song information (in case cached info is old)
-		// TODO: can't really use async tasks here, they need to be done sequentially 
-//		if(application.CurrentStream.Type.equals("music"))
-//			new GetCurrentSongInformationTask(application, context, Locale.getDefault()).execute();
-//		else if(application.CurrentStream.Type.equals("talk"))
-//			new GetCurrentEpisodeInformationTask(application, context, Locale.getDefault()).execute();
+		if(application.CurrentStream.Type.equals("music"))
+		{
+			song = RadioRedditAPI.GetCurrentSongInformation(context, application);
+			
+			if(song == null)
+				return context.getString(R.string.error_ThereWasAProblemVotingPleaseTryAgain);
+			
+			if(!song.ErrorMessage.equals(""))
+				return song.ErrorMessage;
+		}
+		else if(application.CurrentStream.Type.equals("talk"))
+		{
+			episode = RadioRedditAPI.GetCurrentEpisodeInformation(context, application);
+			
+			if(episode == null)
+				return context.getString(R.string.error_ThereWasAProblemVotingPleaseTryAgain);
+			
+			if(!episode.ErrorMessage.equals(""))
+				return episode.ErrorMessage;
+		}
 
 		
 //		2a. If it exist:
 //		a. Get the FULLNAME from reddit and vote on it: http://www.reddit.com/api/vote
 		
+//		2b. If it exists, but is archived
+//		a. Submit as a new post to be voted on? Or simply say that the song has been archived and cannot be voted on?
+//		b. BUG: apparently the API allows votes on archived posts. This needs to be discussed with reddit admins or similar
+	
+	// TODO: return to user that it must be submitted?  e.g. they must accept to submit, so pull the submit into its own function?
+//	3. If it doesn't exist:
+//		a. Try to submit the post http://www.reddit.com/api/submit:
+//		b. If it fails, display error (or CAPTCHA) and try again
+		
 		// TODO: I don't really like the if else going on here due to currentsong vs currentepisode
 		if(application.CurrentStream.Type.equals("music"))
 		{
-			if(application.CurrentSong.Name != "")
+			if(song.Name != "")
 			{
-				errorMessage = RedditAPI.Vote(context, account, voteDirection, application.CurrentSong.Name);
+				errorMessage = RedditAPI.Vote(context, account, voteDirection, song.Name);
+			}
+			else // not yet submitted
+			{
+				return context.getString(R.string.error_ThereWasAProblemVotingPleaseTryAgain);
 			}
 		}
 		else if(application.CurrentStream.Type.equals("talk"))
 		{
-			if(application.CurrentEpisode.Name != "")
+			if(episode.Name != "")
 			{
-				errorMessage = RedditAPI.Vote(context, account, voteDirection, application.CurrentEpisode.Name);
+				errorMessage = RedditAPI.Vote(context, account, voteDirection, episode.Name);
+			}
+			else // not yet submitted
+			{
+				return context.getString(R.string.error_ThereWasAProblemVotingPleaseTryAgain);
 			}
 		}
 		
-//		2b. If it exist, but is archived
-//			a. Submit as a new post to be voted on? Or simply say that the song has been archived and cannot be voted on?
-//			b. BUG: apparently the API allows votes on archived posts. This needs to be discussed with reddit admins or similar
-		
-		// TODO: return to user that it must be submitted?  e.g. they must accept to submit, so pull the submit into its own function?
-//		3. If it doesn't exist:
-//			a. Try to submit the post http://www.reddit.com/api/submit:
-//			b. If it fails, display error (or CAPTCHA) and try again
+
 		return errorMessage;
 	}
 	
