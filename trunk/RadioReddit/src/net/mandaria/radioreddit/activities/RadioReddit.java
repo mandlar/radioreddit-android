@@ -736,7 +736,7 @@ public class RadioReddit extends Activity
 
 			// Connecting to radio reddit
 			if(application.RadioStreams == null || application.RadioStreams.size() == 0)
-			{
+			{		
 				progress_LoadingSong.setVisibility(View.VISIBLE);
 				lbl_Connecting.setVisibility(View.VISIBLE);
 				div_station.setVisibility(View.GONE);
@@ -744,6 +744,12 @@ public class RadioReddit extends Activity
 				btn_upvote.setVisibility(View.GONE);
 				btn_downvote.setVisibility(View.GONE);
 				img_Logo.setImageResource(R.drawable.logo_darkeyes);
+			}
+			else if(application.isRadioRedditDown == true)
+			{
+				img_Logo.setImageResource(R.drawable.logo_darkeyes);
+				lbl_SongTitle.setVisibility(View.VISIBLE);
+				lbl_SongTitle.setText(getString(R.string.error_RadioRedditIsDown) + "\n\n" + application.radioRedditIsDownErrorMessage);
 			}
 			else
 			{
@@ -781,7 +787,8 @@ public class RadioReddit extends Activity
 			}
 			else
 			{
-				hideSongInformation();
+				if(application.isRadioRedditDown == false)
+					hideSongInformation();
 				if(player != null && !player.isPreparing())
 					showPlayButton();
 				else if(player != null && player.isPreparing() && !player.isAborting())

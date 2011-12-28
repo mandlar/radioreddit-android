@@ -37,6 +37,7 @@
 	<string name="playlist">playlist</string>
 	<string name="current_station">Current Station</string>
 	<!-- Error messages -->
+	<string name="error_RadioRedditIsDown">radio reddit is down!</string>
 	<string name="error_RadioRedditServerIsDownNotification">Can\'t reach radio reddit, the server may be down or your network is flaky. Please try again later!</string>
 	<string name="error_NoStreams">There are no streams available to play. Please try again later!</string>
 	<string name="error_StreamConnectionError">There was an error connecting to the radio reddit stream... Please try again later! If you continue to have problems, try enabling compatibility mode in the settings.</string>

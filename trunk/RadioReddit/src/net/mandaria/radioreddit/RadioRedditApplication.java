@@ -34,6 +34,8 @@ public class RadioRedditApplication extends Application
 	public RadioSong CurrentSong;
 	public RadioEpisode CurrentEpisode;
 	public ArrayList<RadioStream> RadioStreams;
+	public boolean isRadioRedditDown = false;
+	public String radioRedditIsDownErrorMessage = "";
 
 	@Override
 	public void onCreate()
