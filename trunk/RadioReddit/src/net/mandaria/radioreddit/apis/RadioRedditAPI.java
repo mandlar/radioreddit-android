@@ -70,9 +70,7 @@ public class RadioRedditAPI
 			}
 
 			if(!errorGettingStreams && outputStreams.length() > 0)
-			{
-				application.isRadioRedditDown = false;
-				
+			{				
 				JSONTokener tokener = new JSONTokener(outputStreams);
 				JSONObject json = new JSONObject(tokener);
 
