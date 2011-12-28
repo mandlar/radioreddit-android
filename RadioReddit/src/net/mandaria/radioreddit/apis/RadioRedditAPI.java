@@ -65,10 +65,14 @@ public class RadioRedditAPI
 			{
 				errorGettingStreams = true;
 				radiostreams.ErrorMessage = context.getString(R.string.error_RadioRedditServerIsDownNotification);
+				application.radioRedditIsDownErrorMessage = radiostreams.ErrorMessage;
+				application.isRadioRedditDown = true;
 			}
 
 			if(!errorGettingStreams && outputStreams.length() > 0)
 			{
+				application.isRadioRedditDown = false;
+				
 				JSONTokener tokener = new JSONTokener(outputStreams);
 				JSONObject json = new JSONObject(tokener);
 
@@ -132,10 +136,13 @@ public class RadioRedditAPI
 					//Collections.reverse(list_radiostreams);
 
 					radiostreams.RadioStreams = list_radiostreams;
+					application.isRadioRedditDown = false;
 				}
 				else
 				{
 					radiostreams.ErrorMessage = context.getString(R.string.error_NoStreams);
+					application.radioRedditIsDownErrorMessage = radiostreams.ErrorMessage;
+					application.isRadioRedditDown = true;
 				}
 			}
 		}
