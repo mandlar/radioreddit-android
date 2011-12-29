@@ -3,6 +3,7 @@
 == Beta ==
 
   * If talk or music stations are empty, don't show the "heading" for it in the "Choose Stations" screen
+  * Add a manual refresh button to "Choose Stations" screen?
   * Return an error message if content from HTTPUtil.Get is empty?
   * On login page, have a link to login page on reddit to give the user a way to register a new account
   * Check if user's login password change (detect if cookie is no longer valid?)
