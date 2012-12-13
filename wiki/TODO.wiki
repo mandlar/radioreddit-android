@@ -2,6 +2,7 @@
 
 == Beta ==
 
+  * SherlockActionBar for older devices
   * Handle cumulative scores
   * If talk or music stations are empty, don't show the "heading" for it in the "Choose Stations" screen
   * Add a manual refresh button to "Choose Stations" screen?
