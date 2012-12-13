@@ -25,7 +25,7 @@ public class VoteRedditTask extends AsyncTask<Void, String, String>
 	private RadioRedditApplication _application;
 	private Exception ex;
 	private boolean _liked;
-	private ProgressDialog _progressDialog;
+	//private ProgressDialog _progressDialog;
 
 	public VoteRedditTask(RadioRedditApplication application, Context context, boolean liked)
 	{
@@ -33,7 +33,21 @@ public class VoteRedditTask extends AsyncTask<Void, String, String>
 		_application = application;
 		_liked = liked;
 		// TODO: probably shouldn't show a dialog?
-		_progressDialog = ProgressDialog.show(_context, "Voting on currently playing...", "Please wait...", true);
+		//_progressDialog = ProgressDialog.show(_context, "Voting on currently playing...", "Please wait...", true);
+		if(liked)
+		{
+			if(_application.CurrentSong != null)
+				_application.CurrentSong.Likes = "true";
+			if(_application.CurrentEpisode != null)
+				_application.CurrentEpisode.Likes = "true";
+		}
+		else
+		{
+			if(_application.CurrentSong != null)
+				_application.CurrentSong.Likes = "false";
+			if(_application.CurrentEpisode != null)
+				_application.CurrentEpisode.Likes = "false";
+		}
 	}
 
 	@Override
@@ -62,7 +76,7 @@ public class VoteRedditTask extends AsyncTask<Void, String, String>
 	@Override
 	protected void onPostExecute(String result)
 	{
-		_progressDialog.dismiss();
+		//_progressDialog.dismiss();
 		if(result != null && result.equals(""))
 		{
 			// TODO: hide this later, don't show to user
@@ -81,6 +95,11 @@ public class VoteRedditTask extends AsyncTask<Void, String, String>
 			    
 			    final AlertDialog alert = builder.create();
 			    alert.show();
+			    
+			    if(_application.CurrentSong != null)
+					_application.CurrentSong.Likes = "null";
+				if(_application.CurrentEpisode != null)
+					_application.CurrentEpisode.Likes = "null";
 			    
 				Log.e(TAG, "FAIL: Post execute: " + result);
 			}
