@@ -15,8 +15,10 @@
   * Use Android 3.0 fragments
   * Headset controls support (play/stop? next/prev switch streams?)
   * Voting
-    * Submit song if doesn't exist
+    * (DONE) Submit song if doesn't exist
+      * Show dialog that song will be submitted as user
     * Handle CAPTCHA
+    * After voting, make a call to get new song info
   * Top charts
   * Bookmarks
   * Previewing songs (bookmarked or top charts)
