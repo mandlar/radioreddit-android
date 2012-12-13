@@ -186,6 +186,7 @@ public class RadioReddit extends Activity
 				if(application.CurrentSong != null || application.CurrentEpisode != null)
 				{
 					new VoteRedditTask(application, RadioReddit.this, true).execute();
+					setUpOrDownVote("true");
 				}
 			}
 		});
@@ -201,6 +202,7 @@ public class RadioReddit extends Activity
 				if(application.CurrentSong != null || application.CurrentEpisode != null)
 				{
 					new VoteRedditTask(application, RadioReddit.this, false).execute();
+					setUpOrDownVote("false");
 				}
 			}
 		});
