@@ -2,6 +2,7 @@
 
 == Beta ==
 
+  * Show who you are logged in as (maybe in Settings?)
   * SherlockActionBar for older devices
   * Handle cumulative scores
   * If talk or music stations are empty, don't show the "heading" for it in the "Choose Stations" screen
