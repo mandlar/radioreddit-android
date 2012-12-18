@@ -53,6 +53,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -213,6 +214,9 @@ public class RadioReddit extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				// TODO: Might need to re-write this function due to PlayerService changes
+				
+				
 				if(player == null)
 				{
 					attachToPlaybackService();
@@ -399,8 +403,8 @@ public class RadioReddit extends Activity
 	{
 		RadioRedditApplication application = (RadioRedditApplication) getApplication();
 
-		if(player != null && !player.isPreparing()) // check if a current listen is in progress to prevent state exception
-		{
+//		if(player != null && !player.isPreparing()) // check if a current listen is in progress to prevent state exception
+//		{
 			if(application.RadioStreams != null && application.RadioStreams.size() > 0)
 			{
 				Intent i = new Intent(RadioReddit.this, SelectStation.class);
@@ -411,11 +415,11 @@ public class RadioReddit extends Activity
 				// Try to get streams again
 				new GetRadioStreamsTask(application, RadioReddit.this, Locale.getDefault()).execute();
 			}
-		}
-		else
-		{
-			Toast.makeText(RadioReddit.this, getString(R.string.pleaseWaitToChangeStation), Toast.LENGTH_LONG).show();
-		}
+//		}
+//		else
+//		{
+//			Toast.makeText(RadioReddit.this, getString(R.string.pleaseWaitToChangeStation), Toast.LENGTH_LONG).show();
+//		}
 	}
 
 	private void ExitApp()
@@ -591,8 +595,20 @@ public class RadioReddit extends Activity
 			// infoText.setText(title);
 			// Toast.makeText(RadioReddit.this, "PlaybackChange - onReceive", Toast.LENGTH_LONG).show();
 
-			if(player != null && player.isPlaying())
+			if(player != null && (player.isPlaying() || player.isPreparing()))
+			{
 				showStopButton();
+				
+				RadioRedditApplication application = (RadioRedditApplication) getApplication();
+				
+				if(application.CurrentSong == null && application.CurrentEpisode == null)
+				{
+					hideSongInformation();
+	
+					// show progress bar while waiting to load song information
+					progress_LoadingSong.setVisibility(View.VISIBLE);
+				}
+			}
 			else
 				showPlayButton();
 		}
@@ -628,7 +644,9 @@ public class RadioReddit extends Activity
 				FlurryAgent.onEvent("radio reddit - Is Not Buffering");
 				lbl_Buffering.setVisibility(View.GONE);
 				if(application.CurrentSong != null || application.CurrentEpisode != null)
+				{
 					progress_LoadingSong.setVisibility(View.GONE);
+				}
 			}
 		}
 	}
@@ -670,7 +688,7 @@ public class RadioReddit extends Activity
 				RadioRedditApplication application = (RadioRedditApplication) getApplication();
 				application.CurrentSong = null; // clear the current song
 				application.CurrentEpisode = null; // clear the current episode
-
+				
 				playStream();
 			}
 		}
@@ -755,8 +773,10 @@ public class RadioReddit extends Activity
 			}
 			else
 			{
-				if(player != null && !player.isPlaying() && !player.isPreparing())
+				if(player == null)//if(player != null && !player.isPlaying() && !player.isPreparing())
+				{
 					progress_LoadingSong.setVisibility(View.GONE);
+				}
 				lbl_Connecting.setVisibility(View.GONE);
 				div_station.setVisibility(View.VISIBLE);
 				btn_play.setVisibility(View.VISIBLE);
@@ -791,8 +811,10 @@ public class RadioReddit extends Activity
 			{
 				if(application.isRadioRedditDown == false)
 					hideSongInformation();
-				if(player != null && !player.isPreparing())
+				if(player == null) // if(player != null && !player.isPreparing())
+				{
 					showPlayButton();
+				}
 				else if(player != null && player.isPreparing() && !player.isAborting())
 					progress_LoadingSong.setVisibility(View.VISIBLE); // show please wait spinner when "re-connecting" to stream from network change
 			}

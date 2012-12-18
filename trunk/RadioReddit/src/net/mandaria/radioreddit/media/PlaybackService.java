@@ -127,12 +127,6 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 	@Override
 	public void onCreate()
 	{
-		mediaPlayer = new MediaPlayer();
-		mediaPlayer.setOnBufferingUpdateListener(this);
-		mediaPlayer.setOnCompletionListener(this);
-		mediaPlayer.setOnErrorListener(this);
-		mediaPlayer.setOnInfoListener(this);
-		mediaPlayer.setOnPreparedListener(this);
 		notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		Log.w(LOG_TAG, "Playback service created");
 
@@ -240,7 +234,7 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 	synchronized public void play()
 	{
 		Log.w(LOG_TAG, "Playback service - play() start");
-		if(!isPrepared)
+		if(!isPrepared || isPreparing)
 		{
 			Log.e(LOG_TAG, "play - not prepared");
 			return;
@@ -366,6 +360,11 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 			mediaPlayer.stop();
 			isPrepared = false;
 		}
+		
+		if(mediaPlayer != null)
+			mediaPlayer.release();
+		
+		mediaPlayer = null;
 		cleanup();
 	}
 
@@ -387,8 +386,10 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 	public void listen(String url, boolean stream) throws IllegalArgumentException, IllegalStateException, IOException
 	{
 		Log.w(LOG_TAG, "Playback service - listen() start");
+		
 		// First, clean up any existing audio.
-		if(isPlaying())
+		//if(isPlaying())
+		if(mediaPlayer != null)
 		{
 			stop();
 		}
@@ -424,7 +425,13 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 		synchronized(this)
 		{
 			Log.d(LOG_TAG, "reset: " + playUrl);
-			mediaPlayer.reset();
+			//mediaPlayer.reset();
+			mediaPlayer = new MediaPlayer();
+			mediaPlayer.setOnBufferingUpdateListener(this);
+			mediaPlayer.setOnCompletionListener(this);
+			mediaPlayer.setOnErrorListener(this);
+			mediaPlayer.setOnInfoListener(this);
+			mediaPlayer.setOnPreparedListener(this);
 			mediaPlayer.setDataSource(playUrl);
 			mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 			Log.d(LOG_TAG, "Preparing: " + playUrl);
