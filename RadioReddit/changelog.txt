@@ -13,7 +13,8 @@ Change log:
 - Added settings activity, compatibility mode option (for users with streaming issues)
 - Added login to (radio) reddit activity
 - Added voting functionality
-x Added submitting a new song functionaility
+- Added submitting a new song functionaility
+- Change some underworkings of PlaybackService/MediaPlayer. You can now change stations immediately without having to wait for the MediaPlayer object to re-prepare itself.
 
 * 0.1 - July 6th, 2011
 - Initial alpha release
