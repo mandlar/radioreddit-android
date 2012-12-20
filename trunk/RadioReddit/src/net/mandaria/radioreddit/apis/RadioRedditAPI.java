@@ -474,7 +474,7 @@ public class RadioRedditAPI
 		// TODO: I don't really like the if else going on here due to currentsong vs currentepisode
 		if(application.CurrentStream.Type.equals("music"))
 		{
-			if(song.Name != "")
+			if(!song.Name.equals(""))
 			{
 				errorMessage = RedditAPI.Vote(context, account, voteDirection, song.Name);
 			}
@@ -485,12 +485,13 @@ public class RadioRedditAPI
 				String subreddit = "radioreddit";
 				
 				errorMessage = RedditAPI.SubmitLink(context, account, title, url, subreddit);
+				// TODO: if submiting while voting down, vote down after it is submitted?
 				//return context.getString(R.string.error_ThereWasAProblemPleaseTryAgain);
 			}
 		}
 		else if(application.CurrentStream.Type.equals("talk"))
 		{
-			if(episode.Name != "")
+			if(!episode.Name.equals(""))
 			{
 				errorMessage = RedditAPI.Vote(context, account, voteDirection, episode.Name);
 			}
@@ -501,9 +502,13 @@ public class RadioRedditAPI
 				String subreddit = "talkradioreddit";
 				
 				errorMessage = RedditAPI.SubmitLink(context, account, title, url, subreddit);
+				// TODO: if submiting while voting down, vote down after it is submitted?
 				//return context.getString(R.string.error_ThereWasAProblemVotingPleaseTryAgain);
 			}
 		}
+		
+		// 4. After voting/submiting, get the most up to date version of the episode/song again
+		
 		
 
 		return errorMessage;
