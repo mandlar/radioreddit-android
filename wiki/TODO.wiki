@@ -2,7 +2,7 @@
 
 == Beta ==
 
-  * Show dialog if voting for a song will submit it
+  * Show dialog OR darken vote buttons when song/episode information is not yet available (and therefore cannot vote yet)
   * Handle cumulative scores
   * On login page, have a link to login page on reddit to give the user a way to register a new account
   * If not logged in, dialog should give option to go to Login activity
@@ -39,6 +39,7 @@
     * See this: http://android.cyrilmottier.com/?p=440
   * (DONE) Cache streams to database after first load
   * (DONE) Bug: if user presses play, it will switch to random (on first load).  Need to select main stream first
+  * (DONE) Show dialog if voting for a song will submit it
  
 == Alpha ==
 
