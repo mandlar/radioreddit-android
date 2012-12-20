@@ -47,4 +47,7 @@
 	<string name="pleaseWaitToChangeStation">Please wait one moment to switch to a new station...</string>
 	<string name="connectingToRadioReddit">Connecting to radio reddit...</string>
 	<string name="buffering">Buffering...</string>
+	<string name="warning_SubmitSong">Do you want to submit this song to reddit, making it available for voting?</string>
+	<string name="warning_SubmitEpisode">Do you want to submit this episode to reddit, making it available for voting?</string>
+	<string name="warning_SubmitNote">note: anything that is submitted to reddit gets upvoted, even if you press downvote. If you want to downvote it, press downvote again after it\'s been submitted</string>
 </resources>
