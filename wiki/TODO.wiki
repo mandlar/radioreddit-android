@@ -2,24 +2,26 @@
 
 == Beta ==
 
-  * Show who you are logged in as (maybe in Settings?)
-  * SherlockActionBar for older devices
+  * Show dialog if voting for a song will submit it
   * Handle cumulative scores
-  * If talk or music stations are empty, don't show the "heading" for it in the "Choose Stations" screen
-  * Add a manual refresh button to "Choose Stations" screen?
-  * Return an error message if content from HTTPUtil.Get is empty?
   * On login page, have a link to login page on reddit to give the user a way to register a new account
-  * Check if user's login password change (detect if cookie is no longer valid?)
-  * Pressing stop should kill the service completely
-  * Notification of when "Buffering..."
-  * Attempt to reconnect X times when completely stopped (usually because of loss of signal).
-  * Use Android 3.0 fragments
-  * Headset controls support (play/stop? next/prev switch streams?)
+  * If not logged in, dialog should give option to go to Login activity
   * Voting
     * (DONE) Submit song if doesn't exist
       * Show dialog that song will be submitted as user
     * Handle CAPTCHA
     * After voting, make a call to get new song info
+  * Show who you are logged in as (maybe in Settings?)
+  * SherlockActionBar for older devices
+  * Use Android 3.0 fragments
+  * If talk or music stations are empty, don't show the "heading" for it in the "Choose Stations" screen
+  * Add a manual refresh button to "Choose Stations" screen?
+  * Return an error message if content from HTTPUtil.Get is empty?
+  * Check if user's login password change (detect if cookie is no longer valid?)
+  * Pressing stop should kill the service completely
+  * Notification of when "Buffering..."
+  * Attempt to reconnect X times when completely stopped (usually because of loss of signal).
+  * Headset controls support (play/stop? next/prev switch streams?)
   * Top charts
   * Bookmarks
   * Previewing songs (bookmarked or top charts)
@@ -29,7 +31,6 @@
   * Album art?
   * Widget?
   * Android 4.0: add playback controls to notification
-
   * (DONE) Login to Reddit
   * (DONE) Remove GPS from permissions
   * (DONE) Fix notifications for talk streams
