@@ -488,6 +488,14 @@ public class RadioRedditAPI
 				// TODO: if submiting while voting down, vote down after it is submitted?
 				//return context.getString(R.string.error_ThereWasAProblemPleaseTryAgain);
 			}
+			
+			// 4. After voting/submiting, get the most up to date version of the episode/song again
+			song = RadioRedditAPI.GetCurrentSongInformation(context, application);
+			
+			if(song != null && song.ErrorMessage.equals(""))
+			{
+				application.CurrentSong = song;
+			}
 		}
 		else if(application.CurrentStream.Type.equals("talk"))
 		{
@@ -505,11 +513,15 @@ public class RadioRedditAPI
 				// TODO: if submiting while voting down, vote down after it is submitted?
 				//return context.getString(R.string.error_ThereWasAProblemVotingPleaseTryAgain);
 			}
-		}
-		
-		// 4. After voting/submiting, get the most up to date version of the episode/song again
-		
-		
+			
+			// 4. After voting/submiting, get the most up to date version of the episode/song again
+			episode = RadioRedditAPI.GetCurrentEpisodeInformation(context, application);
+			
+			if(episode != null && episode.ErrorMessage.equals(""))
+			{
+				application.CurrentEpisode = episode;
+			}
+		}		
 
 		return errorMessage;
 	}
