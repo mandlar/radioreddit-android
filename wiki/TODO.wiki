@@ -10,7 +10,7 @@
     * (DONE) Submit song if doesn't exist
       * Show dialog that song will be submitted as user
     * Handle CAPTCHA
-    * After voting, make a call to get new song info
+    * (DONE) After voting, make a call to get new song info
   * Show who you are logged in as (maybe in Settings?)
   * SherlockActionBar for older devices
   * Use Android 3.0 fragments
