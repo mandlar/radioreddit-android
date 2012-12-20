@@ -37,10 +37,12 @@ import net.mandaria.radioreddit.tasks.GetRadioStreamsTask;
 import net.mandaria.radioreddit.tasks.VoteRedditTask;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -186,8 +188,70 @@ public class RadioReddit extends Activity
 				// TODO: when do we allow them to vote? only when song info is available?
 				if(application.CurrentSong != null || application.CurrentEpisode != null)
 				{
-					new VoteRedditTask(application, RadioReddit.this, true).execute();
-					setUpOrDownVote("true");
+					// TODO: consolidate ifs better
+					if(application.CurrentStream.Type.equals("music"))
+					{
+						if(application.CurrentSong.Name.equals(""))
+						{
+							// TODO: show dialog warning
+							final AlertDialog.Builder builder = new AlertDialog.Builder(RadioReddit.this);
+						    builder.setMessage(getString(R.string.warning_SubmitSong) + "\n\n" + getString(R.string.warning_SubmitNote))
+						    	.setTitle("Submit?")
+						    	.setIcon(android.R.drawable.ic_dialog_alert)
+						    	.setCancelable(true)
+						        .setPositiveButton("Submit", new DialogInterface.OnClickListener()
+								{
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which)
+									{
+										new VoteRedditTask((RadioRedditApplication)getApplication(), RadioReddit.this, true).execute();
+										setUpOrDownVote("true");
+										
+									}
+								})
+						        .setNegativeButton("No", null);
+						    
+						    final AlertDialog alert = builder.create();
+						    alert.show();
+						}
+						else
+						{
+							new VoteRedditTask(application, RadioReddit.this, true).execute();
+							setUpOrDownVote("true");
+						}
+					}
+					else if(application.CurrentStream.Type.equals("talk"))
+					{
+						if(application.CurrentEpisode.Name.equals(""))
+						{
+							final AlertDialog.Builder builder = new AlertDialog.Builder(RadioReddit.this);
+						    builder.setMessage(getString(R.string.warning_SubmitEpisode) + "\n\n" + getString(R.string.warning_SubmitNote))
+						    	.setTitle("Submit?")
+						    	.setIcon(android.R.drawable.ic_dialog_alert)
+						    	.setCancelable(true)
+						        .setPositiveButton("Submit", new DialogInterface.OnClickListener()
+								{
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which)
+									{
+										new VoteRedditTask((RadioRedditApplication)getApplication(), RadioReddit.this, true).execute();
+										setUpOrDownVote("true");
+										
+									}
+								})
+						        .setNegativeButton("No", null);
+						    
+						    final AlertDialog alert = builder.create();
+						    alert.show();
+						}	
+						else
+						{
+							new VoteRedditTask(application, RadioReddit.this, true).execute();
+							setUpOrDownVote("true");
+						}
+					}
 				}
 			}
 		});
@@ -202,8 +266,71 @@ public class RadioReddit extends Activity
 				// TODO: when do we allow them to vote? only when song info is available?
 				if(application.CurrentSong != null || application.CurrentEpisode != null)
 				{
-					new VoteRedditTask(application, RadioReddit.this, false).execute();
-					setUpOrDownVote("false");
+					// TODO: consolidate ifs better
+					// TODO: consolidate with btn_upvote function
+					if(application.CurrentStream.Type.equals("music"))
+					{
+						if(application.CurrentSong.Name.equals(""))
+						{
+							// TODO: show dialog warning
+							final AlertDialog.Builder builder = new AlertDialog.Builder(RadioReddit.this);
+						    builder.setMessage(getString(R.string.warning_SubmitSong) + "\n\n" + getString(R.string.warning_SubmitNote))
+						    	.setTitle("Submit?")
+						    	.setIcon(android.R.drawable.ic_dialog_alert)
+						    	.setCancelable(true)
+						        .setPositiveButton("Submit", new DialogInterface.OnClickListener()
+								{
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which)
+									{
+										new VoteRedditTask((RadioRedditApplication)getApplication(), RadioReddit.this, false).execute();
+										setUpOrDownVote("false");
+										
+									}
+								})
+						        .setNegativeButton("No", null);
+						    
+						    final AlertDialog alert = builder.create();
+						    alert.show();
+						}
+						else
+						{
+							new VoteRedditTask(application, RadioReddit.this, false).execute();
+							setUpOrDownVote("false");
+						}
+					}
+					else if(application.CurrentStream.Type.equals("talk"))
+					{
+						if(application.CurrentEpisode.Name.equals(""))
+						{
+							final AlertDialog.Builder builder = new AlertDialog.Builder(RadioReddit.this);
+						    builder.setMessage(getString(R.string.warning_SubmitEpisode) + "\n\n" + getString(R.string.warning_SubmitNote))
+						    	.setTitle("Submit?")
+						    	.setIcon(android.R.drawable.ic_dialog_alert)
+						    	.setCancelable(true)
+						        .setPositiveButton("Submit", new DialogInterface.OnClickListener()
+								{
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which)
+									{
+										new VoteRedditTask((RadioRedditApplication)getApplication(), RadioReddit.this, false).execute();
+										setUpOrDownVote("false");
+										
+									}
+								})
+						        .setNegativeButton("No", null);
+						    
+						    final AlertDialog alert = builder.create();
+						    alert.show();
+						}	
+						else
+						{
+							new VoteRedditTask(application, RadioReddit.this, false).execute();
+							setUpOrDownVote("false");
+						}
+					}
 				}
 			}
 		});
@@ -215,8 +342,6 @@ public class RadioReddit extends Activity
 			public void onClick(View v)
 			{
 				// TODO: Might need to re-write this function due to PlayerService changes
-				
-				
 				if(player == null)
 				{
 					attachToPlaybackService();
