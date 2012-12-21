@@ -205,7 +205,7 @@ public class RadioReddit extends Activity
 									@Override
 									public void onClick(DialogInterface dialog, int which)
 									{
-										new VoteRedditTask((RadioRedditApplication)getApplication(), RadioReddit.this, true).execute();
+										new VoteRedditTask((RadioRedditApplication)getApplication(), RadioReddit.this, true, "", "").execute();
 										setUpOrDownVote("true");
 										
 									}
@@ -217,7 +217,7 @@ public class RadioReddit extends Activity
 						}
 						else
 						{
-							new VoteRedditTask(application, RadioReddit.this, true).execute();
+							new VoteRedditTask(application, RadioReddit.this, true, "", "").execute();
 							setUpOrDownVote("true");
 						}
 					}
@@ -236,7 +236,7 @@ public class RadioReddit extends Activity
 									@Override
 									public void onClick(DialogInterface dialog, int which)
 									{
-										new VoteRedditTask((RadioRedditApplication)getApplication(), RadioReddit.this, true).execute();
+										new VoteRedditTask((RadioRedditApplication)getApplication(), RadioReddit.this, true, "", "").execute();
 										setUpOrDownVote("true");
 										
 									}
@@ -248,7 +248,7 @@ public class RadioReddit extends Activity
 						}	
 						else
 						{
-							new VoteRedditTask(application, RadioReddit.this, true).execute();
+							new VoteRedditTask(application, RadioReddit.this, true, "", "").execute();
 							setUpOrDownVote("true");
 						}
 					}
@@ -284,7 +284,7 @@ public class RadioReddit extends Activity
 									@Override
 									public void onClick(DialogInterface dialog, int which)
 									{
-										new VoteRedditTask((RadioRedditApplication)getApplication(), RadioReddit.this, false).execute();
+										new VoteRedditTask((RadioRedditApplication)getApplication(), RadioReddit.this, false, "", "").execute();
 										setUpOrDownVote("false");
 										
 									}
@@ -296,7 +296,7 @@ public class RadioReddit extends Activity
 						}
 						else
 						{
-							new VoteRedditTask(application, RadioReddit.this, false).execute();
+							new VoteRedditTask(application, RadioReddit.this, false, "", "").execute();
 							setUpOrDownVote("false");
 						}
 					}
@@ -315,7 +315,7 @@ public class RadioReddit extends Activity
 									@Override
 									public void onClick(DialogInterface dialog, int which)
 									{
-										new VoteRedditTask((RadioRedditApplication)getApplication(), RadioReddit.this, false).execute();
+										new VoteRedditTask((RadioRedditApplication)getApplication(), RadioReddit.this, false, "", "").execute();
 										setUpOrDownVote("false");
 										
 									}
@@ -327,7 +327,7 @@ public class RadioReddit extends Activity
 						}	
 						else
 						{
-							new VoteRedditTask(application, RadioReddit.this, false).execute();
+							new VoteRedditTask(application, RadioReddit.this, false, "", "").execute();
 							setUpOrDownVote("false");
 						}
 					}

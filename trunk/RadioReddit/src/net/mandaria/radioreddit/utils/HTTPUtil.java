@@ -69,6 +69,22 @@ public class HTTPUtil
 
 		return output;
 	}
+	
+	// TODO: may not be the best way to do this...
+	// gets http output from URL as input stream (for images, etc)
+	public static InputStream getInputStream(Context c, String url) throws ClientProtocolException, IOException
+	{
+		HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+		conn.setRequestProperty("User-Agent", HTTPUtil.USER_AGENT);
+
+		RedditAccount account = Settings.getRedditAccount(c);
+		if(account != null)
+		{
+			conn.setRequestProperty("Cookie", "reddit_session=" + account.Cookie);
+		}
+
+		return conn.getInputStream();
+	}
 
 	// posts data to http, gets output from URL
 	public static String post(Context c, String url, List<NameValuePair> params) throws ClientProtocolException, IOException

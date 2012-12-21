@@ -25,13 +25,17 @@ public class VoteRedditTask extends AsyncTask<Void, String, String>
 	private RadioRedditApplication _application;
 	private Exception ex;
 	private boolean _liked;
+	private String _iden;
+	private String _captcha;
 	//private ProgressDialog _progressDialog;
 
-	public VoteRedditTask(RadioRedditApplication application, Context context, boolean liked)
+	public VoteRedditTask(RadioRedditApplication application, Context context, boolean liked, String iden, String captcha)
 	{
 		_context = context;
 		_application = application;
 		_liked = liked;
+		_iden = iden;
+		_captcha = captcha;
 		// TODO: probably shouldn't show a dialog?
 		//_progressDialog = ProgressDialog.show(_context, "Voting on currently playing...", "Please wait...", true);
 		if(liked)
@@ -56,7 +60,7 @@ public class VoteRedditTask extends AsyncTask<Void, String, String>
 		String errorMessage = "";
 		try
 		{
-			errorMessage = RadioRedditAPI.VoteOnCurrentlyPlaying(_context, _application, _liked);
+			errorMessage = RadioRedditAPI.VoteOnCurrentlyPlaying(_context, _application, _liked, _iden, _captcha);
 		}
 		catch(Exception e)
 		{
@@ -86,16 +90,28 @@ public class VoteRedditTask extends AsyncTask<Void, String, String>
 		{
 			if(result != null)
 			{
-				final AlertDialog.Builder builder = new AlertDialog.Builder(_context);
-			    builder.setMessage("Error: " + result)
-			    	.setTitle("Voting Error")
-			    	.setIcon(android.R.drawable.ic_dialog_alert)
-			    	.setCancelable(true)
-			        .setPositiveButton("OK", null);
-			    
-			    final AlertDialog alert = builder.create();
-			    alert.show();
-			    
+				// TODO: check for CAPTCHA: <captcha>
+				// download the captcha, show a new dialog requiring the user to enter it
+				// then resubmit
+				if(result.contains("CAPTCHA:"))
+				{
+					String captcha = result.substring(8);
+					
+					new GetCaptchaTask(_application, _context, captcha, _liked).execute();
+				}
+				else
+				{
+					final AlertDialog.Builder builder = new AlertDialog.Builder(_context);
+				    builder.setMessage("Error: " + result)
+				    	.setTitle("Voting Error")
+				    	.setIcon(android.R.drawable.ic_dialog_alert)
+				    	.setCancelable(true)
+				        .setPositiveButton("OK", null);
+				    
+				    final AlertDialog alert = builder.create();
+				    alert.show();
+				}
+				
 			    if(_application.CurrentSong != null)
 					_application.CurrentSong.Likes = "null";
 				if(_application.CurrentEpisode != null)
