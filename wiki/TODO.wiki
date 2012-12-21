@@ -6,11 +6,6 @@
   * Handle cumulative scores
   * On login page, have a link to login page on reddit to give the user a way to register a new account
   * If not logged in, dialog should give option to go to Login activity
-  * Voting
-    * (DONE) Submit song if doesn't exist
-      * Show dialog that song will be submitted as user
-    * Handle CAPTCHA
-    * (DONE) After voting, make a call to get new song info
   * Show who you are logged in as (maybe in Settings?)
   * SherlockActionBar for older devices
   * Use Android 3.0 fragments
@@ -40,7 +35,12 @@
   * (DONE) Cache streams to database after first load
   * (DONE) Bug: if user presses play, it will switch to random (on first load).  Need to select main stream first
   * (DONE) Show dialog if voting for a song will submit it
- 
+  * (DONE) Voting
+    * (DONE) Submit song if doesn't exist
+      * (DONE) Show dialog that song will be submitted as user
+    * (DONE) Handle CAPTCHA
+    * (DONE) After voting, make a call to get new song info
+
 == Alpha ==
 
 ALPHA COMPLETE
