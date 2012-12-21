@@ -414,7 +414,7 @@ public class RadioRedditAPI
 
 	}
 	
-	public static String VoteOnCurrentlyPlaying(Context context, RadioRedditApplication application, boolean liked)
+	public static String VoteOnCurrentlyPlaying(Context context, RadioRedditApplication application, boolean liked, String iden, String captcha)
 	{
 		String errorMessage = "";
 		RedditAccount account = Settings.getRedditAccount(context);
@@ -484,7 +484,7 @@ public class RadioRedditAPI
 				String url = song.Reddit_url;
 				String subreddit = "radioreddit";
 				
-				errorMessage = RedditAPI.SubmitLink(context, account, title, url, subreddit);
+				errorMessage = RedditAPI.SubmitLink(context, account, title, url, subreddit, iden, captcha);
 				// TODO: if submiting while voting down, vote down after it is submitted?
 				//return context.getString(R.string.error_ThereWasAProblemPleaseTryAgain);
 			}
@@ -509,7 +509,7 @@ public class RadioRedditAPI
 				String url = episode.Reddit_url;
 				String subreddit = "talkradioreddit";
 				
-				errorMessage = RedditAPI.SubmitLink(context, account, title, url, subreddit);
+				errorMessage = RedditAPI.SubmitLink(context, account, title, url, subreddit, iden, captcha);
 				// TODO: if submiting while voting down, vote down after it is submitted?
 				//return context.getString(R.string.error_ThereWasAProblemVotingPleaseTryAgain);
 			}

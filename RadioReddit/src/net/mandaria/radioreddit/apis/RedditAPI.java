@@ -194,11 +194,14 @@ public class RedditAPI
     private final static Pattern RATELIMIT_RETRY_PATTERN = Pattern.compile("(you are doing that too much. try again in (.+?)\\.)");
 	// Group 1: Subreddit
     private final static Pattern SUBMIT_PATH_PATTERN = Pattern.compile("/(?:r/([^/]+)/)?submit/?");
+    
+    //(\[16, 17, "call", \["(.*?)"\]\])
+    private final static Pattern CAPTCHA_PATTERN = Pattern.compile("\\[16, 17, \"call\", \\[\"(.*?)\"\\]\\]");
 	
 	// url = the url of the page being submitted 
 	// title = the text that the user submits as the link's title
 	// subreddit = the subreddit the post is being submitted to
-	public static String SubmitLink(Context context, RedditAccount account, String title, String url, String subreddit)
+	public static String SubmitLink(Context context, RedditAccount account, String title, String url, String subreddit, String iden, String captcha)
 	{
 		String errorMessage = ""; 
 		
@@ -240,6 +243,14 @@ public class RedditAPI
 			BasicNameValuePair uh = new BasicNameValuePair("uh", account.Modhash);
 			post_values.add(uh);
 			
+			if(!iden.equals("") && !captcha.equals(""))
+			{
+				BasicNameValuePair postIden = new BasicNameValuePair("iden", iden);
+				post_values.add(postIden);
+				
+				BasicNameValuePair postCaptcha = new BasicNameValuePair("captcha", captcha);
+				post_values.add(postCaptcha);
+			}
 			// json doesn't work for this call
 			//BasicNameValuePair api_type = new BasicNameValuePair("api_type", "json");
 			//post_values.add(api_type);
@@ -285,8 +296,14 @@ public class RedditAPI
 						return "You are trying to submit too fast. Try again in a few minutes.";
 				}
 				
-				if(outputSubmit.contains("BAD_CAPTCHA"))
-					return "Bad CAPTCHA. Try again.";
+				if(outputSubmit.contains("BAD_CAPTCHA"))	
+				{
+					Matcher captchaMatcher = CAPTCHA_PATTERN.matcher(outputSubmit);
+					if(captchaMatcher.find())
+						return "CAPTCHA:" + captchaMatcher.group(1);
+					else
+						return "Bad CAPTCHA. Try again.";
+				}
 				// TODO: handle captchas!
 				
 				if(outputSubmit.contains("verify your email"))
