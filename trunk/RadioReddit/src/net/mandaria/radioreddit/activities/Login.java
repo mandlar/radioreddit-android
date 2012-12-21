@@ -8,6 +8,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.flurry.android.FlurryAgent;
 
@@ -99,6 +102,18 @@ public class Login extends Activity
 				
 				
 				
+			}
+		});
+		
+		TextView lbl_Register = (TextView)findViewById(R.id.lbl_Register);
+		lbl_Register.setOnClickListener(new OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://ssl.reddit.com/login/"));
+				startActivity(myIntent);
 			}
 		});
 	}

@@ -18,6 +18,8 @@
 	<string name="loggingInToReddit">Logging in to reddit</string>
 	<string name="pleaseWait">Please wait...</string>
 	<string name="loggedInAs">Logged in as</string>
+	<string name="dontHaveAnAccount">Don\'t have an account?</string>
+	<string name="signUpForFree">Sign up for free</string>
 	<!-- Login errors -->
 	<string name="error">Error</string>
 	<string name="loginError">Login Error</string>
