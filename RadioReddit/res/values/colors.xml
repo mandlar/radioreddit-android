@@ -8,4 +8,5 @@
     <!-- btn_orange -->
     <color name="btn_orange_light">#ffb300</color>
     <color name="btn_orange_dark">#ed7710</color>
+    <color name="reddit_orange">#F45C11</color>
 </resources>

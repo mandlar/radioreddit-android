@@ -33,6 +33,7 @@
 		    	>
 		    	<TextView 
 		    		style="@style/Login_Subheading"
+		    		android:text="@string/enterYourRedditCredentialsToContinue"
 		    		/>
 		    	<TextView
 		    		android:text="@string/username"
@@ -61,6 +62,27 @@
 		    		android:id="@+id/btn_login"
 		    		style="@style/Login_Button"
 		    		/>
+		    	<LinearLayout
+			    	android:layout_height="fill_parent"
+			    	android:layout_width="fill_parent"
+			    	android:orientation="horizontal"
+			    	android:gravity="center_horizontal"
+			    	android:layout_marginTop="10dp"
+			    	>
+			    	<TextView 
+		    			style="@style/Login_Subheading"
+		    			android:text="@string/dontHaveAnAccount"
+		    			android:textSize="16sp"
+		    			android:layout_marginRight="5dp"
+		    			/>
+			    	<TextView android:id="@+id/lbl_Register"
+		    			style="@style/Login_Subheading"
+		    			android:textStyle="bold"
+		    			android:text="@string/signUpForFree"
+		    			android:textColor="@color/reddit_orange"
+		    			android:textSize="16sp"
+		    			/>
+			    </LinearLayout>
 	    	</LinearLayout>
 	    </LinearLayout>
     </net.mandaria.radioreddit.objects.ScrollToBottomView>
