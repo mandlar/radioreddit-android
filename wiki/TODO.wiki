@@ -4,6 +4,7 @@
 
   * Show dialog OR darken vote buttons when song/episode information is not yet available (and therefore cannot vote yet)
   * SherlockActionBar for older devices
+  * Link to reddit comments for current submitted song/episode
   * Use Android 3.0 fragments
   * If talk or music stations are empty, don't show the "heading" for it in the "Choose Stations" screen
   * Add a manual refresh button to "Choose Stations" screen?
