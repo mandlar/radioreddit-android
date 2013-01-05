@@ -10,7 +10,11 @@
     	android:drawable="@drawable/diddownvote_pressed">
     </item>
 
-    <item
+    <item android:state_enabled="true"
     	android:drawable="@drawable/willdownvote">        
+    </item>
+    
+    <item android:state_enabled="false"
+        android:drawable="@drawable/willdownvote_disabled">
     </item>
 </selector>

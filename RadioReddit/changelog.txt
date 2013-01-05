@@ -20,6 +20,7 @@ Change log:
 - Show cumulative score
 - If not logged in, dialog gives option to go to Login activity
 - Show reddit username beside of "Logout" in menu when logged in
+- Darken and disable vote buttons when song/episode information is not yet available (and therefore cannot vote yet)
 
 
 * 0.1 - July 6th, 2011

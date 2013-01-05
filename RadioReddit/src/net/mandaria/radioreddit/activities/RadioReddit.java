@@ -993,6 +993,9 @@ public class RadioReddit extends Activity
 		
 		setUpOrDownVote(application.CurrentEpisode.Likes);
 		
+		btn_upvote.setEnabled(true);
+		btn_downvote.setEnabled(true);
+		
 		// lbl_SongVote.setText(getString(R.string.vote_to_submit_song));
 		// lbl_SongTitle.setText(getString(R.string.dummy_song_title));
 		// lbl_SongArtist.setText(getString(R.string.dummy_song_artist));
@@ -1020,6 +1023,9 @@ public class RadioReddit extends Activity
 		
 		setUpOrDownVote(application.CurrentSong.Likes);
 		
+		btn_upvote.setEnabled(true);
+		btn_downvote.setEnabled(true);
+		
 		// lbl_SongVote.setText(getString(R.string.vote_to_submit_song));
 		// lbl_SongTitle.setText(getString(R.string.dummy_song_title));
 		// lbl_SongArtist.setText(getString(R.string.dummy_song_artist));
@@ -1041,6 +1047,8 @@ public class RadioReddit extends Activity
 		btn_SongInfo.setVisibility(View.GONE);
 		btn_upvote.setBackgroundResource(R.drawable.willupvote_button);
 		btn_downvote.setBackgroundResource(R.drawable.willdownvote_button);
+		btn_upvote.setEnabled(false);
+		btn_downvote.setEnabled(false);
 	}
 
 }
