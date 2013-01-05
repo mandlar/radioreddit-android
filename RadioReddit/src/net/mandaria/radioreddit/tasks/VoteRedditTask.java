@@ -1,3 +1,23 @@
+/*
+ *	radio reddit for android: mobile app to listen to radioreddit.com
+ *  Copyright (C) 2011 Bryan Denny
+ *  
+ *  This file is part of "radio reddit for android"
+ *
+ *  "radio reddit for android" is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  "radio reddit for android" is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with "radio reddit for android".  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package net.mandaria.radioreddit.tasks;
 
 import java.util.Locale;
@@ -41,7 +61,6 @@ public class VoteRedditTask extends AsyncTask<Void, String, String>
 		_liked = liked;
 		_iden = iden;
 		_captcha = captcha;
-		// TODO: probably shouldn't show a dialog?
 		//_progressDialog = ProgressDialog.show(_context, "Voting on currently playing...", "Please wait...", true);
 		if(liked)
 		{
@@ -88,8 +107,7 @@ public class VoteRedditTask extends AsyncTask<Void, String, String>
 		//_progressDialog.dismiss();
 		if(result != null && result.equals(""))
 		{
-			// TODO: hide this later, don't show to user
-			Toast.makeText(_context, "Successfully voted!", Toast.LENGTH_LONG).show();
+			//Toast.makeText(_context, "Successfully voted!", Toast.LENGTH_LONG).show();
 		}
 		else
 		{
@@ -107,15 +125,15 @@ public class VoteRedditTask extends AsyncTask<Void, String, String>
 				else
 				{
 					final AlertDialog.Builder builder = new AlertDialog.Builder(_context);
-				    builder.setMessage("Error: " + result)
-				    	.setTitle("Voting Error")
+				    builder.setMessage(_context.getString(R.string.error) + ": " + result)
+				    	.setTitle(_context.getString(R.string.voting_error))
 				    	.setIcon(android.R.drawable.ic_dialog_alert)
 				    	.setCancelable(true)
-				        .setPositiveButton("OK", null);
+				        .setPositiveButton(_context.getString(R.string.ok), null);
 				    
 				    if(result.equals(_context.getString(R.string.error_YouMustBeLoggedInToVote)))
 				    {
-				    	builder.setNegativeButton("Login", new OnClickListener()
+				    	builder.setNegativeButton(_context.getString(R.string.login), new OnClickListener()
 						{
 							@Override
 							public void onClick(DialogInterface dialog, int which)

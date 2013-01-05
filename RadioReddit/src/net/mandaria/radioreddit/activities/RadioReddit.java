@@ -196,10 +196,10 @@ public class RadioReddit extends Activity
 							// TODO: show dialog warning
 							final AlertDialog.Builder builder = new AlertDialog.Builder(RadioReddit.this);
 						    builder.setMessage(getString(R.string.warning_SubmitSong) + "\n\n" + getString(R.string.warning_SubmitNote))
-						    	.setTitle("Submit?")
+						    	.setTitle(getString(R.string.submit_title))
 						    	.setIcon(android.R.drawable.ic_dialog_alert)
 						    	.setCancelable(true)
-						        .setPositiveButton("Submit", new DialogInterface.OnClickListener()
+						        .setPositiveButton(getString(R.string.submit), new DialogInterface.OnClickListener()
 								{
 									
 									@Override
@@ -210,7 +210,7 @@ public class RadioReddit extends Activity
 										
 									}
 								})
-						        .setNegativeButton("No", null);
+						        .setNegativeButton(getString(R.string.no), null);
 						    
 						    final AlertDialog alert = builder.create();
 						    alert.show();
@@ -227,10 +227,10 @@ public class RadioReddit extends Activity
 						{
 							final AlertDialog.Builder builder = new AlertDialog.Builder(RadioReddit.this);
 						    builder.setMessage(getString(R.string.warning_SubmitEpisode) + "\n\n" + getString(R.string.warning_SubmitNote))
-						    	.setTitle("Submit?")
+						    	.setTitle(getString(R.string.submit_title))
 						    	.setIcon(android.R.drawable.ic_dialog_alert)
 						    	.setCancelable(true)
-						        .setPositiveButton("Submit", new DialogInterface.OnClickListener()
+						        .setPositiveButton(getString(R.string.submit), new DialogInterface.OnClickListener()
 								{
 									
 									@Override
@@ -241,7 +241,7 @@ public class RadioReddit extends Activity
 										
 									}
 								})
-						        .setNegativeButton("No", null);
+						        .setNegativeButton(getString(R.string.no), null);
 						    
 						    final AlertDialog alert = builder.create();
 						    alert.show();
@@ -275,10 +275,10 @@ public class RadioReddit extends Activity
 							// TODO: show dialog warning
 							final AlertDialog.Builder builder = new AlertDialog.Builder(RadioReddit.this);
 						    builder.setMessage(getString(R.string.warning_SubmitSong) + "\n\n" + getString(R.string.warning_SubmitNote))
-						    	.setTitle("Submit?")
+						    	.setTitle(getString(R.string.submit_title))
 						    	.setIcon(android.R.drawable.ic_dialog_alert)
 						    	.setCancelable(true)
-						        .setPositiveButton("Submit", new DialogInterface.OnClickListener()
+						        .setPositiveButton(getString(R.string.submit), new DialogInterface.OnClickListener()
 								{
 									
 									@Override
@@ -289,7 +289,7 @@ public class RadioReddit extends Activity
 										
 									}
 								})
-						        .setNegativeButton("No", null);
+						        .setNegativeButton(getString(R.string.no), null);
 						    
 						    final AlertDialog alert = builder.create();
 						    alert.show();
@@ -306,10 +306,10 @@ public class RadioReddit extends Activity
 						{
 							final AlertDialog.Builder builder = new AlertDialog.Builder(RadioReddit.this);
 						    builder.setMessage(getString(R.string.warning_SubmitEpisode) + "\n\n" + getString(R.string.warning_SubmitNote))
-						    	.setTitle("Submit?")
+						    	.setTitle(getString(R.string.submit_title))
 						    	.setIcon(android.R.drawable.ic_dialog_alert)
 						    	.setCancelable(true)
-						        .setPositiveButton("Submit", new DialogInterface.OnClickListener()
+						        .setPositiveButton(getString(R.string.submit), new DialogInterface.OnClickListener()
 								{
 									
 									@Override
@@ -320,7 +320,7 @@ public class RadioReddit extends Activity
 										
 									}
 								})
-						        .setNegativeButton("No", null);
+						        .setNegativeButton(getString(R.string.no), null);
 						    
 						    final AlertDialog alert = builder.create();
 						    alert.show();
@@ -800,7 +800,7 @@ public class RadioReddit extends Activity
 			catch(Exception ex)
 			{
 				ex.printStackTrace();
-				Toast.makeText(this, "Error on listen: " + ex.toString(), Toast.LENGTH_LONG).show();
+				Toast.makeText(this, getString(R.string.error_OnListen) + ": " + ex.toString(), Toast.LENGTH_LONG).show();
 			}
 		}
 	}

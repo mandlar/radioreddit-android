@@ -16,6 +16,6 @@
         android:id="@+id/txt_Captcha"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Captcha Here"
+        android:hint="@string/enter_CAPTCHA_here"
         />
 </LinearLayout>
