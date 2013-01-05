@@ -20,5 +20,8 @@
  	<string name="reddit_submit">http://www.reddit.com/api/submit</string>
  	<string name="reddit_captcha">http://www.reddit.com/captcha/</string>
  	<string name="reddit_me">http://www.reddit.com/api/me.json</string>
+ 	
+ 	<!-- reddit URLs -->
+ 	<string name="reddit_register_url">https://ssl.reddit.com/login/</string>
 
 </resources>

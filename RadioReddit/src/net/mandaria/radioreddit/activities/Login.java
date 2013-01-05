@@ -112,7 +112,7 @@ public class Login extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://ssl.reddit.com/login/"));
+				Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.reddit_register_url)));
 				startActivity(myIntent);
 			}
 		});
