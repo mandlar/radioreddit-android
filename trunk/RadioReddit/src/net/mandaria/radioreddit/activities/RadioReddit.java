@@ -414,10 +414,14 @@ public class RadioReddit extends Activity
 		MenuItem login = (MenuItem) menu.findItem(R.id.login);
 		MenuItem logout = (MenuItem) menu.findItem(R.id.logout);
 		
-		if(Settings.getRedditAccount(RadioReddit.this) != null)
+		RedditAccount account = Settings.getRedditAccount(RadioReddit.this);
+		
+		if(account != null)
 		{
 			login.setVisible(false);
 			logout.setVisible(true);
+			
+			logout.setTitle(getString(R.string.logout) + " (" + account.Username + ")");
 		}
 		else
 		{

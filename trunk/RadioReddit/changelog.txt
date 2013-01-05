@@ -19,6 +19,7 @@ Change log:
 - Added a link to login activity to register a new reddit account
 - Show cumulative score
 - If not logged in, dialog gives option to go to Login activity
+- Show reddit username beside of "Logout" in menu when logged in
 
 
 * 0.1 - July 6th, 2011
