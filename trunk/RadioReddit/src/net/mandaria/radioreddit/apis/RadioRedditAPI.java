@@ -485,7 +485,7 @@ public class RadioRedditAPI
 			}
 			else // not yet submitted
 			{	
-				String title = song.Title + " by " + song.Artist + " (" + song.Redditor + ")";
+				String title = song.Title + " by " + song.Artist + " (" + song.Redditor + ")"; // future note: do not pull "by" into strings.xml, this is used for submission on r/radioreddit
 				String url = song.Reddit_url;
 				String subreddit = "radioreddit";
 				

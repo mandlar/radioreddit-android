@@ -259,19 +259,19 @@ public class RedditAPI
 			
 			// returns shitty jquery not json
 			if(outputSubmit.equals(""))
-				return "No content returned from reply POST";
+				return context.getString(R.string.error_NoContentReturnFromReplyPOST);
 			
 			if(outputSubmit.contains("WRONG_PASSWORD"))
-				return "Wrong password";
+				return context.getString(R.string.error_WrongPassword);
 			
 			if(outputSubmit.contains("USER_REQUIRED"))
-				return "User required. Huh?";
+				return context.getString(R.string.error_UserRequired);
 			
 			if(outputSubmit.contains("SUBREDDIT_NOEXIST"))
-				return "That subreddit does not exist.";
+				return context.getString(R.string.error_ThatSubredditDoesNotExist);
 			
 			if(outputSubmit.contains("SUBREDDIT_NOTALLOWED"))
-				return "You are not allowed to post to that subreddit";
+				return context.getString(R.string.error_YouAreNotAllowedToPostToThatSubreddit);
 			
 			String newId = "";
 			String newSubreddit = "";
@@ -284,7 +284,7 @@ public class RedditAPI
 			else
 			{
 				if(outputSubmit.contains("ALREADY_SUB"))
-					return "Sorry, someone snuck in the submission just before you! But hey, give it an up- or downvote!";
+					return context.getString(R.string.error_SorrySomeoneAlreadySubmitted);
 				
 				if(outputSubmit.contains("RATELIMIT"))
 				{
@@ -293,7 +293,7 @@ public class RedditAPI
 					if(rateMatcher.find())
 						return rateMatcher.group(1);
 					else
-						return "You are trying to submit too fast. Try again in a few minutes.";
+						return context.getString(R.string.error_YouAreTryingToSubmitTooFast);
 				}
 				
 				if(outputSubmit.contains("BAD_CAPTCHA"))	
@@ -302,15 +302,15 @@ public class RedditAPI
 					if(captchaMatcher.find())
 						return "CAPTCHA:" + captchaMatcher.group(1);
 					else
-						return "Bad CAPTCHA. Try again.";
+						return context.getString(R.string.error_BadCAPTCHATryAgain);
 				}
-				// TODO: handle captchas!
 				
 				if(outputSubmit.contains("verify your email"))
-					return "Your mail has not been verified, please try again in an hour or verify your email address";
+					return context.getString(R.string.error_EmailNotVerified);
 				// TODO: somehow add link to: http://www.reddit.com/verify?reason=submit
+				// could check for this error message on the other end and add a button that opens the link in the browser
 				
-				return "No id returned by reply POST.";
+				return context.getString(R.string.error_NoIdReturnedByReplyPOST);
 			}
 			// success!
 		}

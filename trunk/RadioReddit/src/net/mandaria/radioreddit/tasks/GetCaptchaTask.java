@@ -106,10 +106,10 @@ public class GetCaptchaTask extends AsyncTask<Void, BitmapDrawable, BitmapDrawab
 		    
 			final AlertDialog.Builder builder = new AlertDialog.Builder(_context);
 		    builder.setView(layout)
-		    	.setTitle("Please enter the CAPTCHA")
+		    	.setTitle(_context.getString(R.string.please_enter_the_CAPTCHA))
 		    	.setIcon(android.R.drawable.ic_dialog_alert)
 		    	.setCancelable(true)
-		        .setPositiveButton("I'm human", new OnClickListener()
+		        .setPositiveButton(_context.getString(R.string.im_human), new OnClickListener()
 				{
 					
 					@Override
@@ -122,21 +122,21 @@ public class GetCaptchaTask extends AsyncTask<Void, BitmapDrawable, BitmapDrawab
 						
 					}
 				})
-		    	.setNegativeButton("Cancel", null);
+		    	.setNegativeButton(_context.getString(R.string.cancel), null);
 		    
 		    final AlertDialog alert = builder.create();
 		    alert.show();
 
-			Toast.makeText(_context, "Retrieved Captcha!", Toast.LENGTH_LONG).show();
+			//Toast.makeText(_context, "Retrieved Captcha!", Toast.LENGTH_LONG).show();
 		}
 		else
 		{
 			final AlertDialog.Builder builder = new AlertDialog.Builder(_context);
-		    builder.setMessage("Error: " + "Failed to retrieve CAPTCHA. Please try again later.")
-		    	.setTitle("Captcha Error")
+		    builder.setMessage(_context.getString(R.string.error) + ": " + _context.getString(R.string.error_FailedToRetrieveCAPTCHA))
+		    	.setTitle(_context.getString(R.string.CAPTCHA_error))
 		    	.setIcon(android.R.drawable.ic_dialog_alert)
 		    	.setCancelable(true)
-		        .setPositiveButton("OK", null);
+		        .setPositiveButton(_context.getString(R.string.ok), null);
 		    
 		    final AlertDialog alert = builder.create();
 		    alert.show();

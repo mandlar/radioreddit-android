@@ -18,7 +18,7 @@
 		    android:layout_gravity="center_horizontal"
 		    />
 	   	<TextView
-	   		android:text="Episode:"
+	   		android:text="@string/episode"
 	   		style="@style/EpisodeInformation_DescriptionHeader"
 	  			/>	
 	  		<TextView
@@ -26,7 +26,7 @@
 	   		style="@style/EpisodeInformation_DescriptionBody"
 	  			/>	
 	   	<TextView
-	   		android:text="Hosts:"
+	   		android:text="@string/hosts"
 	   		style="@style/EpisodeInformation_DescriptionHeader"
 	  			/>	
 	  		<TextView
@@ -34,7 +34,7 @@
 	   		style="@style/EpisodeInformation_DescriptionBody"
 	  			/>	
 	   	<TextView
-	   		android:text="Redditors:"
+	   		android:text="@string/redditors"
 	   		style="@style/EpisodeInformation_DescriptionHeader"
 	  			/>	
 	  		<TextView
@@ -42,7 +42,7 @@
 	   		style="@style/EpisodeInformation_DescriptionBody"
 	  			/>	
 	   	<TextView
-	   		android:text="This episode:"
+	   		android:text="@string/this_episode"
 	   		style="@style/EpisodeInformation_DescriptionHeader"
 	  			/>	
   		<TextView
