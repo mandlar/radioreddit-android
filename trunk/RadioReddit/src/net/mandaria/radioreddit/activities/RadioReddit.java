@@ -1003,7 +1003,12 @@ public class RadioReddit extends Activity
 		lbl_SongTitle.setVisibility(View.VISIBLE);
 		lbl_SongArtist.setVisibility(View.VISIBLE);
 		lbl_SongPlaylist.setVisibility(View.VISIBLE);
-		lbl_SongVote.setText(application.CurrentSong.Score);
+		
+		String score = application.CurrentSong.Score;
+		if(application.CurrentSong.CumulativeScore != null)
+			score += " (" + application.CurrentSong.CumulativeScore + ")";
+		
+		lbl_SongVote.setText(score);
 		lbl_SongTitle.setText(application.CurrentSong.Title);
 		lbl_SongArtist.setText(application.CurrentSong.Artist + " (" + application.CurrentSong.Redditor + ")");
 		lbl_SongPlaylist.setText(getString(R.string.playlist) + ": " + application.CurrentSong.Playlist);

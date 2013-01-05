@@ -17,6 +17,7 @@ Change log:
 - Added CAPTCHA support for submissions by new redditors (with low karma)
 - Change some underworkings of PlaybackService/MediaPlayer. You can now change stations immediately without having to wait for the MediaPlayer object to re-prepare itself.
 - Added a link to login activity to register a new reddit account
+- Show cumulative score
 
 
 * 0.1 - July 6th, 2011

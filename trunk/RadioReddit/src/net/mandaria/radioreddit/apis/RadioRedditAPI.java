@@ -198,6 +198,11 @@ public class RadioRedditAPI
 				radiosong.Artist = song.getString("artist");
 				radiosong.Redditor = song.getString("redditor");
 				radiosong.Genre = song.getString("genre");
+				radiosong.CumulativeScore = song.getString("score");
+				
+				if(radiosong.CumulativeScore.equals("{}"))
+					radiosong.CumulativeScore = null;	
+				
 				radiosong.Reddit_title = song.getString("reddit_title");
 				radiosong.Reddit_url = song.getString("reddit_url");
 				if(song.has("preview_url"))
