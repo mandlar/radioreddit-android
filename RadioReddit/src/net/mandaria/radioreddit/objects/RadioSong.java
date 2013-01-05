@@ -27,6 +27,7 @@ public class RadioSong
 	public String Artist;
 	public String Redditor; // (note: return Artist (redditor) as one String)
 	public String Genre;
+	public String CumulativeScore; // cumulative score
 	public String Playlist;// (pulled from parent node)
 	public String Reddit_title; // (Name of reddit link)
 	public String Reddit_url; // (reddit link)
