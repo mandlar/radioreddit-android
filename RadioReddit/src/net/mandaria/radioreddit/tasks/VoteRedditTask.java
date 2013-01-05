@@ -2,6 +2,9 @@ package net.mandaria.radioreddit.tasks;
 
 import java.util.Locale;
 
+import com.flurry.android.FlurryAgent;
+
+import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.activities.Login;
 import net.mandaria.radioreddit.activities.RadioReddit;
@@ -13,6 +16,8 @@ import net.mandaria.radioreddit.objects.RedditAccount;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -90,7 +95,7 @@ public class VoteRedditTask extends AsyncTask<Void, String, String>
 		{
 			if(result != null)
 			{
-				// TODO: check for CAPTCHA: <captcha>
+				// check for CAPTCHA: <captcha>
 				// download the captcha, show a new dialog requiring the user to enter it
 				// then resubmit
 				if(result.contains("CAPTCHA:"))
@@ -107,6 +112,19 @@ public class VoteRedditTask extends AsyncTask<Void, String, String>
 				    	.setIcon(android.R.drawable.ic_dialog_alert)
 				    	.setCancelable(true)
 				        .setPositiveButton("OK", null);
+				    
+				    if(result.equals(_context.getString(R.string.error_YouMustBeLoggedInToVote)))
+				    {
+				    	builder.setNegativeButton("Login", new OnClickListener()
+						{
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+								FlurryAgent.onEvent("radio reddit - Vote Error Dialog - Login");
+								_context.startActivity(new Intent(_context, Login.class));
+							}
+						});
+				    }
 				    
 				    final AlertDialog alert = builder.create();
 				    alert.show();
