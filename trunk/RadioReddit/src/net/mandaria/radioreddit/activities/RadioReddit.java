@@ -902,7 +902,7 @@ public class RadioReddit extends Activity
 			}
 			else
 			{
-				if(player == null)//if(player != null && !player.isPlaying() && !player.isPreparing())
+				if(player == null || (player != null && !player.isPlaying() && !player.isPreparing()))//if(player != null && !player.isPlaying() && !player.isPreparing())
 				{
 					progress_LoadingSong.setVisibility(View.GONE);
 				}
