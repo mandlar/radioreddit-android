@@ -1,5 +1,6 @@
 package net.mandaria.radioreddit.activities;
 
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.flurry.android.FlurryAgent;
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.objects.RedditAccount;
@@ -8,7 +9,7 @@ import android.os.Bundle;
 import android.preference.*;
 import android.content.Context;
 
-public class Settings extends PreferenceActivity
+public class Settings extends SherlockPreferenceActivity
 {
 
 	private int sdkVersion = 0;

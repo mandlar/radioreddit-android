@@ -23,6 +23,8 @@ package net.mandaria.radioreddit.activities;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.commonsware.cwac.merge.MergeAdapter;
 import com.flurry.android.FlurryAgent;
 
@@ -36,7 +38,6 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -44,10 +45,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class SelectStation extends Activity
+public class SelectStation extends SherlockActivity
 {
-	private int sdkVersion = 0;
-
 	@Override
 	public void onStart()
 	{
@@ -67,29 +66,13 @@ public class SelectStation extends Activity
 	{
 		this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
-		try
-		{
-			sdkVersion = Integer.parseInt(Build.VERSION.SDK);
-		}
-		catch(NumberFormatException e)
-		{
-
-		}
-
-		// Disable title on phones, enable action bar on tablets
-		if(sdkVersion < 11)
-			requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.selectstation);
 
 		RadioRedditApplication application = (RadioRedditApplication) getApplication();
 
-		if(sdkVersion >= 11)
-		{
-			if(application.CurrentStream != null)
-				getActionBar().setTitle(getString(R.string.currentStation)+ ": " + application.CurrentStream.Name);
-		}
+		if(application.CurrentStream != null)
+			getSupportActionBar().setTitle(getString(R.string.currentStation)+ ": " + application.CurrentStream.Name);
 
 		ListView list_Stations = (ListView) findViewById(R.id.list_Stations);
 		CustomRadioStreamsAdapter adapter_music = new CustomRadioStreamsAdapter(this, R.layout.radio_stream_item, RadioStreams.getMusicStreams(application.RadioStreams));

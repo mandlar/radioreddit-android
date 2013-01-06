@@ -4,24 +4,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-    <!-- Header -->
-    <LinearLayout
-    	android:id="@+id/div_header"
-    	style="@style/Header_Body"
-    	>
-    	<LinearLayout
-    		android:id="@+id/div_station"
-    		style="@style/Header_ChooseStationBody"
-    		>
-	    	<TextView
-	    		android:id="@+id/lbl_station"
-	    		style="@style/Header_ChooseStationLabel"
-	    		/>
-	    	<ImageView
-				style="@style/Header_ChooseStationDownArrow"
-				/>
-    	</LinearLayout>
-    </LinearLayout>
     <!-- Border -->
     <LinearLayout
     	style="@style/Header_Border"

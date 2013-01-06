@@ -20,6 +20,8 @@
 
 package net.mandaria.radioreddit.activities;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.flurry.android.FlurryAgent;
 
 import net.mandaria.radioreddit.R;
@@ -30,14 +32,11 @@ import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
-import android.view.MenuItem;
 import android.view.Window;
 import android.widget.TextView;
 
-public class ViewEpisodeInformation extends Activity
+public class ViewEpisodeInformation extends SherlockActivity
 {
-	private int sdkVersion = 0;
-
 	TextView lbl_ShowTitle;
 	TextView lbl_EpisodeTitle;
 	TextView lbl_ShowHosts;
@@ -62,19 +61,6 @@ public class ViewEpisodeInformation extends Activity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		try
-		{
-			sdkVersion = Integer.parseInt(Build.VERSION.SDK);
-		}
-		catch(NumberFormatException e)
-		{
-
-		}
-
-		// Disable title on phones, enable action bar on tablets
-		if(sdkVersion < 11)
-			requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.viewepisodeinformation);
 	}
@@ -94,11 +80,8 @@ public class ViewEpisodeInformation extends Activity
 
 		RadioRedditApplication application = (RadioRedditApplication) getApplication();
 
-		if(sdkVersion >= 11)
-		{
-			if(application.CurrentStream != null)
-				getActionBar().setTitle(getString(R.string.current_station) + ": " + application.CurrentStream.Name);
-		}
+		if(application.CurrentStream != null)
+			getSupportActionBar().setTitle(getString(R.string.current_station) + ": " + application.CurrentStream.Name);
 
 		if(application.CurrentEpisode != null)
 		{
