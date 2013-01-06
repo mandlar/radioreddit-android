@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!--  Email -->
+	<string name="email_address">support@mandaria.net</string>
+
+    <string name="main_stream_url">http://texas.radioreddit.com:8000</string>
+    <string name="electronic_stream_url">http://texas.radioreddit.com:8010</string>
+    <string name="rock_stream_url">http://texas.radioreddit.com:8020</string>
+    <string name="hip_hop_and_rap_stream_url">http://texas.radioreddit.com:8040</string>    
+    
+    <!-- Dummy strings -->
+	<string name="dummy_song_title">Happy Birthday</string>
+	<string name="dummy_song_artist">by Galaxy Danger Danger (cocainezombie)</string>
+	<string name="dummy_song_playlist">playlist: One Ad</string>
+
+</resources>
