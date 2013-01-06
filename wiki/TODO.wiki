@@ -1,8 +1,11 @@
 #summary Todo list
 
 == Beta ==
-
-  * SherlockActionBar for older devices
+  * Top charts
+  * Previewing songs (bookmarked or top charts)
+  * Recently played
+  * Bookmarks
+  * Download song (if available)
   * Link to reddit comments for current submitted song/episode
   * Use Android 3.0 fragments
   * Tablet interface
@@ -14,15 +17,11 @@
   * Notification of when "Buffering..."
   * Attempt to reconnect X times when completely stopped (usually because of loss of signal).
   * Headset controls support (play/stop? next/prev switch streams?)
-  * Top charts
-  * Bookmarks
-  * Previewing songs (bookmarked or top charts)
-  * Download song (if available)
-  * Recently played
   * iTunes link (Amazon???)
   * Album art?
   * Widget?
   * Android 4.0: add playback controls to notification
+  * (DONE) SherlockActionBar for older devices
   * (DONE) Darken and disable vote buttons when song/episode information is not yet available (and therefore cannot vote yet)
   * (DONE) Show who you are logged in as (maybe in Settings?) --- Show reddit username beside of "Logout" in menu when logged in
   * (DONE) If not logged in, dialog should give option to go to Login activity
