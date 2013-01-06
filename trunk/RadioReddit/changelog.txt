@@ -4,6 +4,12 @@
 
 Change log:
 
+* 0.3 - TBA
+- Bump min API level to 7 (Android 2.1)
+- Bump build and target API to 15 (Android 4.2)
+X- Add ActionBarSherlock (action bar support for 2.3 and below devices)
+
+
 * 0.2 - January 5th, 2013
 - Removed GPS permissions (not intentionally added to begin with)
 - Notification now shows talk show information
