@@ -24,6 +24,10 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.flurry.android.FlurryAgent;
 
 import net.mandaria.radioreddit.R;
@@ -56,9 +60,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -69,9 +70,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RadioReddit extends Activity
+public class RadioReddit extends SherlockActivity
 {
-	TextView lbl_station;
 	TextView lbl_SongVote;
 	TextView lbl_SongTitle;
 	TextView lbl_SongArtist;
@@ -79,8 +79,6 @@ public class RadioReddit extends Activity
 	ImageView btn_SongInfo;
 	TextView lbl_Buffering;
 	TextView lbl_Connecting;
-	LinearLayout div_header;
-	LinearLayout div_station;
 
 	ProgressBar progress_LoadingSong;
 	ImageView img_Logo;
@@ -91,7 +89,6 @@ public class RadioReddit extends Activity
 	StreamProxy proxy;
 
 	private String LOG_TAG = "RadioReddit";
-	private int sdkVersion = 0;
 
 	private Handler mHandler = new Handler();
 	private long mLastStreamsInformationUpdateMillis = 0;
@@ -125,37 +122,8 @@ public class RadioReddit extends Activity
 
 		new GetRadioStreamsTask(application, RadioReddit.this, Locale.getDefault()).execute();
 
-		try
-		{
-			sdkVersion = Integer.parseInt(Build.VERSION.SDK);
-		}
-		catch(NumberFormatException e)
-		{
-
-		}
-
-		// Disable title on phones, enable action bar on tablets
-		if(sdkVersion < 11)
-			requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
-		div_header = (LinearLayout) findViewById(R.id.div_header);
-		if(sdkVersion >= 11)
-		{
-			div_header.setVisibility(View.GONE);
-		}
-
-		div_station = (LinearLayout) findViewById(R.id.div_station);
-		div_station.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				ChooseStation();
-			}
-		});
 
 		lbl_SongVote = (TextView) findViewById(R.id.lbl_SongVote);
 		lbl_SongTitle = (TextView) findViewById(R.id.lbl_SongTitle);
@@ -444,13 +412,10 @@ public class RadioReddit extends Activity
 		else
 			viewEpisodeInfo.setVisible(false);
 
-		if(sdkVersion >= 11)
-		{
-			// TODO: maybe check if there is enough room to write the full text "Current station: main"
-			//getResources().getString(R.string.currentStation) + ": " +
-			if(application.CurrentStream != null)
-				getActionBar().setTitle( application.CurrentStream.Name);
-		}
+		// TODO: maybe check if there is enough room to write the full text "Current station: main"
+		//getResources().getString(R.string.currentStation) + ": " +
+		if(application.CurrentStream != null)
+			getSupportActionBar().setTitle( application.CurrentStream.Name);
 
 		return true;
 	}
@@ -459,7 +424,7 @@ public class RadioReddit extends Activity
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		super.onCreateOptionsMenu(menu);
-		MenuInflater inflater = getMenuInflater();
+		MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.menu, menu);
 		FlurryAgent.onEvent("radio reddit - Menu Button");
 		return true;
@@ -623,12 +588,6 @@ public class RadioReddit extends Activity
 		{
 			attachToPlaybackService();
 		}
-
-		RadioRedditApplication application = (RadioRedditApplication) getApplication();
-		lbl_station = (TextView) findViewById(R.id.lbl_station);
-
-		if(application.CurrentStream != null)
-			lbl_station.setText(application.CurrentStream.Name);
 
 		startUpdateTimer();
 
@@ -834,8 +793,6 @@ public class RadioReddit extends Activity
 			FlurryAgent.onEvent("radio reddit - Play Stream", params);
 			listen(application.CurrentStream.Relay);
 
-			lbl_station.setText(application.CurrentStream.Name);
-
 			hideSongInformation();
 
 			// show progress bar while waiting to load song information
@@ -869,8 +826,6 @@ public class RadioReddit extends Activity
 				if(application.CurrentStream == null && application.RadioStreams != null && application.RadioStreams.size() > 0)
 				{
 					application.CurrentStream = RadioStreams.getMainStream(application.RadioStreams);
-					
-					lbl_station.setText(application.CurrentStream.Name);
 				}	
 				
 				isStreamCacheLoaded = true;
@@ -888,7 +843,6 @@ public class RadioReddit extends Activity
 			{		
 				progress_LoadingSong.setVisibility(View.VISIBLE);
 				lbl_Connecting.setVisibility(View.VISIBLE);
-				div_station.setVisibility(View.GONE);
 				btn_play.setVisibility(View.GONE);
 				btn_upvote.setVisibility(View.GONE);
 				btn_downvote.setVisibility(View.GONE);
@@ -907,15 +861,13 @@ public class RadioReddit extends Activity
 					progress_LoadingSong.setVisibility(View.GONE);
 				}
 				lbl_Connecting.setVisibility(View.GONE);
-				div_station.setVisibility(View.VISIBLE);
 				btn_play.setVisibility(View.VISIBLE);
 				btn_upvote.setVisibility(View.VISIBLE);
 				btn_downvote.setVisibility(View.VISIBLE);
 				img_Logo.setImageResource(R.drawable.logo);
 			}
 
-			if(sdkVersion >= 11)
-				invalidateOptionsMenu(); // force update of menu to enable "Choose Station" when connected (mainly for Android 3.0)
+			invalidateOptionsMenu(); // force update of menu to enable "Choose Station" when connected
 
 			if(player != null && player.isPlaying())
 			{

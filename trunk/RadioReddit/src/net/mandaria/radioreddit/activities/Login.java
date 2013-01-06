@@ -19,30 +19,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockActivity;
 import com.flurry.android.FlurryAgent;
 
-public class Login extends Activity
+public class Login extends SherlockActivity
 {
-	
-	private int sdkVersion = 0;
 	Button btn_login;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
-	{
-		try
-		{
-			sdkVersion = Integer.parseInt(Build.VERSION.SDK);
-		}
-		catch(NumberFormatException e)
-		{
-
-		}
-
-		// Disable title on phones, enable action bar on tablets
-		if(sdkVersion < 11)
-			requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
+	{	
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 		
