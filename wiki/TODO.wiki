@@ -17,7 +17,11 @@
   * Notification of when "Buffering..."
   * Attempt to reconnect X times when completely stopped (usually because of loss of signal).
   * Headset controls support (play/stop? next/prev switch streams?)
-  * Lockscreen controls support (look here for integration: http://stuff.mit.edu/afs/sipb/project/android/docs/resources/samples/RandomMusicPlayer/src/com/example/android/musicplayer/index.html )
+  * Lockscreen controls support 
+    * http://stuff.mit.edu/afs/sipb/project/android/docs/resources/samples/RandomMusicPlayer/src/com/example/android/musicplayer/index.html
+    * http://stackoverflow.com/questions/12168046/remote-control-client-for-android
+    * http://developer.android.com/reference/android/media/RemoteControlClient.html
+    * 
   * iTunes link (Amazon???)
   * Album art?
   * Widget?
