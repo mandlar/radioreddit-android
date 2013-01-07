@@ -17,6 +17,7 @@
   * Notification of when "Buffering..."
   * Attempt to reconnect X times when completely stopped (usually because of loss of signal).
   * Headset controls support (play/stop? next/prev switch streams?)
+  * Lockscreen controls support
   * iTunes link (Amazon???)
   * Album art?
   * Widget?
