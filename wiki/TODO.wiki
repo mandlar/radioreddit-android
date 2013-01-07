@@ -21,7 +21,7 @@
     * http://stuff.mit.edu/afs/sipb/project/android/docs/resources/samples/RandomMusicPlayer/src/com/example/android/musicplayer/index.html
     * http://stackoverflow.com/questions/12168046/remote-control-client-for-android
     * http://developer.android.com/reference/android/media/RemoteControlClient.html
-    * 
+    * Look at sample SDK project: android-sdk-windows\samples\android-13\RandomMusicPlayer\
   * iTunes link (Amazon???)
   * Album art?
   * Widget?
