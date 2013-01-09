@@ -9,6 +9,7 @@
 	<string name="email_feedback">Email Feedback</string>
 	<string name="viewEpisodeInfo">View Episode Info</string>
 	<string name="settings">Settings</string>
+	<string name="charts">Charts</string>
 	<!-- Logout -->
 	<string name="youHaveBeenLoggedOut">You have been logged out</string>
 	<!-- Login -->
