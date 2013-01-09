@@ -23,6 +23,11 @@
 		android:showAsAction="always|withText"
 		/>
 	<item
+		android:id="@+id/charts"
+		android:title="@string/charts"
+		android:showAsAction="never"
+		/>
+	<item
 		android:id="@+id/settings"
 		android:title="@string/settings"
 		android:showAsAction="never"
