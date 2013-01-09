@@ -23,6 +23,7 @@ package net.mandaria.radioreddit.apis;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 import org.json.JSONArray;
@@ -529,6 +530,100 @@ public class RadioRedditAPI
 		}		
 
 		return errorMessage;
+	}
+	
+	public List<RadioSong> GetTopChartsByType(Context context, RadioRedditApplication application, String type)
+	{
+		List<RadioSong> radiosongs = new ArrayList<RadioSong>();
+		
+		try
+		{
+			String chart_url = "";
+			
+			if(type.equals("all"))
+				chart_url = context.getString(R.string.radio_reddit_charts_all);
+			else if(type.equals("month"))
+				chart_url = context.getString(R.string.radio_reddit_charts_month);
+			else if(type.equals("week"))
+				chart_url = context.getString(R.string.radio_reddit_charts_week);
+			else if(type.equals("day"))
+				chart_url = context.getString(R.string.radio_reddit_charts_day);
+
+			// TODO: might could merge this code with GetCurrentSongInformation
+			
+			String outputStatus = "";
+			boolean errorGettingStatus = false;
+
+			try
+			{
+				outputStatus = HTTPUtil.get(context, chart_url);
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				errorGettingStatus = true;
+				// For now, not used. It is acceptable to error out and not alert the user
+				// radiosong.ErrorMessage = context.getString(R.string.error_RadioRedditServerIsDownNotification);
+			}
+
+			if(!errorGettingStatus && outputStatus.length() > 0)
+			{
+				JSONTokener status_tokener = new JSONTokener(outputStatus);
+				JSONObject status_json = new JSONObject(status_tokener);
+
+				JSONObject songs = status_json.getJSONObject("songs");
+				JSONArray songs_array = songs.getJSONArray("song");
+
+				// get the first song in the array
+				for(int i = 0; i < songs_array.length(); i++)
+				{
+					RadioSong radiosong = new RadioSong();
+					radiosong.ErrorMessage = "";
+					
+					JSONObject song = songs_array.getJSONObject(i);
+					radiosong.ID = song.getInt("id");
+					radiosong.Title = song.getString("title");
+					radiosong.Artist = song.getString("artist");
+					radiosong.Redditor = song.getString("redditor");
+					radiosong.Genre = song.getString("genre");
+					radiosong.CumulativeScore = song.getString("score");
+					
+					if(radiosong.CumulativeScore.equals("{}"))
+						radiosong.CumulativeScore = null;	
+					
+					radiosong.Reddit_title = song.getString("reddit_title");
+					radiosong.Reddit_url = song.getString("reddit_url");
+					if(song.has("preview_url"))
+						radiosong.Preview_url = song.getString("preview_url");
+					if(song.has("download_url"))
+						radiosong.Download_url = song.getString("download_url");
+					if(song.has("bandcamp_link"))
+						radiosong.Bandcamp_link = song.getString("bandcamp_link");
+					if(song.has("bandcamp_art"))
+						radiosong.Bandcamp_art = song.getString("bandcamp_art");
+					if(song.has("itunes_link"))
+						radiosong.Itunes_link = song.getString("itunes_link");
+					if(song.has("itunes_art"))
+						radiosong.Itunes_art = song.getString("itunes_art");
+					if(song.has("itunes_price"))
+						radiosong.Itunes_price = song.getString("itunes_price");
+				
+					radiosongs.add(radiosong);
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			// We fail to get the current song information...
+			CustomExceptionHandler ceh = new CustomExceptionHandler(context);
+			ceh.sendEmail(ex);
+
+			ex.printStackTrace();
+			// TODO: return error message?? Might need to wrap List<RadioSong> in an object that has an ErrorMessage data member
+			//radiosong.ErrorMessage = ex.toString();
+			//return radiosong;
+		}
+		return radiosongs;
 	}
 	
 }
