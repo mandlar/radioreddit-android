@@ -1,4 +1,7 @@
 <resources>
+    <style name="ThemeSelector" parent="Theme.Sherlock">
+        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
+	</style>
     <!-- !!! Theme for buttons -->
 	<style name="ButtonText">
 	    <item name="android:layout_width">fill_parent</item>
@@ -206,5 +209,12 @@
     	<item name="android:textColor">@color/White</item>
     	<item name="android:layout_width">wrap_content</item>
     	<item name="android:layout_height">wrap_content</item>
+    </style>
+    <!-- !!! Tab style -->
+	<style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
+        <item name="android:textColor">#FFFFFFFF</item>
+    </style>
+
+    <style name="CustomTabPageIndicator.Text" parent="android:TextAppearance.Medium">
     </style>
 </resources>
