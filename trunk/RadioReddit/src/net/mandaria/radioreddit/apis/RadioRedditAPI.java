@@ -532,7 +532,7 @@ public class RadioRedditAPI
 		return errorMessage;
 	}
 	
-	public List<RadioSong> GetTopChartsByType(Context context, RadioRedditApplication application, String type)
+	public static List<RadioSong> GetTopChartsByType(Context context, RadioRedditApplication application, String type)
 	{
 		List<RadioSong> radiosongs = new ArrayList<RadioSong>();
 		
@@ -581,15 +581,15 @@ public class RadioRedditAPI
 					radiosong.ErrorMessage = "";
 					
 					JSONObject song = songs_array.getJSONObject(i);
-					radiosong.ID = song.getInt("id");
+					//radiosong.ID = song.getInt("id");
 					radiosong.Title = song.getString("title");
 					radiosong.Artist = song.getString("artist");
 					radiosong.Redditor = song.getString("redditor");
 					radiosong.Genre = song.getString("genre");
-					radiosong.CumulativeScore = song.getString("score");
+					//radiosong.CumulativeScore = song.getString("score");
 					
-					if(radiosong.CumulativeScore.equals("{}"))
-						radiosong.CumulativeScore = null;	
+					//if(radiosong.CumulativeScore.equals("{}"))
+					//	radiosong.CumulativeScore = null;	
 					
 					radiosong.Reddit_title = song.getString("reddit_title");
 					radiosong.Reddit_url = song.getString("reddit_url");

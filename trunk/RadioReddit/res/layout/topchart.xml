@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+   <LinearLayout android:id="@+id/div_PleaseWait_TopChart"
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:gravity="center"
+    	>
+		<ProgressBar
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10dp"
+			/>
+    	<TextView 
+		     android:layout_width="wrap_content"
+		     android:layout_height="wrap_content"
+		     android:text="Please Wait"
+		     />
+	</LinearLayout>
+	<LinearLayout android:id="@+id/div_Error_TopChart"
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:gravity="center"
+    	android:visibility="gone"
+    	>
+    	<TextView 
+		     android:layout_width="wrap_content"
+		     android:layout_height="wrap_content"
+		     android:text="There was a problem connecting to raddioreddit.com"
+		     android:layout_marginBottom="20dp"
+		     />
+    	<Button android:id="@+id/btn_TryAgain_TopChart"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:text="Try Again"
+    	    />
+	</LinearLayout>
+	<LinearLayout  android:id="@+id/div_TopChart"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical"
+	    android:visibility="gone"
+	    >
+		<LinearLayout android:orientation="vertical"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="fill_parent"
+	    	android:layout_weight="1"
+	    	>
+			<ExpandableListView android:id="@+id/list_TopChart"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:fastScrollEnabled="true"
+			/>
+			<TextView android:id="@+id/lbl_NoTopCharts"
+			     android:layout_width="fill_parent"
+			     android:layout_height="fill_parent"
+			     android:gravity="center"
+			     android:text="No Top Charts Found"
+			     android:visibility="invisible"/>
+		</LinearLayout>
+	</LinearLayout>
+</LinearLayout>
+    
