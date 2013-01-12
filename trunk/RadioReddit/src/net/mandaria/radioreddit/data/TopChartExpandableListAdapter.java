@@ -99,6 +99,14 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 			LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = vi.inflate(R.layout.topchart_parent, null);
 		}
+		
+		RadioSong song = songs.get(groupPosition);
+		
+		TextView lbl_SongName = (TextView) convertView.findViewById(R.id.lbl_SongName);
+		lbl_SongName.setText(song.Title);
+		
+		TextView lbl_SongArtist = (TextView) convertView.findViewById(R.id.lbl_SongArtist);
+		lbl_SongArtist.setText(song.Artist + " (" + song.Redditor + ")");
 
 //		RadioStream stream = streams.get(position);
 //

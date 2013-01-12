@@ -82,7 +82,7 @@ public class GetTopChartTask extends AsyncTask<Void, List<RadioSong>, List<Radio
 		Activity activity = (Activity)_context;
 		if(result != null)// && _errorMessage.equals("")) // TODO: do we need errormessage?
 		{					
-			Toast.makeText(_context, "Received " + _type + " list data!", Toast.LENGTH_LONG).show();
+			//Toast.makeText(_context, "Received " + _type + " list data!", Toast.LENGTH_LONG).show();
 			
 			drawResultsToActivity(result, activity, _fragmentView);
 		}
@@ -125,6 +125,8 @@ public class GetTopChartTask extends AsyncTask<Void, List<RadioSong>, List<Radio
 		
 			TopChartExpandableListAdapter adapter = new TopChartExpandableListAdapter(activity, result);
 			list_TopChart.setAdapter(adapter);
+			
+			list_TopChart.setGroupIndicator(null);
 	        
 	        TextView lbl_NoTopCharts = (TextView)fragmentView.findViewById(R.id.lbl_NoTopCharts);
 	       
