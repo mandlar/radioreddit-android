@@ -44,6 +44,8 @@ public class TopCharts extends SherlockFragmentActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.topcharts);   
         
+        getSupportActionBar().setTitle(getString(R.string.charts));
+        
         FragmentPagerAdapter adapter = new TabsAdapter(getSupportFragmentManager());
 
         ViewPager pager = (ViewPager)findViewById(R.id.pager);
