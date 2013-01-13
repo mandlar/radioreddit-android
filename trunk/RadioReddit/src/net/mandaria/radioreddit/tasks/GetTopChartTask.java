@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -121,7 +122,7 @@ public class GetTopChartTask extends AsyncTask<Void, List<RadioSong>, List<Radio
 			LinearLayout div_TopChart = (LinearLayout)fragmentView.findViewById(R.id.div_TopChart);
 			div_TopChart.setVisibility(View.VISIBLE);
 		
-			ExpandableListView list_TopChart = (ExpandableListView)fragmentView.findViewById(R.id.list_TopChart);
+			final ExpandableListView list_TopChart = (ExpandableListView)fragmentView.findViewById(R.id.list_TopChart);
 		
 			TopChartExpandableListAdapter adapter = new TopChartExpandableListAdapter(activity, result);
 			list_TopChart.setAdapter(adapter);
@@ -140,6 +141,23 @@ public class GetTopChartTask extends AsyncTask<Void, List<RadioSong>, List<Radio
 	        {
 	        	lbl_NoTopCharts.setVisibility(View.INVISIBLE);
 	        }			
+	        
+	        list_TopChart.setOnGroupExpandListener(new OnGroupExpandListener()
+			{
+				private int lastGroupExpand = -1;
+				
+				@Override
+				public void onGroupExpand(int groupPosition)
+				{
+					if(lastGroupExpand != -1 && lastGroupExpand != groupPosition)
+						list_TopChart.collapseGroup(lastGroupExpand);
+					
+					lastGroupExpand = groupPosition;
+						
+					// TODO Auto-generated method stub
+					
+				}
+			});
 		}
 	}
 }
