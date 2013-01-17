@@ -49,6 +49,7 @@ public class TopCharts extends SherlockFragmentActivity
         FragmentPagerAdapter adapter = new TabsAdapter(getSupportFragmentManager());
 
         ViewPager pager = (ViewPager)findViewById(R.id.pager);
+        pager.setOffscreenPageLimit(3);
         pager.setAdapter(adapter);
 
         TabPageIndicator indicator = (TabPageIndicator)findViewById(R.id.indicator);
