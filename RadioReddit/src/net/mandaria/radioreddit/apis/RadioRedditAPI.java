@@ -532,6 +532,84 @@ public class RadioRedditAPI
 		return errorMessage;
 	}
 	
+	public static String VoteOnSong(Context context, RadioRedditApplication application, RadioSong song, boolean liked, String iden, String captcha)
+	{
+		String errorMessage = "";
+		RedditAccount account = Settings.getRedditAccount(context);
+		
+		if(account == null)
+		{
+			errorMessage = context.getString(R.string.error_YouMustBeLoggedInToVote);
+			return errorMessage;
+		}
+		
+		int voteDirection = 0; // TODO: handle case to rescind vote
+		if(liked == true)
+			voteDirection = 1;
+		else
+			voteDirection = -1;
+		
+//		1. Get most up to date song information (in case cached info is old)
+		
+		// TODO: need to get updated information specific song
+		// e.g. if this is a recently played song it was not submitted
+		// then we must check and see if someone has submitted it since we have tried to vote on it
+		// for top of charts, this isn't necessary as everything has already been submitted. Will re-visit this later
+		// Actually: we need to request an API to search for a song to get updated info on it
+		// TODO: create a GetVoteInfo function that gets reddit vote info on song to determine if already submitted or not
+		// pull GetVoteInfo out of GetCurrentSongInformation
+		//song = RadioRedditAPI.GetCurrentSongInformation(context, application);
+		
+		if(song == null)
+			return context.getString(R.string.error_ThereWasAProblemVotingPleaseTryAgain);
+		
+		if(!song.ErrorMessage.equals(""))
+			return song.ErrorMessage;
+
+
+
+		
+//		2a. If it exist:
+//		a. Get the FULLNAME from reddit and vote on it: http://www.reddit.com/api/vote
+		
+//		2b. If it exists, but is archived
+//		a. Submit as a new post to be voted on? Or simply say that the song has been archived and cannot be voted on?
+//		b. BUG: apparently the API allows votes on archived posts. This needs to be discussed with reddit admins or similar
+	
+	// TODO: return to user that it must be submitted?  e.g. they must accept to submit, so pull the submit into its own function?
+//	3. If it doesn't exist:
+//		a. Try to submit the post http://www.reddit.com/api/submit:
+//		b. If it fails, display error (or CAPTCHA) and try again
+		
+		//String title = "Song Title by Song Artist (redditor)";
+		
+		if(!song.Name.equals(""))
+		{
+			errorMessage = RedditAPI.Vote(context, account, voteDirection, song.Name);
+		}
+		else // not yet submitted
+		{	
+			String title = song.Title + " by " + song.Artist + " (" + song.Redditor + ")"; // future note: do not pull "by" into strings.xml, this is used for submission on r/radioreddit
+			String url = song.Reddit_url;
+			String subreddit = "radioreddit";
+			
+			errorMessage = RedditAPI.SubmitLink(context, account, title, url, subreddit, iden, captcha);
+			// TODO: if submiting while voting down, vote down after it is submitted?
+			//return context.getString(R.string.error_ThereWasAProblemPleaseTryAgain);
+		}
+		
+		// 4. After voting/submiting, get the most up to date version of the episode/song again
+		// TODO: Only do this if the song is currently playing?
+//		song = RadioRedditAPI.GetCurrentSongInformation(context, application);
+//		
+//		if(song != null && song.ErrorMessage.equals(""))
+//		{
+//			application.CurrentSong = song;
+//		}
+
+		return errorMessage;
+	}
+	
 	public static List<RadioSong> GetTopChartsByType(Context context, RadioRedditApplication application, String type)
 	{
 		List<RadioSong> radiosongs = new ArrayList<RadioSong>();
