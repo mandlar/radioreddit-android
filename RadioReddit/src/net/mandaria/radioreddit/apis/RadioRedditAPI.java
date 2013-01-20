@@ -607,6 +607,63 @@ public class RadioRedditAPI
 						radiosong.Itunes_art = song.getString("itunes_art");
 					if(song.has("itunes_price"))
 						radiosong.Itunes_price = song.getString("itunes_price");
+					
+					// get vote score 
+					String reddit_info_url = context.getString(R.string.reddit_link_by) + URLEncoder.encode(radiosong.Reddit_url);
+
+					String outputRedditInfo = "";
+					boolean errorGettingRedditInfo = false;
+
+					try
+					{
+						outputRedditInfo = HTTPUtil.get(context, reddit_info_url);
+					}
+					catch(Exception ex)
+					{
+						ex.printStackTrace();
+						errorGettingRedditInfo = true;
+						// For now, not used. It is acceptable to error out and not alert the user
+						// radiosong.ErrorMessage = "Unable to connect to reddit";//context.getString(R.string.error_RadioRedditServerIsDownNotification);
+					}
+
+					if(!errorGettingRedditInfo && outputRedditInfo.length() > 0)
+					{
+						// Log.e("radio_reddit_test", "Length: " + outputRedditInfo.length());
+						// Log.e("radio_reddit_test", "Value: " + outputRedditInfo); // TODO: sometimes the value contains "error: 404", need to check for that. (We can probably safely ignore this for now)
+						JSONTokener reddit_info_tokener = new JSONTokener(outputRedditInfo);
+						JSONObject reddit_info_json = new JSONObject(reddit_info_tokener);
+
+						JSONObject data = reddit_info_json.getJSONObject("data");
+
+						// default value of score
+						String score = context.getString(R.string.vote_to_submit_song);
+						String likes = "null";
+						String name = "";
+
+						JSONArray children_array = data.getJSONArray("children");
+
+						// Song hasn't been submitted yet
+						if(children_array.length() > 0)
+						{
+							JSONObject children = children_array.getJSONObject(0);
+
+							JSONObject children_data = children.getJSONObject("data");
+							score = children_data.getString("score");
+							
+							likes = children_data.getString("likes");
+							name = children_data.getString("name");
+						}
+
+						radiosong.Score = score;
+						radiosong.Likes = likes;
+						radiosong.Name = name;
+					}
+					else
+					{
+						radiosong.Score = "?";
+						radiosong.Likes = "null";
+						radiosong.Name = "";
+					}
 				
 					radiosongs.add(radiosong);
 				}
