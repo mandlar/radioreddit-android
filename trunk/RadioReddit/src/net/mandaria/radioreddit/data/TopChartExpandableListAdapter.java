@@ -8,6 +8,7 @@ import net.mandaria.radioreddit.objects.RadioSong;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
@@ -47,7 +48,7 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 
 		// A ViewHolder keeps references to children views to avoid unneccessary calls
 		// to findViewById() on each row.
-		TopChartChildViewHolder holder;
+		final TopChartChildViewHolder holder;
 		// When convertView is not null, we can reuse it directly, there is no need
 		// to reinflate it. We only inflate a new View when the convertView supplied
 		// by ListView is null.
@@ -78,6 +79,30 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 
 		// Bind the data efficiently with the holder.		
 		setUpOrDownVote(song.Likes, holder);
+		
+		holder.btn_upvote.setOnClickListener(new OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				// TODO Vote task
+				setUpOrDownVote("true", holder);
+				
+			}
+		});
+		
+		holder.btn_downvote.setOnClickListener(new OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				// TODO Vote task
+				setUpOrDownVote("false", holder);
+				
+			}
+		});
 		
 		return row;
 
