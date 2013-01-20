@@ -32,6 +32,7 @@ import net.mandaria.radioreddit.activities.Settings;
 import net.mandaria.radioreddit.apis.RadioRedditAPI;
 import net.mandaria.radioreddit.apis.RedditAPI;
 import net.mandaria.radioreddit.objects.RadioEpisode;
+import net.mandaria.radioreddit.objects.RadioSong;
 import net.mandaria.radioreddit.objects.RedditAccount;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -43,7 +44,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-public class VoteRedditTask extends AsyncTask<Void, String, String>
+public class VoteOnSongTask extends AsyncTask<Void, String, String>
 {
 	private static String TAG = "RadioReddit";
 	private Context _context;
@@ -52,30 +53,34 @@ public class VoteRedditTask extends AsyncTask<Void, String, String>
 	private boolean _liked;
 	private String _iden;
 	private String _captcha;
+	private RadioSong _song;
 	//private ProgressDialog _progressDialog;
 
-	public VoteRedditTask(RadioRedditApplication application, Context context, boolean liked, String iden, String captcha)
+	public VoteOnSongTask(RadioRedditApplication application, Context context, RadioSong song, boolean liked, String iden, String captcha)
 	{
 		_context = context;
 		_application = application;
 		_liked = liked;
 		_iden = iden;
 		_captcha = captcha;
+		_song = song;
 		//_progressDialog = ProgressDialog.show(_context, "Voting on currently playing...", "Please wait...", true);
-		if(liked)
-		{
-			if(_application.CurrentSong != null)
-				_application.CurrentSong.Likes = "true";
-			if(_application.CurrentEpisode != null)
-				_application.CurrentEpisode.Likes = "true";
-		}
-		else
-		{
-			if(_application.CurrentSong != null)
-				_application.CurrentSong.Likes = "false";
-			if(_application.CurrentEpisode != null)
-				_application.CurrentEpisode.Likes = "false";
-		}
+		
+		// TODO: might want to review this for if the song is currently playing
+//		if(liked)
+//		{
+//			if(_application.CurrentSong != null)
+//				_application.CurrentSong.Likes = "true";
+//			if(_application.CurrentEpisode != null)
+//				_application.CurrentEpisode.Likes = "true";
+//		}
+//		else
+//		{
+//			if(_application.CurrentSong != null)
+//				_application.CurrentSong.Likes = "false";
+//			if(_application.CurrentEpisode != null)
+//				_application.CurrentEpisode.Likes = "false";
+//		}
 	}
 
 	@Override
@@ -84,7 +89,7 @@ public class VoteRedditTask extends AsyncTask<Void, String, String>
 		String errorMessage = "";
 		try
 		{
-			errorMessage = RadioRedditAPI.VoteOnCurrentlyPlaying(_context, _application, _liked, _iden, _captcha);
+			errorMessage = RadioRedditAPI.VoteOnSong(_context, _application, _song, _liked, _iden, _captcha);
 		}
 		catch(Exception e)
 		{
@@ -120,7 +125,7 @@ public class VoteRedditTask extends AsyncTask<Void, String, String>
 				{
 					String captcha = result.substring(8);
 					
-					new GetCaptchaTask(_application, _context, "", null, captcha, _liked).execute();
+					new GetCaptchaTask(_application, _context, "music", _song, captcha, _liked).execute();
 				}
 				else
 				{
@@ -148,10 +153,11 @@ public class VoteRedditTask extends AsyncTask<Void, String, String>
 				    alert.show();
 				}
 				
-			    if(_application.CurrentSong != null)
-					_application.CurrentSong.Likes = "null";
-				if(_application.CurrentEpisode != null)
-					_application.CurrentEpisode.Likes = "null";
+				// TODO: might want to review this for if the song is currently playing
+//			    if(_application.CurrentSong != null)
+//					_application.CurrentSong.Likes = "null";
+//				if(_application.CurrentEpisode != null)
+//					_application.CurrentEpisode.Likes = "null";
 			    
 				Log.e(TAG, "FAIL: Post execute: " + result);
 			}

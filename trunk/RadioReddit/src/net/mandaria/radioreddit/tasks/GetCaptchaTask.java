@@ -15,6 +15,7 @@ import net.mandaria.radioreddit.activities.Settings;
 import net.mandaria.radioreddit.apis.RadioRedditAPI;
 import net.mandaria.radioreddit.apis.RedditAPI;
 import net.mandaria.radioreddit.objects.RadioEpisode;
+import net.mandaria.radioreddit.objects.RadioSong;
 import net.mandaria.radioreddit.objects.RedditAccount;
 import net.mandaria.radioreddit.utils.HTTPUtil;
 import android.app.Activity;
@@ -45,13 +46,17 @@ public class GetCaptchaTask extends AsyncTask<Void, BitmapDrawable, BitmapDrawab
 	private Exception ex;
 	private String _captcha;
 	private boolean _liked;
+	private String _type;
+	private RadioSong _song;
 
-	public GetCaptchaTask(RadioRedditApplication application, Context context, String captcha, boolean liked)
+	public GetCaptchaTask(RadioRedditApplication application, Context context, String type, RadioSong song, String captcha, boolean liked)
 	{
 		_context = context;
 		_application = application;
 		_captcha = captcha;
 		_liked = liked;
+		_type = type;
+		_song = song;
 	}
 
 	@Override
@@ -118,7 +123,14 @@ public class GetCaptchaTask extends AsyncTask<Void, BitmapDrawable, BitmapDrawab
 						EditText txt_Captcha = (EditText)layout.findViewById(R.id.txt_Captcha);
 						
 						// attempt to resubmit
-						new VoteRedditTask(_application, _context, _liked, _captcha, txt_Captcha.getText().toString()).execute();
+						if(_type.equals("song"))
+						{
+							new VoteOnSongTask(_application, _context, _song, _liked, _captcha, txt_Captcha.getText().toString()).execute();
+						}
+						else
+						{
+							new VoteRedditTask(_application, _context, _liked, _captcha, txt_Captcha.getText().toString()).execute();
+						}
 						
 					}
 				})
