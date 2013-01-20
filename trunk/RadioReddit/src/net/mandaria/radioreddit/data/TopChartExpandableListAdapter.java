@@ -1,11 +1,9 @@
 package net.mandaria.radioreddit.data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.objects.RadioSong;
-import net.mandaria.radioreddit.objects.RadioStream;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -94,31 +92,42 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent)
 	{
-		if(convertView == null)
+		View row = convertView;
+
+		// A ViewHolder keeps references to children views to avoid unneccessary calls
+		// to findViewById() on each row.
+		TopChartParentViewHolder holder;
+		// When convertView is not null, we can reuse it directly, there is no need
+		// to reinflate it. We only inflate a new View when the convertView supplied
+		// by ListView is null.
+
+		if (row == null) 
 		{
 			LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = vi.inflate(R.layout.topchart_parent, null);
+			row = vi.inflate(R.layout.topchart_parent, parent, false);
+			
+			// Creates a ViewHolder and store references to the two children views
+			// we want to bind data to.
+			holder = new TopChartParentViewHolder();
+			
+			holder.lbl_SongName = (TextView) row.findViewById(R.id.lbl_SongName);
+			holder.lbl_SongArtist = (TextView) row.findViewById(R.id.lbl_SongArtist);
+			row.setTag(holder);
+		} 
+		else 
+		{
+			// Get the ViewHolder back to get fast access to the TextView
+			// and the ImageView.
+			holder = (TopChartParentViewHolder) row.getTag();
 		}
 		
 		RadioSong song = songs.get(groupPosition);
-		
-		TextView lbl_SongName = (TextView) convertView.findViewById(R.id.lbl_SongName);
-		lbl_SongName.setText(song.Title);
-		
-		TextView lbl_SongArtist = (TextView) convertView.findViewById(R.id.lbl_SongArtist);
-		lbl_SongArtist.setText(song.Artist + " (" + song.Redditor + ")");
 
-//		RadioStream stream = streams.get(position);
-//
-//		// Name of stream
-//		TextView lbl_stream_name = (TextView) convertView.findViewById(R.id.lbl_stream_name);
-//		lbl_stream_name.setText(stream.Name);
-//
-//		// URL of stream
-//		TextView lbl_stream_url = (TextView) convertView.findViewById(R.id.lbl_stream_url);
-//		lbl_stream_url.setText(stream.Relay);
+		// Bind the data efficiently with the holder.
+		holder.lbl_SongName.setText(song.Title);
+		holder.lbl_SongArtist.setText(song.Artist + " (" + song.Redditor + ")");
 
-		return convertView;
+		return row;
 	}
 
 	@Override
@@ -133,6 +142,15 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 	{
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	static class TopChartParentViewHolder {
+		TextView lbl_SongName;
+		TextView lbl_SongArtist;
+	}
+	
+	static class TopChartChildViewHolder {
+
 	}
 
 }
