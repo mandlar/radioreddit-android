@@ -3,7 +3,11 @@ package net.mandaria.radioreddit.data;
 import java.util.List;
 
 import net.mandaria.radioreddit.R;
+import net.mandaria.radioreddit.RadioRedditApplication;
+import net.mandaria.radioreddit.activities.RadioReddit;
 import net.mandaria.radioreddit.objects.RadioSong;
+import net.mandaria.radioreddit.tasks.VoteOnSongTask;
+import net.mandaria.radioreddit.tasks.VoteRedditTask;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -19,12 +23,14 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 	private static String TAG = "RadioReddit";
 	Context context;
 	List<RadioSong> songs;
+	RadioRedditApplication application;
 	
-	public TopChartExpandableListAdapter(Context context, List<RadioSong> songs)
+	public TopChartExpandableListAdapter(Context context, RadioRedditApplication application, List<RadioSong> songs)
 	{
 		super();
 		this.context = context;
 		this.songs = songs;
+		this.application = application;
 	}
 	
 	@Override
@@ -75,7 +81,7 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 			holder = (TopChartChildViewHolder) row.getTag();
 		}
 		
-		RadioSong song = songs.get(groupPosition);
+		final RadioSong song = songs.get(groupPosition);
 
 		// Bind the data efficiently with the holder.		
 		setUpOrDownVote(song.Likes, holder);
@@ -87,6 +93,7 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 			public void onClick(View v)
 			{
 				// TODO Vote task
+				new VoteOnSongTask(application, context, song, true, "", "").execute();
 				setUpOrDownVote("true", holder);
 				
 			}
@@ -99,6 +106,7 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 			public void onClick(View v)
 			{
 				// TODO Vote task
+				new VoteOnSongTask(application, context, song, false, "", "").execute();
 				setUpOrDownVote("false", holder);
 				
 			}

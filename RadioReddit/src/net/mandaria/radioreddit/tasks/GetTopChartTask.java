@@ -85,7 +85,7 @@ public class GetTopChartTask extends AsyncTask<Void, List<RadioSong>, List<Radio
 		{					
 			//Toast.makeText(_context, "Received " + _type + " list data!", Toast.LENGTH_LONG).show();
 			
-			drawResultsToActivity(result, activity, _fragmentView);
+			drawResultsToActivity(result, activity, _application, _fragmentView);
 		}
 		else
 		{
@@ -109,7 +109,7 @@ public class GetTopChartTask extends AsyncTask<Void, List<RadioSong>, List<Radio
 
 	}
 	
-	public static void drawResultsToActivity(List<RadioSong> result, Activity activity, View fragmentView)
+	public static void drawResultsToActivity(List<RadioSong> result, Activity activity, RadioRedditApplication application, View fragmentView)
 	{
 		LinearLayout div_PleaseWait_TopChart = (LinearLayout)fragmentView.findViewById(R.id.div_PleaseWait_TopChart);
 		if(div_PleaseWait_TopChart != null)
@@ -124,7 +124,7 @@ public class GetTopChartTask extends AsyncTask<Void, List<RadioSong>, List<Radio
 		
 			final ExpandableListView list_TopChart = (ExpandableListView)fragmentView.findViewById(R.id.list_TopChart);
 		
-			TopChartExpandableListAdapter adapter = new TopChartExpandableListAdapter(activity, result);
+			TopChartExpandableListAdapter adapter = new TopChartExpandableListAdapter(activity, application, result);
 			list_TopChart.setAdapter(adapter);
 			
 			list_TopChart.setGroupIndicator(null);
