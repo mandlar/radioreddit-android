@@ -76,10 +76,9 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 		
 		RadioSong song = songs.get(groupPosition);
 
-		// Bind the data efficiently with the holder.
-		//holder.lbl_SongName.setText(song.Title);
-		//holder.lbl_SongArtist.setText(song.Artist + " (" + song.Redditor + ")");
-
+		// Bind the data efficiently with the holder.		
+		setUpOrDownVote(song.Likes, holder);
+		
 		return row;
 
 	}
@@ -165,6 +164,28 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 	{
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	private void setUpOrDownVote(String vote, TopChartChildViewHolder holder)
+	{
+		if(!vote.equals("null"))
+		{
+			if(vote.equals("true"))
+			{
+				holder.btn_upvote.setBackgroundResource(R.drawable.didupvote_button);
+				holder.btn_downvote.setBackgroundResource(R.drawable.willdownvote_button);
+			}
+			else
+			{
+				holder.btn_upvote.setBackgroundResource(R.drawable.willupvote_button);
+				holder.btn_downvote.setBackgroundResource(R.drawable.diddownvote_button);
+			}
+		}
+		else
+		{
+			holder.btn_upvote.setBackgroundResource(R.drawable.willupvote_button);
+			holder.btn_downvote.setBackgroundResource(R.drawable.willdownvote_button);
+		}
 	}
 	
 	static class TopChartParentViewHolder {
