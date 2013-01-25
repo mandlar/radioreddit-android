@@ -772,8 +772,8 @@ public class RadioRedditAPI
 			ceh.sendEmail(ex);
 	
 			ex.printStackTrace();
-			// TODO: return error message??
-			//radiosong.ErrorMessage = ex.toString();
+			// return error message??
+			radiosong.ErrorMessage = context.getString(R.string.error_GettingVoteInformation);
 			//return radiosong;
 		}
 		

@@ -81,7 +81,6 @@ public class GetVoteScoreTask extends AsyncTask<Void, RadioSong, RadioSong>
 	@Override
 	protected void onPostExecute(RadioSong result)
 	{
-
 		if(result != null && result.ErrorMessage.equals(""))
 		{
 			_songs.set(_groupPosition, result);
