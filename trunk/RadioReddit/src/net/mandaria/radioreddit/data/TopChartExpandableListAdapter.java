@@ -51,7 +51,7 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 	}
 
 	@Override
-	public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent)
+	public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent)
 	{
 		if(task != null)
 			task.cancel(true);
@@ -116,6 +116,8 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 				// TODO Vote task
 				new VoteOnSongTask(application, context, song, true, "", "").execute();
 				setUpOrDownVote("true", holder);
+				song.Likes = null; // Forces user to re-get song info next time to reflect new vote
+				songs.set(groupPosition, song);
 				
 			}
 		});
@@ -129,7 +131,8 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 				// TODO Vote task
 				new VoteOnSongTask(application, context, song, false, "", "").execute();
 				setUpOrDownVote("false", holder);
-				
+				song.Likes = null; // Forces user to re-get song info next time to reflect new vote
+				songs.set(groupPosition, song);
 			}
 		});
 		
