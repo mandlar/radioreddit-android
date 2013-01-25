@@ -6,10 +6,12 @@ import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.activities.RadioReddit;
 import net.mandaria.radioreddit.objects.RadioSong;
+import net.mandaria.radioreddit.tasks.GetVoteScoreTask;
 import net.mandaria.radioreddit.tasks.VoteOnSongTask;
 import net.mandaria.radioreddit.tasks.VoteRedditTask;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,6 +26,7 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 	Context context;
 	List<RadioSong> songs;
 	RadioRedditApplication application;
+	GetVoteScoreTask task;
 	
 	public TopChartExpandableListAdapter(Context context, RadioRedditApplication application, List<RadioSong> songs)
 	{
@@ -50,6 +53,9 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 	@Override
 	public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent)
 	{
+		if(task != null)
+			task.cancel(true);
+		
 		View row = convertView;
 
 		// A ViewHolder keeps references to children views to avoid unneccessary calls
@@ -81,10 +87,25 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 			holder = (TopChartChildViewHolder) row.getTag();
 		}
 		
+		holder.btn_upvote.setBackgroundResource(R.drawable.willupvote_button);
+		holder.btn_downvote.setBackgroundResource(R.drawable.willdownvote_button);
+		holder.btn_upvote.setEnabled(false);
+		holder.btn_downvote.setEnabled(false);
+		
 		final RadioSong song = songs.get(groupPosition);
-
+		if(song.Likes == null)
+		{
+			task = new GetVoteScoreTask(application, context, songs, groupPosition, song, holder);
+			task.execute();
+		}
+		else
+		{
+			setUpOrDownVote(song.Likes, holder);
+		}
+		
 		// Bind the data efficiently with the holder.		
-		setUpOrDownVote(song.Likes, holder);
+		//setUpOrDownVote(song.Likes, holder);
+		
 		
 		holder.btn_upvote.setOnClickListener(new OnClickListener()
 		{
@@ -199,9 +220,21 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 		return false;
 	}
 	
-	private void setUpOrDownVote(String vote, TopChartChildViewHolder holder)
+	static class TopChartParentViewHolder {
+		TextView lbl_SongName;
+		TextView lbl_SongArtist;
+	}
+	
+	public static class TopChartChildViewHolder {
+		public Button btn_upvote;
+		public Button btn_downvote;
+		Button btn_play;
+		
+	}
+	
+	public static void setUpOrDownVote(String vote, TopChartChildViewHolder holder)
 	{
-		if(!vote.equals("null"))
+		if(vote != null && !vote.equals("null"))
 		{
 			if(vote.equals("true"))
 			{
@@ -219,17 +252,9 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 			holder.btn_upvote.setBackgroundResource(R.drawable.willupvote_button);
 			holder.btn_downvote.setBackgroundResource(R.drawable.willdownvote_button);
 		}
-	}
-	
-	static class TopChartParentViewHolder {
-		TextView lbl_SongName;
-		TextView lbl_SongArtist;
-	}
-	
-	static class TopChartChildViewHolder {
-		Button btn_upvote;
-		Button btn_downvote;
-		Button btn_play;
+		
+		holder.btn_upvote.setEnabled(true);
+		holder.btn_downvote.setEnabled(true);
 	}
 
 }
