@@ -1,6 +1,8 @@
 #summary Todo list
 
 == Beta ==
+  * Confirm dialog for logout
+  * Move logout to bottom of menu
   * Top charts
   * Previewing songs (bookmarked or top charts)
   * Recently played
