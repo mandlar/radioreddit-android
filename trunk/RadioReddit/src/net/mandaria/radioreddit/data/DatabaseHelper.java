@@ -60,6 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			"CREATE TABLE [RecentlyPlayed] (" +
 			"[_id] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT," +
 			"[ListenDate] TEXT  NOT NULL," +
+			"[Type] TEXT  NOT NULL," +
 			"[id] TEXT  NULL," + // radio reddit id
 			"[Title] TEXT  NULL," +
 			"[Artist] TEXT  NULL," +
