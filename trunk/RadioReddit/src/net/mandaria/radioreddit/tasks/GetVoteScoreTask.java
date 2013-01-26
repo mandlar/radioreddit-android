@@ -83,9 +83,14 @@ public class GetVoteScoreTask extends AsyncTask<Void, RadioSong, RadioSong>
 	{
 		if(result != null && result.ErrorMessage.equals(""))
 		{
-			_songs.set(_groupPosition, result);
+			if(_songs != null) // used for TopCharts
+			{
+				_songs.set(_groupPosition, result);
 			
-			TopChartExpandableListAdapter.setUpOrDownVote(result.Likes, _holder);
+				TopChartExpandableListAdapter.setUpOrDownVote(result.Likes, _holder);
+			}
+			else // used for PlaybackService
+				_application.CurrentSong = result;
 		}
 		else
 		{

@@ -10,7 +10,9 @@ import net.mandaria.radioreddit.tasks.GetVoteScoreTask;
 import net.mandaria.radioreddit.tasks.VoteOnSongTask;
 import net.mandaria.radioreddit.tasks.VoteRedditTask;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -133,6 +135,24 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 				setUpOrDownVote("false", holder);
 				song.Likes = null; // Forces user to re-get song info next time to reflect new vote
 				songs.set(groupPosition, song);
+			}
+		});
+		
+		holder.btn_play.setOnClickListener(new OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				application.CurrentSong = song;
+				
+				Intent result = new Intent();
+				result.putExtra("song_url", song.Preview_url);
+				
+				Activity activity = (Activity)context;
+				
+				activity.setResult(Activity.RESULT_OK, result);
+				activity.finish();
 			}
 		});
 		
