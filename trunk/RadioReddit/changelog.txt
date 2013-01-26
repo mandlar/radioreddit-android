@@ -9,7 +9,9 @@ Change log:
 - Bump build and target API to 15 (Android 4.2)
 - Added ActionBarSherlock (action bar support for 2.3 and below devices)
 - Removed old Android <= 2.3 interface for choosing a station (replaced by ActionBar like with 3.0+)
-*- Added TopCharts
+*- Added Top Charts
+*- Individual song voting (in Top Charts)
+*- Individual song playback (in Top Charts)
 
 * 0.2 - January 5th, 2013
 - Removed GPS permissions (not intentionally added to begin with)
