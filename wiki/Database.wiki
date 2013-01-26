@@ -25,26 +25,25 @@ This database will hold songs/episodes that were recently listened to.
 || *ListenDate* || TEXT || NOT NULL ||
 || *Type* || TEXT || NOT NULL ||
 || *id* || INTEGER || NULL ||
-|| *Title* || TEXT || NOT NULL ||
-|| *Artist* || TEXT || NOT NULL ||
-|| *Redditor* || TEXT || NOT NULL ||
-|| *Genre* || TEXT || NOT NULL ||
-|| *Reddit_title* || TEXT || NOT NULL ||
-|| *Reddit_url* || TEXT || NOT NULL ||
-|| *Preview_url* || TEXT || NOT NULL ||
-|| *Download_url* || TEXT || NOT NULL ||
-|| *Bandcamp_link* || TEXT || NOT NULL ||
-|| *Bandcamp_art* || TEXT || NOT NULL ||
-|| *Itunes_link* || TEXT || NOT NULL ||
-|| *Itunes_art* || TEXT || NOT NULL ||
-|| *Itunes_price* || TEXT || NOT NULL ||
-|| *Name* || TEXT || NOT NULL ||
-|| *EpisodeTitle* || TEXT || NOT NULL ||
-|| *EpisodeDescription* || TEXT || NOT NULL ||
-|| *EpisodeKeywords* || TEXT || NOT NULL ||
-|| *ShowTitle* || TEXT || NOT NULL ||
-|| *ShowHosts* || TEXT || NOT NULL ||
-|| *ShowRedditors* || TEXT || NOT NULL ||
-|| *ShowGenre* || TEXT || NOT NULL ||
-|| *ShowFeed* || TEXT || NOT NULL ||
-|| *Redditor* || TEXT || NOT NULL ||
+|| *Title* || TEXT || NULL ||
+|| *Artist* || TEXT || NULL ||
+|| *Redditor* || TEXT || NULL ||
+|| *Genre* || TEXT || NULL ||
+|| *Reddit_title* || TEXT || NULL ||
+|| *Reddit_url* || TEXT || NULL ||
+|| *Preview_url* || TEXT || NULL ||
+|| *Download_url* || TEXT || NULL ||
+|| *Bandcamp_link* || TEXT || NULL ||
+|| *Bandcamp_art* || TEXT || NULL ||
+|| *Itunes_link* || TEXT || NULL ||
+|| *Itunes_art* || TEXT || NULL ||
+|| *Itunes_price* || TEXT || NULL ||
+|| *Name* || TEXT || NULL ||
+|| *EpisodeTitle* || TEXT || NULL ||
+|| *EpisodeDescription* || TEXT || NULL ||
+|| *EpisodeKeywords* || TEXT || NULL ||
+|| *ShowTitle* || TEXT || NULL ||
+|| *ShowHosts* || TEXT || NULL ||
+|| *ShowRedditors* || TEXT || NULL ||
+|| *ShowGenre* || TEXT || NULL ||
+|| *ShowFeed* || TEXT || NULL ||
