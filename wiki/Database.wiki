@@ -16,3 +16,35 @@ This database will hold the most recent information of all of the streams. This 
 || *Status* || TEXT || NOT NULL ||
 || *Relay* || TEXT || NOT NULL ||
 || *Online* || BOOLEAN || NOT NULL ||
+
+= RecentlyPlayed =
+
+This database will hold songs/episodes that were recently listened to.
+
+|| *`_id`* || INTEGER || NOT NULL PRIMARY KEY AUTOINCREMENT ||
+|| *ListenDate* || TEXT || NOT NULL ||
+|| *Type* || TEXT || NOT NULL ||
+|| *id* || INTEGER || NULL ||
+|| *Title* || TEXT || NOT NULL ||
+|| *Artist* || TEXT || NOT NULL ||
+|| *Redditor* || TEXT || NOT NULL ||
+|| *Genre* || TEXT || NOT NULL ||
+|| *Reddit_title* || TEXT || NOT NULL ||
+|| *Reddit_url* || TEXT || NOT NULL ||
+|| *Preview_url* || TEXT || NOT NULL ||
+|| *Download_url* || TEXT || NOT NULL ||
+|| *Bandcamp_link* || TEXT || NOT NULL ||
+|| *Bandcamp_art* || TEXT || NOT NULL ||
+|| *Itunes_link* || TEXT || NOT NULL ||
+|| *Itunes_art* || TEXT || NOT NULL ||
+|| *Itunes_price* || TEXT || NOT NULL ||
+|| *Name* || TEXT || NOT NULL ||
+|| *EpisodeTitle* || TEXT || NOT NULL ||
+|| *EpisodeDescription* || TEXT || NOT NULL ||
+|| *EpisodeKeywords* || TEXT || NOT NULL ||
+|| *ShowTitle* || TEXT || NOT NULL ||
+|| *ShowHosts* || TEXT || NOT NULL ||
+|| *ShowRedditors* || TEXT || NOT NULL ||
+|| *ShowGenre* || TEXT || NOT NULL ||
+|| *ShowFeed* || TEXT || NOT NULL ||
+|| *Redditor* || TEXT || NOT NULL ||
