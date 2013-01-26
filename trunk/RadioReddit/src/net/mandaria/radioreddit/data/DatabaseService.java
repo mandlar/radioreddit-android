@@ -24,21 +24,6 @@ public class DatabaseService
 	private DatabaseHelper GetDatabaseHelper(Context context)
 	{
 		DatabaseHelper myDbHelper = new DatabaseHelper(context);
-		 
-    	boolean databaseCreated = myDbHelper.createDataBase();
-    	//if(databaseCreated == true)
-    	//{
-    		// if needed later, we can execute database code here on creation
-    	//}
-
-        try 
-        {
-        	myDbHelper.openDataBase();
-        }
-        catch(SQLException sqle)
-        {
-        	throw sqle;
-        }
         
         return myDbHelper;
 	}
@@ -55,7 +40,7 @@ public class DatabaseService
 	{
 		DatabaseHelper myDbHelper = GetDatabaseHelper(context);
 		
-		SQLiteDatabase db = myDbHelper.myDataBase;
+		SQLiteDatabase db = myDbHelper.getReadableDatabase();
 		Cursor cursor = db.rawQuery("SELECT * FROM StreamsCache ORDER BY Name ASC", null);
 		
 		ArrayList<RadioStream> cachedStreams = new ArrayList<RadioStream>();
@@ -91,7 +76,7 @@ public class DatabaseService
 		DatabaseHelper myDbHelper = GetDatabaseHelper(context);
 		
 		// Delete all cached streams		
-		SQLiteDatabase db = myDbHelper.myDataBase;
+		SQLiteDatabase db = myDbHelper.getWritableDatabase();
 		db.execSQL("DELETE FROM StreamsCache");
 		
 		// loop through and insert each stream 

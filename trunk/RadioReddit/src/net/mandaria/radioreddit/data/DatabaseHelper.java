@@ -21,8 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	private final Context myContext;
     private static String DB_PATH = "";//"/data/data/net.mandaria.radioredditfree/databases/";
     private static String DB_NAME = "radioreddit.db";
-    private static int DB_VERSION = 1;
-    public SQLiteDatabase myDataBase; 
+    private static int DB_VERSION = 2;
    
  
     /**
@@ -37,66 +36,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
         this.DB_PATH = context.getString(R.string.database);
     }	
  
-    /**
-     * Creates a empty database on the system and rewrites it with your own database.
-     * */
-    public boolean createDataBase()
-    {
-    	boolean dbExist = checkDataBase();
- 
-    	if(dbExist)
-    	{
-    		// Do nothing - database already exist
-    		return false;
-    	}
-    	else
-    	{
-    		// By calling this method an empty database will be created into the default system path
-            // of your application so we are going to be able to overwrite that database with our database.
-        	this.getReadableDatabase();
-        	return true;
-    	}
-    }
- 
-    /**
-     * Check if the database already exist to avoid re-copying the file each time you open the application.
-     * @return true if it exists, false if it doesn't
-     */
-    private boolean checkDataBase()
-    {
-    	SQLiteDatabase checkDB = null;
- 
-    	try
-    	{
-    		String myPath = DB_PATH + DB_NAME;
-    		checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
-    	}
-    	catch(SQLiteException e)
-    	{
-    		//database does't exist yet.
-    	}
- 
-    	if(checkDB != null)
-    	{
-    		checkDB.close();
-    	}
- 
-    	return checkDB != null ? true : false;
-    }
- 
-    public void openDataBase() throws SQLException
-    {
-    	//Open the database
-        String myPath = DB_PATH + DB_NAME;
-    	myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
-    }
- 
     @Override
 	public synchronized void close() 
     {
-    	if(myDataBase != null)
-    		myDataBase.close();
- 
     	super.close();
 	}
  
@@ -114,9 +56,39 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			"[Online] BOOLEAN  NOT NULL" +
 			")";
 		
+		String createRecentlyPlayedTable = 
+			"CREATE TABLE [RecentlyPlayed] (" +
+			"[_id] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT," +
+			"[ListenDate] TEXT  NOT NULL," +
+			"[id] TEXT  NULL," + // radio reddit id
+			"[Title] TEXT  NULL," +
+			"[Artist] TEXT  NULL," +
+			"[Redditor] TEXT  NULL," +
+			"[Genre] TEXT  NULL," +
+			"[Reddit_title] TEXT  NULL," +
+			"[Reddit_url] TEXT  NULL," +
+			"[Preview_url] TEXT  NULL," +
+			"[Download_url] TEXT  NULL," +
+			"[Bandcamp_link] TEXT  NULL," +
+			"[Bandcamp_art] TEXT  NULL," +
+			"[Itunes_link] TEXT  NULL," +
+			"[Itunes_art] TEXT  NULL," +
+			"[Itunes_price] TEXT  NULL," +
+			"[Name] TEXT  NULL," +
+			"[EpisodeTitle] TEXT  NULL," +
+			"[EpisodeDescription] TEXT  NULL," +
+			"[EpisodeKeywords] TEXT  NULL," +
+			"[ShowTitle] TEXT  NULL," +
+			"[ShowHosts] TEXT  NULL," +
+			"[ShowRedditors] TEXT  NULL," +
+			"[ShowGenre] TEXT  NULL," +
+			"[ShowFeed] TEXT  NULL" +
+			")";
+		
 		try
 		{
 			db.execSQL(createStreamsCacheTable);
+			db.execSQL(createRecentlyPlayedTable);
 		}
 		catch(Exception ex)
 		{
@@ -127,6 +99,11 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) 
 	{
-		// TODO: upgrade DB stuff here...
+		if(oldVersion == 1) // adding RecentlyPlayed database
+		{
+			db.execSQL("DROP TABLE IF EXISTS StreamsCache");
+			onCreate(db);
+		}
+		
 	}
 }
