@@ -63,6 +63,7 @@ import net.mandaria.radioreddit.activities.RadioReddit;
 import net.mandaria.radioreddit.activities.Settings;
 import net.mandaria.radioreddit.tasks.GetCurrentEpisodeInformationTask;
 import net.mandaria.radioreddit.tasks.GetCurrentSongInformationTask;
+import net.mandaria.radioreddit.tasks.GetVoteScoreTask;
 
 public class PlaybackService extends Service implements OnPreparedListener, OnBufferingUpdateListener, OnCompletionListener, OnErrorListener, OnInfoListener
 {
@@ -257,8 +258,6 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 		mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, LOG_TAG);
 		mWakeLock.acquire();
 
-		updateNotification();
-
 		// Change broadcasts are sticky, so when a new receiver connects, it will have the data without polling.
 		if(lastChangeBroadcast != null)
 		{
@@ -275,6 +274,8 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 		Notification notification = getNotification(songTitle, songArtist);
 		
 		startForeground(NOTIFICATION_ID, notification);
+		
+		updateNotification();
 		Log.w(LOG_TAG, "Playback service - play() end");
 	}
 
@@ -300,6 +301,9 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 			if(application.CurrentEpisode.ShowTitle != null)
 				songArtist = application.CurrentEpisode.ShowTitle;
 		}
+		
+		//Log.w(LOG_TAG, "Song Title: " + songTitle + " Song Artist: " + songArtist);
+		//Log.w(LOG_TAG, "Last Song Title: " + lastSongTitle + " Last Song Artist: " + lastSongArtist);
 
 		// Only update the notification if there has been a change
 		if(!lastSongArtist.equals(songArtist) || !lastSongTitle.equals(songTitle))
@@ -586,17 +590,26 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 			mLastCurrentPosition = mediaPlayer.getCurrentPosition();
 
 			// Update song information
-			RadioRedditApplication application = (RadioRedditApplication) getApplication();
+			RadioRedditApplication application = (RadioRedditApplication) getApplication();			
+			
 			// Update song information every 30 seconds
 			if((SystemClock.elapsedRealtime() - mLastCurrentSongInformationUpdateMillis) > 30000)
 			{
-				if(application.CurrentStream.Type.equals("music"))
-					new GetCurrentSongInformationTask(application, this, Locale.getDefault()).execute();
-				else if(application.CurrentStream.Type.equals("talk"))
-					new GetCurrentEpisodeInformationTask(application, this, Locale.getDefault()).execute();
+				if(application.playBackType.equals("stream"))
+				{
+					if(application.CurrentStream.Type.equals("music"))
+						new GetCurrentSongInformationTask(application, this, Locale.getDefault()).execute();
+					else if(application.CurrentStream.Type.equals("talk"))
+						new GetCurrentEpisodeInformationTask(application, this, Locale.getDefault()).execute();
+				}
+				else // selected song
+				{
+					new GetVoteScoreTask(application, this, null, 0, application.CurrentSong, null).execute();
+				}
 
 				mLastCurrentSongInformationUpdateMillis = SystemClock.elapsedRealtime();
 			}
+
 
 			// Update notification
 			updateNotification();

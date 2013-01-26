@@ -600,12 +600,13 @@ public class RadioRedditAPI
 		
 		// 4. After voting/submiting, get the most up to date version of the episode/song again
 		// TODO: Only do this if the song is currently playing?
-//		song = RadioRedditAPI.GetCurrentSongInformation(context, application);
-//		
-//		if(song != null && song.ErrorMessage.equals(""))
-//		{
-//			application.CurrentSong = song;
-//		}
+		
+		if(application.playBackType.equals("song") && song.Title.equals(application.CurrentSong.Title))
+		{
+			song = RadioRedditAPI.GetVoteScore(context, application, song);
+			
+			application.CurrentSong = song;
+		}
 
 		return errorMessage;
 	}
