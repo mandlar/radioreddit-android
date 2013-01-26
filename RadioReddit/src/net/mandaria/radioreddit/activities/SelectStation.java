@@ -102,7 +102,7 @@ public class SelectStation extends SherlockActivity
 				RadioStream newStream = RadioStreams.getStreamByStreamName(application.RadioStreams, streamName);
 
 				boolean changedStream = false;
-				if(!application.CurrentStream.Name.equals(newStream.Name))
+				if(!application.CurrentStream.Name.equals(newStream.Name) || !application.playBackType.equals("stream"))
 					changedStream = true;
 
 				result.putExtra("changed_stream", changedStream);
