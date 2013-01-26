@@ -144,6 +144,7 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 			@Override
 			public void onClick(View v)
 			{
+				song.Playlist = "Song Preview";
 				application.CurrentSong = song;
 				
 				Intent result = new Intent();
