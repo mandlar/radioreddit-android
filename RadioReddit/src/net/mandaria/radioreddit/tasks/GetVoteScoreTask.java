@@ -26,8 +26,8 @@ import java.util.Locale;
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.apis.RadioRedditAPI;
-import net.mandaria.radioreddit.data.TopChartExpandableListAdapter;
-import net.mandaria.radioreddit.data.TopChartExpandableListAdapter.TopChartChildViewHolder;
+import net.mandaria.radioreddit.data.SongListExpandableListAdapter;
+import net.mandaria.radioreddit.data.SongListExpandableListAdapter.SongListChildViewHolder;
 import net.mandaria.radioreddit.objects.RadioSong;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -41,11 +41,11 @@ public class GetVoteScoreTask extends AsyncTask<Void, RadioSong, RadioSong>
 	private RadioRedditApplication _application;
 	private Exception ex;
 	private RadioSong _song;
-	private TopChartChildViewHolder _holder;
+	private SongListChildViewHolder _holder;
 	private List<RadioSong> _songs;
 	private int _groupPosition;
 
-	public GetVoteScoreTask(RadioRedditApplication application, Context context, List<RadioSong> songs, int groupPosition, RadioSong song, TopChartChildViewHolder holder)
+	public GetVoteScoreTask(RadioRedditApplication application, Context context, List<RadioSong> songs, int groupPosition, RadioSong song, SongListChildViewHolder holder)
 	{
 		_context = context;
 		_application = application;
@@ -83,11 +83,11 @@ public class GetVoteScoreTask extends AsyncTask<Void, RadioSong, RadioSong>
 	{
 		if(result != null && result.ErrorMessage.equals(""))
 		{
-			if(_songs != null) // used for TopCharts
+			if(_songs != null) // used for TopCharts/RecentlyPlayed/etc.
 			{
 				_songs.set(_groupPosition, result);
 			
-				TopChartExpandableListAdapter.setUpOrDownVote(result.Likes, _holder);
+				SongListExpandableListAdapter.setUpOrDownVote(result.Likes, _holder);
 			}
 			else // used for PlaybackService
 				_application.CurrentSong = result;

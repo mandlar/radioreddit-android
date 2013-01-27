@@ -22,7 +22,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
+public class SongListExpandableListAdapter extends BaseExpandableListAdapter
 {
 	private static String TAG = "RadioReddit";
 	Context context;
@@ -30,7 +30,7 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 	RadioRedditApplication application;
 	GetVoteScoreTask task;
 	
-	public TopChartExpandableListAdapter(Context context, RadioRedditApplication application, List<RadioSong> songs)
+	public SongListExpandableListAdapter(Context context, RadioRedditApplication application, List<RadioSong> songs)
 	{
 		super();
 		this.context = context;
@@ -62,7 +62,7 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 
 		// A ViewHolder keeps references to children views to avoid unneccessary calls
 		// to findViewById() on each row.
-		final TopChartChildViewHolder holder;
+		final SongListChildViewHolder holder;
 		// When convertView is not null, we can reuse it directly, there is no need
 		// to reinflate it. We only inflate a new View when the convertView supplied
 		// by ListView is null.
@@ -70,11 +70,11 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 		if (row == null) 
 		{
 			LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			row = vi.inflate(R.layout.topchart_child, parent, false);
+			row = vi.inflate(R.layout.songlist_child, parent, false);
 			
 			// Creates a ViewHolder and store references to the two children views
 			// we want to bind data to.
-			holder = new TopChartChildViewHolder();
+			holder = new SongListChildViewHolder();
 			
 			holder.btn_upvote = (Button) row.findViewById(R.id.btn_upvote);
 			holder.btn_downvote = (Button) row.findViewById(R.id.btn_downvote);
@@ -86,7 +86,7 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 		{
 			// Get the ViewHolder back to get fast access to the TextView
 			// and the ImageView.
-			holder = (TopChartChildViewHolder) row.getTag();
+			holder = (SongListChildViewHolder) row.getTag();
 		}
 		
 		holder.btn_upvote.setBackgroundResource(R.drawable.willupvote_button);
@@ -115,7 +115,6 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 			@Override
 			public void onClick(View v)
 			{
-				// TODO Vote task
 				new VoteOnSongTask(application, context, song, true, "", "").execute();
 				setUpOrDownVote("true", holder);
 				song.Likes = null; // Forces user to re-get song info next time to reflect new vote
@@ -130,7 +129,6 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 			@Override
 			public void onClick(View v)
 			{
-				// TODO Vote task
 				new VoteOnSongTask(application, context, song, false, "", "").execute();
 				setUpOrDownVote("false", holder);
 				song.Likes = null; // Forces user to re-get song info next time to reflect new vote
@@ -197,7 +195,7 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 
 		// A ViewHolder keeps references to children views to avoid unneccessary calls
 		// to findViewById() on each row.
-		TopChartParentViewHolder holder;
+		SongListParentViewHolder holder;
 		// When convertView is not null, we can reuse it directly, there is no need
 		// to reinflate it. We only inflate a new View when the convertView supplied
 		// by ListView is null.
@@ -205,11 +203,11 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 		if (row == null) 
 		{
 			LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			row = vi.inflate(R.layout.topchart_parent, parent, false);
+			row = vi.inflate(R.layout.songlist_parent, parent, false);
 			
 			// Creates a ViewHolder and store references to the two children views
 			// we want to bind data to.
-			holder = new TopChartParentViewHolder();
+			holder = new SongListParentViewHolder();
 			
 			holder.lbl_SongName = (TextView) row.findViewById(R.id.lbl_SongName);
 			holder.lbl_SongArtist = (TextView) row.findViewById(R.id.lbl_SongArtist);
@@ -219,7 +217,7 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 		{
 			// Get the ViewHolder back to get fast access to the TextView
 			// and the ImageView.
-			holder = (TopChartParentViewHolder) row.getTag();
+			holder = (SongListParentViewHolder) row.getTag();
 		}
 		
 		RadioSong song = songs.get(groupPosition);
@@ -245,19 +243,19 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 		return false;
 	}
 	
-	static class TopChartParentViewHolder {
+	static class SongListParentViewHolder {
 		TextView lbl_SongName;
 		TextView lbl_SongArtist;
 	}
 	
-	public static class TopChartChildViewHolder {
+	public static class SongListChildViewHolder {
 		public Button btn_upvote;
 		public Button btn_downvote;
 		Button btn_play;
 		
 	}
 	
-	public static void setUpOrDownVote(String vote, TopChartChildViewHolder holder)
+	public static void setUpOrDownVote(String vote, SongListChildViewHolder holder)
 	{
 		if(vote != null && !vote.equals("null"))
 		{
