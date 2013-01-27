@@ -58,18 +58,24 @@ public class TopChartFragment extends SherlockFragment {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		
-		// TODO: cache results to memory?
-		//	if(application.TopCharts[_type] == null)
-		new GetTopChartTask((RadioRedditApplication)getActivity().getApplication(), getActivity(), getView(), _type).execute();
-		//  else
-		//		GetTopChartTask.drawResultsToActivity(
+		if(_type.equals("all") || _type.equals("month") || _type.equals("week") || _type.equals("day"))
+		{
+			// TODO: cache results to memory?
+			//	if(application.TopCharts[_type] == null)
+			new GetTopChartTask((RadioRedditApplication)getActivity().getApplication(), getActivity(), getView(), _type).execute();
+			//  else
+			//		GetTopChartTask.drawResultsToActivity(
+		}
 		
 		Button btn_TryAgain_TopChart = (Button)getView().findViewById(R.id.btn_TryAgain_TopChart);
 		btn_TryAgain_TopChart.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				new GetTopChartTask((RadioRedditApplication)getActivity().getApplication(), getActivity(), getView(), _type).execute();
+				if(_type.equals("all") || _type.equals("month") || _type.equals("week") || _type.equals("day"))
+				{
+					new GetTopChartTask((RadioRedditApplication)getActivity().getApplication(), getActivity(), getView(), _type).execute();
+				}
 			}
 		});
 	}
