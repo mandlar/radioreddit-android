@@ -145,6 +145,7 @@ public class TopChartExpandableListAdapter extends BaseExpandableListAdapter
 			public void onClick(View v)
 			{
 				song.Playlist = "Song Preview";
+				application.playBackType = "song";
 				application.CurrentSong = song;
 				
 				Intent result = new Intent();
