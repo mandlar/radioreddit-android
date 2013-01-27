@@ -1019,7 +1019,7 @@ public class RadioReddit extends SherlockActivity
 	// when getting vote info, sets if user previously voted
 	private void setUpOrDownVote(String vote)
 	{
-		if(!vote.equals("null"))
+		if(vote != null && !vote.equals("null"))
 		{
 			if(vote.equals("true"))
 			{
