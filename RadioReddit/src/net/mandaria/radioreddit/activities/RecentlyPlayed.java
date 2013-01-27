@@ -15,6 +15,7 @@ import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
 import com.actionbarsherlock.view.MenuInflater;
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.R.layout;
+import net.mandaria.radioreddit.activities.TopCharts.TabsAdapter;
 import net.mandaria.radioreddit.fragments.TopChartFragment;
 
 import com.viewpagerindicator.TabPageIndicator;
@@ -35,6 +36,7 @@ import android.widget.Toast;
 
 public class RecentlyPlayed extends SherlockFragmentActivity
 {
+	int _currentFragmentPage = 0;
 	
     /** Called when the activity is first created. */
     @Override
@@ -45,13 +47,87 @@ public class RecentlyPlayed extends SherlockFragmentActivity
         
         getSupportActionBar().setTitle(getString(R.string.recentlyplayed));
         
-        TopChartFragment recentlyPlayed = new TopChartFragment("recentlyplayed");
+        FragmentPagerAdapter adapter = new TabsAdapter(getSupportFragmentManager());
 
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.div_RecentlyPlayed, recentlyPlayed);
+        ViewPager pager = (ViewPager)findViewById(R.id.pager);
+        pager.setOffscreenPageLimit(1);
+        pager.setAdapter(adapter);
 
-        ft.commit();
+        TabPageIndicator indicator = (TabPageIndicator)findViewById(R.id.indicator);
+        indicator.setViewPager(pager);
+        indicator.setOnPageChangeListener(new OnPageChangeListener() {
+			
+        	@Override
+			public void onPageSelected(int position) {
+				// TODO Auto-generated method stub
+        		_currentFragmentPage = position;
+            	invalidateOptionsMenu();
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int state) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+
+		});
         
+    }
+    
+    class TabsAdapter extends FragmentPagerAdapter {
+        public TabsAdapter(FragmentManager fm) {
+            super(fm);
+        }
+        
+
+        @Override
+        public Fragment getItem(int position) {
+        	Fragment fragment = new Fragment();
+        	switch(position)
+        	{
+        		case 0:
+        			fragment = new TopChartFragment("recentlyplayed_songs");
+        			break;
+        		case 1:
+        			fragment = new TopChartFragment("recentlyplayed_episodes");
+        			break;
+        		default:
+        			fragment = new TopChartFragment("recentlyplayed_songs");
+        			break;
+        	}
+        	
+            return fragment;
+        }
+
+        public CharSequence getPageTitle(int position) {
+        	
+        	String pageTitle = "";
+        	switch(position)
+        	{
+        		case 0:
+        			pageTitle = "Songs";
+        			break;
+        		case 1:
+        			pageTitle = "Episodes";
+        			break;
+        		default:
+        			pageTitle = "Songs";
+        			break;
+        	}
+        	return pageTitle;
+        }
+
+        @Override
+        public int getCount() {
+          return 2;
+        }
     }
     
     @Override
