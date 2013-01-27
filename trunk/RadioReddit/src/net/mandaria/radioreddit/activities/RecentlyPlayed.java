@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 
@@ -43,6 +44,13 @@ public class RecentlyPlayed extends SherlockFragmentActivity
         setContentView(R.layout.recentlyplayed);   
         
         getSupportActionBar().setTitle(getString(R.string.recentlyplayed));
+        
+        TopChartFragment recentlyPlayed = new TopChartFragment("recentlyplayed");
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.div_RecentlyPlayed, recentlyPlayed);
+
+        ft.commit();
         
     }
     
