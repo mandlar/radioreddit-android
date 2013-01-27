@@ -2,6 +2,7 @@ package net.mandaria.radioreddit.fragments;
 
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
+import net.mandaria.radioreddit.tasks.GetRecentlyPlayedSongsTask;
 import net.mandaria.radioreddit.tasks.GetTopChartTask;
 import android.content.Intent;
 import android.os.Bundle;
@@ -66,6 +67,10 @@ public class TopChartFragment extends SherlockFragment {
 			//  else
 			//		GetTopChartTask.drawResultsToActivity(
 		}
+		else if(_type.equals("recentlyplayed_songs"))
+		{
+			new GetRecentlyPlayedSongsTask((RadioRedditApplication)getActivity().getApplication(), getActivity(), getView(), _type).execute();
+		}
 		
 		Button btn_TryAgain_TopChart = (Button)getView().findViewById(R.id.btn_TryAgain_TopChart);
 		btn_TryAgain_TopChart.setOnClickListener(new OnClickListener() {
@@ -75,6 +80,10 @@ public class TopChartFragment extends SherlockFragment {
 				if(_type.equals("all") || _type.equals("month") || _type.equals("week") || _type.equals("day"))
 				{
 					new GetTopChartTask((RadioRedditApplication)getActivity().getApplication(), getActivity(), getView(), _type).execute();
+				}
+				else if(_type.equals("recentlyplayed_songs"))
+				{
+					new GetRecentlyPlayedSongsTask((RadioRedditApplication)getActivity().getApplication(), getActivity(), getView(), _type).execute();
 				}
 			}
 		});
