@@ -18,6 +18,7 @@
 	    <activity android:name="activities.ViewEpisodeInformation" android:label="@string/app_name"/>
 	    <activity android:name="activities.Settings" android:label="@string/app_name"/>
 	    <activity android:name="activities.TopCharts" android:label="@string/app_name"/>
+	    <activity android:name="activities.RecentlyPlayed" android:label="@string/app_name"/>
 		<service android:name="media.PlaybackService"></service>
     </application>
     

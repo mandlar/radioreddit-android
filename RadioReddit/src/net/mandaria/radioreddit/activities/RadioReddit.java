@@ -549,7 +549,7 @@ public class RadioReddit extends SherlockActivity
 		else if (item.getItemId() == R.id.recentlyplayed) 
 		{
 			FlurryAgent.onEvent("radio reddit - Menu Button - Recently Played");
-			//startActivityForResult(new Intent(this, TopCharts.class), 2);
+			startActivityForResult(new Intent(this, RecentlyPlayed.class), 2);
 			return true;
 		}
 		return false;
