@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:background="#ffffff"
     >
-   <LinearLayout android:id="@+id/div_PleaseWait_TopChart"
+   <LinearLayout android:id="@+id/div_PleaseWait_SongList"
     	android:orientation="vertical"
     	android:layout_width="fill_parent"
     	android:layout_height="fill_parent"
@@ -22,7 +22,7 @@
 		     android:text="Please Wait"
 		     />
 	</LinearLayout>
-	<LinearLayout android:id="@+id/div_Error_TopChart"
+	<LinearLayout android:id="@+id/div_Error_SongList"
     	android:orientation="vertical"
     	android:layout_width="fill_parent"
     	android:layout_height="fill_parent"
@@ -35,13 +35,13 @@
 		     android:text="There was a problem connecting to raddioreddit.com"
 		     android:layout_marginBottom="20dp"
 		     />
-    	<Button android:id="@+id/btn_TryAgain_TopChart"
+    	<Button android:id="@+id/btn_TryAgain_SongList"
     	    android:layout_width="wrap_content"
     	    android:layout_height="wrap_content"
     	    android:text="Try Again"
     	    />
 	</LinearLayout>
-	<LinearLayout  android:id="@+id/div_TopChart"
+	<LinearLayout  android:id="@+id/div_SongList"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
 	    android:orientation="vertical"
@@ -52,7 +52,7 @@
 	    	android:layout_height="fill_parent"
 	    	android:layout_weight="1"
 	    	>
-			<ExpandableListView android:id="@+id/list_TopChart"
+			<ExpandableListView android:id="@+id/list_SongList"
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:fastScrollEnabled="true"
@@ -60,11 +60,11 @@
 				android:divider="#e0e0e0"
 				android:dividerHeight="1dp"
 			/>
-			<TextView android:id="@+id/lbl_NoTopCharts"
+			<TextView android:id="@+id/lbl_NoSongList"
 			     android:layout_width="fill_parent"
 			     android:layout_height="fill_parent"
 			     android:gravity="center"
-			     android:text="No Top Charts Found"
+			     android:text="No songs found"
 			     android:visibility="invisible"/>
 		</LinearLayout>
 	</LinearLayout>

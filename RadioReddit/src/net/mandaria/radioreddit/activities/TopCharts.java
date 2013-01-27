@@ -14,7 +14,7 @@ import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
 import com.actionbarsherlock.view.MenuInflater;
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.R.layout;
-import net.mandaria.radioreddit.fragments.TopChartFragment;
+import net.mandaria.radioreddit.fragments.SongListFragment;
 
 import com.viewpagerindicator.TabPageIndicator;
 
@@ -93,19 +93,19 @@ public class TopCharts extends SherlockFragmentActivity
         	switch(position)
         	{
         		case 0:
-        			fragment = new TopChartFragment("all");
+        			fragment = new SongListFragment("all");
         			break;
         		case 1:
-        			fragment = new TopChartFragment("month");
+        			fragment = new SongListFragment("month");
         			break;
         		case 2:
-        			fragment = new TopChartFragment("week");
+        			fragment = new SongListFragment("week");
         			break;
         		case 3:
-        			fragment = new TopChartFragment("day");
+        			fragment = new SongListFragment("day");
         			break;
         		default:
-        			fragment = new TopChartFragment("all");
+        			fragment = new SongListFragment("all");
         			break;
         	}
         	

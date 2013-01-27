@@ -21,16 +21,16 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.actionbarsherlock.app.SherlockFragment;
 
 
-public class TopChartFragment extends SherlockFragment {
+public class SongListFragment extends SherlockFragment {
 	
 	private String _type = "";
 
-	public TopChartFragment()
+	public SongListFragment()
 	{
 	
 	}
 	
-	public TopChartFragment(String type)
+	public SongListFragment(String type)
 	{
 		_type = type;
 	}
@@ -45,7 +45,7 @@ public class TopChartFragment extends SherlockFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
 	{
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.topchart, container, false);
+		return inflater.inflate(R.layout.songlist, container, false);
 	}
 
 	@Override
@@ -72,8 +72,8 @@ public class TopChartFragment extends SherlockFragment {
 			new GetRecentlyPlayedSongsTask((RadioRedditApplication)getActivity().getApplication(), getActivity(), getView(), _type).execute();
 		}
 		
-		Button btn_TryAgain_TopChart = (Button)getView().findViewById(R.id.btn_TryAgain_TopChart);
-		btn_TryAgain_TopChart.setOnClickListener(new OnClickListener() {
+		Button btn_TryAgain_SongList = (Button)getView().findViewById(R.id.btn_TryAgain_SongList);
+		btn_TryAgain_SongList.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {

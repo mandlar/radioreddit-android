@@ -16,7 +16,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.R.layout;
 import net.mandaria.radioreddit.activities.TopCharts.TabsAdapter;
-import net.mandaria.radioreddit.fragments.TopChartFragment;
+import net.mandaria.radioreddit.fragments.SongListFragment;
 
 import com.viewpagerindicator.TabPageIndicator;
 
@@ -93,13 +93,13 @@ public class RecentlyPlayed extends SherlockFragmentActivity
         	switch(position)
         	{
         		case 0:
-        			fragment = new TopChartFragment("recentlyplayed_songs");
+        			fragment = new SongListFragment("recentlyplayed_songs");
         			break;
         		case 1:
-        			fragment = new TopChartFragment("recentlyplayed_episodes");
+        			fragment = new SongListFragment("recentlyplayed_episodes");
         			break;
         		default:
-        			fragment = new TopChartFragment("recentlyplayed_songs");
+        			fragment = new SongListFragment("recentlyplayed_songs");
         			break;
         	}
         	

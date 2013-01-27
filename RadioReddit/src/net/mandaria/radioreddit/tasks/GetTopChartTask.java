@@ -41,16 +41,16 @@ public class GetTopChartTask extends AsyncTask<Void, List<RadioSong>, List<Radio
 		_application = application;
 		_type = type;
 		
-		LinearLayout div_PleaseWait_TopChart = (LinearLayout)_fragmentView.findViewById(R.id.div_PleaseWait_TopChart);
-		if(div_PleaseWait_TopChart != null)
+		LinearLayout div_PleaseWait_SongList = (LinearLayout)_fragmentView.findViewById(R.id.div_PleaseWait_SongList);
+		if(div_PleaseWait_SongList != null)
 		{
-			div_PleaseWait_TopChart.setVisibility(View.VISIBLE);
+			div_PleaseWait_SongList.setVisibility(View.VISIBLE);
 			
-			LinearLayout div_Error_TopChart = (LinearLayout)_fragmentView.findViewById(R.id.div_Error_TopChart);
-			div_Error_TopChart.setVisibility(View.GONE);
+			LinearLayout div_Error_SongList = (LinearLayout)_fragmentView.findViewById(R.id.div_Error_SongList);
+			div_Error_SongList.setVisibility(View.GONE);
 			
-			LinearLayout div_TopChart = (LinearLayout)_fragmentView.findViewById(R.id.div_TopChart);
-			div_TopChart.setVisibility(View.GONE);
+			LinearLayout div_SongList = (LinearLayout)_fragmentView.findViewById(R.id.div_SongList);
+			div_SongList.setVisibility(View.GONE);
 		}
 	}
 
@@ -89,16 +89,16 @@ public class GetTopChartTask extends AsyncTask<Void, List<RadioSong>, List<Radio
 		}
 		else
 		{
-			LinearLayout div_PleaseWait_TopChart = (LinearLayout)_fragmentView.findViewById(R.id.div_PleaseWait_TopChart);
-			if(div_PleaseWait_TopChart != null)
+			LinearLayout div_PleaseWait_SongList = (LinearLayout)_fragmentView.findViewById(R.id.div_PleaseWait_SongList);
+			if(div_PleaseWait_SongList != null)
 			{
-				div_PleaseWait_TopChart.setVisibility(View.GONE);
+				div_PleaseWait_SongList.setVisibility(View.GONE);
 				
-				LinearLayout div_Error_TopChart = (LinearLayout)_fragmentView.findViewById(R.id.div_Error_TopChart);
-				div_Error_TopChart.setVisibility(View.VISIBLE);
+				LinearLayout div_Error_SongList = (LinearLayout)_fragmentView.findViewById(R.id.div_Error_SongList);
+				div_Error_SongList.setVisibility(View.VISIBLE);
 				
-				LinearLayout div_TopChart = (LinearLayout)_fragmentView.findViewById(R.id.div_TopChart);
-				div_TopChart.setVisibility(View.GONE);
+				LinearLayout div_SongList = (LinearLayout)_fragmentView.findViewById(R.id.div_SongList);
+				div_SongList.setVisibility(View.GONE);
 			}
 		    
 			Log.e(TAG, "FAIL: Post execute");//: " + _errorMessage);
@@ -111,38 +111,38 @@ public class GetTopChartTask extends AsyncTask<Void, List<RadioSong>, List<Radio
 	
 	public static void drawResultsToActivity(List<RadioSong> result, Activity activity, RadioRedditApplication application, View fragmentView)
 	{
-		LinearLayout div_PleaseWait_TopChart = (LinearLayout)fragmentView.findViewById(R.id.div_PleaseWait_TopChart);
-		if(div_PleaseWait_TopChart != null)
+		LinearLayout div_PleaseWait_SongList = (LinearLayout)fragmentView.findViewById(R.id.div_PleaseWait_SongList);
+		if(div_PleaseWait_SongList != null)
 		{
-			div_PleaseWait_TopChart.setVisibility(View.GONE);
+			div_PleaseWait_SongList.setVisibility(View.GONE);
 			
-			LinearLayout div_Error_TopChart = (LinearLayout)fragmentView.findViewById(R.id.div_Error_TopChart);
-			div_Error_TopChart.setVisibility(View.GONE);
+			LinearLayout div_Error_SongList = (LinearLayout)fragmentView.findViewById(R.id.div_Error_SongList);
+			div_Error_SongList.setVisibility(View.GONE);
 			
-			LinearLayout div_TopChart = (LinearLayout)fragmentView.findViewById(R.id.div_TopChart);
-			div_TopChart.setVisibility(View.VISIBLE);
+			LinearLayout div_SongList = (LinearLayout)fragmentView.findViewById(R.id.div_SongList);
+			div_SongList.setVisibility(View.VISIBLE);
 		
-			final ExpandableListView list_TopChart = (ExpandableListView)fragmentView.findViewById(R.id.list_TopChart);
+			final ExpandableListView list_SongList = (ExpandableListView)fragmentView.findViewById(R.id.list_SongList);
 		
 			TopChartExpandableListAdapter adapter = new TopChartExpandableListAdapter(activity, application, result);
-			list_TopChart.setAdapter(adapter);
+			list_SongList.setAdapter(adapter);
 			
-			list_TopChart.setGroupIndicator(null);
+			list_SongList.setGroupIndicator(null);
 	        
-	        TextView lbl_NoTopCharts = (TextView)fragmentView.findViewById(R.id.lbl_NoTopCharts);
+	        TextView lbl_NoSongList = (TextView)fragmentView.findViewById(R.id.lbl_NoSongList);
 	       
-	        lbl_NoTopCharts.setText("No top charts found");
+	        lbl_NoSongList.setText("No top charts found");
 	  
-	        if(list_TopChart.getCount() == 0)
+	        if(list_SongList.getCount() == 0)
 	        {
-	        	lbl_NoTopCharts.setVisibility(View.VISIBLE);
+	        	lbl_NoSongList.setVisibility(View.VISIBLE);
 	        }
 	        else
 	        {
-	        	lbl_NoTopCharts.setVisibility(View.INVISIBLE);
+	        	lbl_NoSongList.setVisibility(View.INVISIBLE);
 	        }			
 	        
-	        list_TopChart.setOnGroupExpandListener(new OnGroupExpandListener()
+	        list_SongList.setOnGroupExpandListener(new OnGroupExpandListener()
 			{
 				private int lastGroupExpand = -1;
 				
@@ -150,7 +150,7 @@ public class GetTopChartTask extends AsyncTask<Void, List<RadioSong>, List<Radio
 				public void onGroupExpand(int groupPosition)
 				{
 					if(lastGroupExpand != -1 && lastGroupExpand != groupPosition)
-						list_TopChart.collapseGroup(lastGroupExpand);
+						list_SongList.collapseGroup(lastGroupExpand);
 					
 					lastGroupExpand = groupPosition;
 						
