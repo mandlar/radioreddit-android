@@ -318,13 +318,13 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 			
 			DatabaseService service = new DatabaseService();
 			
-			if(application.playBackType.equals("stream"))
+			if(application.playBackType.equals("stream") && application.CurrentStream != null)
 			{
-				if(application.CurrentSong != null)
+				if(application.CurrentStream.Type.equals("music") && application.CurrentSong != null)
 				{
 					service.AddRecentlyPlayedSong(getApplicationContext(), application.CurrentSong);
 				}
-				else if(application.CurrentEpisode != null)
+				else if(application.CurrentStream.Type.equals("talk") && application.CurrentEpisode != null)
 				{
 					service.AddRecentlyPlayedEpisode(getApplicationContext(), application.CurrentEpisode);
 				}
