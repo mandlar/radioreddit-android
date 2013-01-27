@@ -61,6 +61,7 @@ import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.activities.RadioReddit;
 import net.mandaria.radioreddit.activities.Settings;
+import net.mandaria.radioreddit.data.DatabaseService;
 import net.mandaria.radioreddit.tasks.GetCurrentEpisodeInformationTask;
 import net.mandaria.radioreddit.tasks.GetCurrentSongInformationTask;
 import net.mandaria.radioreddit.tasks.GetVoteScoreTask;
@@ -314,6 +315,20 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 			Notification notification = getNotification(songTitle, songArtist);
 			
 			notificationManager.notify(NOTIFICATION_ID, notification);
+			
+			DatabaseService service = new DatabaseService();
+			
+			if(application.playBackType.equals("stream"))
+			{
+				if(application.CurrentSong != null)
+				{
+					service.AddRecentlyPlayedSong(getApplicationContext(), application.CurrentSong);
+				}
+				else if(application.CurrentEpisode != null)
+				{
+					service.AddRecentlyPlayedEpisode(getApplicationContext(), application.CurrentEpisode);
+				}
+			}
 		}
 		// Log.w(LOG_TAG, "Playback service - updateNotification() stop");
 	}
