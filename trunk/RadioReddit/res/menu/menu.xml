@@ -22,6 +22,11 @@
 		android:showAsAction="never"
 		/>
 	<item
+		android:id="@+id/recentlyplayed"
+		android:title="@string/recentlyplayed"
+		android:showAsAction="never"
+		/>
+	<item
 		android:id="@+id/settings"
 		android:title="@string/settings"
 		android:showAsAction="never"
