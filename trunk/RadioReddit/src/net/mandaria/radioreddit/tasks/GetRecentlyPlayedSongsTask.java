@@ -6,7 +6,7 @@ import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.apis.RadioRedditAPI;
 import net.mandaria.radioreddit.data.DatabaseService;
-import net.mandaria.radioreddit.data.TopChartExpandableListAdapter;
+import net.mandaria.radioreddit.data.SongListExpandableListAdapter;
 import net.mandaria.radioreddit.objects.RadioSong;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -126,7 +126,7 @@ public class GetRecentlyPlayedSongsTask extends AsyncTask<Void, List<RadioSong>,
 		
 			final ExpandableListView list_SongList = (ExpandableListView)fragmentView.findViewById(R.id.list_SongList);
 		
-			TopChartExpandableListAdapter adapter = new TopChartExpandableListAdapter(activity, application, result);
+			SongListExpandableListAdapter adapter = new SongListExpandableListAdapter(activity, application, result);
 			list_SongList.setAdapter(adapter);
 			
 			list_SongList.setGroupIndicator(null);
