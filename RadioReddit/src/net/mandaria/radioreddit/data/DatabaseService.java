@@ -178,4 +178,60 @@ public class DatabaseService
 		
 		db.close();
 	}
+	
+	public ArrayList<RadioSong> GetRecentlyPlayedSongs(Context context)
+	{
+		DatabaseHelper myDbHelper = GetDatabaseHelper(context);
+		
+		SQLiteDatabase db = myDbHelper.getReadableDatabase();
+		Cursor cursor = db.rawQuery("SELECT * FROM RecentlyPlayed WHERE Type = 'Song' ORDER BY _id DESC", null);
+		
+		ArrayList<RadioSong> songs = new ArrayList<RadioSong>();
+		
+		while(cursor.moveToNext())
+		{			
+			String listenDate = cursor.getString(cursor.getColumnIndex("ListenDate"));
+			int id = cursor.getInt(cursor.getColumnIndex("id"));
+			String title = cursor.getString(cursor.getColumnIndex("Title"));
+			String artist = cursor.getString(cursor.getColumnIndex("Artist"));
+			String redditor = cursor.getString(cursor.getColumnIndex("Redditor"));
+			String genre = cursor.getString(cursor.getColumnIndex("Genre"));
+			String reddit_title = cursor.getString(cursor.getColumnIndex("Reddit_title"));
+			String reddit_url = cursor.getString(cursor.getColumnIndex("Reddit_url"));
+			String preview_url = cursor.getString(cursor.getColumnIndex("Preview_url"));
+			String download_url = cursor.getString(cursor.getColumnIndex("Download_url"));
+			String bandcamp_link = cursor.getString(cursor.getColumnIndex("Bandcamp_link"));
+			String bandcamp_art = cursor.getString(cursor.getColumnIndex("Bandcamp_art"));
+			String itunes_link = cursor.getString(cursor.getColumnIndex("Itunes_link"));
+			String itunes_art = cursor.getString(cursor.getColumnIndex("Itunes_art"));
+			String itunes_price = cursor.getString(cursor.getColumnIndex("Itunes_price"));
+			String name = cursor.getString(cursor.getColumnIndex("Name"));
+	    	
+	    	RadioSong song = new RadioSong();
+	    	song.ErrorMessage = "";
+	    	// TODO: add listen date?
+	    	song.ID = id;
+	    	song.Title = title;
+	    	song.Artist = artist;
+	    	song.Redditor = redditor;
+	    	song.Genre = genre;
+	    	song.Reddit_title = reddit_title;
+	    	song.Reddit_url = reddit_url;
+	    	song.Preview_url = preview_url;
+	    	song.Download_url = download_url;
+	    	song.Bandcamp_link = bandcamp_link;
+	    	song.Bandcamp_art = bandcamp_art;
+	    	song.Itunes_link = itunes_link;
+	    	song.Itunes_art = itunes_art;
+	    	song.Itunes_price = itunes_price;
+	    	song.Name = name;
+			
+	    	songs.add(song);
+		}
+		
+		cursor.close();
+		db.close();
+		
+		return songs;
+	}	
 }
