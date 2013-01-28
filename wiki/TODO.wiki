@@ -10,6 +10,7 @@
   * Bookmarks
   * Download song (if available)
   * Link to reddit comments for current submitted song/episode
+  * Link to subreddit
   * Use Android 3.0 fragments
   * Tablet interface
   * If talk or music stations are empty, don't show the "heading" for it in the "Choose Stations" screen
