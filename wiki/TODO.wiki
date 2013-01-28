@@ -1,8 +1,10 @@
 #summary Todo list
 
 == Beta ==
+  * Refresh for Top Charts
+  * Refresh for Recently Played
+  * Clear for Recently Played
   * Confirm dialog for logout
-  * Move logout to bottom of menu
   * Cache top charts lists to memory
   * Recently played
   * Bookmarks
@@ -49,6 +51,7 @@
   * (DONE) On login page, have a link to login page on reddit to give the user a way to register a new account: https://ssl.reddit.com/login
   * (DONE) Top charts
   * (DONE) Previewing songs (bookmarked or top charts)
+  * (DONE) Move logout to bottom of menu
 
 == Alpha ==
 
