@@ -1,6 +1,7 @@
 #summary Todo list
 
 == Beta ==
+  * BUG: After listening to an individual song it says Buffering and the Stop button is shown (should show a Play button)
   * Submiting song in recently played (maybe Top Charts too) isn't showing the dialog
   * Refresh for Top Charts
   * Refresh for Recently Played
