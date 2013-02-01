@@ -26,42 +26,43 @@ import java.util.Locale;
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.apis.RadioRedditAPI;
-import net.mandaria.radioreddit.data.SongListExpandableListAdapter;
-import net.mandaria.radioreddit.data.SongListExpandableListAdapter.SongListChildViewHolder;
+import net.mandaria.radioreddit.data.EpisodeListExpandableListAdapter;
+import net.mandaria.radioreddit.data.EpisodeListExpandableListAdapter.SongListChildViewHolder;
+import net.mandaria.radioreddit.objects.RadioEpisode;
 import net.mandaria.radioreddit.objects.RadioSong;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-public class GetVoteScoreTask extends AsyncTask<Void, RadioSong, RadioSong>
+public class GetEpisodeVoteScoreTask extends AsyncTask<Void, RadioEpisode, RadioEpisode>
 {
 	private static String TAG = "RadioReddit";
 	private Context _context;
 	private RadioRedditApplication _application;
 	private Exception ex;
-	private RadioSong _song;
+	private RadioEpisode _episode;
 	private SongListChildViewHolder _holder;
-	private List<RadioSong> _songs;
+	private List<RadioEpisode> _episodes;
 	private int _groupPosition;
 
-	public GetVoteScoreTask(RadioRedditApplication application, Context context, List<RadioSong> songs, int groupPosition, RadioSong song, SongListChildViewHolder holder)
+	public GetEpisodeVoteScoreTask(RadioRedditApplication application, Context context, List<RadioEpisode> episodes, int groupPosition, RadioEpisode episode, SongListChildViewHolder holder)
 	{
 		_context = context;
 		_application = application;
-		_song = song;
+		_episode = episode;
 		_holder = holder;
-		_songs = songs;
+		_episodes = episodes;
 		_groupPosition = groupPosition;
 	}
 
 	@Override
-	protected RadioSong doInBackground(Void... unused)
+	protected RadioEpisode doInBackground(Void... unused)
 	{
-		RadioSong song = null;
+		RadioEpisode episode = null;
 		try
 		{
-			song = RadioRedditAPI.GetVoteScore(_context, _application, _song);
+			episode = RadioRedditAPI.GetEpisodeVoteScore(_context, _application, _episode);
 		}
 		catch(Exception e)
 		{
@@ -69,28 +70,28 @@ public class GetVoteScoreTask extends AsyncTask<Void, RadioSong, RadioSong>
 			Log.e(TAG, "FAIL: get current song information: " + e);
 		}
 
-		return song;
+		return episode;
 	}
 
 	@Override
-	protected void onProgressUpdate(RadioSong... item)
+	protected void onProgressUpdate(RadioEpisode... item)
 	{
 
 	}
 
 	@Override
-	protected void onPostExecute(RadioSong result)
+	protected void onPostExecute(RadioEpisode result)
 	{
 		if(result != null && result.ErrorMessage.equals(""))
 		{
-			if(_songs != null) // used for TopCharts/RecentlyPlayed/etc.
+			if(_episodes != null) // used for TopCharts/RecentlyPlayed/etc.
 			{
-				_songs.set(_groupPosition, result);
+				_episodes.set(_groupPosition, result);
 			
-				SongListExpandableListAdapter.setUpOrDownVote(result.Likes, _holder);
+				EpisodeListExpandableListAdapter.setUpOrDownVote(result.Likes, _holder);
 			}
 			else // used for PlaybackService
-				_application.CurrentSong = result;
+				_application.CurrentEpisode = result;
 		}
 		else
 		{

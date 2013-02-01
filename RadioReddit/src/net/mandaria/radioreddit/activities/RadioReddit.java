@@ -861,7 +861,7 @@ public class RadioReddit extends SherlockActivity
 					playStream();
 				}
 			}
-			else if(requestCode == 2) // individual song
+			else if(requestCode == 2) // individual song/episode
 			{
 				String song_url = data.getStringExtra("song_url");
 				Log.w(LOG_TAG, "Song URL: " + song_url);
@@ -893,7 +893,7 @@ public class RadioReddit extends SherlockActivity
 			}
 			else
 			{
-				application.playBackType = "song";
+				//application.playBackType = "song";
 				RadioSong song = application.CurrentSong;
 				
 				// stop / cleanup

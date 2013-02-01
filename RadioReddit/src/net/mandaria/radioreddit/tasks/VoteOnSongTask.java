@@ -125,7 +125,7 @@ public class VoteOnSongTask extends AsyncTask<Void, String, String>
 				{
 					String captcha = result.substring(8);
 					
-					new GetCaptchaTask(_application, _context, "music", _song, captcha, _liked).execute();
+					new GetCaptchaTask(_application, _context, "song", _song, null, captcha, _liked).execute();
 				}
 				else
 				{
