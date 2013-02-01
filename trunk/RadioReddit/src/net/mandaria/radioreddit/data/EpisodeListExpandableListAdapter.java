@@ -5,8 +5,11 @@ import java.util.List;
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.activities.RadioReddit;
+import net.mandaria.radioreddit.objects.RadioEpisode;
 import net.mandaria.radioreddit.objects.RadioSong;
+import net.mandaria.radioreddit.tasks.GetEpisodeVoteScoreTask;
 import net.mandaria.radioreddit.tasks.GetSongVoteScoreTask;
+import net.mandaria.radioreddit.tasks.VoteOnEpisodeTask;
 import net.mandaria.radioreddit.tasks.VoteOnSongTask;
 import net.mandaria.radioreddit.tasks.VoteRedditTask;
 
@@ -22,19 +25,19 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class SongListExpandableListAdapter extends BaseExpandableListAdapter
+public class EpisodeListExpandableListAdapter extends BaseExpandableListAdapter
 {
 	private static String TAG = "RadioReddit";
 	Context context;
-	List<RadioSong> songs;
+	List<RadioEpisode> episodes;
 	RadioRedditApplication application;
-	GetSongVoteScoreTask task;
+	GetEpisodeVoteScoreTask task;
 	
-	public SongListExpandableListAdapter(Context context, RadioRedditApplication application, List<RadioSong> songs)
+	public EpisodeListExpandableListAdapter(Context context, RadioRedditApplication application, List<RadioEpisode> episodes)
 	{
 		super();
 		this.context = context;
-		this.songs = songs;
+		this.episodes = episodes;
 		this.application = application;
 	}
 	
@@ -94,15 +97,15 @@ public class SongListExpandableListAdapter extends BaseExpandableListAdapter
 		holder.btn_upvote.setEnabled(false);
 		holder.btn_downvote.setEnabled(false);
 		
-		final RadioSong song = songs.get(groupPosition);
-		if(song.Likes == null)
+		final RadioEpisode episode = episodes.get(groupPosition);
+		if(episode.Likes == null)
 		{
-			task = new GetSongVoteScoreTask(application, context, songs, groupPosition, song, holder);
+			task = new GetEpisodeVoteScoreTask(application, context, episodes, groupPosition, episode, holder);
 			task.execute();
 		}
 		else
 		{
-			setUpOrDownVote(song.Likes, holder);
+			setUpOrDownVote(episode.Likes, holder);
 		}
 		
 		// Bind the data efficiently with the holder.		
@@ -115,10 +118,10 @@ public class SongListExpandableListAdapter extends BaseExpandableListAdapter
 			@Override
 			public void onClick(View v)
 			{
-				new VoteOnSongTask(application, context, song, true, "", "").execute();
+				new VoteOnEpisodeTask(application, context, episode, true, "", "").execute();
 				setUpOrDownVote("true", holder);
-				song.Likes = null; // Forces user to re-get song info next time to reflect new vote
-				songs.set(groupPosition, song);
+				episode.Likes = null; // Forces user to re-get song info next time to reflect new vote
+				episodes.set(groupPosition, episode);
 				
 			}
 		});
@@ -129,10 +132,10 @@ public class SongListExpandableListAdapter extends BaseExpandableListAdapter
 			@Override
 			public void onClick(View v)
 			{
-				new VoteOnSongTask(application, context, song, false, "", "").execute();
+				new VoteOnEpisodeTask(application, context, episode, false, "", "").execute();
 				setUpOrDownVote("false", holder);
-				song.Likes = null; // Forces user to re-get song info next time to reflect new vote
-				songs.set(groupPosition, song);
+				episode.Likes = null; // Forces user to re-get song info next time to reflect new vote
+				episodes.set(groupPosition, episode);
 			}
 		});
 		
@@ -142,12 +145,12 @@ public class SongListExpandableListAdapter extends BaseExpandableListAdapter
 			@Override
 			public void onClick(View v)
 			{
-				song.Playlist = "Song Preview";
-				application.playBackType = "song";
-				application.CurrentSong = song;
+				episode.Playlist = "Song Preview";
+				application.playBackType = "episode";
+				application.CurrentEpisode = episode;
 				
 				Intent result = new Intent();
-				result.putExtra("song_url", song.Preview_url);
+				result.putExtra("song_url", episode.Preview_url);
 				
 				Activity activity = (Activity)context;
 				
@@ -178,7 +181,7 @@ public class SongListExpandableListAdapter extends BaseExpandableListAdapter
 	public int getGroupCount()
 	{
 		// TODO Auto-generated method stub
-		return songs.size();
+		return episodes.size();
 	}
 
 	@Override
@@ -220,11 +223,11 @@ public class SongListExpandableListAdapter extends BaseExpandableListAdapter
 			holder = (SongListParentViewHolder) row.getTag();
 		}
 		
-		RadioSong song = songs.get(groupPosition);
+		RadioEpisode episode = episodes.get(groupPosition);
 
 		// Bind the data efficiently with the holder.
-		holder.lbl_SongName.setText(song.Title);
-		holder.lbl_SongArtist.setText(song.Artist + " (" + song.Redditor + ")");
+		holder.lbl_SongName.setText(episode.EpisodeTitle);
+		holder.lbl_SongArtist.setText(episode.ShowTitle);
 
 		return row;
 	}

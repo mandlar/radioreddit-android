@@ -603,9 +603,88 @@ public class RadioRedditAPI
 		
 		if(application.playBackType.equals("song") && song.Title.equals(application.CurrentSong.Title))
 		{
-			song = RadioRedditAPI.GetVoteScore(context, application, song);
+			song = RadioRedditAPI.GetSongVoteScore(context, application, song);
 			
 			application.CurrentSong = song;
+		}
+
+		return errorMessage;
+	}
+	
+	public static String VoteOnEpisode(Context context, RadioRedditApplication application, RadioEpisode episode, boolean liked, String iden, String captcha)
+	{
+		String errorMessage = "";
+		RedditAccount account = Settings.getRedditAccount(context);
+		
+		if(account == null)
+		{
+			errorMessage = context.getString(R.string.error_YouMustBeLoggedInToVote);
+			return errorMessage;
+		}
+		
+		int voteDirection = 0; // TODO: handle case to rescind vote
+		if(liked == true)
+			voteDirection = 1;
+		else
+			voteDirection = -1;
+		
+//		1. Get most up to date song information (in case cached info is old)
+		
+		// TODO: need to get updated information specific song
+		// e.g. if this is a recently played song it was not submitted
+		// then we must check and see if someone has submitted it since we have tried to vote on it
+		// for top of charts, this isn't necessary as everything has already been submitted. Will re-visit this later
+		// Actually: we need to request an API to search for a song to get updated info on it
+		// TODO: create a GetVoteInfo function that gets reddit vote info on song to determine if already submitted or not
+		// pull GetVoteInfo out of GetCurrentSongInformation
+		//song = RadioRedditAPI.GetCurrentSongInformation(context, application);
+		
+		if(episode == null)
+			return context.getString(R.string.error_ThereWasAProblemVotingPleaseTryAgain);
+		
+		if(!episode.ErrorMessage.equals(""))
+			return episode.ErrorMessage;
+
+
+
+		
+//		2a. If it exist:
+//		a. Get the FULLNAME from reddit and vote on it: http://www.reddit.com/api/vote
+		
+//		2b. If it exists, but is archived
+//		a. Submit as a new post to be voted on? Or simply say that the song has been archived and cannot be voted on?
+//		b. BUG: apparently the API allows votes on archived posts. This needs to be discussed with reddit admins or similar
+	
+	// TODO: return to user that it must be submitted?  e.g. they must accept to submit, so pull the submit into its own function?
+//	3. If it doesn't exist:
+//		a. Try to submit the post http://www.reddit.com/api/submit:
+//		b. If it fails, display error (or CAPTCHA) and try again
+		
+		//String title = "Song Title by Song Artist (redditor)";
+		
+		if(!episode.Name.equals(""))
+		{
+			errorMessage = RedditAPI.Vote(context, account, voteDirection, episode.Name);
+		}
+		else // not yet submitted
+		{	
+			String title = episode.ShowTitle + ": " + episode.EpisodeTitle; // future note: do not pull into strings.xml, this is used for submission on r/talkradioreddit
+			String url = episode.Reddit_url;
+			String subreddit = "talkradioreddit";
+			
+			errorMessage = RedditAPI.SubmitLink(context, account, title, url, subreddit, iden, captcha);
+			// TODO: if submiting while voting down, vote down after it is submitted?
+			//return context.getString(R.string.error_ThereWasAProblemPleaseTryAgain);
+		}
+		
+		// 4. After voting/submiting, get the most up to date version of the episode/song again
+		// TODO: Only do this if the song is currently playing?
+		
+		if(application.playBackType.equals("episode") && episode.EpisodeTitle.equals(application.CurrentEpisode.EpisodeTitle))
+		{
+			episode = RadioRedditAPI.GetEpisodeVoteScore(context, application, episode);
+			
+			application.CurrentEpisode = episode;
 		}
 
 		return errorMessage;
@@ -705,7 +784,7 @@ public class RadioRedditAPI
 		return radiosongs;
 	}
 	
-	public static RadioSong GetVoteScore(Context context, RadioRedditApplication application, RadioSong radiosong)
+	public static RadioSong GetSongVoteScore(Context context, RadioRedditApplication application, RadioSong radiosong)
 	{
 		try
 		{
@@ -779,6 +858,82 @@ public class RadioRedditAPI
 		}
 		
 		return radiosong;
+	}
+	
+	public static RadioEpisode GetEpisodeVoteScore(Context context, RadioRedditApplication application, RadioEpisode radioepisode)
+	{
+		try
+		{
+			// get vote score 
+			String reddit_info_url = context.getString(R.string.reddit_link_by) + URLEncoder.encode(radioepisode.Reddit_url);
+	
+			String outputRedditInfo = "";
+			boolean errorGettingRedditInfo = false;
+	
+			try
+			{
+				outputRedditInfo = HTTPUtil.get(context, reddit_info_url);
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+				errorGettingRedditInfo = true;
+				// For now, not used. It is acceptable to error out and not alert the user
+				// radiosong.ErrorMessage = "Unable to connect to reddit";//context.getString(R.string.error_RadioRedditServerIsDownNotification);
+			}
+	
+			if(!errorGettingRedditInfo && outputRedditInfo.length() > 0)
+			{
+				// Log.e("radio_reddit_test", "Length: " + outputRedditInfo.length());
+				// Log.e("radio_reddit_test", "Value: " + outputRedditInfo); // TODO: sometimes the value contains "error: 404", need to check for that. (We can probably safely ignore this for now)
+				JSONTokener reddit_info_tokener = new JSONTokener(outputRedditInfo);
+				JSONObject reddit_info_json = new JSONObject(reddit_info_tokener);
+	
+				JSONObject data = reddit_info_json.getJSONObject("data");
+	
+				// default value of score
+				String score = context.getString(R.string.vote_to_submit_song);
+				String likes = "null";
+				String name = "";
+	
+				JSONArray children_array = data.getJSONArray("children");
+	
+				// Song hasn't been submitted yet
+				if(children_array.length() > 0)
+				{
+					JSONObject children = children_array.getJSONObject(0);
+	
+					JSONObject children_data = children.getJSONObject("data");
+					score = children_data.getString("score");
+					
+					likes = children_data.getString("likes");
+					name = children_data.getString("name");
+				}
+	
+				radioepisode.Score = score;
+				radioepisode.Likes = likes;
+				radioepisode.Name = name;
+			}
+			else
+			{
+				radioepisode.Score = "?";
+				radioepisode.Likes = "null";
+				radioepisode.Name = "";
+			}
+		}
+		catch(Exception ex)
+		{
+			// We fail to get the vote information...
+			CustomExceptionHandler ceh = new CustomExceptionHandler(context);
+			ceh.sendEmail(ex);
+	
+			ex.printStackTrace();
+			// return error message??
+			radioepisode.ErrorMessage = context.getString(R.string.error_GettingVoteInformation);
+			//return radiosong;
+		}
+		
+		return radioepisode;
 	}
 	
 }

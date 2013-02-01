@@ -2,6 +2,7 @@ package net.mandaria.radioreddit.fragments;
 
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
+import net.mandaria.radioreddit.tasks.GetRecentlyPlayedEpisodesTask;
 import net.mandaria.radioreddit.tasks.GetRecentlyPlayedSongsTask;
 import net.mandaria.radioreddit.tasks.GetTopChartTask;
 import android.content.Intent;
@@ -71,6 +72,10 @@ public class SongListFragment extends SherlockFragment {
 		{
 			new GetRecentlyPlayedSongsTask((RadioRedditApplication)getActivity().getApplication(), getActivity(), getView(), _type).execute();
 		}
+		else if(_type.equals("recentlyplayed_episodes"))
+		{
+			new GetRecentlyPlayedEpisodesTask((RadioRedditApplication)getActivity().getApplication(), getActivity(), getView(), _type).execute();
+		}
 		
 		Button btn_TryAgain_SongList = (Button)getView().findViewById(R.id.btn_TryAgain_SongList);
 		btn_TryAgain_SongList.setOnClickListener(new OnClickListener() {
@@ -84,6 +89,10 @@ public class SongListFragment extends SherlockFragment {
 				else if(_type.equals("recentlyplayed_songs"))
 				{
 					new GetRecentlyPlayedSongsTask((RadioRedditApplication)getActivity().getApplication(), getActivity(), getView(), _type).execute();
+				}
+				else if(_type.equals("recentlyplayed_episodes"))
+				{
+					new GetRecentlyPlayedEpisodesTask((RadioRedditApplication)getActivity().getApplication(), getActivity(), getView(), _type).execute();
 				}
 			}
 		});

@@ -48,8 +48,9 @@ public class GetCaptchaTask extends AsyncTask<Void, BitmapDrawable, BitmapDrawab
 	private boolean _liked;
 	private String _type;
 	private RadioSong _song;
+	private RadioEpisode _episode;
 
-	public GetCaptchaTask(RadioRedditApplication application, Context context, String type, RadioSong song, String captcha, boolean liked)
+	public GetCaptchaTask(RadioRedditApplication application, Context context, String type, RadioSong song, RadioEpisode episode, String captcha, boolean liked)
 	{
 		_context = context;
 		_application = application;
@@ -57,6 +58,7 @@ public class GetCaptchaTask extends AsyncTask<Void, BitmapDrawable, BitmapDrawab
 		_liked = liked;
 		_type = type;
 		_song = song;
+		_episode = episode;
 	}
 
 	@Override
@@ -126,6 +128,10 @@ public class GetCaptchaTask extends AsyncTask<Void, BitmapDrawable, BitmapDrawab
 						if(_type.equals("song"))
 						{
 							new VoteOnSongTask(_application, _context, _song, _liked, _captcha, txt_Captcha.getText().toString()).execute();
+						}
+						else if(_type.equals("episode"))
+						{
+							new VoteOnEpisodeTask(_application, _context, _episode, _liked, _captcha, txt_Captcha.getText().toString()).execute();
 						}
 						else
 						{

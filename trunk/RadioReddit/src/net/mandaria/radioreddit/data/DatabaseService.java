@@ -234,4 +234,58 @@ public class DatabaseService
 		
 		return songs;
 	}	
+	
+	public ArrayList<RadioEpisode> GetRecentlyPlayedEpisodes(Context context)
+	{
+		DatabaseHelper myDbHelper = GetDatabaseHelper(context);
+		
+		SQLiteDatabase db = myDbHelper.getReadableDatabase();
+		Cursor cursor = db.rawQuery("SELECT * FROM RecentlyPlayed WHERE Type = 'Episode' ORDER BY _id DESC", null);
+		
+		ArrayList<RadioEpisode> episodes = new ArrayList<RadioEpisode>();
+		
+		while(cursor.moveToNext())
+		{						
+			String listenDate = cursor.getString(cursor.getColumnIndex("ListenDate"));
+			int id = cursor.getInt(cursor.getColumnIndex("id"));
+			String reddit_title = cursor.getString(cursor.getColumnIndex("Reddit_title"));
+			String reddit_url = cursor.getString(cursor.getColumnIndex("Reddit_url"));
+			String preview_url = cursor.getString(cursor.getColumnIndex("Preview_url"));
+			String download_url = cursor.getString(cursor.getColumnIndex("Download_url"));
+			String name = cursor.getString(cursor.getColumnIndex("Name"));
+			String episodeTitle = cursor.getString(cursor.getColumnIndex("EpisodeTitle"));
+			String episodeDescription = cursor.getString(cursor.getColumnIndex("EpisodeDescription"));
+			String episodeKeywords = cursor.getString(cursor.getColumnIndex("EpisodeKeywords"));
+			String showTitle = cursor.getString(cursor.getColumnIndex("ShowTitle"));
+			String showHosts = cursor.getString(cursor.getColumnIndex("ShowHosts"));
+			String showRedditors = cursor.getString(cursor.getColumnIndex("ShowRedditors"));
+			String showGenre = cursor.getString(cursor.getColumnIndex("ShowGenre"));
+			String showFeed = cursor.getString(cursor.getColumnIndex("ShowFeed"));
+	    	
+	    	RadioEpisode episode = new RadioEpisode();
+	    	episode.ErrorMessage = "";
+	    	// TODO: add listen date?
+	    	episode.ID = id;
+	    	episode.Reddit_title = reddit_title;
+	    	episode.Reddit_url = reddit_url;
+	    	episode.Preview_url = preview_url;
+	    	episode.Download_url = download_url;
+	    	episode.Name = name;
+	    	episode.EpisodeTitle = episodeTitle;
+	    	episode.EpisodeDescription = episodeDescription;
+	    	episode.EpisodeKeywords = episodeKeywords;
+	    	episode.ShowTitle = showTitle;
+	    	episode.ShowHosts = showHosts;
+	    	episode.ShowRedditors = showRedditors;
+	    	episode.ShowGenre = showGenre;
+	    	episode.ShowFeed = showFeed;
+			
+	    	episodes.add(episode);
+		}
+		
+		cursor.close();
+		db.close();
+		
+		return episodes;
+	}	
 }
