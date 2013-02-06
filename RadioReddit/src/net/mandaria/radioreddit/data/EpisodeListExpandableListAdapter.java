@@ -148,6 +148,7 @@ public class EpisodeListExpandableListAdapter extends BaseExpandableListAdapter
 				episode.Playlist = "Song Preview";
 				application.playBackType = "episode";
 				application.CurrentEpisode = episode;
+				application.CurrentSong = null;
 				
 				Intent result = new Intent();
 				result.putExtra("song_url", episode.Preview_url);

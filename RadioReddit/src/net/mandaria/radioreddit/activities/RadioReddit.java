@@ -35,12 +35,14 @@ import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.data.DatabaseService;
 import net.mandaria.radioreddit.media.PlaybackService;
 import net.mandaria.radioreddit.media.StreamProxy;
+import net.mandaria.radioreddit.objects.RadioEpisode;
 import net.mandaria.radioreddit.objects.RadioSong;
 import net.mandaria.radioreddit.objects.RadioStreams;
 import net.mandaria.radioreddit.objects.RedditAccount;
 import net.mandaria.radioreddit.tasks.GetRadioStreamsTask;
 import net.mandaria.radioreddit.tasks.VoteOnSongTask;
 import net.mandaria.radioreddit.tasks.VoteRedditTask;
+import net.mandaria.radioreddit.tasks.VoteOnEpisodeTask;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -161,7 +163,7 @@ public class RadioReddit extends SherlockActivity
 					// TODO: consolidate ifs better
 					if(application.CurrentStream.Type.equals("music"))
 					{
-						if(application.CurrentSong.Name.equals(""))
+						if(application.CurrentSong != null &&application.CurrentSong.Name.equals(""))
 						{
 							// TODO: show dialog warning
 							final AlertDialog.Builder builder = new AlertDialog.Builder(RadioReddit.this);
@@ -179,10 +181,15 @@ public class RadioReddit extends SherlockActivity
 										
 										if(application.playBackType.equals("stream"))
 											new VoteRedditTask(application, RadioReddit.this, true, "", "").execute();
-										else
+										else if(application.playBackType.equals("song"))
 										{
 											new VoteOnSongTask(application, RadioReddit.this, application.CurrentSong, true, "", "").execute();
 											application.CurrentSong.Likes = "true";
+										}
+										else if(application.playBackType.equals("episode"))
+										{
+											new VoteOnEpisodeTask(application, RadioReddit.this, application.CurrentEpisode, true, "", "").execute();
+											application.CurrentEpisode.Likes = "true";
 										}
 										
 										setUpOrDownVote("true");
@@ -198,10 +205,15 @@ public class RadioReddit extends SherlockActivity
 						{
 							if(application.playBackType.equals("stream"))
 								new VoteRedditTask(application, RadioReddit.this, true, "", "").execute();
-							else
+							else if(application.playBackType.equals("song"))
 							{
 								new VoteOnSongTask(application, RadioReddit.this, application.CurrentSong, true, "", "").execute();
 								application.CurrentSong.Likes = "true";
+							}
+							else if(application.playBackType.equals("episode"))
+							{
+								new VoteOnEpisodeTask(application, RadioReddit.this, application.CurrentEpisode, true, "", "").execute();
+								application.CurrentEpisode.Likes = "true";
 							}
 								
 							setUpOrDownVote("true");
@@ -209,7 +221,7 @@ public class RadioReddit extends SherlockActivity
 					}
 					else if(application.CurrentStream.Type.equals("talk"))
 					{
-						if(application.CurrentEpisode.Name.equals(""))
+						if(application.CurrentEpisode != null && application.CurrentEpisode.Name.equals(""))
 						{
 							final AlertDialog.Builder builder = new AlertDialog.Builder(RadioReddit.this);
 						    builder.setMessage(getString(R.string.warning_SubmitEpisode) + "\n\n" + getString(R.string.warning_SubmitNote))
@@ -226,10 +238,15 @@ public class RadioReddit extends SherlockActivity
 										
 										if(application.playBackType.equals("stream"))
 											new VoteRedditTask(application, RadioReddit.this, true, "", "").execute();
-										else
+										else if(application.playBackType.equals("song"))
 										{
 											new VoteOnSongTask(application, RadioReddit.this, application.CurrentSong, true, "", "").execute(); // TODO: replace with VoteOnEpisodeTask
 											application.CurrentSong.Likes = "true";
+										}
+										else if(application.playBackType.equals("episode"))
+										{
+											new VoteOnEpisodeTask(application, RadioReddit.this, application.CurrentEpisode, true, "", "").execute();
+											application.CurrentEpisode.Likes = "true";
 										}
 										
 										setUpOrDownVote("true");
@@ -245,10 +262,15 @@ public class RadioReddit extends SherlockActivity
 						{
 							if(application.playBackType.equals("stream"))
 								new VoteRedditTask(application, RadioReddit.this, true, "", "").execute();
-							else
+							else if(application.playBackType.equals("song"))
 							{
 								new VoteOnSongTask(application, RadioReddit.this, application.CurrentSong, true, "", "").execute(); // TODO: replace with VoteOnEpisodeTask
 								application.CurrentSong.Likes = "true";
+							}
+							else if(application.playBackType.equals("episode"))
+							{
+								new VoteOnEpisodeTask(application, RadioReddit.this, application.CurrentEpisode, true, "", "").execute();
+								application.CurrentEpisode.Likes = "true";
 							}
 							
 							setUpOrDownVote("true");
@@ -290,10 +312,15 @@ public class RadioReddit extends SherlockActivity
 										
 										if(application.playBackType.equals("stream"))
 											new VoteRedditTask(application, RadioReddit.this, false, "", "").execute();
-										else
+										else if(application.playBackType.equals("song"))
 										{
 											new VoteOnSongTask(application, RadioReddit.this, application.CurrentSong, false, "", "").execute();
 											application.CurrentSong.Likes = "false";
+										}
+										else if(application.playBackType.equals("episode"))
+										{
+											new VoteOnEpisodeTask(application, RadioReddit.this, application.CurrentEpisode, false, "", "").execute();
+											application.CurrentEpisode.Likes = "false";
 										}
 										
 										setUpOrDownVote("false");
@@ -309,10 +336,15 @@ public class RadioReddit extends SherlockActivity
 						{
 							if(application.playBackType.equals("stream"))
 								new VoteRedditTask(application, RadioReddit.this, false, "", "").execute();
-							else
+							else if(application.playBackType.equals("song"))
 							{
 								new VoteOnSongTask(application, RadioReddit.this, application.CurrentSong, false, "", "").execute();
 								application.CurrentSong.Likes = "false";
+							}
+							else if(application.playBackType.equals("episode"))
+							{
+								new VoteOnEpisodeTask(application, RadioReddit.this, application.CurrentEpisode, false, "", "").execute();
+								application.CurrentEpisode.Likes = "false";
 							}
 							
 							setUpOrDownVote("false");
@@ -337,10 +369,15 @@ public class RadioReddit extends SherlockActivity
 										
 										if(application.playBackType.equals("stream"))
 											new VoteRedditTask(application, RadioReddit.this, false, "", "").execute();
-										else
+										else if(application.playBackType.equals("song"))
 										{
 											new VoteOnSongTask(application, RadioReddit.this, application.CurrentSong, false, "", "").execute(); // TODO: replace with VoteOnEpisodeTask
 											application.CurrentSong.Likes = "false";
+										}
+										else if(application.playBackType.equals("episode"))
+										{
+											new VoteOnEpisodeTask(application, RadioReddit.this, application.CurrentEpisode, false, "", "").execute();
+											application.CurrentEpisode.Likes = "false";
 										}
 										
 										setUpOrDownVote("false");
@@ -356,10 +393,15 @@ public class RadioReddit extends SherlockActivity
 						{
 							if(application.playBackType.equals("stream"))
 								new VoteRedditTask(application, RadioReddit.this, false, "", "").execute();
-							else
+							else if(application.playBackType.equals("song"))
 							{
 								new VoteOnSongTask(application, RadioReddit.this, application.CurrentSong, false, "", "").execute(); // TODO: replace with VoteOnEpisodeTask
 								application.CurrentSong.Likes = "false";
+							}
+							else if(application.playBackType.equals("episode"))
+							{
+								new VoteOnEpisodeTask(application, RadioReddit.this, application.CurrentEpisode, false, "", "").execute();
+								application.CurrentEpisode.Likes = "false";
 							}
 							
 							setUpOrDownVote("false");
@@ -895,6 +937,7 @@ public class RadioReddit extends SherlockActivity
 			{
 				//application.playBackType = "song";
 				RadioSong song = application.CurrentSong;
+				RadioEpisode episode = application.CurrentEpisode;
 				
 				// stop / cleanup
 				if(player != null)
@@ -903,6 +946,7 @@ public class RadioReddit extends SherlockActivity
 				}
 				
 				application.CurrentSong = song; // cleanup will remove current song from application, must re-add it or lose it
+				application.CurrentEpisode = episode;
 				
 				Map params = new HashMap();
 				params.put("song", url);
