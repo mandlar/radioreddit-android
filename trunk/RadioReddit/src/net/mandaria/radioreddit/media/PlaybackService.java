@@ -64,6 +64,7 @@ import net.mandaria.radioreddit.activities.Settings;
 import net.mandaria.radioreddit.data.DatabaseService;
 import net.mandaria.radioreddit.tasks.GetCurrentEpisodeInformationTask;
 import net.mandaria.radioreddit.tasks.GetCurrentSongInformationTask;
+import net.mandaria.radioreddit.tasks.GetEpisodeVoteScoreTask;
 import net.mandaria.radioreddit.tasks.GetSongVoteScoreTask;
 
 public class PlaybackService extends Service implements OnPreparedListener, OnBufferingUpdateListener, OnCompletionListener, OnErrorListener, OnInfoListener
@@ -617,9 +618,13 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 					else if(application.CurrentStream.Type.equals("talk"))
 						new GetCurrentEpisodeInformationTask(application, this, Locale.getDefault()).execute();
 				}
-				else // selected song
+				else if(application.playBackType.equals("song")) // selected song
 				{
 					new GetSongVoteScoreTask(application, this, null, 0, application.CurrentSong, null).execute();
+				}
+				else if(application.playBackType.equals("episode")) // selected episode
+				{
+					new GetEpisodeVoteScoreTask(application, this, null, 0, application.CurrentEpisode, null).execute();
 				}
 
 				mLastCurrentSongInformationUpdateMillis = SystemClock.elapsedRealtime();
