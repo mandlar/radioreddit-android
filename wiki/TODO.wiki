@@ -8,7 +8,6 @@
   * Clear for Recently Played
   * Confirm dialog for logout
   * Cache top charts lists to memory
-  * Recently played
   * Bookmarks
   * Download song (if available)
   * Link to reddit comments for current submitted song/episode
@@ -55,6 +54,7 @@
   * (DONE) Top charts
   * (DONE) Previewing songs (bookmarked or top charts)
   * (DONE) Move logout to bottom of menu
+  * (DONE) Recently played
 
 == Alpha ==
 
