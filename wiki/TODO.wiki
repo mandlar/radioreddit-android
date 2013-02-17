@@ -1,6 +1,7 @@
 #summary Todo list
 
 == Beta ==
+  * Show dialog on free version if user tries to go to Recently Played or Top Charts (pro only feature, link to pro version, 25% of sale to radio reddit)
   * BUG: After listening to an individual song it says Buffering and the Stop button is shown (should show a Play button)
   * Submiting song in recently played (maybe Top Charts too) isn't showing the dialog
   * Refresh for Top Charts
