@@ -1,5 +1,14 @@
 #summary Todo list
 
+== Release prep ==
+ * Code checks for free vs pro
+ * Package APKs and sign them, upload them
+ * Create marketing graphics
+ * Create marketing description
+ * Post to r/radioreddit
+ * Post to r/android, r/androidusers and other related reddits afterwards (Monday?)
+ * Make ad banners for radio reddit
+
 == Beta ==
   * Show dialog on free version if user tries to go to Recently Played or Top Charts (pro only feature, link to pro version, 25% of sale to radio reddit)
   * BUG: After listening to an individual song it says Buffering and the Stop button is shown (should show a Play button)
