@@ -1,17 +1,17 @@
 #summary Todo list
 
 == Release prep ==
- * Code checks for free vs pro
+ * (DONE) Code checks for free vs pro
  * Update flurry keys (DO NOT COMMIT)
  * Package APKs and sign them, upload them
  * Create marketing graphics
  * Create marketing description
+ * Updated crownin translations: strings.xml, market descriptions, etc
  * Post to r/radioreddit
  * Post to r/android, r/androidusers and other related reddits afterwards (Monday?)
  * Make ad banners for radio reddit
 
 == Beta ==
-  * Show dialog on free version if user tries to go to Recently Played or Top Charts (pro only feature, link to pro version, 25% of sale to radio reddit)
   * BUG: After listening to an individual song it says Buffering and the Stop button is shown (should show a Play button)
   * BUG: Submiting song in recently played (maybe Top Charts too) isn't showing the dialog
   * About activity
@@ -67,6 +67,7 @@
   * (DONE) Previewing songs (bookmarked or top charts)
   * (DONE) Move logout to bottom of menu
   * (DONE) Recently played
+  * (DONE) Show dialog on free version if user tries to go to Recently Played or Top Charts (pro only feature, link to pro version, 25% of sale to radio reddit)
 
 == Alpha ==
 
