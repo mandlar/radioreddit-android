@@ -3,6 +3,7 @@
 == Release prep ==
  * (DONE) Code checks for free vs pro
  * Update flurry keys (DO NOT COMMIT)
+ * Update version code/name
  * Package APKs and sign them, upload them
  * Create marketing graphics
  * Create marketing description
