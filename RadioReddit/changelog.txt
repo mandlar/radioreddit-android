@@ -4,14 +4,18 @@
 
 Change log:
 
-* 0.3 - TBA
+* 1.0 - February 18th, 2013
 - Bump min API level to 7 (Android 2.1)
 - Bump build and target API to 15 (Android 4.2)
 - Added ActionBarSherlock (action bar support for 2.3 and below devices)
 - Removed old Android <= 2.3 interface for choosing a station (replaced by ActionBar like with 3.0+)
-*- Added Top Charts
-*- Individual song voting (in Top Charts)
-*- Individual song playback (in Top Charts)
+- Added Top Charts
+- Individual song voting (in Top Charts)
+- Individual song playback (in Top Charts)
+- Added Recently Played for songs/episodes
+- Individual song/episode voting (in Recently Played)
+- Individual song/episode playback (in Recently Played)
+- Added check for pro version: Free version will show dialog to buy pro version if user tries to go Recently Played or Top Charts
 
 * 0.2 - January 5th, 2013
 - Removed GPS permissions (not intentionally added to begin with)
