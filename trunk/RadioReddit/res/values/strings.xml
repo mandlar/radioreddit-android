@@ -28,6 +28,11 @@
 	<string name="usernameIsRequired">Username is required</string>
 	<string name="passwordIsRequired">Password is required</string>
 	<string name="usernameCannotHaveSpaces">Username cannot have spaces</string>
+	<!-- Go pro -->
+	<string name="gopro_title">Go pro to unlock this feature?</string>
+	<string name="gopro_body">This feature is only available in the pro version of radio reddit. Please support the developer and radio reddit by purchasing the pro version. 25% of sales go directly to radioreddit.com</string>
+	<string name="gopro_yes">Purchase pro version</string>
+	<string name="gopro_no">Not now</string>
 	<!-- Submit errors -->
 	<string name="error_NoContentReturnFromReplyPOST">No content returned from reply POST</string>
 	<string name="error_WrongPassword">Wrong password</string>
