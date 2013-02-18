@@ -7,9 +7,9 @@
  * (DONE) Package APKs and sign them, upload them
  * (DONE) Create marketing graphics
  * (DONE) Create marketing description
- * Tag version
+ * (DONE) Tag version
  * Update Google project main page
- * Upload free APK to downloads
+ * (DONE) Upload free APK to downloads
  * Explain what each permission is for
  * Updated crownin translations: strings.xml, market descriptions, etc
  * Post to r/radioreddit
