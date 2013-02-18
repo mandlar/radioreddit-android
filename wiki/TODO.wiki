@@ -10,6 +10,7 @@
  * Tag version
  * Update Google project main page
  * Upload free APK to downloads
+ * Explain what each permission is for
  * Updated crownin translations: strings.xml, market descriptions, etc
  * Post to r/radioreddit
  * Post to r/android, r/androidusers and other related reddits afterwards (Monday?)
