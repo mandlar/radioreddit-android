@@ -8,10 +8,10 @@
  * (DONE) Create marketing graphics
  * (DONE) Create marketing description
  * (DONE) Tag version
- * Update Google project main page
+ * (DONE) Update Google project main page
  * (DONE) Upload free APK to downloads
- * Explain what each permission is for
- * Updated crownin translations: strings.xml, market descriptions, etc
+ * (DONEExplain what each permission is for
+ * Updated crowdin translations: strings.xml, market descriptions, etc
  * Post to r/radioreddit
  * Post to r/android, r/androidusers and other related reddits afterwards (Monday?)
  * Send email blasts
