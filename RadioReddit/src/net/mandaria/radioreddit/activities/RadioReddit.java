@@ -58,6 +58,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -585,16 +586,56 @@ public class RadioReddit extends SherlockActivity
 		else if (item.getItemId() == R.id.charts) 
 		{
 			FlurryAgent.onEvent("radio reddit - Menu Button - Charts");
-			startActivityForResult(new Intent(this, TopCharts.class), 2);
+			if(RadioRedditApplication.isProVersion(this))
+			{
+				startActivityForResult(new Intent(this, TopCharts.class), 2);
+			}
+			else
+			{
+				showGoProDialog();
+			}
+			
 			return true;
 		}
 		else if (item.getItemId() == R.id.recentlyplayed) 
 		{
 			FlurryAgent.onEvent("radio reddit - Menu Button - Recently Played");
-			startActivityForResult(new Intent(this, RecentlyPlayed.class), 2);
+			if(RadioRedditApplication.isProVersion(this))
+			{
+				startActivityForResult(new Intent(this, RecentlyPlayed.class), 2);
+			}
+			else
+			{
+				showGoProDialog();
+			}
+			
 			return true;
 		}
 		return false;
+	}
+	
+	private void showGoProDialog()
+	{
+		final AlertDialog.Builder builder = new AlertDialog.Builder(RadioReddit.this);
+	    builder.setMessage(getString(R.string.gopro_body))
+	    	.setTitle(getString(R.string.gopro_title))
+	    	.setIcon(android.R.drawable.ic_dialog_alert)
+	    	.setCancelable(true)
+	        .setPositiveButton(getString(R.string.gopro_yes), new DialogInterface.OnClickListener()
+			{
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which)
+				{
+					FlurryAgent.onEvent("radio reddit - Go Pro");
+					// launch intent to google play store for pro version
+					startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=net.mandaria.radioredditpro")));
+				}
+			})
+	        .setNegativeButton(getString(R.string.gopro_no), null);
+	    
+	    final AlertDialog alert = builder.create();
+	    alert.show();
 	}
 	
 	private void Logout()

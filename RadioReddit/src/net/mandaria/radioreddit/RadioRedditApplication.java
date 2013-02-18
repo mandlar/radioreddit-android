@@ -27,6 +27,7 @@ import net.mandaria.radioreddit.objects.RadioEpisode;
 import net.mandaria.radioreddit.objects.RadioSong;
 import net.mandaria.radioreddit.objects.RadioStream;
 import android.app.Application;
+import android.content.Context;
 
 public class RadioRedditApplication extends Application
 {
@@ -44,5 +45,10 @@ public class RadioRedditApplication extends Application
 		Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(getApplicationContext()));
 
 		super.onCreate();
+	}
+	
+	public static boolean isProVersion(Context context)
+	{
+		return context.getString(R.string.app_name).contains("pro");
 	}
 }
