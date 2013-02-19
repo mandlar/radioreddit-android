@@ -12,8 +12,8 @@
  * (DONE) Upload free APK to downloads
  * (DONE) Explain what each permission is for
  * (DONE) Updated crowdin translations: strings.xml, market descriptions, etc
- * Post to r/radioreddit
- * Post to r/android, r/androidusers and other related reddits afterwards (Monday?)
+ * (DONE) Post to r/radioreddit
+ * Post to r/android, r/androidusers and other related reddits afterwards
  * Send email blasts
  * Make ad banners for radio reddit
 
