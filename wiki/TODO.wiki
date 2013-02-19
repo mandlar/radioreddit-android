@@ -13,7 +13,7 @@
  * (DONE) Explain what each permission is for
  * (DONE) Updated crowdin translations: strings.xml, market descriptions, etc
  * (DONE) Post to r/radioreddit
- * Post to r/android, r/androidusers and other related reddits afterwards
+ * (DONE) Post to r/android, r/androidusers and other related reddits afterwards
  * (DONE) Send email blasts
  * Make ad banners for radio reddit
 
@@ -51,6 +51,7 @@
   * Album art?
   * Widget?
   * Android 4.0: add playback controls to notification
+  * Add dashclock support?
 
 == Beta ==
 
