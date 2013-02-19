@@ -14,7 +14,7 @@
  * (DONE) Updated crowdin translations: strings.xml, market descriptions, etc
  * (DONE) Post to r/radioreddit
  * Post to r/android, r/androidusers and other related reddits afterwards
- * Send email blasts
+ * (DONE) Send email blasts
  * Make ad banners for radio reddit
 
 == 1.0 ==
