@@ -39,6 +39,7 @@
   * Stop streaming when removed from Car dock? (option in settings)
   * (Idea) Auto starting on Car Dock?
   * Remember last station selected
+  * Display timeout (option in settings)
 
 == Beta ==
 
