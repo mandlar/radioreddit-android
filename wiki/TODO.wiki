@@ -1,22 +1,5 @@
 #summary Todo list
 
-== Release prep ==
- * (DONE) Code checks for free vs pro
- * (DONE) Update flurry keys (DO NOT COMMIT)
- * (DONE) Update version code/name
- * (DONE) Package APKs and sign them, upload them
- * (DONE) Create marketing graphics
- * (DONE) Create marketing description
- * (DONE) Tag version
- * (DONE) Update Google project main page
- * (DONE) Upload free APK to downloads
- * (DONE) Explain what each permission is for
- * (DONE) Updated crowdin translations: strings.xml, market descriptions, etc
- * (DONE) Post to r/radioreddit
- * (DONE) Post to r/android, r/androidusers and other related reddits afterwards
- * (DONE) Send email blasts
- * Make ad banners for radio reddit
-
 == 1.0 ==
 
   * BUG: After listening to an individual song it says Buffering and the Stop button is shown (should show a Play button)
