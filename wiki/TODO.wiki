@@ -38,6 +38,7 @@
   * Add dashclock support?
   * Stop streaming when removed from Car dock? (option in settings)
   * (Idea) Auto starting on Car Dock?
+  * Remember last station selected
 
 == Beta ==
 
