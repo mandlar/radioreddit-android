@@ -13,7 +13,7 @@
   * Confirm dialog for logout
   * Cache top charts lists to memory
   * Bookmarks
-  * Download song (if available)
+  * Download song (if available) [Use a queue and an option for wifi only download?]
   * Link to reddit comments for current submitted song/episode
   * Link to subreddit
   * Use Android 3.0 fragments
@@ -36,6 +36,8 @@
   * Widget?
   * Android 4.0: add playback controls to notification
   * Add dashclock support?
+  * Stop streaming when removed from Car dock? (option in settings)
+  * (Idea) Auto starting on Car Dock?
 
 == Beta ==
 
