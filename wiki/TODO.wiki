@@ -6,6 +6,7 @@
   * BUG: Submiting song in recently played (maybe Top Charts too) isn't showing the dialog
   * Change free version to LITE app icon
   * About activity
+  * Change wording of "vote error" when not logged in
   * Refresh for Top Charts
   * Refresh for Recently Played
   * Clear for Recently Played
