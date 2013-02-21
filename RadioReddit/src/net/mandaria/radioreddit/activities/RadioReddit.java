@@ -629,7 +629,15 @@ public class RadioReddit extends SherlockActivity
 				{
 					FlurryAgent.onEvent("radio reddit - Go Pro");
 					// launch intent to google play store for pro version
-					startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=net.mandaria.radioredditpro")));
+					boolean usePlayStoreLink = true;
+					String url = "";
+					if(usePlayStoreLink)
+						url = "https://play.google.com/store/apps/details?id=net.mandaria.radioredditpro";
+					else
+					// For Amazon Appstore
+						url ="http://www.amazon.com/gp/mas/dl/android?p=net.mandaria.radioredditpro";
+					
+					startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
 				}
 			})
 	        .setNegativeButton(getString(R.string.gopro_no), null);
