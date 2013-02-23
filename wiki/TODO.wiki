@@ -2,6 +2,7 @@
 
 == 1.0 ==
 
+  * IMPORTANT: implement ad/broadcast system for when radioreddit.com is down
   * BUG: After listening to an individual song it says Buffering and the Stop button is shown (should show a Play button)
   * BUG: Submiting song in recently played (maybe Top Charts too) isn't showing the dialog
   * About activity
