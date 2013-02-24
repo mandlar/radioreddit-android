@@ -9,7 +9,6 @@
   * Refresh for Top Charts
   * Refresh for Recently Played
   * Clear for Recently Played
-  * Confirm dialog for logout
   * Cache top charts lists to memory
   * Bookmarks
   * Download song (if available) (Use a queue and an option for wifi only download?)
@@ -39,6 +38,7 @@
   * (Idea) Auto starting on Car Dock?
   * Remember last station selected
   * Display timeout (option in settings)
+  * (DONE) Confirm dialog for logout
 
 == 1.0 ==
 
