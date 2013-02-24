@@ -4,6 +4,11 @@
 
 Change log:
 
+* 1.0.1 - February 23rd, 2013
+- Added ad/broadcast system for both free/pro version, primarily to show a message when radioreddit.com is down
+- Added new icon only for the free version to distinguish it from the pro version
+
+
 * 1.0 - February 18th, 2013
 - Bump min API level to 7 (Android 2.1)
 - Bump build and target API to 15 (Android 4.2)
