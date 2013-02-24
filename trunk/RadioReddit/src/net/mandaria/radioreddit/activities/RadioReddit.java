@@ -661,12 +661,31 @@ public class RadioReddit extends SherlockActivity
 	
 	private void Logout()
 	{		
-		RedditAccount emptyAccount = new RedditAccount();
-		emptyAccount.Username = emptyAccount.Cookie = emptyAccount.Modhash = "";
-		
-		Settings.setRedditAccount(RadioReddit.this, emptyAccount);
-		
-		Toast.makeText(RadioReddit.this,  getString(R.string.youHaveBeenLoggedOut), Toast.LENGTH_LONG).show();
+		final AlertDialog.Builder builder = new AlertDialog.Builder(RadioReddit.this);
+	    builder.setMessage(getString(R.string.logout_body))
+	    	.setTitle(getString(R.string.logout))
+	    	.setIcon(android.R.drawable.ic_dialog_alert)
+	    	.setCancelable(true)
+	        .setPositiveButton(getString(R.string.logout), new DialogInterface.OnClickListener()
+			{
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which)
+				{
+					FlurryAgent.onEvent("radio reddit - Logout - Yes");
+					
+					RedditAccount emptyAccount = new RedditAccount();
+					emptyAccount.Username = emptyAccount.Cookie = emptyAccount.Modhash = "";
+					
+					Settings.setRedditAccount(RadioReddit.this, emptyAccount);
+					
+					Toast.makeText(RadioReddit.this,  getString(R.string.youHaveBeenLoggedOut), Toast.LENGTH_LONG).show();
+				}
+			})
+	        .setNegativeButton(getString(R.string.no), null);
+	    
+	    final AlertDialog alert = builder.create();
+	    alert.show();
 	}
 
 	private void ViewEpisodeInfo()

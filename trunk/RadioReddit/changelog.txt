@@ -4,6 +4,9 @@
 
 Change log:
 
+* 1.0.2 - ?
+- Added confirm dialog for logout
+
 * 1.0.1 - February 23rd, 2013
 - Added ad/broadcast system for both free/pro version, primarily to show a message when radioreddit.com is down
 - Added new icon only for the free version to distinguish it from the pro version

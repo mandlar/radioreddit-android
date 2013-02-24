@@ -12,6 +12,7 @@
 	<string name="charts">Top Charts</string>
 	<string name="recentlyplayed">Recently Played</string>
 	<!-- Logout -->
+	<string name="logout_body">Are you sure you want to logout?</string>
 	<string name="youHaveBeenLoggedOut">You have been logged out</string>
 	<!-- Login -->
 	<string name="enterYourRedditCredentialsToContinue">Enter your reddit credentials to continue.</string>
