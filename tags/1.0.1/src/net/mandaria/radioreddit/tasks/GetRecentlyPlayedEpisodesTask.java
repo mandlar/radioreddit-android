@@ -1,0 +1,167 @@
+package net.mandaria.radioreddit.tasks;
+
+import java.util.List;
+
+import net.mandaria.radioreddit.R;
+import net.mandaria.radioreddit.RadioRedditApplication;
+import net.mandaria.radioreddit.apis.RadioRedditAPI;
+import net.mandaria.radioreddit.data.DatabaseService;
+import net.mandaria.radioreddit.data.EpisodeListExpandableListAdapter;
+import net.mandaria.radioreddit.data.SongListExpandableListAdapter;
+import net.mandaria.radioreddit.objects.RadioEpisode;
+import net.mandaria.radioreddit.objects.RadioSong;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnGroupExpandListener;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class GetRecentlyPlayedEpisodesTask extends AsyncTask<Void, List<RadioEpisode>, List<RadioEpisode>>
+{
+	private static String TAG = "RadioReddit";
+	private Context _context;
+	private RadioRedditApplication _application;
+	private Exception ex;
+	private String _type = "";
+	private View _fragmentView;
+
+	public GetRecentlyPlayedEpisodesTask(RadioRedditApplication application, Context context, View fragmentView, String type)
+	{		
+		_context = context;
+		_fragmentView = fragmentView;
+		_application = application;
+		_type = type;
+		
+		LinearLayout div_PleaseWait_SongList = (LinearLayout)_fragmentView.findViewById(R.id.div_PleaseWait_SongList);
+		if(div_PleaseWait_SongList != null)
+		{
+			div_PleaseWait_SongList.setVisibility(View.VISIBLE);
+			
+			LinearLayout div_Error_SongList = (LinearLayout)_fragmentView.findViewById(R.id.div_Error_SongList);
+			div_Error_SongList.setVisibility(View.GONE);
+			
+			LinearLayout div_SongList = (LinearLayout)_fragmentView.findViewById(R.id.div_SongList);
+			div_SongList.setVisibility(View.GONE);
+		}
+	}
+
+	@Override
+	protected List<RadioEpisode> doInBackground(Void... unused)
+	{
+		List<RadioEpisode> episodes = null;
+		try
+		{
+			DatabaseService service = new DatabaseService();
+			episodes = service.GetRecentlyPlayedEpisodes(_context);
+		}
+		catch(Exception e)
+		{
+			ex = e;
+			Log.e(TAG, "FAIL: getting recently played songs for " + _type + ": " + e);
+		}
+
+		return episodes;
+	}
+
+	@Override
+	protected void onProgressUpdate(List<RadioEpisode>... item)
+	{
+
+	}
+
+	@Override
+	protected void onPostExecute(List<RadioEpisode> result)
+	{
+		Activity activity = (Activity)_context;
+		if(result != null)// && _errorMessage.equals("")) // TODO: do we need errormessage?
+		{					
+			//Toast.makeText(_context, "Received " + _type + " list data!", Toast.LENGTH_LONG).show();
+			
+			drawResultsToActivity(result, activity, _application, _fragmentView);
+		}
+		else
+		{
+			LinearLayout div_PleaseWait_SongList = (LinearLayout)_fragmentView.findViewById(R.id.div_PleaseWait_SongList);
+			if(div_PleaseWait_SongList != null)
+			{
+				div_PleaseWait_SongList.setVisibility(View.GONE);
+				
+				LinearLayout div_Error_SongList = (LinearLayout)_fragmentView.findViewById(R.id.div_Error_SongList);
+				div_Error_SongList.setVisibility(View.VISIBLE);
+				
+				LinearLayout div_SongList = (LinearLayout)_fragmentView.findViewById(R.id.div_SongList);
+				div_SongList.setVisibility(View.GONE);
+			}
+		    
+			Log.e(TAG, "FAIL: Post execute");//: " + _errorMessage);
+		}
+
+		if(ex != null)
+			Log.e(TAG, "FAIL: EXCEPTION: Post execute: " + ex);
+
+	}
+	
+	public static void drawResultsToActivity(List<RadioEpisode> result, Activity activity, RadioRedditApplication application, View fragmentView)
+	{
+		LinearLayout div_PleaseWait_SongList = (LinearLayout)fragmentView.findViewById(R.id.div_PleaseWait_SongList);
+		if(div_PleaseWait_SongList != null)
+		{
+			div_PleaseWait_SongList.setVisibility(View.GONE);
+			
+			LinearLayout div_Error_SongList = (LinearLayout)fragmentView.findViewById(R.id.div_Error_SongList);
+			div_Error_SongList.setVisibility(View.GONE);
+			
+			LinearLayout div_SongList = (LinearLayout)fragmentView.findViewById(R.id.div_SongList);
+			div_SongList.setVisibility(View.VISIBLE);
+		
+			final ExpandableListView list_SongList = (ExpandableListView)fragmentView.findViewById(R.id.list_SongList);
+		
+			EpisodeListExpandableListAdapter adapter = new EpisodeListExpandableListAdapter(activity, application, result);
+			list_SongList.setAdapter(adapter);
+			
+			list_SongList.setGroupIndicator(null);
+	        
+	        TextView lbl_NoSongList = (TextView)fragmentView.findViewById(R.id.lbl_NoSongList);
+	       
+	        lbl_NoSongList.setText("No recently played episodes found");
+	  
+	        if(list_SongList.getCount() == 0)
+	        {
+	        	lbl_NoSongList.setVisibility(View.VISIBLE);
+	        }
+	        else
+	        {
+	        	lbl_NoSongList.setVisibility(View.INVISIBLE);
+	        }			
+	        
+	        list_SongList.setOnGroupExpandListener(new OnGroupExpandListener()
+			{
+				private int lastGroupExpand = -1;
+				
+				@Override
+				public void onGroupExpand(int groupPosition)
+				{
+					if(lastGroupExpand != -1 && lastGroupExpand != groupPosition)
+						list_SongList.collapseGroup(lastGroupExpand);
+					
+					lastGroupExpand = groupPosition;
+						
+					// TODO Auto-generated method stub
+					
+				}
+			});
+		}
+	}
+}
