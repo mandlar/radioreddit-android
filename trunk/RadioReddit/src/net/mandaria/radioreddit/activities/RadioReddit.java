@@ -23,6 +23,7 @@ package net.mandaria.radioreddit.activities;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -30,6 +31,8 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.flurry.android.FlurryAgent;
 
+import net.mandaria.radioreddit.tasks.GetAdRefreshRateTask;
+import net.mandaria.radioreddit.tasks.GetInHouseAdsPercentageTask;
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.data.DatabaseService;
@@ -68,6 +71,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -84,6 +89,9 @@ public class RadioReddit extends SherlockActivity
 	ImageView btn_SongInfo;
 	TextView lbl_Buffering;
 	TextView lbl_Connecting;
+	
+	WebView adView;
+	LinearLayout div_ads;
 
 	ProgressBar progress_LoadingSong;
 	ImageView img_Logo;
@@ -97,6 +105,7 @@ public class RadioReddit extends SherlockActivity
 
 	private Handler mHandler = new Handler();
 	private long mLastStreamsInformationUpdateMillis = 0;
+	private long mLastAdServedMillis = 0; // last ad update
 	private boolean isStreamCacheLoaded = false;
 
 	private PlaybackService player;
@@ -110,6 +119,8 @@ public class RadioReddit extends SherlockActivity
 	{
 	   super.onStart();
 	   FlurryAgent.onStartSession(this, getString(R.string.flurrykey));
+	   
+	   UpdateAdValues();
 	}
 	
 	@Override
@@ -150,6 +161,8 @@ public class RadioReddit extends SherlockActivity
 		lbl_Connecting = (TextView) findViewById(R.id.lbl_Connecting);
 		img_Logo = (ImageView) findViewById(R.id.img_Logo);
 		progress_LoadingSong = (ProgressBar) findViewById(R.id.progress_LoadingSong);
+		adView = (WebView)findViewById(R.id.ad);
+		div_ads = (LinearLayout)findViewById(R.id.div_ads);
 
 		btn_upvote = (Button) findViewById(R.id.btn_upvote);
 		btn_upvote.setOnClickListener(new OnClickListener()
@@ -759,6 +772,7 @@ public class RadioReddit extends SherlockActivity
 		}
 
 		startUpdateTimer();
+		displayAd();
 
 		this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 	}
@@ -1109,6 +1123,14 @@ public class RadioReddit extends SherlockActivity
 				else if(player != null && player.isPreparing() && !player.isAborting())
 					progress_LoadingSong.setVisibility(View.VISIBLE); // show please wait spinner when "re-connecting" to stream from network change
 			}
+			
+
+			// Refresh the ads
+			if((SystemClock.elapsedRealtime() - mLastAdServedMillis) > Settings.getAdRefreshRate(RadioReddit.this))
+			{
+				displayAd();
+				mLastAdServedMillis = SystemClock.elapsedRealtime();
+			}
 
 			mHandler.postDelayed(this, 1000); // update every 1 second
 		}
@@ -1211,6 +1233,71 @@ public class RadioReddit extends SherlockActivity
 		btn_downvote.setBackgroundResource(R.drawable.willdownvote_button);
 		btn_upvote.setEnabled(false);
 		btn_downvote.setEnabled(false);
+	}
+	
+	private void UpdateAdValues() 
+	{
+		GetAdRefreshRateTask task_adrefreshrate = (GetAdRefreshRateTask) new GetAdRefreshRateTask(getApplication(), this, Locale.getDefault()).execute();
+	
+		GetInHouseAdsPercentageTask task_inhouseadspercentage = (GetInHouseAdsPercentageTask) new GetInHouseAdsPercentageTask(getApplication(), this, Locale.getDefault()).execute();
+	}
+	
+	// Used to show ads or a banner message (e.g. radioreddit.com is down)
+	private void displayAd()
+	{
+		Random r = new Random();
+		int randomInt = r.nextInt(100);
+		
+		// Display in house ad
+		if(randomInt < Settings.getInHouseAdsPercentage(this))
+		{
+			div_ads.setVisibility(View.VISIBLE);
+			
+			// Setup handler for 404's
+			adView.setWebViewClient(new WebViewClient() 
+			{
+			    @Override
+			    public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) 
+			    {
+			    	//displayOfflineAd(); 
+			    	// For now, just don't display any ads
+			    	div_ads.setVisibility(View.GONE);
+					
+			        super.onReceivedError(view, errorCode, description, failingUrl);
+			    }
+			    
+			    @Override
+			    public boolean shouldOverrideUrlLoading(WebView view, String url) 
+			    {
+			    	try
+			    	{ 
+				    	Intent i = new Intent(Intent.ACTION_VIEW);
+				    	i.setData(Uri.parse(url));
+				    	startActivity(i);
+			    	}
+			    	catch(Exception ex)
+			    	{
+			    		// TODO: this should be made into it's own string
+			    		Toast.makeText(RadioReddit.this, "Web Browser Error: Application is not installed on your phone", Toast.LENGTH_LONG).show();
+			    	}
+			    	return true;
+			    	
+			    }
+
+			 });
+
+			int applicationID = 2;
+			if(RadioRedditApplication.isProVersion(RadioReddit.this))
+				applicationID = 3;
+			
+			// Request an ad
+			adView.loadUrl("http://www.bryandenny.com/software/android/default.aspx?id=" + applicationID);
+			//Toast.makeText(getApplicationContext(), "Show inhouse ad " + randomInt, Toast.LENGTH_LONG).show();
+		}
+		else // display no ads
+		{
+			div_ads.setVisibility(View.GONE);
+		}
 	}
 
 }
