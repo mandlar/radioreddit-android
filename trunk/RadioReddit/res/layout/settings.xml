@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
 	xmlns:android="http://schemas.android.com/apk/res/android">
-	<PreferenceCategory android:title="Playback Options">
+	<PreferenceCategory android:title="@string/playback_options">
 		<CheckBoxPreference
 			android:key="enable_compatibility_mode"
 	   		android:title="@string/compatibility_mode"
 	   		android:summary="@string/enable_if_youre_having_playback_issues"
+	   		android:defaultValue="false"
+	   		android:disableDependentsState="false"
+			/>
+	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/display_options">
+		<CheckBoxPreference
+		    android:id="@+id/keep_screen_on"
+			android:key="keep_screen_on"
+	   		android:title="@string/keep_screen_on"
+	   		android:summary="@string/prevent_screen_from_turning_off_while_using_the_application"
 	   		android:defaultValue="false"
 	   		android:disableDependentsState="false"
 			/>

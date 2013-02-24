@@ -46,6 +46,7 @@ import net.mandaria.radioreddit.tasks.GetRadioStreamsTask;
 import net.mandaria.radioreddit.tasks.VoteOnSongTask;
 import net.mandaria.radioreddit.tasks.VoteRedditTask;
 import net.mandaria.radioreddit.tasks.VoteOnEpisodeTask;
+import net.mandaria.radioreddit.utils.ActivityUtil;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -71,6 +72,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -784,6 +786,8 @@ public class RadioReddit extends SherlockActivity
 	protected void onResume()
 	{
 		super.onResume();
+		
+		ActivityUtil.SetKeepScreenOn(this);
 
 		if(player == null)
 		{

@@ -26,6 +26,7 @@ import com.flurry.android.FlurryAgent;
 
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
+import net.mandaria.radioreddit.utils.ActivityUtil;
 import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -69,6 +70,8 @@ public class ViewEpisodeInformation extends SherlockActivity
 	protected void onResume()
 	{
 		super.onResume();
+		
+		ActivityUtil.SetKeepScreenOn(this);
 
 		this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
