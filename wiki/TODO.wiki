@@ -1,8 +1,7 @@
 #summary Todo list
 
-== 1.0 ==
+== 1.0.1==
 
-  * IMPORTANT: implement ad/broadcast system for when radioreddit.com is down
   * BUG: After listening to an individual song it says Buffering and the Stop button is shown (should show a Play button)
   * BUG: Submiting song in recently played (maybe Top Charts too) isn't showing the dialog
   * About activity
@@ -40,6 +39,10 @@
   * (Idea) Auto starting on Car Dock?
   * Remember last station selected
   * Display timeout (option in settings)
+
+== 1.0 ==
+
+  * (DONE) IMPORTANT: implement ad/broadcast system for when radioreddit.com is down
   * (DONE) Change free version to LITE app icon
 
 == Beta ==
