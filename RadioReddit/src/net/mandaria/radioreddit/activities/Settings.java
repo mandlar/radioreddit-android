@@ -1,12 +1,36 @@
+/*
+ *	radio reddit for android: mobile app to listen to radioreddit.com
+ *  Copyright (C) 2011 Bryan Denny
+ *  
+ *  This file is part of "radio reddit for android"
+ *
+ *  "radio reddit for android" is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  "radio reddit for android" is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with "radio reddit for android".  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package net.mandaria.radioreddit.activities;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.flurry.android.FlurryAgent;
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.objects.RedditAccount;
+import net.mandaria.radioreddit.utils.ActivityUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.*;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.util.Log;
+import android.view.View;
 import android.content.Context;
 
 public class Settings extends SherlockPreferenceActivity
@@ -18,6 +42,9 @@ public class Settings extends SherlockPreferenceActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		
+		ActivityUtil.SetKeepScreenOn(this);
+		
 		addPreferencesFromResource(R.layout.settings);
 		
 		try
@@ -38,6 +65,19 @@ public class Settings extends SherlockPreferenceActivity
 			enable_compatibility_mode.setSummary(getString(R.string.your_device_must_run_in_compatibility_mode));
 		}
 		
+		CheckBoxPreference keep_screen_on = (CheckBoxPreference)findPreference("keep_screen_on");
+		keep_screen_on.setOnPreferenceChangeListener(new OnPreferenceChangeListener()
+		{
+			
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue)
+			{
+				Log.e("RadioReddit", "Toggle screen");
+				ActivityUtil.SetKeepScreenOn(Settings.this, (Boolean) newValue);
+				return true;
+			}
+		});
+		
 	}
 	
 	@Override
@@ -57,6 +97,11 @@ public class Settings extends SherlockPreferenceActivity
 	public static boolean getEnableCompatibilityMode(Context context)
 	{
 		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("enable_compatibility_mode", false);
+	}
+	
+	public static boolean getKeepScreenOn(Context context)
+	{
+		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("keep_screen_on", false);
 	}
 	
 	public static RedditAccount getRedditAccount(Context context)

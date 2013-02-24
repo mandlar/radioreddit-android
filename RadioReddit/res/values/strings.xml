@@ -58,9 +58,13 @@
 	<!-- Voting -->
 	<string name="voting_error">Voting Error</string>
 	<!-- Settings -->
+	<string name="playback_options">Playback Options</string>
 	<string name="your_device_must_run_in_compatibility_mode">Your device must run in compatibility mode</string>
 	<string name="compatibility_mode">Compatibility Mode</string>
 	<string name="enable_if_youre_having_playback_issues">Enable if you\'re having playback issues</string>
+	<string name="display_options">Display Options</string>
+	<string name="keep_screen_on">Keep screen on</string>
+	<string name="prevent_screen_from_turning_off_while_using_the_application">Prevent screen from turning off while using the application</string>
 	<!-- Select Station -->
 	<string name="musicStations">Music Stations</string>
 	<string name="talkStations">Talk Stations</string>

@@ -33,6 +33,7 @@ import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.data.CustomRadioStreamsAdapter;
 import net.mandaria.radioreddit.objects.RadioStream;
 import net.mandaria.radioreddit.objects.RadioStreams;
+import net.mandaria.radioreddit.utils.ActivityUtil;
 import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -67,6 +68,9 @@ public class SelectStation extends SherlockActivity
 		this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
 		super.onCreate(savedInstanceState);
+		
+		ActivityUtil.SetKeepScreenOn(this);
+		
 		setContentView(R.layout.selectstation);
 
 		RadioRedditApplication application = (RadioRedditApplication) getApplication();

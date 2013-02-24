@@ -6,6 +6,7 @@ Change log:
 
 * 1.0.2 - ?
 - Added confirm dialog for logout
+- Added display setting to keep screen on
 
 * 1.0.1 - February 23rd, 2013
 - Added ad/broadcast system for both free/pro version, primarily to show a message when radioreddit.com is down
