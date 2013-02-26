@@ -2,7 +2,6 @@
 
 == 1.0.1==
 
-  * BUG: After listening to an individual song it says Buffering and the Stop button is shown (should show a Play button)
   * BUG: Submiting song in recently played (maybe Top Charts too) isn't showing the dialog
   * About activity
   * Change wording of "vote error" when not logged in
@@ -39,6 +38,7 @@
   * Remember last station selected
   * (DONE) Display timeout (option in settings)
   * (DONE) Confirm dialog for logout
+  * (DONE) BUG: After listening to an individual song it says Buffering and the Stop button is shown (should show a Play button)
 
 == 1.0 ==
 
