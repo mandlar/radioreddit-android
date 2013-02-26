@@ -1,5 +1,9 @@
 #summary Todo list
 
+*Tasks have now moved to a Trello board here:* https://trello.com/board/android-tasks/512c3371f4e4e7692000ea20
+
+The list below is now out of date!
+
 == 1.0.1==
 
   * BUG: Submiting song in recently played (maybe Top Charts too) isn't showing the dialog
