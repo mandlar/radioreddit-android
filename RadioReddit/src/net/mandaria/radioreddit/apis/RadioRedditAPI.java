@@ -51,6 +51,7 @@ public class RadioRedditAPI
 	{
 		RadioStreams radiostreams = new RadioStreams();
 		radiostreams.ErrorMessage = "";
+		radiostreams.RadioStreams = new ArrayList<RadioStream>();
 
 		try
 		{			
