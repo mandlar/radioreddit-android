@@ -642,8 +642,11 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 			lastUpdateBroadcast = new Intent(SERVICE_UPDATE_NAME);
 			lastUpdateBroadcast.putExtra(EXTRA_BUFFERED, lastBufferPercent);
 
-			// int position = mediaPlayer.getCurrentPosition();
-			// int duration = mediaPlayer.getDuration();
+//			int position = mediaPlayer.getCurrentPosition();
+//			int duration = mediaPlayer.getDuration();
+//			Log.w(LOG_TAG, "Playback service - updateProgress() current position: " + position);
+//			Log.w(LOG_TAG, "Playback service - updateProgress() duration: " + duration);
+			
 			// lastUpdateBroadcast.putExtra(EXTRA_DURATION, mediaPlayer.getDuration());
 			// lastUpdateBroadcast.putExtra(EXTRA_DOWNLOADED,(int) ((lastBufferPercent / 100.0) * mediaPlayer.getDuration()));
 			// lastUpdateBroadcast.putExtra(EXTRA_POSITION, mediaPlayer.getCurrentPosition());
@@ -750,6 +753,24 @@ public class PlaybackService extends Service implements OnPreparedListener, OnBu
 		application.CurrentSong = null;
 		lastSongTitle = "";
 		lastSongArtist = "";
+		isBuffering = false;
+		
+		// send final broadcasts to tell UI we are done playiong
+		if(lastUpdateBroadcast != null)
+		{
+			getApplicationContext().removeStickyBroadcast(lastUpdateBroadcast);
+		}
+		lastUpdateBroadcast = new Intent(SERVICE_UPDATE_NAME);
+		lastUpdateBroadcast.putExtra(EXTRA_BUFFERED, lastBufferPercent);
+
+		getApplicationContext().sendStickyBroadcast(lastUpdateBroadcast); // broadcasts that we are done (no buffering if at end of individual song)
+		
+		if(lastChangeBroadcast != null)
+		{
+			getApplicationContext().removeStickyBroadcast(lastChangeBroadcast);
+		}
+		lastChangeBroadcast = new Intent(SERVICE_CHANGE_NAME);
+		getApplicationContext().sendStickyBroadcast(lastChangeBroadcast); // broadcasts that playing has stopped
 		
 		// Stop broadcasts
 		if(lastChangeBroadcast != null)
