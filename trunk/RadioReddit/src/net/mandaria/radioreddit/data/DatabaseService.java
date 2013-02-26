@@ -77,26 +77,29 @@ public class DatabaseService
 	
 	public void UpdateCachedStreams(Context context, ArrayList<RadioStream>streams)
 	{
-		DatabaseHelper myDbHelper = GetDatabaseHelper(context);
-		
-		// Delete all cached streams		
-		SQLiteDatabase db = myDbHelper.getWritableDatabase();
-		db.execSQL("DELETE FROM StreamsCache");
-		
-		// loop through and insert each stream 
-		for(RadioStream stream : streams)
+		if(streams != null)
 		{
-			ContentValues values = new ContentValues();
-			values.put("Name", stream.Name);
-			values.put("Type", stream.Type);
-			values.put("Description", stream.Description);
-			values.put("Status", stream.Status);
-			values.put("Relay", stream.Relay);
-			values.put("Online", stream.Online);
-			db.insert("StreamsCache", null, values);
+			DatabaseHelper myDbHelper = GetDatabaseHelper(context);
+			
+			// Delete all cached streams		
+			SQLiteDatabase db = myDbHelper.getWritableDatabase();
+			db.execSQL("DELETE FROM StreamsCache");
+			
+			// loop through and insert each stream 
+			for(RadioStream stream : streams)
+			{
+				ContentValues values = new ContentValues();
+				values.put("Name", stream.Name);
+				values.put("Type", stream.Type);
+				values.put("Description", stream.Description);
+				values.put("Status", stream.Status);
+				values.put("Relay", stream.Relay);
+				values.put("Online", stream.Online);
+				db.insert("StreamsCache", null, values);
+			}
+			
+			db.close();
 		}
-		
-		db.close();
 	}
 	
 	public void AddRecentlyPlayedSong(Context context, RadioSong song)

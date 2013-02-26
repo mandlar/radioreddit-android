@@ -8,6 +8,7 @@ Change log:
 - Added confirm dialog for logout
 - Added display setting to keep screen on
 - FIXED BUG: After listening to an individual song it says Buffering and the Stop button is shown (should show a Play button)
+- FIXED BUG/CRASH: Sometimes app would crash when updating streams cache (if there was an issue with getting the streams)
 
 * 1.0.1 - February 23rd, 2013
 - Added ad/broadcast system for both free/pro version, primarily to show a message when radioreddit.com is down
