@@ -138,6 +138,8 @@ public class VoteOnSongTask extends AsyncTask<Void, String, String>
 				    
 				    if(result.equals(_context.getString(R.string.error_YouMustBeLoggedInToVote)))
 				    {
+				    	builder.setTitle(_context.getString(R.string.login));
+				    	builder.setMessage(result);
 				    	builder.setNegativeButton(_context.getString(R.string.login), new OnClickListener()
 						{
 							@Override
