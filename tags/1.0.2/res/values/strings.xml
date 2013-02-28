@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>    
+	<!--  Menu items -->
+	<string name="login">Login</string>
+	<string name="logout">Logout</string>
+	<string name="currentStation">Current Station</string>
+	<string name="chooseStation">Choose Station</string>
+	<string name="exit">Exit</string>
+	<string name="email_feedback">Email Feedback</string>
+	<string name="viewEpisodeInfo">View Episode Info</string>
+	<string name="settings">Settings</string>
+	<string name="charts">Top Charts</string>
+	<string name="recentlyplayed">Recently Played</string>
+	<!-- Logout -->
+	<string name="logout_body">Are you sure you want to logout?</string>
+	<string name="youHaveBeenLoggedOut">You have been logged out</string>
+	<!-- Login -->
+	<string name="enterYourRedditCredentialsToContinue">Enter your reddit credentials to continue.</string>
+	<string name="username">Username</string>
+	<string name="password">Password</string>
+	<string name="loggingInToReddit">Logging in to reddit</string>
+	<string name="pleaseWait">Please wait...</string>
+	<string name="loggedInAs">Logged in as</string>
+	<string name="dontHaveAnAccount">Don\'t have an account?</string>
+	<string name="signUpForFree">Sign up for free</string>
+	<!-- Login errors -->
+	<string name="error">Error</string>
+	<string name="loginError">Login Error</string>
+	<string name="usernameIsRequired">Username is required</string>
+	<string name="passwordIsRequired">Password is required</string>
+	<string name="usernameCannotHaveSpaces">Username cannot have spaces</string>
+	<!-- Go pro -->
+	<string name="gopro_title">Go pro to unlock this feature?</string>
+	<string name="gopro_body">This feature is only available in the pro version of radio reddit. Please support the developer and radio reddit by purchasing the pro version. 25% of sales go directly to radioreddit.com</string>
+	<string name="gopro_yes">Purchase pro version</string>
+	<string name="gopro_no">Not now</string>
+	<!-- Submit errors -->
+	<string name="error_NoContentReturnFromReplyPOST">No content returned from reply POST</string>
+	<string name="error_WrongPassword">Wrong password</string>
+	<string name="error_UserRequired">User required. Huh?</string>
+	<string name="error_ThatSubredditDoesNotExist">That subreddit does not exist.</string>
+	<string name="error_YouAreNotAllowedToPostToThatSubreddit">You are not allowed to post to that subreddit</string>
+	<string name="error_SorrySomeoneAlreadySubmitted">Sorry, someone snuck in the submission just before you! But hey, give it an up- or downvote!</string>
+	<string name="error_YouAreTryingToSubmitTooFast">You are trying to submit too fast. Try again in a few minutes.</string>
+	<string name="error_BadCAPTCHATryAgain">Bad CAPTCHA. Try again</string>
+	<string name="error_EmailNotVerified">Your mail has not been verified, please try again in an hour or verify your email address</string>
+	<string name="error_NoIdReturnedByReplyPOST">No id returned by reply POST.</string>
+	
+	
+	<string name="ok">OK</string>
+	<!-- Captcha -->
+	<string name="please_enter_the_CAPTCHA">Please enter the CAPTCHA</string>
+	<string name="im_human">I\'m human</string>
+	<string name="cancel">Cancel</string>
+	<string name="error_FailedToRetrieveCAPTCHA">Failed to retrieve CAPTCHA. Please try again later.</string>
+	<string name="CAPTCHA_error">Captcha Error</string>
+	<string name="enter_CAPTCHA_here">Enter Captcha Here</string>
+	<!-- Voting -->
+	<string name="voting_error">Voting Error</string>
+	<!-- Settings -->
+	<string name="playback_options">Playback Options</string>
+	<string name="your_device_must_run_in_compatibility_mode">Your device must run in compatibility mode</string>
+	<string name="compatibility_mode">Compatibility Mode</string>
+	<string name="enable_if_youre_having_playback_issues">Enable if you\'re having playback issues</string>
+	<string name="display_options">Display Options</string>
+	<string name="keep_screen_on">Keep screen on</string>
+	<string name="prevent_screen_from_turning_off_while_using_the_application">Prevent screen from turning off while using the application</string>
+	<!-- Select Station -->
+	<string name="musicStations">Music Stations</string>
+	<string name="talkStations">Talk Stations</string>
+    <!--  * Support Email Feedback -->
+	<string name="email_using_custom_rom">Please indicate if you are using a custom rom.</string>
+	<string name="email_do_not_edit_message">The following is useful information for the developer.  Please do not edit.</string>
+	<!-- Song Information -->
+	<string name="vote_to_submit_song">vote to submit</string>
+	<string name="playlist">playlist</string>
+	<string name="current_station">Current Station</string>
+	<!-- Episode information -->
+	<string name="episode">Episode:</string>
+	<string name="hosts">Hosts:</string>
+	<string name="redditors">Redditors:</string>
+	<string name="this_episode">This episode:</string>
+	<!-- Error messages -->
+	<string name="error_RadioRedditIsDown">radio reddit is down!</string>
+	<string name="error_RadioRedditServerIsDownNotification">Can\'t reach radio reddit, the server may be down or your network is flaky. Please try again later!</string>
+	<string name="error_NoStreams">There are no streams available to play. Please try again later!</string>
+	<string name="error_StreamConnectionError">There was an error connecting to the radio reddit stream... Please try again later! If you continue to have problems, try enabling compatibility mode in the settings.</string>
+	<string name="error_YouMustBeLoggedInToVote">You must be logged in to vote</string>
+	<string name="error_ThereWasAProblemVotingPleaseTryAgain">There was a problem voting, please try again.</string>
+	<string name="error_ThereWasAProblemSubmittingPleaseTryAgain">There was a problem submitting, please try again.</string>
+	<string name="error_OnListen">Error on listen</string>
+	<string name="error_GettingVoteInformation">There was a problem with getting vote information, please try again.</string>
+	<string name="pleaseWaitToChangeStation">Please wait one moment to switch to a new station...</string>
+	<string name="connectingToRadioReddit">Connecting to radio reddit...</string>
+	<string name="buffering">Buffering...</string>
+	<!-- Submit song -->
+	<string name="submit">Submit</string>
+	<string name="submit_title">Submit?</string>
+	<string name="no">No</string>
+	<string name="warning_SubmitSong">Do you want to submit this song to reddit, making it available for voting?</string>
+	<string name="warning_SubmitEpisode">Do you want to submit this episode to reddit, making it available for voting?</string>
+	<string name="warning_SubmitNote">note: anything that is submitted to reddit gets upvoted, even if you press downvote. If you want to downvote it, press downvote again after it\'s been submitted</string>
+</resources>

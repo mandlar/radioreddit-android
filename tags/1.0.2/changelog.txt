@@ -1,0 +1,57 @@
+=============================================================================================
+* 								radio reddit for android									*
+=============================================================================================
+
+Change log:
+
+* 1.0.2 - ?
+- Added confirm dialog for logout
+- Added display setting to keep screen on
+- FIXED BUG: After listening to an individual song it says Buffering and the Stop button is shown (should show a Play button)
+- FIXED BUG/CRASH: Sometimes app would crash when updating streams cache (if there was an issue with getting the streams)
+- Changed wording on login dialog when trying to vote when not logged in
+
+* 1.0.1 - February 23rd, 2013
+- Added ad/broadcast system for both free/pro version, primarily to show a message when radioreddit.com is down
+- Added new icon only for the free version to distinguish it from the pro version
+
+
+* 1.0 - February 18th, 2013
+- Bump min API level to 7 (Android 2.1)
+- Bump build and target API to 15 (Android 4.2)
+- Added ActionBarSherlock (action bar support for 2.3 and below devices)
+- Removed old Android <= 2.3 interface for choosing a station (replaced by ActionBar like with 3.0+)
+- Added Top Charts
+- Individual song voting (in Top Charts)
+- Individual song playback (in Top Charts)
+- Added Recently Played for songs/episodes
+- Individual song/episode voting (in Recently Played)
+- Individual song/episode playback (in Recently Played)
+- Added check for pro version: Free version will show dialog to buy pro version if user tries to go Recently Played or Top Charts
+
+* 0.2 - January 5th, 2013
+- Removed GPS permissions (not intentionally added to begin with)
+- Notification now shows talk show information
+- Music service now runs in the foreground, will help prevent it from getting killed in low memory situations
+- Changing stations now has streams broken down into two categories: music and talk stations. Stations sorted by name
+- Added cache for getting stations: subsequent start up times has been reduced as it will load stations from the database cache if possible
+- Added settings activity, compatibility mode option (for users with streaming issues)
+- Added login to (radio) reddit activity
+- Added voting functionality
+- Added submitting a new song functionality
+- Added CAPTCHA support for submissions by new redditors (with low karma)
+- Change some underworkings of PlaybackService/MediaPlayer. You can now change stations immediately without having to wait for the MediaPlayer object to re-prepare itself.
+- Added a link in login activity to register a new reddit account
+- Show cumulative score
+- If not logged in, dialog gives option to go to Login activity
+- Show reddit username beside of "Logout" in menu when logged in
+- Darken and disable vote buttons when song/episode information is not yet available (and therefore cannot vote yet)
+
+
+* 0.1 - July 6th, 2011
+- Initial alpha release
+ - Basic UI, for both phones and tablets (Android 3.0+)
+ - Loads and displays all streams
+ - Plays streams (music and talk)
+ - Displays current song or episode information
+ - Displays detailed episode information
