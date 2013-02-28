@@ -133,13 +133,13 @@ public class RecentlyPlayed extends SherlockFragmentActivity
         	switch(position)
         	{
         		case 0:
-        			pageTitle = "Songs";
+        			pageTitle = getString(R.string.songs);
         			break;
         		case 1:
-        			pageTitle = "Episodes";
+        			pageTitle = getString(R.string.episodes);
         			break;
         		default:
-        			pageTitle = "Songs";
+        			pageTitle = getString(R.string.songs);
         			break;
         	}
         	return pageTitle;
