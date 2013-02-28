@@ -100,4 +100,10 @@
 	<string name="warning_SubmitSong">Do you want to submit this song to reddit, making it available for voting?</string>
 	<string name="warning_SubmitEpisode">Do you want to submit this episode to reddit, making it available for voting?</string>
 	<string name="warning_SubmitNote">note: anything that is submitted to reddit gets upvoted, even if you press downvote. If you want to downvote it, press downvote again after it\'s been submitted</string>
+	<!-- Top charts -->
+	<string name="all_time">All time</string>
+	<string name="month">Month</string>
+	<string name="week">Week</string>
+	<string name="day">Day</string>
+	<!-- Recently played -->
 </resources>

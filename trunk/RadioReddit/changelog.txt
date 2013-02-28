@@ -4,7 +4,11 @@
 
 Change log:
 
-* 1.0.2 - ?
+* 1.0.3 - ?
+*- Pulled more strings out for translation
+*- Add translations...
+
+* 1.0.2 - February 27th, 2013
 - Added confirm dialog for logout
 - Added display setting to keep screen on
 - FIXED BUG: After listening to an individual song it says Buffering and the Stop button is shown (should show a Play button)

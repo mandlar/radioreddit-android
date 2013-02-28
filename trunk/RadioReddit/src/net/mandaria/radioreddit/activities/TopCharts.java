@@ -139,19 +139,19 @@ public class TopCharts extends SherlockFragmentActivity
         	switch(position)
         	{
         		case 0:
-        			pageTitle = "All time";
+        			pageTitle = getString(R.string.all_time);
         			break;
         		case 1:
-        			pageTitle = "Month";
+        			pageTitle = getString(R.string.month);
         			break;
         		case 2:
-        			pageTitle = "Week";
+        			pageTitle = getString(R.string.week);
         			break;
         		case 3:
-        			pageTitle = "Day";
+        			pageTitle = getString(R.string.day);
         			break;
         		default:
-        			pageTitle = "All time";
+        			pageTitle = getString(R.string.all_time);
         			break;
         	}
         	return pageTitle;
