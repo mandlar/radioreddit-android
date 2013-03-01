@@ -131,7 +131,7 @@ public class GetTopChartTask extends AsyncTask<Void, List<RadioSong>, List<Radio
 	        
 	        TextView lbl_NoSongList = (TextView)fragmentView.findViewById(R.id.lbl_NoSongList);
 	       
-	        lbl_NoSongList.setText("No top charts found");
+	        lbl_NoSongList.setText(activity.getString(R.string.no_top_charts_found));
 	  
 	        if(list_SongList.getCount() == 0)
 	        {

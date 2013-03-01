@@ -133,7 +133,7 @@ public class GetRecentlyPlayedSongsTask extends AsyncTask<Void, List<RadioSong>,
 	        
 	        TextView lbl_NoSongList = (TextView)fragmentView.findViewById(R.id.lbl_NoSongList);
 	       
-	        lbl_NoSongList.setText("No recently played songs found");
+	        lbl_NoSongList.setText(activity.getString(R.string.no_recently_played_songs_found));
 	  
 	        if(list_SongList.getCount() == 0)
 	        {
