@@ -135,7 +135,7 @@ public class GetRecentlyPlayedEpisodesTask extends AsyncTask<Void, List<RadioEpi
 	        
 	        TextView lbl_NoSongList = (TextView)fragmentView.findViewById(R.id.lbl_NoSongList);
 	       
-	        lbl_NoSongList.setText("No recently played episodes found");
+	        lbl_NoSongList.setText(activity.getString(R.string.no_recently_played_episodes_found));
 	  
 	        if(list_SongList.getCount() == 0)
 	        {

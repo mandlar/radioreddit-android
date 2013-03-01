@@ -19,7 +19,7 @@
     	<TextView 
 		     android:layout_width="wrap_content"
 		     android:layout_height="wrap_content"
-		     android:text="Please Wait"
+		     android:text="@string/pleaseWait"
 		     />
 	</LinearLayout>
 	<LinearLayout android:id="@+id/div_Error_SongList"
@@ -32,13 +32,13 @@
     	<TextView 
 		     android:layout_width="wrap_content"
 		     android:layout_height="wrap_content"
-		     android:text="There was a problem connecting to raddioreddit.com"
+		     android:text="@string/error_ThereWasAProblemConnectingToRadioReddit"
 		     android:layout_marginBottom="20dp"
 		     />
     	<Button android:id="@+id/btn_TryAgain_SongList"
     	    android:layout_width="wrap_content"
     	    android:layout_height="wrap_content"
-    	    android:text="Try Again"
+    	    android:text="@string/try_again"
     	    />
 	</LinearLayout>
 	<LinearLayout  android:id="@+id/div_SongList"
@@ -64,7 +64,7 @@
 			     android:layout_width="fill_parent"
 			     android:layout_height="fill_parent"
 			     android:gravity="center"
-			     android:text="No songs found"
+			     android:text="@string/no_songs_found"
 			     android:visibility="invisible"/>
 		</LinearLayout>
 	</LinearLayout>
