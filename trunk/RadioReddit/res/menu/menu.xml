@@ -32,6 +32,11 @@
 		android:showAsAction="never"
 		/>
 	<item
+		android:id="@+id/about"
+		android:title="@string/about"
+		android:showAsAction="never"
+		/>
+	<item
 		android:id="@+id/email_feedback"
 		android:title="@string/email_feedback"
 		android:showAsAction="never"
