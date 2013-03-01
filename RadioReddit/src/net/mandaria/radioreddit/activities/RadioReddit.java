@@ -587,6 +587,12 @@ public class RadioReddit extends SherlockActivity
 			startActivity(new Intent(this, Settings.class));
 			return true;
 		} 
+		else if (item.getItemId() == R.id.about) 
+		{
+			FlurryAgent.onEvent("radio reddit - Menu Button - About");
+			startActivity(new Intent(this, About.class));
+			return true;
+		} 
 		else if (item.getItemId() == R.id.email_feedback) {
 			FlurryAgent.onEvent("radio reddit - Menu Button - Email Feedback");
 			SendEmail();

@@ -114,4 +114,6 @@
 	<string name="no_songs_found">No songs found</string>
 	<string name="no_recently_played_episodes_found">No recently played episodes found</string>
 	<string name="no_recently_played_songs_found">No recently played songs found</string>
+	<!-- About -->
+	<string name="about">About</string>
 </resources>
