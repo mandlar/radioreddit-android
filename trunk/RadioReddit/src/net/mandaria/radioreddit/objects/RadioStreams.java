@@ -22,9 +22,6 @@ package net.mandaria.radioreddit.objects;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-
-import android.util.Log;
 
 // This is a container class for the GetRadioStreams async task
 public class RadioStreams

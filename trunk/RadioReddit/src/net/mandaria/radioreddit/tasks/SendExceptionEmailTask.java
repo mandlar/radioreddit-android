@@ -23,7 +23,6 @@ package net.mandaria.radioreddit.tasks;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -32,13 +31,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
-import net.mandaria.radioreddit.RadioRedditApplication;
-import net.mandaria.radioreddit.apis.RadioRedditAPI;
-import net.mandaria.radioreddit.objects.RadioEpisode;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.Toast;
 
 public class SendExceptionEmailTask extends AsyncTask<Void, Void, Void>
 {

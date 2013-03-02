@@ -20,21 +20,18 @@
 
 package net.mandaria.radioreddit.activities;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.MenuItem;
-import com.flurry.android.FlurryAgent;
-
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.utils.ActivityUtil;
-import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
-import android.view.Window;
 import android.widget.TextView;
+
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
+import com.flurry.android.FlurryAgent;
 
 public class ViewEpisodeInformation extends SherlockActivity
 {

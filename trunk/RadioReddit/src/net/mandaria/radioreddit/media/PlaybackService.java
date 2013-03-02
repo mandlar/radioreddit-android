@@ -23,6 +23,18 @@
 
 package net.mandaria.radioreddit.media;
 
+import java.io.IOException;
+import java.util.Locale;
+
+import net.mandaria.radioreddit.R;
+import net.mandaria.radioreddit.RadioRedditApplication;
+import net.mandaria.radioreddit.activities.RadioReddit;
+import net.mandaria.radioreddit.activities.Settings;
+import net.mandaria.radioreddit.data.DatabaseService;
+import net.mandaria.radioreddit.tasks.GetCurrentEpisodeInformationTask;
+import net.mandaria.radioreddit.tasks.GetCurrentSongInformationTask;
+import net.mandaria.radioreddit.tasks.GetEpisodeVoteScoreTask;
+import net.mandaria.radioreddit.tasks.GetSongVoteScoreTask;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -52,20 +64,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.util.Locale;
-
 import com.flurry.android.FlurryAgent;
-
-import net.mandaria.radioreddit.R;
-import net.mandaria.radioreddit.RadioRedditApplication;
-import net.mandaria.radioreddit.activities.RadioReddit;
-import net.mandaria.radioreddit.activities.Settings;
-import net.mandaria.radioreddit.data.DatabaseService;
-import net.mandaria.radioreddit.tasks.GetCurrentEpisodeInformationTask;
-import net.mandaria.radioreddit.tasks.GetCurrentSongInformationTask;
-import net.mandaria.radioreddit.tasks.GetEpisodeVoteScoreTask;
-import net.mandaria.radioreddit.tasks.GetSongVoteScoreTask;
 
 public class PlaybackService extends Service implements OnPreparedListener, OnBufferingUpdateListener, OnCompletionListener, OnErrorListener, OnInfoListener
 {

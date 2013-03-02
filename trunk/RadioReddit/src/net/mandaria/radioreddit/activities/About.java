@@ -22,25 +22,16 @@ package net.mandaria.radioreddit.activities;
 
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
-import net.mandaria.radioreddit.apis.RedditAPI;
-import net.mandaria.radioreddit.tasks.LoginRedditTask;
 import net.mandaria.radioreddit.utils.ActivityUtil;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;

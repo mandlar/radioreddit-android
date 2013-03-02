@@ -21,9 +21,7 @@
 package net.mandaria.radioreddit.tasks;
 
 import java.util.List;
-import java.util.Locale;
 
-import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.apis.RadioRedditAPI;
 import net.mandaria.radioreddit.data.SongListExpandableListAdapter;

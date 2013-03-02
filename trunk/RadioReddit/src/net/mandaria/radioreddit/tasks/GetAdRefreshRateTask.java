@@ -20,8 +20,6 @@
 
 package net.mandaria.radioreddit.tasks;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.Locale;
 
 import net.mandaria.radioreddit.RadioRedditApplication;
@@ -35,12 +33,8 @@ import org.ksoap2.transport.HttpTransportSE;
 
 import android.app.Application;
 import android.content.Context;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.AsyncTask;
-import android.os.SystemClock;
 import android.util.Log;
-import android.widget.Toast;
 
 
 public class GetAdRefreshRateTask extends AsyncTask<Void, Integer, Integer> 
