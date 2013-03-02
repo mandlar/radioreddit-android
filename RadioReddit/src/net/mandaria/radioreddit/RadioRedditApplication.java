@@ -40,7 +40,7 @@ public class RadioRedditApplication extends Application
 	public String playBackType = "";
 	
 	// Use this variable to control if purchase links use Google PlayStore or Amazon Appstore 
-	public final static boolean usePlayStoreLink = false;
+	public final static boolean usePlayStoreLink = true;
 
 	@Override
 	public void onCreate()
