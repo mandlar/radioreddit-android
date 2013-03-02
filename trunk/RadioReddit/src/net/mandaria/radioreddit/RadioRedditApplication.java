@@ -38,6 +38,9 @@ public class RadioRedditApplication extends Application
 	public boolean isRadioRedditDown = false;
 	public String radioRedditIsDownErrorMessage = "";
 	public String playBackType = "";
+	
+	// Use this variable to control if purchase links use Google PlayStore or Amazon Appstore 
+	public final static boolean usePlayStoreLink = false;
 
 	@Override
 	public void onCreate()
@@ -50,5 +53,16 @@ public class RadioRedditApplication extends Application
 	public static boolean isProVersion(Context context)
 	{
 		return context.getString(R.string.app_name).contains("pro");
+	}
+	
+	public static String getPaidVersionLink()
+	{
+		String url = "";
+		if(usePlayStoreLink)
+			url = "https://play.google.com/store/apps/details?id=net.mandaria.radioredditpro";
+		else
+		// For Amazon Appstore
+			url = "http://www.amazon.com/gp/mas/dl/android?p=net.mandaria.radioredditpro";
+		return url;
 	}
 }
