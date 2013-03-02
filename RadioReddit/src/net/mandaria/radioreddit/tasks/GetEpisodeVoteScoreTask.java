@@ -21,15 +21,12 @@
 package net.mandaria.radioreddit.tasks;
 
 import java.util.List;
-import java.util.Locale;
 
-import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.apis.RadioRedditAPI;
 import net.mandaria.radioreddit.data.EpisodeListExpandableListAdapter;
 import net.mandaria.radioreddit.data.EpisodeListExpandableListAdapter.SongListChildViewHolder;
 import net.mandaria.radioreddit.objects.RadioEpisode;
-import net.mandaria.radioreddit.objects.RadioSong;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;

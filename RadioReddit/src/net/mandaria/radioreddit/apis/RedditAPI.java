@@ -18,25 +18,23 @@
  *  along with "radio reddit for android".  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 package net.mandaria.radioreddit.apis;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.errors.CustomExceptionHandler;
 import net.mandaria.radioreddit.objects.RedditAccount;
 import net.mandaria.radioreddit.utils.HTTPUtil;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import android.content.Context;
-import android.widget.Toast;
 
 public class RedditAPI
 {

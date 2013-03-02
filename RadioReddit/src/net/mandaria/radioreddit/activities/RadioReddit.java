@@ -25,14 +25,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-import com.flurry.android.FlurryAgent;
-
-import net.mandaria.radioreddit.tasks.GetAdRefreshRateTask;
-import net.mandaria.radioreddit.tasks.GetInHouseAdsPercentageTask;
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.data.DatabaseService;
@@ -42,15 +34,15 @@ import net.mandaria.radioreddit.objects.RadioEpisode;
 import net.mandaria.radioreddit.objects.RadioSong;
 import net.mandaria.radioreddit.objects.RadioStreams;
 import net.mandaria.radioreddit.objects.RedditAccount;
+import net.mandaria.radioreddit.tasks.GetAdRefreshRateTask;
+import net.mandaria.radioreddit.tasks.GetInHouseAdsPercentageTask;
 import net.mandaria.radioreddit.tasks.GetRadioStreamsTask;
+import net.mandaria.radioreddit.tasks.VoteOnEpisodeTask;
 import net.mandaria.radioreddit.tasks.VoteOnSongTask;
 import net.mandaria.radioreddit.tasks.VoteRedditTask;
-import net.mandaria.radioreddit.tasks.VoteOnEpisodeTask;
 import net.mandaria.radioreddit.utils.ActivityUtil;
-
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -70,9 +62,7 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
-import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -81,6 +71,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+import com.flurry.android.FlurryAgent;
 
 public class RadioReddit extends SherlockActivity
 {

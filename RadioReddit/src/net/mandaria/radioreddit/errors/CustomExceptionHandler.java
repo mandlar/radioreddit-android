@@ -21,27 +21,13 @@
 package net.mandaria.radioreddit.errors;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.Thread.UncaughtExceptionHandler;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 import net.mandaria.radioreddit.R;
-import net.mandaria.radioreddit.activities.RadioReddit;
-import net.mandaria.radioreddit.tasks.GetRadioStreamsTask;
 import net.mandaria.radioreddit.tasks.SendExceptionEmailTask;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
-
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;

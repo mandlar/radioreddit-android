@@ -23,11 +23,6 @@ package net.mandaria.radioreddit.activities;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.MenuItem;
-import com.commonsware.cwac.merge.MergeAdapter;
-import com.flurry.android.FlurryAgent;
-
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.data.CustomRadioStreamsAdapter;
@@ -37,14 +32,17 @@ import net.mandaria.radioreddit.utils.ActivityUtil;
 import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
+import com.commonsware.cwac.merge.MergeAdapter;
+import com.flurry.android.FlurryAgent;
 
 public class SelectStation extends SherlockActivity
 {

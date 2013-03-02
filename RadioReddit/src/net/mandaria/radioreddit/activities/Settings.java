@@ -20,18 +20,20 @@
 
 package net.mandaria.radioreddit.activities;
 
-import com.actionbarsherlock.app.SherlockPreferenceActivity;
-import com.flurry.android.FlurryAgent;
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.objects.RedditAccount;
 import net.mandaria.radioreddit.utils.ActivityUtil;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.*;
+import android.preference.CheckBoxPreference;
+import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.View;
-import android.content.Context;
+
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
+import com.flurry.android.FlurryAgent;
 
 public class Settings extends SherlockPreferenceActivity
 {

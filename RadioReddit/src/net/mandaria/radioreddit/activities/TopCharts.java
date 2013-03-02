@@ -20,38 +20,19 @@
 
 package net.mandaria.radioreddit.activities;
 
+import net.mandaria.radioreddit.R;
+import net.mandaria.radioreddit.fragments.SongListFragment;
+import net.mandaria.radioreddit.utils.ActivityUtil;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
-import com.actionbarsherlock.view.MenuInflater;
-import net.mandaria.radioreddit.R;
-import net.mandaria.radioreddit.R.layout;
-import net.mandaria.radioreddit.fragments.SongListFragment;
-import net.mandaria.radioreddit.utils.ActivityUtil;
-
 import com.viewpagerindicator.TabPageIndicator;
-
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 public class TopCharts extends SherlockFragmentActivity
 {

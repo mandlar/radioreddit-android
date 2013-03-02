@@ -22,13 +22,7 @@ package net.mandaria.radioreddit.apis;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
@@ -39,11 +33,13 @@ import net.mandaria.radioreddit.objects.RadioSong;
 import net.mandaria.radioreddit.objects.RadioStream;
 import net.mandaria.radioreddit.objects.RadioStreams;
 import net.mandaria.radioreddit.objects.RedditAccount;
-import net.mandaria.radioreddit.tasks.GetCurrentEpisodeInformationTask;
-import net.mandaria.radioreddit.tasks.GetCurrentSongInformationTask;
 import net.mandaria.radioreddit.utils.HTTPUtil;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import android.content.Context;
-import android.util.Log;
 
 public class RadioRedditAPI
 {
