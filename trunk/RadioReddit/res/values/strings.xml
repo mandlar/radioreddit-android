@@ -116,10 +116,14 @@
 	<string name="no_recently_played_songs_found">No recently played songs found</string>
 	<!-- About -->
 	<string name="about">About</string>
+	<string name="license">License</string>
+	<string name="license_details">radio reddit for Android is licensed under GNU GPL v3. radio reddit and reddit brandings are used with permission.</string>
 	<string name="about_radioreddit1">radioreddit.com is the source for quality new and popular independent music. Our live streams are not controlled by program directors and DJs in the pockets of large labels. Songs are chosen by an algorithm which only weighs users\' votes when deciding what gets played and what gets excluded as junk. Songs with high voter approval eventually make it onto the radio reddit charts and get promoted by having a higher probability of being played.</string>
 	<string name="about_radioreddit2">radio reddit was created by musicians who wanted a place where all music was given a fair chance to be heard. Where pay-for-play, label preference, and underhand deals were done away with. Where listeners were in control.</string>
 	<string name="acknowledgements">Acknowledgements</string>
 	<string name="visit_radioreddit_com">Visit radioreddit.com</string>
+	<string name="help_translate">Help translate</string>
+	<string name="source_code_project">Source code project</string>
 	<string name="visit_r_radioreddit">Visit r/radioreddit</string>
 	<string name="visit_r_talkradioreddit">Visit r/talkradioreddit</string>
 	<string name="thanks_for_purchasing">Thanks for purchasing!</string>

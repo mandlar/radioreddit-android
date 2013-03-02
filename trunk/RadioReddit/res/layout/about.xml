@@ -26,6 +26,26 @@
 				android:autoLink="all"
 				android:textStyle="bold"
 				android:textSize="16sp"
+				android:text="@string/license"
+	            />
+	        <TextView
+	            android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@color/White"
+				android:layout_marginBottom="10dp"
+				android:autoLink="all"
+				android:lineSpacingExtra="3dp"
+				android:text="@string/license_details"
+	            />
+		    <TextView
+	            android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@color/White"
+				android:layout_marginTop="10dp"
+				android:layout_marginBottom="10dp"
+				android:autoLink="all"
+				android:textStyle="bold"
+				android:textSize="16sp"
 				android:text="@string/about"
 	            />
 	        <TextView
@@ -71,7 +91,7 @@
         android:layout_weight="1"
 	    android:orientation="vertical"
 	    android:layout_width="fill_parent"
-	    android:layout_height="330dp"
+	    android:layout_height="405dp"
 	    >
    	   	<LinearLayout 
 			android:layout_width="wrap_content"
@@ -97,7 +117,7 @@
 	            />
    	   </LinearLayout>
    	   <LinearLayout 
-   	       	android:layout_marginTop="10dp"
+   	       	android:layout_marginTop="5dp"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:orientation="horizontal"
@@ -122,8 +142,34 @@
 	   	        android:textSize="12sp"
 	   	        />
 	   </LinearLayout>
+	   <LinearLayout 
+	        android:layout_marginTop="2dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:layout_gravity="center_horizontal"
+   	       	>
+	   	    <Button 
+	   	        android:id="@+id/btn_HelpTranslate"
+	   	        android:minWidth="150dp"
+	   	        android:layout_weight="1"
+	   	        android:layout_width="wrap_content"
+	   	        android:layout_height="wrap_content"
+	   	        android:text="@string/help_translate"
+	   	        android:textSize="12sp"
+	   	        />
+	   	   	<Button 
+	   	   	    android:id="@+id/btn_SourceCodeProject"
+	   	   	    android:minWidth="150dp"
+	   	   	    android:layout_weight="1"
+	   	        android:layout_width="wrap_content"
+	   	        android:layout_height="wrap_content"
+	   	        android:text="@string/source_code_project"
+	   	        android:textSize="12sp"
+	   	        />
+	   </LinearLayout>
 	    <LinearLayout 
-	        android:layout_marginTop="10dp"
+	        android:layout_marginTop="2dp"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:orientation="horizontal"
