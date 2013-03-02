@@ -649,14 +649,8 @@ public class RadioReddit extends SherlockActivity
 				public void onClick(DialogInterface dialog, int which)
 				{
 					FlurryAgent.onEvent("radio reddit - Go Pro");
-					// launch intent to google play store for pro version
-					boolean usePlayStoreLink = true;
-					String url = "";
-					if(usePlayStoreLink)
-						url = "https://play.google.com/store/apps/details?id=net.mandaria.radioredditpro";
-					else
-					// For Amazon Appstore
-						url ="http://www.amazon.com/gp/mas/dl/android?p=net.mandaria.radioredditpro";
+					
+					String url = RadioRedditApplication.getPaidVersionLink();
 					
 					startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
 				}

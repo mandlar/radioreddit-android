@@ -30,9 +30,12 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -56,6 +59,93 @@ public class About extends SherlockActivity
 		
 		setContentView(R.layout.about);
 		getSupportActionBar().setTitle(getString(R.string.about));
+		
+		TextView lbl_AcknowledgementsList = (TextView)findViewById(R.id.lbl_AcknowledgementsList);
+		lbl_AcknowledgementsList.setMovementMethod(LinkMovementMethod.getInstance()); // makes links clickable
+		lbl_AcknowledgementsList.setText(Html.fromHtml(getString(R.string.acknowledgements_list)));
+		
+		String version = "1.0";
+		try
+		{
+			version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+		}
+		catch(NameNotFoundException ex)
+		{
+
+		}
+		
+		TextView lbl_VersionNumber = (TextView)findViewById(R.id.lbl_VersionNumber);
+		lbl_VersionNumber.setText(" v." + version);
+		
+		Button btn_GoPro = (Button)findViewById(R.id.btn_GoPro);
+		btn_GoPro.setOnClickListener(new OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				FlurryAgent.onEvent("radio reddit - About - Go Pro");
+				
+				String url = RadioRedditApplication.getPaidVersionLink();
+				
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+			}
+		});
+		
+		if(RadioRedditApplication.isProVersion(this))
+		{
+			btn_GoPro.setEnabled(false);
+			btn_GoPro.setText(getString(R.string.thanks_for_purchasing));
+		}
+		
+		Button btn_VisitRadioRedditCom = (Button)findViewById(R.id.btn_VisitRadioRedditCom);
+		btn_VisitRadioRedditCom.setOnClickListener(new OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				FlurryAgent.onEvent("radio reddit - About - radioreddit.com");
+				
+				String url = "http://www.radioreddit.com";
+				
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+				
+			}
+		});
+		
+		Button btn_VisitRRadioReddit = (Button)findViewById(R.id.btn_VisitRRadioReddit);
+		btn_VisitRRadioReddit.setOnClickListener(new OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				FlurryAgent.onEvent("radio reddit - About - r/radioreddit");
+				
+				String url = "http://www.reddit.com/r/radioreddit";
+				
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+				
+			}
+		});
+		
+		Button btn_VisitRTalkRadioReddit = (Button)findViewById(R.id.btn_VisitRTalkRadioReddit);
+		btn_VisitRTalkRadioReddit.setOnClickListener(new OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				FlurryAgent.onEvent("radio reddit - About - r/talkradioreddit");
+				
+				String url = "http://www.reddit.com/r/talkradioreddit";
+				
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));				
+			}
+		});
+		
+		// TODO: add buttons for translation and google code project
 	}
 	
 	@Override
