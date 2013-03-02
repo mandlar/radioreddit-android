@@ -114,6 +114,38 @@ public class About extends SherlockActivity
 			}
 		});
 		
+		Button btn_HelpTranslate = (Button)findViewById(R.id.btn_HelpTranslate);
+		btn_HelpTranslate.setOnClickListener(new OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				FlurryAgent.onEvent("radio reddit - About - Help translate");
+				
+				String url = "http://crowdin.net/project/radioreddit";
+				
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+				
+			}
+		});
+		
+		Button btn_SourceCodeProject = (Button)findViewById(R.id.btn_SourceCodeProject);
+		btn_SourceCodeProject.setOnClickListener(new OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				FlurryAgent.onEvent("radio reddit - About - Source code project");
+				
+				String url = "https://code.google.com/p/radioreddit-android/";
+				
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+				
+			}
+		});
+		
 		Button btn_VisitRRadioReddit = (Button)findViewById(R.id.btn_VisitRRadioReddit);
 		btn_VisitRRadioReddit.setOnClickListener(new OnClickListener()
 		{
@@ -144,8 +176,6 @@ public class About extends SherlockActivity
 				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));				
 			}
 		});
-		
-		// TODO: add buttons for translation and google code project
 	}
 	
 	@Override
