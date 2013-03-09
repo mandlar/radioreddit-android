@@ -7,7 +7,7 @@ Change log:
 * 1.0.3 - March 9th, 2013
 - Pulled more strings out for translation
 - Added About screen
-- Added translations: Spanish, Norwegian, German
+- Added translations: Dutch, German, Norwegian, Spanish
 - Updated logos
 - FIXED BUG: Fixed crash when logging in and rotating screen
 
