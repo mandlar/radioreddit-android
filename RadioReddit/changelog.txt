@@ -9,6 +9,7 @@ Change log:
 - Added About screen
 - Added translations: Spanish, Norwegian, German
 - Updated logos
+- FIXED BUG: Fixed crash when logging in and rotating screen
 
 * 1.0.2 - February 27th, 2013
 - Added confirm dialog for logout
@@ -20,7 +21,6 @@ Change log:
 * 1.0.1 - February 23rd, 2013
 - Added ad/broadcast system for both free/pro version, primarily to show a message when radioreddit.com is down
 - Added new icon only for the free version to distinguish it from the pro version
-
 
 * 1.0 - February 18th, 2013
 - Bump min API level to 7 (Android 2.1)
@@ -52,7 +52,6 @@ Change log:
 - If not logged in, dialog gives option to go to Login activity
 - Show reddit username beside of "Logout" in menu when logged in
 - Darken and disable vote buttons when song/episode information is not yet available (and therefore cannot vote yet)
-
 
 * 0.1 - July 6th, 2011
 - Initial alpha release
