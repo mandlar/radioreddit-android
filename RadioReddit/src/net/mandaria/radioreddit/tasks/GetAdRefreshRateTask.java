@@ -65,9 +65,7 @@ public class GetAdRefreshRateTask extends AsyncTask<Void, Integer, Integer>
 		    String NAMESPACE = "http://www.bryandenny.com/software/android/";
 		    String URL = "http://www.bryandenny.com/software/android/service.asmx";
 
-		    int applicationID = 2;
-			if(RadioRedditApplication.isProVersion(_context))
-				applicationID = 3;
+		    int applicationID = RadioRedditApplication.getApplicationID(_context);
 		    
 			SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 			request.addProperty("applicationID", applicationID);
