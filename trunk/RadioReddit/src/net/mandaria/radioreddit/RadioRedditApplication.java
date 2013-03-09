@@ -65,4 +65,15 @@ public class RadioRedditApplication extends Application
 			url = "http://www.amazon.com/gp/mas/dl/android?p=net.mandaria.radioredditpro";
 		return url;
 	}
+	
+	public static int getApplicationID(Context context)
+	{
+		int applicationID = 2; // free - play store
+		if(RadioRedditApplication.getPaidVersionLink().contains("amazon"))
+			applicationID = 4; // free - amazon
+		if(RadioRedditApplication.isProVersion(context))
+			applicationID = 3; // pro - either store
+		
+		return applicationID;
+	}
 }

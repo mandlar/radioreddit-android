@@ -1305,9 +1305,7 @@ public class RadioReddit extends SherlockActivity
 
 			 });
 
-			int applicationID = 2;
-			if(RadioRedditApplication.isProVersion(RadioReddit.this))
-				applicationID = 3;
+			int applicationID = RadioRedditApplication.getApplicationID(RadioReddit.this);
 			
 			// Request an ad
 			adView.loadUrl("http://www.bryandenny.com/software/android/default.aspx?id=" + applicationID);
