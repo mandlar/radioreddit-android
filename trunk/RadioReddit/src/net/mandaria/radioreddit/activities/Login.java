@@ -34,10 +34,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.flurry.android.FlurryAgent;
 
-public class Login extends SherlockActivity
+public class Login extends SherlockFragmentActivity
 {
 	Button btn_login;
 	
@@ -135,5 +135,4 @@ public class Login extends SherlockActivity
        super.onStop();
        FlurryAgent.onEndSession(this);
     }
-    
 }

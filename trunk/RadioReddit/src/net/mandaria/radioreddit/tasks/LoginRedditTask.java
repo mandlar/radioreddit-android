@@ -27,22 +27,28 @@ import net.mandaria.radioreddit.activities.Settings;
 import net.mandaria.radioreddit.apis.RedditAPI;
 import net.mandaria.radioreddit.objects.RedditAccount;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 public class LoginRedditTask extends AsyncTask<Void, RedditAccount, RedditAccount>
 {
 	private static String TAG = "RadioReddit";
-	private Context _context;
+	private static Context _context;
 	private RadioRedditApplication _application;
 	private Exception ex;
 	private String _username;
 	private String _password;
-	private ProgressDialog _progressDialog;
+	private static ProgressDialog _progressDialog;
 
 	public LoginRedditTask(RadioRedditApplication application, Context context, String username, String password)
 	{
@@ -50,8 +56,24 @@ public class LoginRedditTask extends AsyncTask<Void, RedditAccount, RedditAccoun
 		_application = application;
 		_username = username;
 		_password = password;
-		_progressDialog = ProgressDialog.show(_context, _context.getText(R.string.loggingInToReddit), _context.getText(R.string.pleaseWait), true);
+		showProgressDialog();
 	}
+	
+	public void showProgressDialog() {
+        FragmentManager fragmentManager = ((SherlockFragmentActivity)_context).getSupportFragmentManager();
+        ProgressDialogFragment newFragment = new ProgressDialogFragment();
+        newFragment.show(fragmentManager, "Dialog");
+    }
+
+	public static class ProgressDialogFragment extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            _progressDialog = ProgressDialog.show(_context, _context.getText(R.string.loggingInToReddit), _context.getText(R.string.pleaseWait), true);
+            _progressDialog.setCanceledOnTouchOutside(false);
+            _progressDialog.setCancelable(false);
+            return _progressDialog;
+        }
+    }
 
 	@Override
 	protected RedditAccount doInBackground(Void... unused)
@@ -59,6 +81,7 @@ public class LoginRedditTask extends AsyncTask<Void, RedditAccount, RedditAccoun
 		RedditAccount account = null;
 		try
 		{
+			//android.os.SystemClock.sleep(7000); // for testing
 			account = RedditAPI.login(_context, _username, _password);
 		}
 		catch(Exception e)
@@ -79,7 +102,9 @@ public class LoginRedditTask extends AsyncTask<Void, RedditAccount, RedditAccoun
 	@Override
 	protected void onPostExecute(RedditAccount result)
 	{
-		_progressDialog.dismiss();
+		if(_progressDialog.isShowing())
+			_progressDialog.dismiss();
+		
 		if(result != null && result.ErrorMessage.equals(""))
 		{
 			//Toast.makeText(_context, "SUCCESS: yum, cookies: " + result.Cookie, Toast.LENGTH_LONG).show();
