@@ -4,6 +4,10 @@
 
 Change log:
 
+* 1.1 - ?
+*- Downloadble songs
+- Fixed color tint with bottom (play) bar
+
 * 1.0.3 - March 9th, 2013
 - Pulled more strings out for translation
 - Added About screen
