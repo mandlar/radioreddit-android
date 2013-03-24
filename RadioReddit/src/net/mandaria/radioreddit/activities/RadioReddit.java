@@ -516,6 +516,7 @@ public class RadioReddit extends SherlockActivity
 		MenuItem viewEpisodeInfo = (MenuItem) menu.findItem(R.id.viewEpisodeInfo);
 		MenuItem login = (MenuItem) menu.findItem(R.id.login);
 		MenuItem logout = (MenuItem) menu.findItem(R.id.logout);
+		MenuItem download = (MenuItem) menu.findItem(R.id.download);
 		
 		RedditAccount account = Settings.getRedditAccount(RadioReddit.this);
 		
@@ -551,6 +552,33 @@ public class RadioReddit extends SherlockActivity
 		//getResources().getString(R.string.currentStation) + ": " +
 		if(application.CurrentStream != null)
 			getSupportActionBar().setTitle( application.CurrentStream.Name);
+		
+		if(application.CurrentSong != null)
+		{
+			if(application.CurrentSong.Download_url != null)
+			{
+				download.setVisible(true);
+			}
+			else
+			{
+				download.setVisible(false);
+			}
+		}
+		else if(application.CurrentEpisode != null)
+		{
+			if(application.CurrentEpisode.Download_url != null)
+			{
+				download.setVisible(true);
+			}
+			else
+			{
+				download.setVisible(false);
+			}
+		}
+		else
+		{
+			download.setVisible(false);
+		}
 
 		return true;
 	}
@@ -571,7 +599,7 @@ public class RadioReddit extends SherlockActivity
 		// app icon in action bar clicked; choose station
 		if(item.getItemId() == android.R.id.home)
 		{
-			FlurryAgent.onEvent("radio reddit - Menu Button - Choose Station");
+			FlurryAgent.onEvent("radio reddit - Home Button - Choose Station");
 			ChooseStation();
             return true;
 		}
