@@ -678,7 +678,41 @@ public class RadioReddit extends SherlockActivity
 			
 			return true;
 		}
+		else if (item.getItemId() == R.id.download) 
+		{
+			FlurryAgent.onEvent("radio reddit - Menu Button - Download");
+			Download();
+			return true;
+		} 
 		return false;
+	}
+	
+	private void Download()
+	{
+		final AlertDialog.Builder builder = new AlertDialog.Builder(RadioReddit.this);
+	    builder.setMessage(getString(R.string.download_body_song))
+	    	.setTitle(getString(R.string.download_title))
+	    	.setIcon(android.R.drawable.ic_dialog_alert)
+	    	.setCancelable(true)
+	        .setPositiveButton(getString(R.string.download_yes), new DialogInterface.OnClickListener()
+			{
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which)
+				{
+					FlurryAgent.onEvent("radio reddit - Download");
+					
+					// TODO: Add download code here...
+				}
+			})
+	        .setNegativeButton(getString(R.string.download_no), null);
+	    
+	    RadioRedditApplication application = (RadioRedditApplication) getApplication();
+	    if(application.CurrentEpisode != null)
+	    	builder.setMessage(R.string.download_body_episode);
+	    
+	    final AlertDialog alert = builder.create();
+	    alert.show();
 	}
 	
 	private void showGoProDialog()

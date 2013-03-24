@@ -35,6 +35,12 @@
 	<string name="gopro_body">This feature is only available in the pro version of radio reddit. Please support the developer and radio reddit by purchasing the pro version. 25% of sales go directly to radioreddit.com</string>
 	<string name="gopro_yes">Purchase pro version</string>
 	<string name="gopro_no">Not now</string>
+	<!-- Download -->
+	<string name="download_title">Download to your phone?</string>
+	<string name="download_body_song">This song\'s mp3 will be downloaded to your phone, allowing you to play it in other music applications.</string>
+	<string name="download_body_episode">This episode\'s mp3 will be downloaded to your phone, allowing you to play it in other music applications.</string>
+	<string name="download_yes">Download</string>
+	<string name="download_no">Not now</string>
 	<!-- Submit errors -->
 	<string name="error_NoContentReturnFromReplyPOST">No content returned from reply POST</string>
 	<string name="error_WrongPassword">Wrong password</string>
