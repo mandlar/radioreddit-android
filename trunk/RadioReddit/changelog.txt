@@ -5,6 +5,7 @@
 Change log:
 
 * 1.1 - ?
+*- Choose Station icon / "up" action
 *- Downloadble songs
 - Fixed color tint with bottom (play) bar
 
