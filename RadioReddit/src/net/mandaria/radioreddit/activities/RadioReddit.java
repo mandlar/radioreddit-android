@@ -142,6 +142,17 @@ public class RadioReddit extends SherlockActivity
 		
 		ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        
+		try
+		{
+			// This only works on API >= 11
+			ImageView view = (ImageView)findViewById(android.R.id.home);
+			view.setPadding(10, 0, 0, 0);
+		}
+		catch(Exception ex)
+		{
+			// Fail to find "up" button and add padding
+		}
 
 		lbl_SongVote = (TextView) findViewById(R.id.lbl_SongVote);
 		lbl_SongTitle = (TextView) findViewById(R.id.lbl_SongTitle);
