@@ -20,6 +20,7 @@
 
 package net.mandaria.radioreddit.activities;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -43,6 +44,7 @@ import net.mandaria.radioreddit.tasks.VoteRedditTask;
 import net.mandaria.radioreddit.utils.ActivityUtil;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -57,6 +59,7 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
@@ -702,7 +705,64 @@ public class RadioReddit extends SherlockActivity
 				{
 					FlurryAgent.onEvent("radio reddit - Download");
 					
-					// TODO: Add download code here...
+					// TODO: add check for GB or greater API level -- or don't show icon at all?
+					RadioRedditApplication application = (RadioRedditApplication) getApplication();
+					String downloadURL = "";
+					String title = "";
+					String description = "radio reddit";
+					
+					String songTitle = getString(R.string.app_name);
+					String songArtist = "";
+					
+					if(application.CurrentSong != null && application.CurrentSong.Download_url != null)
+					{
+						if(application.CurrentSong.Title != null)
+							songTitle = application.CurrentSong.Title;
+						if(application.CurrentSong.Artist != null && application.CurrentSong.Redditor != null)
+							songArtist = application.CurrentSong.Artist + " (" + application.CurrentSong.Redditor + ")";
+						
+						downloadURL = application.CurrentSong.Download_url;
+					}
+					else if(application.CurrentEpisode != null && application.CurrentEpisode.Download_url != null)
+					{
+						if(application.CurrentEpisode.EpisodeTitle != null)
+							songTitle = application.CurrentEpisode.EpisodeTitle;
+						if(application.CurrentEpisode.ShowTitle != null)
+							songArtist = application.CurrentEpisode.ShowTitle;
+						
+						downloadURL = application.CurrentEpisode.Download_url;
+					}
+					
+					title = songTitle + " by " + songArtist;
+					
+					if(!downloadURL.equals(""))
+					{
+						// TODO: BUG: this won't work for episodes, will currently crash
+						String[] downloadURL_split = downloadURL.split("mp3=");
+						String filename = downloadURL_split[1];
+						
+						DownloadManager downloadManager = (DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
+						Uri uri = Uri.parse(downloadURL);
+						
+						File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
+						path = new File(path, "radioreddit");
+						path.mkdirs();
+	
+					    DownloadManager.Request request = new DownloadManager.Request(uri);
+					    
+					    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) 
+					    {
+					        request.allowScanningByMediaScanner();
+					        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+					    }
+	
+					    request.setTitle(title)
+					       .setDescription(description)
+					       .setDestinationInExternalPublicDir(Environment.DIRECTORY_MUSIC, "/radioreddit/" + filename);
+	
+					    long lastDownload = -1L;
+					    lastDownload = downloadManager.enqueue(request);
+					}
 				}
 			})
 	        .setNegativeButton(getString(R.string.download_no), null);
