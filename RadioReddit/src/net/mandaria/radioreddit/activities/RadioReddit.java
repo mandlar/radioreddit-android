@@ -72,6 +72,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -138,6 +139,9 @@ public class RadioReddit extends SherlockActivity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
 		lbl_SongVote = (TextView) findViewById(R.id.lbl_SongVote);
 		lbl_SongTitle = (TextView) findViewById(R.id.lbl_SongTitle);
@@ -553,7 +557,14 @@ public class RadioReddit extends SherlockActivity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		if (item.getItemId() == R.id.login) 
+		// app icon in action bar clicked; choose station
+		if(item.getItemId() == android.R.id.home)
+		{
+			FlurryAgent.onEvent("radio reddit - Menu Button - Choose Station");
+			ChooseStation();
+            return true;
+		}
+		else if (item.getItemId() == R.id.login) 
 		{
 			FlurryAgent.onEvent("radio reddit - Menu Button - Login");
 			startActivity(new Intent(this, Login.class));
