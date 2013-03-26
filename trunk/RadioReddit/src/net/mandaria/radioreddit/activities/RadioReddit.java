@@ -713,6 +713,7 @@ public class RadioReddit extends SherlockActivity
 					
 					String songTitle = getString(R.string.app_name);
 					String songArtist = "";
+					String filename = "";
 					
 					if(application.CurrentSong != null && application.CurrentSong.Download_url != null)
 					{
@@ -735,12 +736,11 @@ public class RadioReddit extends SherlockActivity
 					
 					title = songTitle + " by " + songArtist;
 					
+					filename = songArtist + " " + songTitle + ".mp3";
+					filename = filename.replace(" ", "_");
+					
 					if(!downloadURL.equals(""))
-					{
-						// TODO: BUG: this won't work for episodes, will currently crash
-						String[] downloadURL_split = downloadURL.split("mp3=");
-						String filename = downloadURL_split[1];
-						
+					{	
 						DownloadManager downloadManager = (DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
 						Uri uri = Uri.parse(downloadURL);
 						
