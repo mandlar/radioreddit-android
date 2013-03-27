@@ -41,6 +41,7 @@ import net.mandaria.radioreddit.tasks.GetRadioStreamsTask;
 import net.mandaria.radioreddit.tasks.VoteOnEpisodeTask;
 import net.mandaria.radioreddit.tasks.VoteOnSongTask;
 import net.mandaria.radioreddit.tasks.VoteRedditTask;
+import net.mandaria.radioreddit.utils.APIUtil;
 import net.mandaria.radioreddit.utils.ActivityUtil;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -556,7 +557,11 @@ public class RadioReddit extends SherlockActivity
 		if(application.CurrentStream != null)
 			getSupportActionBar().setTitle( application.CurrentStream.Name);
 		
-		if(application.CurrentSong != null)
+		if (!APIUtil.isDownloadManagerAvailable(this))
+		{
+			download.setVisible(false);
+		}
+		else if(application.CurrentSong != null)
 		{
 			if(application.CurrentSong.Download_url != null)
 			{
