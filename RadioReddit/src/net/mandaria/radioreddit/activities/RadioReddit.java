@@ -763,6 +763,7 @@ public class RadioReddit extends SherlockActivity
 	
 					    request.setTitle(title)
 					       .setDescription(description)
+					       .setMimeType("audio/mpeg")
 					       .setDestinationInExternalPublicDir(Environment.DIRECTORY_MUSIC, "/radioreddit/" + filename);
 	
 					    long lastDownload = -1L;
