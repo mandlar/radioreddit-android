@@ -20,6 +20,7 @@
 
 package net.mandaria.radioreddit.apis;
 
+import java.io.File;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import android.app.DownloadManager;
 import android.content.Context;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 
 public class RadioRedditAPI
 {
@@ -931,6 +936,67 @@ public class RadioRedditAPI
 		}
 		
 		return radioepisode;
+	}
+	
+	public static void Download(Context context, RadioSong song, RadioEpisode episode)
+	{
+		String downloadURL = "";
+		String title = "";
+		String description = "radio reddit";
+		
+		String songTitle = context.getString(R.string.app_name);
+		String songArtist = "";
+		String filename = "";
+		
+		if(song != null && song.Download_url != null)
+		{
+			if(song.Title != null)
+				songTitle = song.Title;
+			if(song.Artist != null && song.Redditor != null)
+				songArtist = song.Artist + " (" + song.Redditor + ")";
+			
+			downloadURL = song.Download_url;
+		}
+		else if(episode != null && episode.Download_url != null)
+		{
+			if(episode.EpisodeTitle != null)
+				songTitle = episode.EpisodeTitle;
+			if(episode.ShowTitle != null)
+				songArtist = episode.ShowTitle;
+			
+			downloadURL = episode.Download_url;
+		}
+		
+		title = songTitle + " by " + songArtist;
+		
+		filename = songArtist + " " + songTitle + ".mp3";
+		filename = filename.replace(" ", "_");
+		
+		if(!downloadURL.equals(""))
+		{	
+			DownloadManager downloadManager = (DownloadManager)context.getSystemService(Context.DOWNLOAD_SERVICE);
+			Uri uri = Uri.parse(downloadURL);
+			
+			File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
+			path = new File(path, "radioreddit");
+			path.mkdirs();
+
+		    DownloadManager.Request request = new DownloadManager.Request(uri);
+		    
+		    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) 
+		    {
+		        request.allowScanningByMediaScanner();
+		        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+		    }
+
+		    request.setTitle(title)
+		       .setDescription(description)
+		       .setMimeType("audio/mpeg")
+		       .setDestinationInExternalPublicDir(Environment.DIRECTORY_MUSIC, "/radioreddit/" + filename);
+
+		    long lastDownload = -1L;
+		    lastDownload = downloadManager.enqueue(request);
+		}
 	}
 	
 }
