@@ -24,12 +24,15 @@ import java.util.List;
 
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
+import net.mandaria.radioreddit.apis.RadioRedditAPI;
 import net.mandaria.radioreddit.objects.RadioSong;
 import net.mandaria.radioreddit.tasks.GetSongVoteScoreTask;
 import net.mandaria.radioreddit.tasks.VoteOnSongTask;
 import net.mandaria.radioreddit.utils.APIUtil;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +41,8 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.flurry.android.FlurryAgent;
 
 public class SongListExpandableListAdapter extends BaseExpandableListAdapter
 {
@@ -188,6 +193,35 @@ public class SongListExpandableListAdapter extends BaseExpandableListAdapter
 				
 				activity.setResult(Activity.RESULT_OK, result);
 				activity.finish();
+			}
+		});
+		
+		holder.btn_download.setOnClickListener(new OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+			    builder.setMessage(context.getString(R.string.download_body_song))
+			    	.setTitle(context.getString(R.string.download_title))
+			    	.setIcon(android.R.drawable.ic_dialog_alert)
+			    	.setCancelable(true)
+			        .setPositiveButton(context.getString(R.string.download_yes), new DialogInterface.OnClickListener()
+					{
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which)
+						{
+							FlurryAgent.onEvent("radio reddit - Song List - Download");
+							
+							RadioRedditAPI.Download(context, song, null);
+						}
+					})
+			        .setNegativeButton(context.getString(R.string.download_no), null);
+			    
+			    final AlertDialog alert = builder.create();
+			    alert.show();
 			}
 		});
 		
