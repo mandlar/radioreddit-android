@@ -687,7 +687,15 @@ public class RadioReddit extends SherlockActivity
 		else if (item.getItemId() == R.id.download) 
 		{
 			FlurryAgent.onEvent("radio reddit - Menu Button - Download");
-			Download();
+			if(RadioRedditApplication.isProVersion(this))
+			{
+				Download();
+			}
+			else
+			{
+				showGoProDialog();
+			}
+			
 			return true;
 		} 
 		return false;
