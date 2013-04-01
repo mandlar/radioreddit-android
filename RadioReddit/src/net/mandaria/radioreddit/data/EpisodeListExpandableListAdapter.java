@@ -24,11 +24,15 @@ import java.util.List;
 
 import net.mandaria.radioreddit.R;
 import net.mandaria.radioreddit.RadioRedditApplication;
+import net.mandaria.radioreddit.apis.RadioRedditAPI;
 import net.mandaria.radioreddit.objects.RadioEpisode;
 import net.mandaria.radioreddit.tasks.GetEpisodeVoteScoreTask;
 import net.mandaria.radioreddit.tasks.VoteOnEpisodeTask;
+import net.mandaria.radioreddit.utils.APIUtil;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +41,8 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.flurry.android.FlurryAgent;
 
 public class EpisodeListExpandableListAdapter extends BaseExpandableListAdapter
 {
@@ -95,6 +101,7 @@ public class EpisodeListExpandableListAdapter extends BaseExpandableListAdapter
 			holder.btn_upvote = (Button) row.findViewById(R.id.btn_upvote);
 			holder.btn_downvote = (Button) row.findViewById(R.id.btn_downvote);
 			holder.btn_play = (Button) row.findViewById(R.id.btn_play);
+			holder.btn_download = (Button) row.findViewById(R.id.btn_download);
 			
 			row.setTag(holder);
 		} 
@@ -119,6 +126,22 @@ public class EpisodeListExpandableListAdapter extends BaseExpandableListAdapter
 		else
 		{
 			setUpOrDownVote(episode.Likes, holder);
+		}
+		
+		if (!APIUtil.isDownloadManagerAvailable(context))
+		{
+			holder.btn_download.setVisibility(View.GONE);
+		}
+		else if(episode != null)
+		{
+			if(episode.Download_url != null)
+			{
+				holder.btn_download.setVisibility(View.VISIBLE);
+			}
+			else
+			{
+				holder.btn_download.setVisibility(View.GONE);
+			}
 		}
 		
 		// Bind the data efficiently with the holder.		
@@ -170,6 +193,35 @@ public class EpisodeListExpandableListAdapter extends BaseExpandableListAdapter
 				
 				activity.setResult(Activity.RESULT_OK, result);
 				activity.finish();
+			}
+		});
+		
+		holder.btn_download.setOnClickListener(new OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+			    builder.setMessage(context.getString(R.string.download_body_episode))
+			    	.setTitle(context.getString(R.string.download_title))
+			    	.setIcon(android.R.drawable.ic_dialog_alert)
+			    	.setCancelable(true)
+			        .setPositiveButton(context.getString(R.string.download_yes), new DialogInterface.OnClickListener()
+					{
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which)
+						{
+							FlurryAgent.onEvent("radio reddit - Episode List - Download");
+							
+							RadioRedditAPI.Download(context, null, episode);
+						}
+					})
+			        .setNegativeButton(context.getString(R.string.download_no), null);
+			    
+			    final AlertDialog alert = builder.create();
+			    alert.show();
 			}
 		});
 		
@@ -269,6 +321,7 @@ public class EpisodeListExpandableListAdapter extends BaseExpandableListAdapter
 		public Button btn_upvote;
 		public Button btn_downvote;
 		Button btn_play;
+		Button btn_download;
 		
 	}
 	
