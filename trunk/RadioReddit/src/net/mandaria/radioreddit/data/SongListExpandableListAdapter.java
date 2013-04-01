@@ -27,6 +27,7 @@ import net.mandaria.radioreddit.RadioRedditApplication;
 import net.mandaria.radioreddit.objects.RadioSong;
 import net.mandaria.radioreddit.tasks.GetSongVoteScoreTask;
 import net.mandaria.radioreddit.tasks.VoteOnSongTask;
+import net.mandaria.radioreddit.utils.APIUtil;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -95,6 +96,7 @@ public class SongListExpandableListAdapter extends BaseExpandableListAdapter
 			holder.btn_upvote = (Button) row.findViewById(R.id.btn_upvote);
 			holder.btn_downvote = (Button) row.findViewById(R.id.btn_downvote);
 			holder.btn_play = (Button) row.findViewById(R.id.btn_play);
+			holder.btn_download = (Button) row.findViewById(R.id.btn_download);
 			
 			row.setTag(holder);
 		} 
@@ -119,6 +121,22 @@ public class SongListExpandableListAdapter extends BaseExpandableListAdapter
 		else
 		{
 			setUpOrDownVote(song.Likes, holder);
+		}
+		
+		if (!APIUtil.isDownloadManagerAvailable(context))
+		{
+			holder.btn_download.setVisibility(View.GONE);
+		}
+		else if(song != null)
+		{
+			if(song.Download_url != null)
+			{
+				holder.btn_download.setVisibility(View.VISIBLE);
+			}
+			else
+			{
+				holder.btn_download.setVisibility(View.GONE);
+			}
 		}
 		
 		// Bind the data efficiently with the holder.		
@@ -269,6 +287,7 @@ public class SongListExpandableListAdapter extends BaseExpandableListAdapter
 		public Button btn_upvote;
 		public Button btn_downvote;
 		Button btn_play;
+		Button btn_download;
 		
 	}
 	
