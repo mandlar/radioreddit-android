@@ -6,6 +6,7 @@
 	<string name="currentStation">Current Station</string>
 	<string name="chooseStation">Choose Station</string>
 	<string name="download">Download</string>
+	<string name="buy">Buy</string>
 	<string name="exit">Exit</string>
 	<string name="email_feedback">Email Feedback</string>
 	<string name="viewEpisodeInfo">View Episode Info</string>
