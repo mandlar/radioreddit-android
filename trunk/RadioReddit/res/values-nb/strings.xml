@@ -5,6 +5,8 @@
   <string name="logout">Logg ut</string>
   <string name="currentStation">Nåværende satjon</string>
   <string name="chooseStation">Velg stasjon</string>
+  <string name="download">Last ned</string>
+  <string name="buy">Kjøpe</string>
   <string name="exit">Avslutt</string>
   <string name="email_feedback">Send tilbakemeldinger på e-post</string>
   <string name="viewEpisodeInfo">Vis episode-info</string>
@@ -30,6 +32,11 @@
   <string name="gopro_body">Denne funksjonen er bare tilgjengelig i full-versjonen av radio reddit. Støtte utvikleren og radio reddit ved å kjøpe full-versjonen. 25% av salget går direkte til radioreddit.com</string>
   <string name="gopro_yes">Kjøp full-versjon</string>
   <string name="gopro_no">Ikke nå</string>
+  <string name="download_title">Laste ned til telefonen?</string>
+  <string name="download_body_song">Denne sangen er mp3 lastes ned til telefonen din, slik at du kan spille det i andre musikkprogrammer.</string>
+  <string name="download_body_episode">Denne episoden mp3 lastes ned til telefonen din, slik at du kan spille det i andre musikkprogrammer.</string>
+  <string name="download_yes">Last ned</string>
+  <string name="download_no">Ikke nå</string>
   <string name="error_NoContentReturnFromReplyPOST">Intet innhold returneres fra svar på INNLEGGET</string>
   <string name="error_WrongPassword">Feil passord</string>
   <string name="error_UserRequired">Bruker kreves. Hæ?</string>

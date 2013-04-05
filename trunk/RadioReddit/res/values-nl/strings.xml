@@ -5,6 +5,8 @@
   <string name="logout">Afmelden</string>
   <string name="currentStation">Huidig station</string>
   <string name="chooseStation">Kies station</string>
+  <string name="download">Downloaden</string>
+  <string name="buy">Kopen</string>
   <string name="exit">Verlaten</string>
   <string name="email_feedback">E-mail ons</string>
   <string name="viewEpisodeInfo">Geef aflevering-informatie weer</string>
@@ -30,6 +32,11 @@
   <string name="gopro_body">Deze functie is alleen beschikbaar in de pro-versie van Radio Reddit. Ondersteun de ontwikkelaar en Radio Reddit door de aankoop van de pro-versie. 25% van de verkoop gaan rechtstreeks naar radioreddit.com</string>
   <string name="gopro_yes">Koop de Pro-versie</string>
   <string name="gopro_no">Niet nu</string>
+  <string name="download_title">Downloaden naar uw telefoon?</string>
+  <string name="download_body_song">Dit lied mp3 zal worden gedownload naar uw telefoon, waarmee u kunt spelen in andere muziek-toepassingen.</string>
+  <string name="download_body_episode">Deze aflevering mp3 zal worden gedownload naar uw telefoon, waarmee u kunt spelen in andere muziek-toepassingen.</string>
+  <string name="download_yes">Downloaden</string>
+  <string name="download_no">Niet nu</string>
   <string name="error_NoContentReturnFromReplyPOST">Geen inhoud in antwoord</string>
   <string name="error_WrongPassword">Verkeerd wachtwoord</string>
   <string name="error_UserRequired">Fout ! Gebruiker vereist. Huh ?</string>
