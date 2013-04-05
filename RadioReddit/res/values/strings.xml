@@ -98,6 +98,7 @@
 	<string name="error_ThereWasAProblemSubmittingPleaseTryAgain">There was a problem submitting, please try again.</string>
 	<string name="error_OnListen">Error on listen</string>
 	<string name="error_GettingVoteInformation">There was a problem with getting vote information, please try again.</string>
+	<!--  TODO: verify this string is not used and remove it from next version -->
 	<string name="pleaseWaitToChangeStation">Please wait one moment to switch to a new station...</string>
 	<string name="connectingToRadioReddit">Connecting to radio reddit...</string>
 	<string name="buffering">Buffering...</string>

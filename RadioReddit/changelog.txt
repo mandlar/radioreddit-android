@@ -5,8 +5,11 @@
 Change log:
 
 * 1.1 - ?
-*- Choose Station icon / "up" action
-*- Downloadble songs
+*- Buy songs
+- Added translations: Danish, French, Polish, Swedish
+- Updated all translations
+- Changed UI for choosing a station
+- Download songs (PRO version only! Requires Android 2.3+)
 - Fixed color tint with bottom (play) bar
 
 * 1.0.3 - March 9th, 2013

@@ -5,6 +5,8 @@
   <string name="logout">Abmelden</string>
   <string name="currentStation">Aktueller Sender</string>
   <string name="chooseStation">Sender wählen</string>
+  <string name="download">Herunterladen</string>
+  <string name="buy">Kaufen</string>
   <string name="exit">Beenden</string>
   <string name="email_feedback">E-Mail Feedback</string>
   <string name="viewEpisodeInfo">Zeige Episoden-Info</string>
@@ -30,6 +32,11 @@
   <string name="gopro_body">Diese Funktion steht nur in der Pro-Version von Radio Reddit zur Verfügung. Bitte unterstütze den Entwickler durch den Kauf der Pro-Version. 25% des Umsatzes gehen direkt an radioreddit.com</string>
   <string name="gopro_yes">Pro-Version kaufen</string>
   <string name="gopro_no">Jetzt nicht</string>
+  <string name="download_title">Auf dein Telefon herunterladen?</string>
+  <string name="download_body_song">Das Lied wird als MP3-Datei auf dein Handy heruntergeladen. Du kannst es dann in anderen Musik-Apps anhören.</string>
+  <string name="download_body_episode">Diese Episode wird als MP3-Datei auf dein Handy heruntergeladen. Du kannst es dann in anderen Musik-Apps anhören.</string>
+  <string name="download_yes">Herunterladen</string>
+  <string name="download_no">Jetzt nicht</string>
   <string name="error_NoContentReturnFromReplyPOST">Kein Inhalt von Antwort POST zurückgegeben</string>
   <string name="error_WrongPassword">Falsches Passwort</string>
   <string name="error_UserRequired">Benutzer erforderlich. Huh?</string>
@@ -101,10 +108,10 @@
   <string name="license_details">Radio Reddit für Android ist lizensiert unter GNU GPL v3. Radio Reddit und Reddit Marken werden mit Genehmigung verwendet.</string>
   <string name="about_radioreddit1">radioreddit.com ist die Quelle für hochwertige, neue und beliebte unabhängige Musik. Unsere Livestreams sind nicht von Programmdirektoren und DJs der großen Labels bestimmt. Songs werden durch einen Algorithmus gewählt, welcher nur die Nutzerstimmen bei der Entscheidung, was gespielt wird und was als Müll ausgeschlossen wird, berücksichtigt. Songs mit guter Bewertung schaffen schließlich den Sprung in die Radio Reddit - Charts und werden gefördert, indem sie eine höhere Wahrscheinlichkeit gespielt zu werden bekommen.</string>
   <string name="about_radioreddit2">Radio Reddit entstand durch Musiker, welche einen Ort suchten, an dem Musik eine faire Chance auf Gehör bekommt. Einen Ort, wo Pay-to-Play, Vorteile für Labels und Geschäfte unter der Hand nicht existent sind. Einen Ort, an dem die Zuhörer die Kontrolle bekommen.</string>
-  <string name="acknowledgements">Bestimmungen</string>
+  <string name="acknowledgements">Danksagungen</string>
   <string name="visit_radioreddit_com">Besuche radioreddit.com</string>
   <string name="help_translate">Hilf beim Übersetzen</string>
-  <string name="source_code_project">Quelltext Projekt</string>
+  <string name="source_code_project">Zum Quellcode</string>
   <string name="visit_r_radioreddit">Besuche r/radioreddit</string>
   <string name="visit_r_talkradioreddit">Besuche r/talkradioreddit</string>
   <string name="thanks_for_purchasing">Vielen Dank für den Kauf!</string>

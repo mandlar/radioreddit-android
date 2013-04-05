@@ -5,6 +5,8 @@
   <string name="logout">Cerrar sesión</string>
   <string name="currentStation">Emisora actual</string>
   <string name="chooseStation">Elegir emisora</string>
+  <string name="download">Descargar</string>
+  <string name="buy">Comprar</string>
   <string name="exit">Salir</string>
   <string name="email_feedback">Informar por correo electrónico</string>
   <string name="viewEpisodeInfo">Ver información del episodio</string>
@@ -30,6 +32,11 @@
   <string name="gopro_body">Esta función solo está disponible en la versión pro de radioreddit. Por favor, apoya al desarrollador y a radioreddit comprando la versión PRO. Un 25% de las ventas van directas a radioreddit.com</string>
   <string name="gopro_yes">Comprar la versión PRO</string>
   <string name="gopro_no">Ahora no</string>
+  <string name="download_title">¿Descargar a tu teléfono?</string>
+  <string name="download_body_song">Esta canción se descargará a tu movil en formato mp3, lo que te permite reproducirla en otras aplicaciones de música.</string>
+  <string name="download_body_episode">Este álbum se descargará a tu movil en formato mp3, lo que te permite reproducirlo en otras aplicaciones de música.</string>
+  <string name="download_yes">Descargar</string>
+  <string name="download_no">Ahora no</string>
   <string name="error_NoContentReturnFromReplyPOST">No hay respuesta del POST</string>
   <string name="error_WrongPassword">Contraseña incorrecta</string>
   <string name="error_UserRequired">Mmm... se requiere usuario.</string>
