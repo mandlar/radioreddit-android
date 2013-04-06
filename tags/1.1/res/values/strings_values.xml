@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!--  Email -->
+	<string name="email_address">support@mandaria.net</string>
+
+    <string name="main_stream_url">http://texas.radioreddit.com:8000</string>
+    <string name="electronic_stream_url">http://texas.radioreddit.com:8010</string>
+    <string name="rock_stream_url">http://texas.radioreddit.com:8020</string>
+    <string name="hip_hop_and_rap_stream_url">http://texas.radioreddit.com:8040</string>    
+    
+    <!-- Dummy strings -->
+	<string name="dummy_song_title">Happy Birthday</string>
+	<string name="dummy_song_artist">by Galaxy Danger Danger (cocainezombie)</string>
+	<string name="dummy_song_playlist">playlist: One Ad</string>
+	
+	<!-- About -->
+	<string name="acknowledgements_list"><![CDATA[
+	    <b>Lead Android Programmer:</b> <br/>
+	    Bryan Denny (<a href=\'http://www.twitter.com/mandlar\'>@mandlar</a>) <br/>
+	    Mandaria Software (<a href=\'http://www.twitter.com/mandariasoft\'>@mandariasoft</a>) <br/>
+	    <br/>
+	    <b>radio reddit Admins:</b> <br/>
+	    Pextris (HarryMuffin) (<a href=\'http://www.twitter.com/radio_reddit\'>@radio_reddit</a>) <br/>
+	    Octatone <br/>
+	    <br/>
+	    <b>iOS Programmer, Graphics</b> <br/>
+	    Andreas Thilander (<a href=\'http://www.twitter.com/thilandercom\'>@thilandercom</a>) <br/>
+	    <br/>
+	    <b>Testers</b> <br/>
+	    Scott Denny (<a href=\'http://www.twitter.com/scootinater\'>@scootinater</a>) <br/>
+	    Jason Boehm (<a href=\'http://www.twitter.com/jayrox\'>@jayrox</a>) <br/>
+	    <br/>
+	    <b>Translators</b> <br/>
+	    <i>Danish</i> <br/>
+		Grygon <br/>
+		Jens Lundgren <br/>
+		<br/>
+	    <i>Dutch</i> <br/>
+	    miszterjames <br/>
+	    Nate Sebastian <br/>
+	    <br/>
+		<i>French</i> <br/>
+		Bryan Denny (<a href=\'https://www.twitter.com/mandlar\'>@mandlar</a>) <br/>
+		Steven Weifenbach (<a href=\'https://www.twitter.com/spper88\'>@spper88</a>) <br/>
+		taresp <br/>
+		Zachary Huxley <br/>
+		<br/>
+	    <i>German</i> <br/>
+	    Dayjay <br/>
+	    Nils Sonemann <br/>
+	    <br/>	
+	    <i>Norwegian</i> <br/>
+	    0rigin <br/>
+	    Vegard Maaø (<a href=\'https://www.facebook.com/vegardmaaoe\'>facebook.com/vegardmaaoe</a>) <br/>
+	    <br/>
+		<i>Polish</i> <br/>
+		Damian Kopeć <br/>
+		<br/>
+	    <i>Spanish</i> <br/>
+	    Eugenio <br/>
+	    Pima Kakaroto <br/>
+		<br/>
+		<i>Swedish</i> <br/>
+		lefthandsucks <br/>
+		Victor Frank <br/>
+		<br/>
+	    
+	    ]]>
+	</string>
+
+</resources>

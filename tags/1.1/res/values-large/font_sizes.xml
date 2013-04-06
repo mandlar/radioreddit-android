@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <resources>
+        <dimen name="SongVoteSize">24sp</dimen>
+        <dimen name="SongTitleSize">27sp</dimen>
+        <dimen name="SongArtistSize">18sp</dimen>
+        <dimen name="SongPlaylistSize">18sp</dimen>
+    </resources>

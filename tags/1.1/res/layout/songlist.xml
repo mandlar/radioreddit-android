@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff"
+    >
+   <LinearLayout android:id="@+id/div_PleaseWait_SongList"
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:gravity="center"
+    	>
+		<ProgressBar
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10dp"
+			/>
+    	<TextView 
+		     android:layout_width="wrap_content"
+		     android:layout_height="wrap_content"
+		     android:text="@string/pleaseWait"
+		     />
+	</LinearLayout>
+	<LinearLayout android:id="@+id/div_Error_SongList"
+    	android:orientation="vertical"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:gravity="center"
+    	android:visibility="gone"
+    	>
+    	<TextView 
+		     android:layout_width="wrap_content"
+		     android:layout_height="wrap_content"
+		     android:text="@string/error_ThereWasAProblemConnectingToRadioReddit"
+		     android:layout_marginBottom="20dp"
+		     />
+    	<Button android:id="@+id/btn_TryAgain_SongList"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:text="@string/try_again"
+    	    />
+	</LinearLayout>
+	<LinearLayout  android:id="@+id/div_SongList"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical"
+	    android:visibility="gone"
+	    >
+		<LinearLayout android:orientation="vertical"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="fill_parent"
+	    	android:layout_weight="1"
+	    	>
+			<ExpandableListView android:id="@+id/list_SongList"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:fastScrollEnabled="true"
+				android:childDivider="#e0e0e0"
+				android:divider="#e0e0e0"
+				android:dividerHeight="1dp"
+			/>
+			<TextView android:id="@+id/lbl_NoSongList"
+			     android:layout_width="fill_parent"
+			     android:layout_height="fill_parent"
+			     android:gravity="center"
+			     android:text="@string/no_songs_found"
+			     android:visibility="invisible"/>
+		</LinearLayout>
+	</LinearLayout>
+</LinearLayout>
+    
