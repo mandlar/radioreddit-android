@@ -4,8 +4,8 @@
 
 Change log:
 
-* 1.1 - ?
-*- Buy songs
+* 1.1 - April 6th, 2013
+- Buy songs
 - Added translations: Danish, French, Polish, Swedish
 - Updated all translations
 - Changed UI for choosing a station
