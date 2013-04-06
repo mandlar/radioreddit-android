@@ -15,7 +15,6 @@
 		android:id="@+id/chooseStation"
 		android:title="@string/chooseStation"
 		android:showAsAction="never"
-		android:icon="@drawable/ic_action_choose_station"
 		/>
 	<item
 		android:id="@+id/login"
