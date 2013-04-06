@@ -4,6 +4,7 @@
         android:id="@+id/buy"
         android:title="@string/buy"
         android:showAsAction="always"
+        android:icon="@drawable/ic_action_buy"
         />
     <item
         android:id="@+id/download"
