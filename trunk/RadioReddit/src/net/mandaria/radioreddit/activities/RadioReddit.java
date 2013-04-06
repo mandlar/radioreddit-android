@@ -519,6 +519,7 @@ public class RadioReddit extends SherlockActivity
 		MenuItem login = (MenuItem) menu.findItem(R.id.login);
 		MenuItem logout = (MenuItem) menu.findItem(R.id.logout);
 		MenuItem download = (MenuItem) menu.findItem(R.id.download);
+		MenuItem buy = (MenuItem) menu.findItem(R.id.buy);
 		
 		RedditAccount account = Settings.getRedditAccount(RadioReddit.this);
 		
@@ -555,11 +556,7 @@ public class RadioReddit extends SherlockActivity
 		if(application.CurrentStream != null)
 			getSupportActionBar().setTitle( application.CurrentStream.Name);
 		
-		if (!APIUtil.isDownloadManagerAvailable(this))
-		{
-			download.setVisible(false);
-		}
-		else if(application.CurrentSong != null)
+		if(application.CurrentSong != null)
 		{
 			if(application.CurrentSong.Download_url != null)
 			{
@@ -568,6 +565,15 @@ public class RadioReddit extends SherlockActivity
 			else
 			{
 				download.setVisible(false);
+			}
+			
+			if(application.CurrentSong.Itunes_link != null)
+			{
+				buy.setVisible(true);
+			}
+			else
+			{
+				buy.setVisible(false);
 			}
 		}
 		else if(application.CurrentEpisode != null)
@@ -580,8 +586,16 @@ public class RadioReddit extends SherlockActivity
 			{
 				download.setVisible(false);
 			}
+			
+			buy.setVisible(false);
 		}
 		else
+		{
+			download.setVisible(false);
+			buy.setVisible(false);
+		}
+		
+		if (!APIUtil.isDownloadManagerAvailable(this))
 		{
 			download.setVisible(false);
 		}
@@ -698,6 +712,13 @@ public class RadioReddit extends SherlockActivity
 			
 			return true;
 		} 
+		else if (item.getItemId() == R.id.buy) 
+		{
+			FlurryAgent.onEvent("radio reddit - Menu Button - Buy");
+			Buy();
+			
+			return true;
+		} 
 		return false;
 	}
 	
@@ -728,6 +749,20 @@ public class RadioReddit extends SherlockActivity
 	    
 	    final AlertDialog alert = builder.create();
 	    alert.show();
+	}
+	
+	private void Buy()
+	{
+		RadioRedditApplication application = (RadioRedditApplication) getApplication();
+		if(application.CurrentSong != null)
+		{
+			String url = application.CurrentSong.Itunes_link;
+			
+			if(url != null)
+			{
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+			}
+		}
 	}
 	
 	private void showGoProDialog()
