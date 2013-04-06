@@ -20,6 +20,11 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             >
+             <Button 
+		    	android:id="@+id/btn_buy"
+		    	style="@style/SongList_BuyButton"
+		    	android:layout_margin="10dp"
+		    	/>
             <Button 
 		    	android:id="@+id/btn_download"
 		    	style="@style/SongList_DownloadButton"

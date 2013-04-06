@@ -203,6 +203,13 @@
     	<item name="android:layout_marginLeft">40dp</item>
     	<item name="android:layout_marginRight">40dp</item>
     </style>
+    <style name="SongList_BuyButton">
+    	<item name="android:background">@drawable/buy_button</item>
+    	<item name="android:layout_width">40dp</item>
+    	<item name="android:layout_height">40dp</item>
+    	<item name="android:layout_marginLeft">40dp</item>
+    	<item name="android:layout_marginRight">40dp</item>
+    </style>
     <!--  !!! Styles for View Episode Information activity !!! -->
     <style name="EpisodeInformation_DescriptionHeader">
     	<item name="android:textStyle">bold</item>

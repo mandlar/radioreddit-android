@@ -34,6 +34,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -102,6 +103,7 @@ public class SongListExpandableListAdapter extends BaseExpandableListAdapter
 			holder.btn_downvote = (Button) row.findViewById(R.id.btn_downvote);
 			holder.btn_play = (Button) row.findViewById(R.id.btn_play);
 			holder.btn_download = (Button) row.findViewById(R.id.btn_download);
+			holder.btn_buy = (Button) row.findViewById(R.id.btn_buy);
 			
 			row.setTag(holder);
 		} 
@@ -128,11 +130,8 @@ public class SongListExpandableListAdapter extends BaseExpandableListAdapter
 			setUpOrDownVote(song.Likes, holder);
 		}
 		
-		if (!APIUtil.isDownloadManagerAvailable(context))
-		{
-			holder.btn_download.setVisibility(View.GONE);
-		}
-		else if(song != null)
+		
+		if(song != null)
 		{
 			if(song.Download_url != null)
 			{
@@ -142,6 +141,20 @@ public class SongListExpandableListAdapter extends BaseExpandableListAdapter
 			{
 				holder.btn_download.setVisibility(View.GONE);
 			}
+			
+			if(song.Itunes_link != null)
+			{
+				holder.btn_buy.setVisibility(View.VISIBLE);
+			}
+			else
+			{
+				holder.btn_buy.setVisibility(View.GONE);
+			}
+		}
+		
+		if (!APIUtil.isDownloadManagerAvailable(context))
+		{
+			holder.btn_download.setVisibility(View.GONE);
 		}
 		
 		// Bind the data efficiently with the holder.		
@@ -222,6 +235,24 @@ public class SongListExpandableListAdapter extends BaseExpandableListAdapter
 			    
 			    final AlertDialog alert = builder.create();
 			    alert.show();
+			}
+		});
+		
+		holder.btn_buy.setOnClickListener(new OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				if(song != null)
+				{
+					String url = song.Itunes_link;
+					
+					if(url != null)
+					{
+						context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+					}
+				}
 			}
 		});
 		
@@ -322,6 +353,7 @@ public class SongListExpandableListAdapter extends BaseExpandableListAdapter
 		public Button btn_downvote;
 		Button btn_play;
 		Button btn_download;
+		Button btn_buy;
 		
 	}
 	
